@@ -11,13 +11,13 @@ Installation
 Authors
 =======
 
-Matthieu Baerts
-Benoît Baufays
-Julien Colmonts
-Benjamin Frantzen
-Pierre-Yves Légéna
-Vincent Van Ouytsel
-Ludovic Vannoorenberghe
+Matthieu Baerts,
+Benoît Baufays,
+Julien Colmonts,
+Benjamin Frantzen,
+Pierre-Yves Légéna,
+Vincent Van Ouytsel,
+Ludovic Vannoorenberghe,
 Alex Vermeylen
 
 License
