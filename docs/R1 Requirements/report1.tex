@@ -1,0 +1,35 @@
+\documentclass[11pt,a4paper]{article}
+
+\input{header.tex}
+\input{entete-baspage-titre.tex}
+
+% Juste pour avoir un titre dans le pdf
+\title{Software Development Project}
+\author{Group 6: Matthieu Baerts, Benoît Baufays, Julien Colmonts, Benjamin Frantzen, Pierre-Yves Légéna, Vincent Van Ouytsel, Ludovic Vannoorenberghe, Alex Vermeylen}
+
+\begin{document}
+\input{title.tex}
+
+\tableofcontents
+%\thispagestyle{empty}	% pour enlever le numéro de page
+\newpage
+%\pagenumbering{arabic} % on triche avec la numéroation des pages :)
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+\input{0-intro.tex}
+
+\newpage
+\section{User Stories}
+
+\newpage
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+\input{99-conclusion.tex}
+
+% \label{LastPageModif}
+
+% \newpage
+% \appendix
+
+\end{document}
