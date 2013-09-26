@@ -15,8 +15,5 @@
 /log/*.log
 /tmp
 
-# Ignore bin
-/bin
-
 # secret token (cookies)
 .secret
