@@ -17,3 +17,6 @@
 
 # Ignore bin
 /bin
+
+# secret token (cookies)
+.secret
