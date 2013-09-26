@@ -22,4 +22,4 @@ def find_secure_token
   end
 end
 
-SolidareItG::Application.config.secret_token = find_secure_token
+SolidareItG6::Application.config.secret_token = find_secure_token
