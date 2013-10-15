@@ -36,7 +36,7 @@
         </predecessors>
       </task>
     </task>
-    <task id="5" name="Modules X" note="" work="835200" start="20131118T170000Z" end="20131203T170000Z" work-start="20131119T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="5" name="Modules" note="" work="835200" start="20131118T170000Z" end="20131203T170000Z" work-start="20131119T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <predecessors>
         <predecessor id="1" predecessor-id="3" type="FS"/>
       </predecessors>
@@ -68,6 +68,11 @@
         </predecessors>
       </task>
       <task id="13" name="Transaction aknowlegement" note="" work="86400" start="20131118T170000Z" end="20131121T170000Z" work-start="20131119T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="14" name="Tests/Simulator" note="" work="230400" start="20131203T170000Z" end="20131213T170000Z" work-start="20131204T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="5" type="FS"/>
+      </predecessors>
     </task>
   </tasks>
   <resource-groups default_group="1">
