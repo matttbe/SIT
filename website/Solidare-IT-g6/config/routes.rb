@@ -11,5 +11,6 @@ SolidareItG6::Application.routes.draw do
   devise_scope :user do
     get "sign_in", :to => "devise/sessions#new"
     get "create_account", :to =>"devise/registrations#new"
+    get '/users/sign_out' => 'devise/sessions#destroy'
   end
 end
