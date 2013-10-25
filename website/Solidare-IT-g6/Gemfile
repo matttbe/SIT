@@ -38,6 +38,7 @@ gem 'devise'
 gem 'therubyracer'
 gem "less-rails"
 gem 'twitter-bootstrap-rails'
+gem 'date_validator'
 
 
 # Use ActiveModel has_secure_password
