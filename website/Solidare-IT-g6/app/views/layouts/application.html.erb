@@ -7,10 +7,39 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="container">
+        <div id="header" class="hero-unit">
+            <div style="text-align: center;"><img src="/images/logo.png" alt ="logo" align="center"></img></div>
+            <h1>Solidare-it</h1>
+            <p>Le blanc au secours du noir</p>
+                                        <% location= request.env['PATH_INFO'] %>
+                                        <div class="navbar">
+                                          <div class="navbar-inner">
+
+                                            <ul class="nav">
+                                               <% if location=='/' %>
+                                                <li class="active">
+                                              <% else %>
+                                                <li>
+                                              <% end %>
+                                                <a href="<%= root_path  %>">Home</a></li>
+                                              
+                                            </ul>
+                                             <ul class="nav pull-right">
+                                                <%= render 'layouts/usermenu' %>
+                                            </ul>
+                                          </div>
+                                        </div>
+
+
+          </div>
+
+  
   
 
 
 <%= yield %>
+  </div>
 
 </body>
 </html>
