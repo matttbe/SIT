@@ -13,22 +13,29 @@ ActiveAdmin.register_page "Dashboard" do
      	columns do
 
 	      column do
-		panel "Users to confirm" do
-		  table_for User.where(:id_ok => false).limit(10).each do |customer|
-			column("State")   {|customer| 
-							if customer.id_ok 
-								status_tag("With a ID", :warning)  
-							else
-								status_tag("no ID", :error)       
-							end                        
-					  } 
-		    	column("Name")   {|customer| customer.all_name                                   } 
-			column("Email")   {|customer| customer.email                                   } 
-	   
-		  end
-		end
+			panel "Users to confirm" do
+			  table_for User.where(:id_ok => false).limit(10).each do |customer|
+				column("State")   {|customer| 
+								if customer.id_ok 
+									status_tag("With a ID", :warning)  
+								else
+									status_tag("no ID", :error)       
+								end                        
+						  } 
+			    	column("Name")   {|customer| customer.all_name                                   } 
+				column("Email")   {|customer| customer.email                                   } 
+		   
+			  end
+			end
 	      end
+
+		column do
+			panel "Report problem (irly ? :p)" do
+			  para "to do"
+			end
+		      end
 	end
+
 	
     # Here is an example of a simple dashboard with columns and panels.
     #
