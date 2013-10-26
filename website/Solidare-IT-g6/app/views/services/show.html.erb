@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <% if !@service.customer_id.nil? %>
+  <strong>Description:</strong>
+  <%= @service.customer_id %>
+  <% end %>
+</p>
+<p>
   <strong>Description:</strong>
   <%= @service.description %>
 </p>

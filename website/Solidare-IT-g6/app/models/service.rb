@@ -3,4 +3,5 @@ class Service < ActiveRecord::Base
   validates :dateEnd, :presence => true,:date => { :after => :dateStart }
 
   belongs_to :user
+  belongs_to :user
 end

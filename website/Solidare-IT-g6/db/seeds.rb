@@ -11,4 +11,4 @@ u2=User.create! :email =>"eddy.malou@savoir.congo", :password=>'iloveponcin', :p
 
 
 s1=Service.create! :description => "vente livre congolexicomatisation", :dateStart => 'Mon, 28 oct 2013 15:00:00 UTC +00:00', :dateEnd => 'Mon, 4 nov 2013 15:00:00 UTC +00:00', :user_id => u2.id
-s2=Service.create! :description => "vente livre IA", :dateStart => 'thu, 29 oct 2013 15:00:00 UTC +00:00', :dateEnd => 'Mon, 4 nov 2013 15:00:00 UTC +00:00', :user_id => u1.id
+s2=Service.create! :description => "vente livre IA", :dateStart => 'thu, 29 oct 2013 15:00:00 UTC +00:00', :dateEnd => 'Mon, 4 nov 2013 15:00:00 UTC +00:00', :user_id => u1.id, :customer_id => u1.id
