@@ -23,7 +23,13 @@
                                                 <li>
                                               <% end %>
                                                 <a href="<%= root_path  %>">Home</a></li>
-                                                
+
+                                              <% if location==services_path %>
+                                                <li class="active">
+                                              <% else %>
+                                                <li>
+                                              <% end %>
+                                                <a href="<%= services_path  %>">Services</a></li>
                                               
                                             </ul>
                                              <ul class="nav pull-right">
