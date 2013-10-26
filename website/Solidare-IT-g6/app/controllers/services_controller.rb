@@ -24,6 +24,9 @@ class ServicesController < ApplicationController
 
   # GET /services/1/edit
   def edit
+    if !(user_signed_in? && @service.user_id==current_user.id)
+      dont_see
+    end
   end
 
   # POST /services
