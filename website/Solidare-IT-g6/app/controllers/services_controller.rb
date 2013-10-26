@@ -53,13 +53,17 @@ class ServicesController < ApplicationController
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
   def update
-    respond_to do |format|
-      if @service.update(service_params)
-        format.html { redirect_to @service, notice: 'Service was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @service.errors, status: :unprocessable_entity }
+    if !(user_signed_in? && @service.user_id==current_user.id)
+      dont_see
+    else
+      respond_to do |format|
+        if @service.update(service_params)
+          format.html { redirect_to @service, notice: 'Service was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'edit' }
+          format.json { render json: @service.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -67,10 +71,14 @@ class ServicesController < ApplicationController
   # DELETE /services/1
   # DELETE /services/1.json
   def destroy
-    @service.destroy
-    respond_to do |format|
-      format.html { redirect_to services_url }
-      format.json { head :no_content }
+    if !(user_signed_in? && @service.user_id==current_user.id)
+      dont_see
+    else
+      @service.destroy
+      respond_to do |format|
+        format.html { redirect_to services_url }
+        format.json { head :no_content }
+      end
     end
   end
 
