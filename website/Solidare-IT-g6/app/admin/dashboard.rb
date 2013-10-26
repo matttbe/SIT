@@ -13,9 +13,17 @@ ActiveAdmin.register_page "Dashboard" do
      	columns do
 
 	      column do
-		panel "Users" do
-		  table_for User.order('id desc').limit(10).each do |customer|
-		    column("Name")   {|customer| customer.name                                    } 
+		panel "Users to confirm" do
+		  table_for User.where(:id_ok => false).limit(10).each do |customer|
+			column("State")   {|customer| 
+							if customer.id_ok 
+								status_tag("With a ID", :warning)  
+							else
+								status_tag("no ID", :error)       
+							end                        
+					  } 
+		    	column("Name")   {|customer| customer.all_name                                   } 
+			column("Email")   {|customer| customer.email                                   } 
 	   
 		  end
 		end
