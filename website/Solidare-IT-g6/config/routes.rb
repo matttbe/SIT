@@ -1,4 +1,6 @@
 SolidareItG6::Application.routes.draw do
+  resources :services
+
   devise_for :users
   resources :users
 
