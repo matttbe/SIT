@@ -29,15 +29,20 @@ class ServicesController < ApplicationController
   # POST /services
   # POST /services.json
   def create
-    @service = Service.new(service_params)
+    if !user_signed_in?
+      dont-see
+    else
+      @service = Service.new(service_params)
+      @service.user_id=current_user.id
 
-    respond_to do |format|
-      if @service.save
-        format.html { redirect_to @service, notice: 'Service was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @service }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @service.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @service.save
+          format.html { redirect_to @service, notice: 'Service was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @service }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @service.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
