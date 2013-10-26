@@ -40,6 +40,9 @@ gem "less-rails"
 gem 'twitter-bootstrap-rails'
 gem 'date_validator'
 
+gem 'activeadmin', github: 'gregbell/active_admin'
+#gem "meta_search",    '>= 1.1.0.pre'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
