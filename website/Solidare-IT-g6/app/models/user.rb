@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   validates :email, :presence => true,:format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create }
   validates :karma, :presence => true ,:numericality => :only_integer
 
+  has_many :services
+
 
   def all_name
     "#{firstname} #{name}"
