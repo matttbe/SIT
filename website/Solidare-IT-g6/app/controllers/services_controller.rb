@@ -14,7 +14,12 @@ class ServicesController < ApplicationController
 
   # GET /services/new
   def new
-    @service = Service.new
+    if user_signed_in?
+      @service = Service.new
+    else
+      dont_see
+    end
+    
   end
 
   # GET /services/1/edit
