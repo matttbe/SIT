@@ -3,7 +3,7 @@
 
 \entity (U) at (0,0) {User\\(username)};
  \binary[left= of U,  unique=1, unique=2, label=\ormleft{has}] (h) at (-0.5, 1) {};
- \value [left=of h] (Profile) {Profile};
+ \entity [left=of h] (Profile) {Profile \footnotemark[1]};
  \plays  (U) to (h.east);
  \plays (h.west) to (Profile);
  
@@ -18,8 +18,8 @@
  \plays (U) to (h3.west);
  \plays (h3.east) to (Pa);
  
- \entity (K) at (3.5, -1) {Karma\\(int)};	
- \binary [right=of U, unique= 1, label=worth] (h4) at (1, -1) {};
+ \entity (K) at (4, -1) {Karma\\(int)};	
+ \binary [right=of U, unique= 1, label=worth] (h4) at (1.5, -1) {};
  \plays (U) to (h4.west);
  \plays (h4.east) to (K);
  
@@ -43,15 +43,24 @@
  \entity (O) at (7, 0) {Offer\\(o\_number)};
  \entity (D) at (8, -4) {Demand\\(d\_number)};
  \plays (U) to (h8bis.east) (h8bis.west) to (S);
- \vbinary [unique=1-2, label=below:ask/offer] (h9) at (2.5,-2.5) {};
+ \vbinary [unique=1-2, label=below:ask/offer] (h9) at (3,-2.3) {};
  
  \plays (U) to (h9.east) (h9.west) to (S);
  
  \draw[subtype] (S) to (O);
  \draw[subtype] (S) to (D); 
  
- \vbinary [unique=1-2, label=below:match] (h10) at (7.5,-2){};
- \plays (O) to (h10.east) (D) to (h10.west);
+ \vternary [unique=1-3, label=below:match] (h10) at (7.5,-2){};
+ 
+ \entity (T) at (9.5,0) {Transaction\\(t\_number)};
+ \value (Tdesc) at (9.5, 2.5) {Description};
+ \value (Teval) at (11, -2.5) {Evaluation};
+ 
+ 
+ \vbinary [unique=1, label= \ormup{describe}] (h19) at (9.5, 1.5) {};
+ \vbinary [unique=2, label=worth] (h20) at (9.5, -1.4) {};
+ \plays (O) to (h10.east) (D) to (h10.west) (h10) to (T);
+ 
  
  \entity (C) at (0, -4.5) {Category\\(id)};
  \entity (Desc) at (0, -5.8) {Description\\(id\_number)};
@@ -59,27 +68,22 @@
  \binary [unique=1-2, label=\ormleft{match with}] (h11) at (1.8, - 4.5) {};
  \binary [unique=1-2, label=\ormleft{mean}] (h12) at (1.8, - 5.5) {}; 
  
- \plays [mandatory] (S) to (h11.east) (S) to (h12.east); 
- \plays(h11.west) to (C) (h12.west) to (Desc);
+ \plays [mandatory] (S) to (h11.east) (S) to (h12.east) (T) to (h19.west) (T) to (h20.east); 
+ \plays(h11.west) to (C) (h12.west) to (Desc) (h19.east) to (Tdesc) (h20.west) to (Teval);
  
  \value (Date) at (8.4,-6) {Date};	
  \binary [unique=1, label=expire] (h13) at (6,-5.5){};
- \binary [unique=1, label=below:online since] (h14) at (5.5,-6.5){}; 
+ \binary [unique=1, label=below:online since] (h14) at (5.5,-6){}; 
  
  \plays (S) to (h13.west) (h13.east) to (Date) (h14.east) to (Date);
  \plays [mandatory] (S) to (h14.west);
 
 \end{tikzpicture}
 \end{center}
+\footnotetext[1]{\texttt{Profile} entity regroups a few informations linked to the users and which are not imposed like the address, the firstname, the birthdate, etc. It also keep informations about the users status (client, co-worker, admin,etc.)}
 
+An ORM diagram is a diagram that can be useful to modelise a database. It uses techniques of oriented objects programming to define the database.
 
-An ORM diagram is a diagram that modelises a database. It uses techniques of oriented object programming to define the 
-database.
-
-This one illustrates how we want to modelise our database for the SolidareIt website. There are three main entities. The first one is the users. As we saw in the class diagram above, users can be very different. There are co-workers, clients and simple users (using website on their own). The main fields of the user entity are mail, password and karma (based on other users evaluations). You can see that e-mail and password fields aren't mandatory. It's because a user can be created and handled by an organisation. So, in this case, the user account is minimal and there's no need for these fields. There's no rules to constraint group of fields. In our application, the constraint stands on User-Mail-Password or User-Profile-Organisation. During the creation of a user account by an organisation, the application will let the co-worker choose if the created user can have a full account or a minimal one. \texttt{Profile} entity regroups a few informations linked to the users and which are not imposed like the address, the firstname, the birthdate, etc. It also keep informations about the users status (client, co-worker, admin,etc.)\\
-Services are the second main entity. We will extend it as an offer or a demand to make them more specific. To manage database more easily and to help keeping a trace of history, we want a match between offers and demands. This matches (if accepted by users of both sides) will stored in a transaction table, and as soon as the transaction happened, the entities will move in an history table. 
-The third main entities are the organisations. They will store co-workers and clients related to them. We included the functionality for organisations to subscribe to a group. All co-workers of organisations involved in a group will be able to share informations, offers or demands with this group. Category table will be subdivised in two tables to add subcategories specified in the class diagram.
-
-
-
-
+This one illustrates how we want to modelise our database for the SolidareIt website. There are three main entities. The first one is the \texttt{User}. As we saw in the class diagram above, section \vref{uml}, users can be very different. There are co-workers, clients and simple users (using website on their own). The main fields of the \texttt{User} entity are \texttt{mail}, \texttt{password} and \texttt{karma} (based on other users evaluations). You can see that \texttt{mail} and \texttt{password} fields aren't mandatory. It's because a user can be created and handled by an organisation. So, in this case, the user account is minimal and there's no need for these fields. There's no rules to constraint group of fields. In our application, the constraint stands on \texttt{User-Mail-Password} or \texttt{User-Organisation}. During the creation of a user account by an organisation, the application will let the co-worker choose if the created user can have a full account or a minimal one. \\
+\texttt{Services} are the second main entity. We will extend it as an offer or a demand to make them more specific. To manage database more easily and to help keeping a trace of history, we want a match between offers and demands. This matches (if accepted by users of both sides) will stored in a transaction table, and as soon as the transaction happened, the entities will move in an history table. 
+The third main entities are the organisations. They will store co-workers and clients related to them. We included the functionality for organisations to subscribe to a group. All co-workers of organisations involved in a group will be able to share informations, offers or demands with this group. Category table will be subdivided in two tables to add subcategories specified in the class diagram.
