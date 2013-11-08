@@ -1,0 +1,87 @@
+\begin{center}
+\begin{tikzpicture}[orm]
+
+\entity (U) at (0,0) {User\\(username)};
+\entity (Profile) at (4,2.5) {Profile \footnotemark[1]};
+\entity (Org) at (-4, 1) {Organisation\\(org\_name)};
+\entity (Gr) at (-4,-2) {Group\\(grp\_name)};
+\entity (S) at (4, -4) {Service\\(s\_number)};
+\entity (O) at (7, 0) {Offer\\(o\_number)};
+\entity (D) at (8, -4) {Demand\\(d\_number)};
+\entity (T) at (9.5,0) {Transaction\\(t\_number)};
+\entity (C) at (0, -4.5) {Category\\(id)};
+\entity (Desc) at (0, -5.8) {Description\\(id\_number)};
+\entity (Ad) at (-4, -4) {Moderator\\(id\_number)};
+\entity (Co) at (-4, 4) {Coworker\\(id\_number)};
+
+\value (M) at (3,1) {Mail};	
+\value (Pa) at (3.5,0) {Password};	
+\value (K) at (4, -1) {Karma};	
+\value (Tdesc) at (9.5, 2.5) {Description};
+\value (Teval) at (10, -2.5) {Evaluation};
+\value (Date) at (8.4,-6) {Date};	
+\value (Quick) at (3.8, -6.4) {Quick};
+
+\binary[right= of U,  unique=1, unique=2, label=has] (h) at (1, 2.5) {};
+\binary [right=of U, unique=1, unique=2, label=has] (h2) at (1, 1) {};
+\binary [right=of U, unique= 1, label=has] (h3) at (1, 0) {};
+\binary [right=of U, unique= 1, label=worth] (h4) at (1.5, -1) {};
+\binary [left=of U, unique=1-2, label=assist] (h5) at (-1, 0.8) {};
+\binary [left=of U, unique=1-2, label=\ormleft{work}] (h6) at (-1, 0) {};
+\vbinary [left=of U, unique=1-2, label=is subscribed] (h7) at (-4, 0) {}; 
+\binary [unique=1-2,label=is subscribed] (h8) at (-2,-1){};
+\vbinary [unique=1-2,label=below:follow/accept] (h8bis) at (0,-1.8){};
+\vbinary [unique=1-2, label=below:ask/offer] (h9) at (3,-2.3) {};
+\vternary [unique=1-3, label=below:match] (h10) at (7.5,-2){};
+\vbinary [unique=1, label= \ormup{describe}] (h19) at (9.5, 1.5) {};
+\vbinary [unique=2, label=worth] (h20) at (9.5, -1.4) {};
+\binary [unique=1-2, label=\ormleft{match with}] (h11) at (1.8, - 4.5) {};
+\binary [unique=1-2, label=\ormleft{mean}] (h12) at (1.8, - 5.5) {}; 
+\binary [unique=1, label=expire] (h13) at (6,-5.5){};
+\binary [unique=1, label=below:online since] (h14) at (5.5,-6){}; 
+\binary[right= of Ad, label=manage, unique=1-2] (h21) at (-2.5,-4.5) {};
+\vbinary[right= of Co, label=below:manage, unique=1, unique=2] (h22) at (-1,2) {};
+\vbinary[unique=1-2, label=work] (h23) at (-4, 2.5) {};
+\vbinary[unique=2, label=is] (h24) at (4, -5.4) {};
+ 
+\plays  (U) to (h.west) (S) to (h24.east) (h24.west) to (Quick);
+\plays (h.east) to (Profile);
+\plays (U) to (h2.west); 
+\plays (h2.east) to (M); 
+\plays (U) to (h3.west); 
+\plays (h3.east) to (Pa); 
+\plays (U) to (h4.west); 
+\plays (h4.east) to (K); 
+\plays (U) to (h5.east) (h5.west) to (Org) (U) to (h6.east) (h6.west) to (Org) (Org) to (h7.east); 
+\plays (h7.west) to (Gr);
+\plays (U) to (h8.east) (h8.west) to (Gr);
+\plays (U) to (h8bis.east) (h8bis.west) to (S);
+\plays (U) to (h9.east) (h9.west) to (S); 
+\plays (O) to (h10.east) (D) to (h10.west) (h10) to (T);
+\plays [mandatory] (S) to (h11.east) (S) to (h12.east) (T) to (h19.west) (T) to (h20.east); 
+\plays(h11.west) to (C) (h12.west) to (Desc) (h19.east) to (Tdesc) (h20.west) to (Teval);
+\plays (S) to (h13.west) (h13.east) to (Date) (h14.east) to (Date);
+\plays [mandatory] (S) to (h14.west);
+
+\plays (Ad) to (h21.west);
+\plays (h21.east) to (C);
+\plays (Co) to (h22.east);
+\plays (h22.west)to (U);
+\plays (Co) to (h23.east);
+\plays (h23.west) to (Org);
+ 
+\draw[subtype] (S) to (O); 
+\draw[subtype] (S) to (D); 
+\draw[subtype] (U) to (Co); 
+\draw[subtype] (U) to (Ad);
+
+\end{tikzpicture}
+\end{center}
+
+
+
+On the ORM diagram, we added a few elements. First, we added new kinds of \texttt{User}. We did this to show the different kind of users accounts that can be created beside the 'simple user' : \begin{itemize}
+\item The \texttt{Coworker}. A user who works for an organisation and can manage different users by creating their account and manage services for them.
+\item The \texttt{Moderator}. A user who manages a special category of services.
+\end{itemize}
+Secondly, we put the new field of service, which is called \texttt{Quick}. It's already explained earlier in this report.

@@ -1,0 +1,55 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{tkz-orm}
+
+\input{header.tex}
+\input{entete-baspage-titre.tex}
+
+
+% Juste pour avoir un titre dans le pdf
+\title{Software Development Project - Report 3}
+\author{Group 6: Matthieu Baerts, Benoît Baufays, Julien Colmonts, Benjamin Frantzen, Pierre-Yves Légéna, Vincent Van Ouytsel, Ludovic Vannoorenberghe, Alex Vermeylen}
+
+\begin{document}
+
+% \listoftodos %% TODO %% REMOVE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{title.tex}
+
+\tableofcontents
+\thispagestyle{empty}	% pour enlever le numéro de page
+\newpage
+\pagenumbering{arabic} % on triche avec la numéroation des pages :)
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+\input{0-intro.tex}
+
+\section{UML Classes Diagram}
+\input{1-UML.tex}
+
+\section{Database relational schema}
+\input{2-ORM.tex}
+
+\section{Development plan}
+\input{3-Optionally.tex}
+
+\section{Extension}
+\input{4-extension.tex}
+
+\section{Simulator}
+\input{5-Simulator.tex}
+
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+\input{99-conclusion.tex}
+
+% \label{LastPageModif}
+
+\newpage
+
+\appendix
+\pagenumbering{roman}
+\input{99-appendix}
+
+
+\end{document}

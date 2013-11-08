@@ -1,0 +1,33 @@
+\subsection{Cucumber: behaviour-driver development}
+\label{SEC:Cucumber}
+In the architectural report, even if we already thought about it, we didn't speak about the simulator that we'll build to test the application. As we use RoR as framework, we can use Cucumber, a module designed to easily test Ruby on Rails applications.\\
+
+Cucumber is a tool that executes tests written in plain-text functional descriptions. The language is called Gherkin. Here is an example:
+
+\begin{lstlisting}[morekeywords={Scenario,Given,When,Then,And},deletekeywords={in}]
+Scenario: As a regular user who is signed in, I am redirected to the homepage
+  Given I am signed in
+  When I go to /admin
+  Then I should be on /
+\end{lstlisting}
+The first line is a comment. This example explains that if a regular user want to access to the admin section (\url{mysite.com/admin}), it will be redirected to the home page.\\
+
+As we can see, this scenario looks like a \textit{users story}: it means that everybody can write these scenarios.\\
+Then, we have to link some keywords with a code that will be executed, e.g.:
+\begin{lstlisting}[morekeywords={When}]
+When /^I am signed in$/ do
+  user = Factory(:user)
+  login_as user
+end 
+\end{lstlisting}
+Cucumber will simulate the navigator and try to access to the page \url{mysite.com/admin} login as a user.\\
+
+This project follows a software development process called \textit{behaviour-driven development}. During our development phase and for most features we'll want to develop, we'll try to write how the features should work as a scenario and then, Cucumber will test the application and will tell us what fails. We'll run Cucumber until each test is passed.\\
+
+\subsection{Travis: continuous development}
+
+It's also interesting to use continuous development tools (CI): for every changes published in the version control system (e.g. when pushing modifications on Github), a bunch of tests will be launched and results will be available in Travis website. If many \textit{smart} tests are executed, it will be easy to detect a regression and fix it quickly.
+
+\subsection{Stress tests}
+
+If we use this development process to implement most features, there will be no time given to develop the simulator itself. A few much time will be needed to develop each feature but it seems that there are some tools in Ruby to easily simulate a huge traffic, a lot of requests at the same time, etc.
