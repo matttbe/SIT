@@ -2,6 +2,9 @@ def create_visitor
   @visitor ||= { :email =>"eddy.malou@savoir.congo", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Malou", :firstname => "Eddy", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1 }
 end
 
+def show_page
+  save_and_open_page
+end
 def find_user
   @user ||= User.where(:email => @visitor[:email]).first
 end
@@ -10,7 +13,7 @@ def create_unconfirmed_user
   create_visitor
   delete_user
   sign_up
-  visit '/users/sign_out'
+  delete '/users/sign_out'
 end
 
 def create_user
@@ -44,7 +47,7 @@ end
 
 ### GIVEN ###
 Given /^I am not logged in$/ do
-  delete '/users/sign_out'
+  visit '/users/sign_out'
 end
 
 Given /^I am logged in$/ do
@@ -137,7 +140,6 @@ Then /^I should be signed in$/ do
 end
 
 Then /^I should be signed out$/ do
-  assert page.has_content?("Sign up")
   assert page.has_content?("Sign in")
   assert !page.has_content?("Logout")
 end
