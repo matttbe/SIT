@@ -12,5 +12,6 @@ SolidareItG6::Application.routes.draw do
     get "sign_in", :to => "devise/sessions#new"
     get "create_account", :to =>"devise/registrations#new"
     get '/users/sign_out' => 'devise/sessions#destroy'
+    #get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
   end
 end
