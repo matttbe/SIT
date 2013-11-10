@@ -29,11 +29,17 @@ end
 
 def sign_up
   delete_user
-  visit '/users/sign_up'
+  visit '/create_account'
   fill_in "user_name", :with => @visitor[:name]
   fill_in "user_email", :with => @visitor[:email]
   fill_in "user_password", :with => @visitor[:password]
   fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
+  fill_in "user_firstname", :with => @visitor[:firstname]
+  select(2010, :from=> "user_birthdate_1i")
+  select('November', :from=>  "user_birthdate_2i")
+  select(10, :from=>  "user_birthdate_3i")
+  select(17, :from=>  "user_birthdate_4i")
+  select(27, :from=>  "user_birthdate_5i")
   click_button "Sign up"
   find_user
 end
@@ -165,11 +171,12 @@ Then /^I should see a missing password message$/ do
 end
 
 Then /^I should see a missing password confirmation message$/ do
-  assert page.has_content?("Password doesn't match confirmation")
+  assert page.has_content?("Password confirmation doesn't match Password")
 end
 
 Then /^I should see a mismatched password message$/ do
-  assert page.has_content?("Password doesn't match confirmation")
+  show_page
+  assert page.has_content?("Password confirmation doesn't match Password")
 end
 
 Then /^I should see a signed out message$/ do
