@@ -25,6 +25,8 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    @user.karma=0
+    @user.password=user_params['password']
 
     respond_to do |format|
       if @user.save
