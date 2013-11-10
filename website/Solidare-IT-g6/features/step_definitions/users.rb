@@ -175,7 +175,6 @@ Then /^I should see a missing password confirmation message$/ do
 end
 
 Then /^I should see a mismatched password message$/ do
-  show_page
   assert page.has_content?("Password confirmation doesn't match Password")
 end
 
