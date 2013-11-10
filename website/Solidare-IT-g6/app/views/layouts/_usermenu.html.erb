@@ -12,6 +12,6 @@
                                                     <li><%= link_to "Sign out",  destroy_user_session_path, :method => "delete"%></li>
                                                   </ul>
                                                 </li>
-                                              <% else %>
-                                                <li><a href="/sign_in">Sign in</a></li>
-                                              <% end %>
+<% else %>
+                                                <li><%= link_to "Sign up",  new_user_path %><a href="/sign_in">Sign in</a></li>
+<% end %>
