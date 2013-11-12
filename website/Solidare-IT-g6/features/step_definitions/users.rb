@@ -1,3 +1,7 @@
+def create_admin_user
+  @visitor ||= { :email =>"maitre@dieu.ciel", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Maitre", :firstname => "Ciel", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true, :superadmin=>true }
+end
+
 def create_non_valide_user
   @visitor ||= { :email =>"eddy@savoir.congo", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Malou", :firstname => "Eddy", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>false }
 end
@@ -28,7 +32,13 @@ end
 
 def create_non_validated_user
   create_non_valide_user
-  #delete_user
+  delete_user
+  @user = User.create!(@visitor)
+end
+
+def createadmin_user
+  create_admin_user
+  delete_user
   @user = User.create!(@visitor)
 end
 
@@ -79,6 +89,10 @@ Given /^I exist as a non validated user$/ do
   create_non_validated_user
 end
 
+Given /^I exist as an admin user$/ do
+  createadmin_user
+end
+
 Given /^I do not exist as a user$/ do
   create_visitor
   delete_user
@@ -89,6 +103,10 @@ Given /^I exist as an unconfirmed user$/ do
 end
 
 ### WHEN ###
+When /^I sign in with valid credentials for admin user$/ do
+  createadmin_user
+  sign_in
+end
 When /^I sign in with valid credentials$/ do
   create_visitor
   sign_in
@@ -153,6 +171,10 @@ When /^I look at the list of users$/ do
 end
 
 ### THEN ###
+Then /^I see a return message on sign in page$/ do
+  assert page.has_content?("You need to sign in or sign up before continuing.")
+end
+
 Then /^I should be signed in$/ do
   assert page.has_content?("Sign out")
   assert !page.has_content?("Sign up")
