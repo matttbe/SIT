@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   end
 
   def default_values
-    self.karma = 0
+    self.karma ||= 0
   end
 
 end
