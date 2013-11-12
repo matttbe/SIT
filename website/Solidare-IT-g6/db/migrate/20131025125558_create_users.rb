@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime :birthdate
       t.string :email
       t.integer :karma
-      t.boolean :id_ok ,:default => false
+      t.boolean :id_ok ,:default => 0
       t.text :presentation
       t.boolean :inscription_ok
 
