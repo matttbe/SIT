@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20131112090804) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.string   "language",               default: "us"
+    t.string   "language",               default: "en"
     t.boolean  "superadmin",             default: false, null: false
   end
 

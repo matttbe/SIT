@@ -11,8 +11,8 @@ class AddSuperadminToUser < ActiveRecord::Migration
       r.firstname  = "Maitre"
       r.birthdate  = 'TMon, 18 Jun 1990 15:00:00 UTC +00:00'
       r.karma      = 0
-      r.language   = 'us'
       r.id_ok      = true
+      r.language   = 'en'
       r.superadmin = true
     end
   end
