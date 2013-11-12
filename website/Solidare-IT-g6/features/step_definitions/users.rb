@@ -173,7 +173,6 @@ Then /^I see a successful sign in message$/ do
 end
 
 Then /^I see a non valid account message$/ do
-  show_page
   assert page.has_content?("A admin must first accept you.  Be patient !")
 end
 
