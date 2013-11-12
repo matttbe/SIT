@@ -35,3 +35,11 @@ Feature: User
       Then I should see a signed out message
       When I return to the site
       Then I should be signed out
+
+    Scenario: a non validated user can't log in
+      Given I exist as a non validated user
+        And I am not logged in
+      When I sign in with valid credentials
+      Then I see a non valid account message
+      When I return to the site
+      Then I should be signed out

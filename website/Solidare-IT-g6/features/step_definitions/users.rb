@@ -1,3 +1,7 @@
+def create_non_valide_user
+  @visitor ||= { :email =>"eddy@savoir.congo", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Malou", :firstname => "Eddy", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>false }
+end
+
 def create_visitor
   @visitor ||= { :email =>"eddy.malou@savoir.congo", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Malou", :firstname => "Eddy", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true }
 end
@@ -19,6 +23,12 @@ end
 def create_user
   create_visitor
   delete_user
+  @user = User.create!(@visitor)
+end
+
+def create_non_validated_user
+  create_non_valide_user
+  #delete_user
   @user = User.create!(@visitor)
 end
 
@@ -63,6 +73,10 @@ end
 
 Given /^I exist as a user$/ do
   create_user
+end
+
+Given /^I exist as a non validated user$/ do
+  create_non_validated_user
 end
 
 Given /^I do not exist as a user$/ do
@@ -156,6 +170,11 @@ end
 
 Then /^I see a successful sign in message$/ do
   assert page.has_content?("Signed in successfully.")
+end
+
+Then /^I see a non valid account message$/ do
+  show_page
+  assert page.has_content?("A admin must first accept you.  Be patient !")
 end
 
 Then /^I should see a successful sign up message$/ do
