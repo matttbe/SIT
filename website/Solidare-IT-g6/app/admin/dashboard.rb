@@ -1,5 +1,7 @@
 ActiveAdmin.register_page "Dashboard" do
 
+
+
   #menu :priority => 1, :label => proc{ I18n.t("active_admin.dashboard") }
 
   content :title => proc{ I18n.t("active_admin.dashboard") } do
@@ -22,9 +24,9 @@ ActiveAdmin.register_page "Dashboard" do
 									status_tag("no ID", :error)       
 								end                        
 						  } 
-			    	column("Name")   {|customer| customer.all_name                                   } 
-				column("Email")   {|customer| customer.email                                   } 
-		   
+			  column("Name")   {|customer| customer.all_name                                   } 
+				column("Email")  {|customer| customer.email                                   } 
+		    column("")         {|customer| link_to "Auto", valid_user_admin_user_path(customer)}
 			  end
 			end
 	      end
@@ -57,4 +59,5 @@ ActiveAdmin.register_page "Dashboard" do
     #   end
     # end
   end # content
+
 end
