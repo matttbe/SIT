@@ -34,12 +34,21 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+# user
 gem 'devise'
+
+# js
 gem 'therubyracer'
+
+# bootstrap
 gem "less-rails"
 gem 'twitter-bootstrap-rails'
 gem 'date_validator'
 
+# admin
+gem 'activeadmin', github: 'gregbell/active_admin'
+
+# tests
 group :test do
   gem 'cucumber-rails', :require => false
   # database_cleaner is not required, but highly recommended

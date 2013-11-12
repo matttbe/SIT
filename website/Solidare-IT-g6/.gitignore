@@ -17,3 +17,5 @@
 
 # secret token (cookies)
 .secret
+
+/nbproject

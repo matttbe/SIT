@@ -14,8 +14,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) << :birthdate
   end
 
-    def can_log_in
-      
+  def can_log_in
     if defined?(params) && !params['user'].nil?
       @u = User.find_by_email(params['user']['email'])
       if !@u.nil? &&!@u.id_ok
@@ -24,4 +23,14 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  # protected?
+  def authenticate_active_admin_user!
+    authenticate_user!
+    unless current_user.superadmin?
+      flash[:alert] = "Unauthorized Access!"
+      redirect_to root_path
+    end
+  end
+
 end
