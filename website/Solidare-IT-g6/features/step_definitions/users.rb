@@ -24,6 +24,11 @@ def create_unconfirmed_user
   delete '/users/sign_out'
 end
 
+def create_all_users
+  create_user
+  create_non_validated_user
+end
+
 def create_user
   create_visitor
   delete_user
@@ -72,6 +77,9 @@ def sign_in
 end
 
 ### GIVEN ###
+Given /^The DB have a lot of users$/ do
+  create_all_users
+end
 Given /^I am not logged in$/ do
   visit '/users/sign_out'
 end
