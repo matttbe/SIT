@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   validates :email, :presence => true,:format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create }
 
 
+  has_many :own_services, :class_name => 'Service', :foreign_key => 'creator_id'
   def all_name
     "#{firstname} #{name}"
   end
