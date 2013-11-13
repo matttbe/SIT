@@ -25,8 +25,13 @@ def create_unconfirmed_user
 end
 
 def create_all_users
-  create_user
-  create_non_validated_user
+
+  @u ||= User.where(:email => "eddy@savoir.congo").first
+  @u.destroy unless @u.nil?
+  User.create!({ :email =>"eddy@savoir.congo", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Malou", :firstname => "Eddy", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>false })
+  @u ||= User.where(:email => "eddy.malou@savoir.congo").first
+  @u.destroy unless @u.nil?
+  User.create!({ :email =>"eddy.malou@savoir.congo", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Malou", :firstname => "Eddy", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true })
 end
 
 def create_user

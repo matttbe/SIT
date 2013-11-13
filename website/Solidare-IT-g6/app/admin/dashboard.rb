@@ -26,7 +26,7 @@ ActiveAdmin.register_page "Dashboard" do
 						  } 
 			  column("Name")   {|customer| customer.all_name                                   } 
 				column("Email")  {|customer| customer.email                                   } 
-		    column("")         {|customer| link_to "Auto", valid_user_admin_user_path(customer)}
+		    column("")         {|customer| link_to "Validate", valid_user_admin_user_path(customer)}
 			  end
 			end
 	      end
