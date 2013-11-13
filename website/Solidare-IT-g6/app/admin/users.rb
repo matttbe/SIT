@@ -12,10 +12,8 @@ ActiveAdmin.register User, :as => "Users" do
         user.id_ok=true
         user.save
       end
-      #user.lock!
-      #redirect_to {:action => :show}, {:notice => "Locked!"}
       respond_to do |format|
-        format.html{ redirect_to :action=> 'index'}
+          format.html{ redirect_to request.referer}
       end
       
   end
