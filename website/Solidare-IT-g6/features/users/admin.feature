@@ -27,3 +27,12 @@ Feature: Admin backoffice
     When I sign in with valid credentials for admin user
     And I go to admin page
     Then I should see non validated user
+
+  Scenario: As an admin user, I can validate a non validated user
+    Given I exist as an admin user
+    And I am not logged in
+    And The DB have a lot of users
+    When I sign in with valid credentials for admin user
+    And I go to admin page
+    Then I should validated a non validated user
+    And I din't see it again on the dashboard
