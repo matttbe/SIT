@@ -219,11 +219,9 @@ Then /^I should see an invalid email message$/ do
   assert page.has_content?("Email is invalid")
 end
 
-Then /^I should see a missing password message$/ do
-  assert page.has_content?("Password can't be blank")
-end
 
-Then /^I should see a missing password confirmation message$/ do
+
+Then /^I should see a missing password confirmation mes$/ do
   assert page.has_content?("Password confirmation doesn't match Password")
 end
 

@@ -16,11 +16,11 @@ Feature: Sign up
 
     Scenario: User signs up without password
       When I sign up without a password
-      Then I should see a missing password message
+      Then I should see a missing Password message
 
     Scenario: User signs up without password confirmation
       When I sign up without a password confirmation
-      Then I should see a missing password confirmation message
+      Then I should see a missing password confirmation mes
 
     Scenario: User signs up with mismatched password and confirmation
       When I sign up with a mismatched password confirmation

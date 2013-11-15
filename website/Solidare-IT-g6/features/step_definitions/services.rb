@@ -47,9 +47,23 @@ When(/^I fill the service form$/) do
   select(10, :from=>  "service_date_end_3i")
   select(17, :from=>  "service_date_end_4i")
   select(27, :from=>  "service_date_end_5i")
+end
+
+When(/^I fill a wrong date for the end$/) do
+  select(2012, :from=> "service_date_end_1i")
+  select('December', :from=>  "service_date_end_2i")
+  select(10, :from=>  "service_date_end_3i")
+  select(17, :from=>  "service_date_end_4i")
+  select(27, :from=>  "service_date_end_5i")
+end
+
+When(/^I click on the add button$/)do
   click_button "Create service"
 end
 
+When(/^I fill blank the (.*) fill in the service form$/) do |blank|
+  fill_in blank, :with => ""
+end
 
 
 ### THEN ###
@@ -65,4 +79,9 @@ end
 Then(/^I see adding service message$/) do
   assert page.has_content?("Service was successfully created.")
 end
+
+Then(/^I should see a date problem message$/) do
+  assert page.has_content?("en.activerecord.errors.models.service.attributes.date_end.after")
+end
+
 
