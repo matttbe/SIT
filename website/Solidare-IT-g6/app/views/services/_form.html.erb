@@ -27,19 +27,7 @@
     <%= f.label :date_end %><br>
     <%= f.datetime_select :date_end %>
   </div>
-  <div class="field">
-    <%= f.label :quick_match %><br>
-    <%= f.check_box :quick_match %>
-  </div>
-  <div class="field">
-    <%= f.label :matching_service_id %><br>
-    <%= f.number_field :matching_service_id %>
-  </div>
-  <div class="field">
-    <%= f.label :creator_id %><br>
-    <%= f.number_field :creator_id %>
-  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Create service",:class =>"btn btn-primary"  %>
   </div>
 <% end %>

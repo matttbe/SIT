@@ -36,6 +36,7 @@ class ServicesController < ApplicationController
       dont-see
     else
       @service = Service.new(service_params)
+      @service.creator_id=current_user.id
       #@service.user_id=current_user.id
 
       respond_to do |format|
