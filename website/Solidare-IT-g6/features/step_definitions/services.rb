@@ -63,7 +63,6 @@ Then(/^I see the add service button$/) do
 end
 
 Then(/^I see adding service message$/) do
-  show_page
   assert page.has_content?("Service was successfully created.")
 end
 
