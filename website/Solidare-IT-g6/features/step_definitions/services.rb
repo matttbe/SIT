@@ -68,8 +68,12 @@ When(/^I fill blank the (.*) fill in the service form$/) do |blank|
 end
 
 When(/^I visit the page of one service$/) do 
-  
-  visit "/services/"||@service.id
+  @link="/services/"+@service.id.to_s
+  visit @link
+end
+
+When(/^I fill a new title for my service$/) do 
+  fill_in "service_title", :with => "new title"
 end
 
 
@@ -105,7 +109,9 @@ Then(/^I should see edit and destroy link$/) do
 end
 
 Then(/^I should not see edit and destroy link$/) do
-   assert !page.has_content?("Edit")
-   assert !page.has_content?("Destroy")
+   assert !page.has_content?("Edit | Destroy")
 end
 
+Then(/^I should see my service with new title$/) do
+   assert page.has_content?("new title")
+end
