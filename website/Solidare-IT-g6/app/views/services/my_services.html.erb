@@ -1,6 +1,10 @@
 <h3>My services</h3>
 <br /><br />
-<% @services.each do |service|  %>
+<% @services.each do |service|  
+  if service.quick_match%>
+  You have accept this service :
+  <br /><br />
+<%end%>
   <%= render 'show',:service=> service %>
 <hr></hr>
 <% end %>
