@@ -14,4 +14,9 @@ before_script:
   # Needed for selenium browser
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  # postgres instead of sqlite3
+  - cp config/database.yml.travis config/database.yml
+  - sed -i "s/sqlite3/pg/g" Gemfile
+  - psql -c 'create database SolidareITg6_test;' -U postgres
+  # Install dependences
   - bundle install --verbose
