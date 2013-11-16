@@ -13,6 +13,15 @@ class ServicesController < ApplicationController
 
   # GET /services/:id/accept
   def accept_service
+    if @service.matching_service.nil?
+      create_quick_service
+      @service.matching_service=@serviceQ
+      respond_to do |format|
+        format.html { redirect_to my_services_path, notice: 'you have accepted a service' }
+      end
+    else
+      #TODO adding to the follow list
+    end
   end
   # GET /services
   # GET /services.json
@@ -47,7 +56,6 @@ class ServicesController < ApplicationController
   def create
       @service = Service.new(service_params)
       @service.creator_id=current_user.id
-      #@service.user_id=current_user.id
 
       respond_to do |format|
         if @service.save
@@ -100,6 +108,21 @@ class ServicesController < ApplicationController
       else
         @service = Service.find(params[:id])
       end
+    end
+
+    def create_quick_service
+      @serviceQ=Service.new
+      #TODO si on renseigne pas tous les champs, la vérif du modèle va gueuler.  Que faire ?  le boolean quick_match sert-il alors ?
+      @serviceQ.title=@service.title
+      @serviceQ.title=@service.title
+      @serviceQ.description=@service.description
+      @serviceQ.date_start=@service.date_start
+      @serviceQ.date_end=@service.date_end
+      @serviceQ.creator_id=current_user.id
+      @serviceQ.quick_match=true
+      @serviceQ.matching_service=@service
+      @serviceQ.save
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
