@@ -5,7 +5,8 @@ env:
   - CARD_SET=services
   - CARD_SET=users
 script:
-  - RAILS_ENV=test bundle exec --verbose rake db:reset --trace
+  - rake db:test:purge
+  - rake db:test:prepare
   - bundle exec --verbose cucumber -f progress -r features features/$CARD_SET
 
 before_script:
@@ -19,4 +20,4 @@ before_script:
   - sed -i "s/sqlite3/pg/g" Gemfile
   - psql -c 'create database SolidareITg6_test;' -U postgres
   # Install dependences
-  - bundle install --verbose
+  - travis_retry bundle install --verbose
