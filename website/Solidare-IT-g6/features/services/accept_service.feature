@@ -8,3 +8,23 @@ Feature: Accept a Service
       And I am logged in
       When I visit the page of one service
       Then I should see the accept link 
+
+    Scenario: Validated user visiting a not own service accept it
+      And I am logged in
+      When I visit the page of one service
+      And I click on the Accept link
+      Then I should see the service in my services espace 
+
+    Scenario: Validated user accept a not own service
+      And I am logged in
+      When I visit the page of one service
+      And I click on the Accept link
+      Then I should see the service in my services espace 
+
+    Scenario: Validated user can not accept a not own service that have already accepted
+      And I am logged in
+      When I visit the page of one service
+      And I click on the Accept link
+      And I visit the page of one service
+      Then I should not see the accept link
+ 
