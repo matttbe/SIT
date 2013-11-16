@@ -1,5 +1,5 @@
-Feature: Add and edit a Service
-  testing action when a registered user add or edit his service
+Feature: Add, edit and destroy a Service
+  testing action when a registered user add, edit or destroy a service
 
     Background:
       Given The database contains services
@@ -71,6 +71,14 @@ Feature: Add and edit a Service
       And I am logged in
       When I visit the page of one service
       Then I should not see edit and destroy link 
+
+    Scenario: Validated user destroy his service
+      And I am logged in
+      And The database contains my services
+      When I visit the page of one service
+      And I click on the Destroy link
+      And I click on the See my services link
+      Then I should not see my service 
 
 
 

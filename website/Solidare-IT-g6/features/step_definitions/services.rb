@@ -115,3 +115,7 @@ end
 Then(/^I should see my service with new title$/) do
    assert page.has_content?("new title")
 end
+
+Then(/^I should not see my service$/) do
+   assert !page.has_content?(@serviceC[:title])
+end
