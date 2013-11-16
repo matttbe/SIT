@@ -2,7 +2,23 @@
 
 <p>
   <strong>Title:</strong>
+  <% if @service.matching_service.nil? %>
+        <span class="label label-primary">
+  <% elsif @service.matching_service.creator_id==current_user.id || @service.creator_id==current_user.id%>
+        <span class="label label-success">
+  <% else %>
+        <span class="label label-default">
+  <%end%>
   <%= @service.title %>
+        </span>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%  #TODO add a link to the user profile ? %>
+  <%if !@service.user.nil? %>
+    <%=@service.user.all_name %>
+  <% end %>
 </p>
 
 <p>
