@@ -8,7 +8,7 @@ def new_service
 end
 
 def add_service
-  create_user
+
   find_user
   create_service
   @serviceC[:creator_id]=@user.id
@@ -17,6 +17,11 @@ end
 
 ### GIVEN ###
 Given /^The database contains services$/ do
+  create_user
+  add_service
+end
+
+Given /^The database contains my services$/ do
   add_service
 end
 
@@ -57,9 +62,6 @@ When(/^I fill a wrong date for the end$/) do
   select(27, :from=>  "service_date_end_5i")
 end
 
-When(/^I click on the add button$/)do
-  click_button "Create service"
-end
 
 When(/^I fill blank the (.*) fill in the service form$/) do |blank|
   fill_in blank, :with => ""
@@ -84,4 +86,11 @@ Then(/^I should see a date problem message$/) do
   assert page.has_content?("en.activerecord.errors.models.service.attributes.date_end.after")
 end
 
+Then(/^I should see my services$/) do
+   assert page.has_content?(@serviceC[:title])
+end
+
+Then(/^I should see no services$/) do
+   assert page.has_content?("no services")
+end
 
