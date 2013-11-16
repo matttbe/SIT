@@ -1,6 +1,15 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
 
+
+  # GET /user/services
+  def my_services
+    if user_signed_in?
+      @services = current_user.own_services
+    else
+      dont_see
+    end
+  end
   # GET /services
   # GET /services.json
   def index

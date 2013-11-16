@@ -1,0 +1,39 @@
+<% @service=service%>
+
+<p>
+  <strong>Title:</strong>
+  <%= @service.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @service.description %>
+</p>
+
+<p>
+  <strong>Date start:</strong>
+  <%= @service.date_start %>
+</p>
+
+<p>
+  <strong>Date end:</strong>
+  <%= @service.date_end %>
+</p>
+
+<p>
+  <strong>Quick match:</strong>
+  <%= @service.quick_match %>
+</p>
+
+<p>
+  <strong>Matching service:</strong>
+  <%= @service.matching_service_id %>
+</p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @service.creator_id %>
+</p>
+
+<%= link_to 'Edit', edit_service_path(@service) %> |
+<%= link_to 'Back', services_path %>
