@@ -81,7 +81,7 @@ class ServicesController < ApplicationController
   # DELETE /services/1
   # DELETE /services/1.json
   def destroy
-    if !(user_signed_in? && @service.user_id==current_user.id)
+    if !(user_signed_in? && @service.creator_id==current_user.id)
       dont_see
     else
       @service.destroy
