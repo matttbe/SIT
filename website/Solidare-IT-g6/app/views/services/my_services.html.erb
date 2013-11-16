@@ -1,4 +1,10 @@
+<h3>My services</h3>
+<br /><br />
 <% @services.each do |service|  %>
   <%= render 'show',:service=> service %>
+<hr></hr>
 <% end %>
+<% if @services.nil? ||@services.length==0 %>
+no services
+<%  end%>
 
