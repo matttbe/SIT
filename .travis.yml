@@ -5,7 +5,7 @@ env:
   - CARD_SET=services
   - CARD_SET=users
 script:
-  - RAILS_ENV=test bundle exec --verbose rake db:reset --trace
+  - RAILS_ENV=test bundle exec --verbose rake db:migrate --trace
   - bundle exec --verbose cucumber -f progress -r features features/$CARD_SET
 
 before_script:
