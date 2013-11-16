@@ -19,4 +19,4 @@ before_script:
   - sed -i "s/sqlite3/pg/g" Gemfile
   - psql -c 'create database SolidareITg6_test;' -U postgres
   # Install dependences
-  - bundle install --verbose
+  - travis_retry bundle install --verbose
