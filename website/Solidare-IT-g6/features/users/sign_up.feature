@@ -20,7 +20,8 @@ Feature: Sign up
 
     Scenario: User signs up without password confirmation
       When I sign up without a password confirmation
-      Then I should see a missing password confirmation mes
+      #we use msg and not the generic because we have here a special message for blank filling
+      Then I should see a missing password confirmation msg
 
     Scenario: User signs up with mismatched password and confirmation
       When I sign up with a mismatched password confirmation

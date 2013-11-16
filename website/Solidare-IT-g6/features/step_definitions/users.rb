@@ -221,7 +221,7 @@ end
 
 
 
-Then /^I should see a missing password confirmation mes$/ do
+Then /^I should see a missing password confirmation msg$/ do
   assert page.has_content?("Password confirmation doesn't match Password")
 end
 
