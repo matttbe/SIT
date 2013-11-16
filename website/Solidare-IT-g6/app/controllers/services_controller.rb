@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-  before_action :set_service, only: [:show, :edit, :update, :destroy]
+  before_action :set_service, only: [:show, :edit, :update, :destroy, :accept_service]
 
 
   # GET /user/services
@@ -9,6 +9,10 @@ class ServicesController < ApplicationController
     else
       dont_see
     end
+  end
+
+  # GET /services/:id/accept
+  def accept_service
   end
   # GET /services
   # GET /services.json
@@ -33,7 +37,7 @@ class ServicesController < ApplicationController
 
   # GET /services/1/edit
   def edit
-    if !(user_signed_in? && @service.creator_id==current_user.id)
+    if !(@service.creator_id==current_user.id)
       dont_see
     end
   end
@@ -41,9 +45,6 @@ class ServicesController < ApplicationController
   # POST /services
   # POST /services.json
   def create
-    if !user_signed_in?
-      dont-see
-    else
       @service = Service.new(service_params)
       @service.creator_id=current_user.id
       #@service.user_id=current_user.id
@@ -57,13 +58,12 @@ class ServicesController < ApplicationController
           format.json { render json: @service.errors, status: :unprocessable_entity }
         end
       end
-    end
   end
 
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
   def update
-    if !(user_signed_in? && @service.creator_id==current_user.id)
+    if !(@service.creator_id==current_user.id)
       dont_see
     else
       respond_to do |format|
@@ -81,7 +81,7 @@ class ServicesController < ApplicationController
   # DELETE /services/1
   # DELETE /services/1.json
   def destroy
-    if !(user_signed_in? && @service.creator_id==current_user.id)
+    if !(@service.creator_id==current_user.id)
       dont_see
     else
       @service.destroy
@@ -95,7 +95,11 @@ class ServicesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_service
-      @service = Service.find(params[:id])
+      if !user_signed_in?
+      dont_see
+      else
+        @service = Service.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

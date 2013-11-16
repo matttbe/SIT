@@ -15,6 +15,7 @@ SolidareItG6::Application.routes.draw do
   root 'index#home'
 
   get '/user/services' => 'services#my_services', :as =>"my_services"
+    get '/services/:id/accept' => 'services#accept_service', :as =>"accept_service"
 
   devise_scope :user do
     get "sign_in", :to => "devise/sessions#new"
