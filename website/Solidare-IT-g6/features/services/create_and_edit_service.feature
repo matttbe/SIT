@@ -46,10 +46,21 @@ Feature: Add and edit a Service
       When I click on the See my services link
       Then I should see my services
 
-    Scenario: Validated user with no services can see all services
+    Scenario: Validated user with no services can see no services message
       And I am logged in
       When I click on the See my services link
       Then I should see no services
+
+    Scenario: Validated user visiting a own service can edit or destroy it
+      And I am logged in
+      And The database contains my services
+      When I visit the page of one service
+      Then I should see edit and destroy link 
+
+    Scenario: Validated user visiting a not own service can not edit or destroy it
+      And I am logged in
+      When I visit the page of one service
+      Then I should see edit and destroy link 
 
 
 

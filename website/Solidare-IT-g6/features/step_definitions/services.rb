@@ -67,6 +67,11 @@ When(/^I fill blank the (.*) fill in the service form$/) do |blank|
   fill_in blank, :with => ""
 end
 
+When(/^I visit the page of one service$/) do 
+  
+  visit "/services/"||@service.id
+end
+
 
 ### THEN ###
 
@@ -92,5 +97,15 @@ end
 
 Then(/^I should see no services$/) do
    assert page.has_content?("no services")
+end
+
+Then(/^I should see edit and destroy link$/) do
+   assert page.has_content?("Edit")
+   assert page.has_content?("Destroy")
+end
+
+Then(/^I should not see edit and destroy link$/) do
+   assert !page.has_content?("Edit")
+   assert !page.has_content?("Destroy")
 end
 
