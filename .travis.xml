@@ -1,0 +1,16 @@
+language: ruby
+rvm:
+  - "2.0.0"
+env:
+  - CARD_SET=services
+  - CARD_SET=users
+script:
+  - RAILS_ENV=test bundle exec rake db:reset --trace
+  - bundle exec cucumber -f progress -r features features/$CARD_SET
+
+before_script:
+  # go to the right directory
+  - cd website/Solidare-IT-g6
+  # Needed for selenium browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
