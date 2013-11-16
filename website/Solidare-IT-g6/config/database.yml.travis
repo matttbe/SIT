@@ -1,0 +1,4 @@
+test:
+  adapter: postgresql
+  database: SolidareITg6_test
+  username: postgres

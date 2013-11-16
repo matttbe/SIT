@@ -3,12 +3,4 @@ SIT
 
 **TODO**
 
-Installation
-============
-
-**TODO**
-
-License
-=======
-
-GPL3
+Old Git repository for some tests... (Python)
