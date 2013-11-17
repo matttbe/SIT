@@ -119,6 +119,10 @@ Then(/^I should not see my service$/) do
    assert !page.has_content?(@serviceC[:title])
 end
 
+Then(/^I should see services$/) do
+   assert page.has_content?(@serviceC[:title])
+end
+
 Then(/^I should see the accept link$/) do
    assert page.has_content?(@serviceC[:title])
    assert page.has_content?("Accept")
