@@ -20,6 +20,7 @@ SolidareItG6::Application.routes.draw do
 
   #search routing
   get '/search' => 'search#match', :as=>"match"
+  post '/search' => 'search#match'
 
   devise_scope :user do
     get "sign_in", :to => "devise/sessions#new"
