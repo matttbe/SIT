@@ -1,5 +1,9 @@
 <h3>Search Result</h3>
 
+<% if @services.size ==0 %>
+  No result
+<% else %>
+
 <table>
   <thead>
     <tr>
@@ -29,7 +33,9 @@
     <% end %>
   </tbody>
 </table>
-
+<% end %>
 <br>
+
+
 
 <%= link_to 'New Service', new_service_path %>
