@@ -14,8 +14,12 @@ SolidareItG6::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'index#home'
 
+  #services routing
   get '/user/services' => 'services#my_services', :as =>"my_services"
-    get '/services/:id/accept' => 'services#accept_service', :as =>"accept_service"
+  get '/services/:id/accept' => 'services#accept_service', :as =>"accept_service"
+
+  #search routing
+  get '/search' => 'search#match', :as=>"match"
 
   devise_scope :user do
     get "sign_in", :to => "devise/sessions#new"
