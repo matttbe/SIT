@@ -7,7 +7,8 @@ class SearchController < ApplicationController
       @services = Service.all
     else
       @services=Service.where('title LIKE (:titles) or description LIKE (:titles)',
-               :titles => "%"+params[:q]+"%")
+               :titles => "%"+params[:q]+"%").where('is_demand = :is_demand',
+               :is_demand => params["type_q"]=="demand")
     end
   end
 
