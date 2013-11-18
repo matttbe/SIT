@@ -4,6 +4,7 @@ rvm:
 env:
   - CARD_SET=services
   - CARD_SET=users
+  - CARD_SET=search
 script:
   - rake db:test:purge
   - rake db:test:prepare
