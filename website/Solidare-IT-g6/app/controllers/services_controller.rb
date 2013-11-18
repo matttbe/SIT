@@ -58,6 +58,7 @@ class ServicesController < ApplicationController
   def create
       @service = Service.new(service_params)
       @service.creator_id=current_user.id
+      @service.is_demand=(params["service.demand"]=="demand")
 
       respond_to do |format|
         if @service.save
@@ -123,12 +124,13 @@ class ServicesController < ApplicationController
       @serviceQ.creator_id=current_user.id
       @serviceQ.quick_match=true
       @serviceQ.matching_service=@service
+      @serviceQ.is_demand=@service.is_demand==true
       @serviceQ.save
 
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:title,:description, :date_start, :date_end)
+      params.require(:service).permit(:title,:description, :date_start, :date_end,:demand)
     end
 end
