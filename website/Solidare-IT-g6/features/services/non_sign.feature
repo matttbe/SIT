@@ -15,4 +15,10 @@ Feature: Service for non signed User
       And I go to the service_add page
       Then I see a return message on sign in page
 
+    Scenario: User not signed up can not show accept button
+      When I return to the site
+      And I go to the services list
+      Then I see a service
+      And I should not see the accept link
+
 
