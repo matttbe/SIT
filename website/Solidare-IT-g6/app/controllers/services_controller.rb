@@ -5,7 +5,8 @@ class ServicesController < ApplicationController
   # GET /user/services
   def my_services
     if user_signed_in?
-      @services = current_user.own_services
+      @services = current_user.own_services.order(:is_demand)#Service.where('creator_id = (:id)',
+               #:id => current_user.id).order_by("Service.is_demand")
     else
       dont_see
     end

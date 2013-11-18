@@ -4,7 +4,7 @@
   No result
 <% else %>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Title</th>
@@ -26,7 +26,7 @@
         <td><%= service.date_start %></td>
         <td><%= service.date_end %></td>
         <td><%= link_to 'Show', service %></td>
-        <td><% if service.matching_service.nil? %><%= link_to 'Accept', accept_service_path(service) %><%end%></td>
+        <td><% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= link_to 'Accept', accept_service_path(service) %><%end%></td>
         <td><% if !current_user.nil?&&service.creator_id==current_user.id %><%= link_to 'Edit', edit_service_path(service) %><%end%></td>
         <td><% if !current_user.nil?&&service.creator_id==current_user.id %><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %><%end%></td>
       </tr>
