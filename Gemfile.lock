@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/gagalago/bootstrap_forms.git
+  revision: adb0330363e3250e95e98e776220dc4754d27e74
+  specs:
+    bootstrap_forms (4.0.1)
+
+GIT
   remote: git://github.com/gregbell/active_admin.git
   revision: 131c3a4ebcf23ec5d60cb926db06a6cdb9311b55
   specs:
@@ -247,6 +253,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
+  bootstrap_forms!
   capybara
   coffee-rails (~> 4.0.0)
   cucumber-rails
