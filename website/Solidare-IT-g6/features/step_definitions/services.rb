@@ -69,7 +69,7 @@ end
 
 
 When(/^I fill the offer-service form$/) do
-  choose('service_offer')
+  choose('service_is_demand_false')
   fill_form
 end
 
