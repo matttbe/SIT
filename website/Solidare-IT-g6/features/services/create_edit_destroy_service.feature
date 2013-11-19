@@ -23,6 +23,7 @@ Feature: Add, edit and destroy a Service
       And I fill blank the service_title fill in the service form
       And I click on the Create service button
       Then I should see a missing Title message
+      And I see the add service button
 
     Scenario: Validated user create a service with no description
       And I am logged in
@@ -31,6 +32,7 @@ Feature: Add, edit and destroy a Service
       And I fill blank the service_description fill in the service form
       And I click on the Create service button
       Then I should see a missing Description message
+      And I see the add service button
 
     Scenario: Validated user create a service with a date end before date start
       And I am logged in
@@ -39,6 +41,7 @@ Feature: Add, edit and destroy a Service
       And I fill a wrong date for the end
       And I click on the Create service button
       Then I should see a date problem message
+      And I see the add service button
 
     Scenario: Validated user can see all his services
       And I am logged in

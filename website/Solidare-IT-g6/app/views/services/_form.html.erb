@@ -38,7 +38,7 @@
     <%= f.datetime_select :date_end %>
   </div>
   <div class="actions">
-    <% if @service.creator_id.to_f <1%>
+    <% if type=="new"%>
       <%= f.submit "Create service",:class =>"btn btn-primary"  %>
     <% else %>
       <%= f.submit "Edit service",:class =>"btn btn-primary"  %>

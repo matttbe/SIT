@@ -46,7 +46,7 @@ When(/^I fill the service form$/) do
   select(10, :from=>  "service_date_start_3i")
   select(17, :from=>  "service_date_start_4i")
   select(27, :from=>  "service_date_start_5i")
-  select(2014, :from=> "service_date_end_1i")
+  select(2015, :from=> "service_date_end_1i")
   select('December', :from=>  "service_date_end_2i")
   select(10, :from=>  "service_date_end_3i")
   select(17, :from=>  "service_date_end_4i")
@@ -83,7 +83,7 @@ Then(/^I see a service$/) do
 end
 
 Then(/^I see the add service button$/) do
-  assert page.has_content?("Add a service")
+  assert page.has_content?(:link_or_button, 'Add a service')
 end
 
 Then(/^I see adding service message$/) do
