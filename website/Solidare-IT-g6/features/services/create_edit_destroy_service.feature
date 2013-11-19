@@ -9,16 +9,26 @@ Feature: Add, edit and destroy a Service
       When I return to the site
       Then I see the add service button
 
-    Scenario: Validated user create a service
+    Scenario: Validated user create a demand-service
       And I am logged in
       When I click on the Add a service link
+      And I want to create a demand-service
       And I fill the service form
+      And I click on the Create service button
+      Then I see adding service message
+
+    Scenario: Validated user create a offer-service
+      And I am logged in
+      When I click on the Add a service link
+      And I want to create a offer-service
+      And I fill the offer-service form
       And I click on the Create service button
       Then I see adding service message
 
     Scenario: Validated user create a service with no title
       And I am logged in
       When I click on the Add a service link
+      And I want to create a demand-service
       And I fill the service form
       And I fill blank the service_title fill in the service form
       And I click on the Create service button
@@ -28,6 +38,7 @@ Feature: Add, edit and destroy a Service
     Scenario: Validated user create a service with no description
       And I am logged in
       When I click on the Add a service link
+      And I want to create a demand-service
       And I fill the service form
       And I fill blank the service_description fill in the service form
       And I click on the Create service button
@@ -37,6 +48,7 @@ Feature: Add, edit and destroy a Service
     Scenario: Validated user create a service with a date end before date start
       And I am logged in
       When I click on the Add a service link
+      And I want to create a demand-service
       And I fill the service form
       And I fill a wrong date for the end
       And I click on the Create service button

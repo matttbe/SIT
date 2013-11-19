@@ -6,12 +6,30 @@ def new_service
   @serviceNew ||= { :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>true}
 end
 
-def add_service
+def new_service_offer
+  @serviceNew ||= { :title=>"Livre Réseau",:description => "Livre obo", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>false}
+end
 
+def add_service
   find_user
   create_service
   @serviceC[:creator_id]=@user.id
   @service = Service.create!(@serviceC)
+end
+
+def fill_form
+  fill_in "service_title", :with => @serviceNew[:title]
+  fill_in "service_description", :with => @serviceNew[:description]
+  select(2014, :from=> "service_date_start_1i")
+  select('November', :from=>  "service_date_start_2i")
+  select(10, :from=>  "service_date_start_3i")
+  select(17, :from=>  "service_date_start_4i")
+  select(27, :from=>  "service_date_start_5i")
+  select(2015, :from=> "service_date_end_1i")
+  select('December', :from=>  "service_date_end_2i")
+  select(10, :from=>  "service_date_end_3i")
+  select(17, :from=>  "service_date_end_4i")
+  select(27, :from=>  "service_date_end_5i")
 end
 
 ### GIVEN ###
@@ -37,21 +55,25 @@ When /^I click on the add service link$/ do
   click_link "Add a service"
 end
 
-When(/^I fill the service form$/) do
+When(/^I want to create a demand-service$/) do
   new_service
-  fill_in "service_title", :with => @serviceNew[:title]
-  fill_in "service_description", :with => @serviceNew[:description]
-  select(2014, :from=> "service_date_start_1i")
-  select('November', :from=>  "service_date_start_2i")
-  select(10, :from=>  "service_date_start_3i")
-  select(17, :from=>  "service_date_start_4i")
-  select(27, :from=>  "service_date_start_5i")
-  select(2015, :from=> "service_date_end_1i")
-  select('December', :from=>  "service_date_end_2i")
-  select(10, :from=>  "service_date_end_3i")
-  select(17, :from=>  "service_date_end_4i")
-  select(27, :from=>  "service_date_end_5i")
 end
+
+When(/^I want to create a offer-service$/) do
+  new_service_offer
+end
+
+When(/^I fill the service form$/) do
+  fill_form
+end
+
+
+When(/^I fill the offer-service form$/) do
+  choose('service_offer')
+  fill_form
+end
+
+
 
 When(/^I fill a wrong date for the end$/) do
   select(2012, :from=> "service_date_end_1i")
