@@ -19,3 +19,6 @@
 .secret
 
 /nbproject
+
+# heroku
+.git_heroku
