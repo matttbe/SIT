@@ -32,4 +32,6 @@
 
 <br>
 
+<% if !current_user.nil?%>
 <%= link_to 'New Service', new_service_path %>
+<% end %>
