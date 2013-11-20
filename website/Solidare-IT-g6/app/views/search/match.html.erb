@@ -45,8 +45,8 @@
               <tr>
                 <td><%= service.title %></td>
                 <td><%= service.description %></td>
-                <td><%= service.date_start %></td>
-                <td><%= service.date_end %></td>
+                <td><%= service.date_start.to_date().to_formatted_s(:rfc82) %></td>
+                <td><%= service.date_end.to_date().to_formatted_s(:rfc822) %></td>
                 <td><%= link_to 'Show', service %></td>
                 <td><% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= link_to 'Accept', accept_service_path(service) %><%end%></td>
                 <td><% if !current_user.nil?&&service.creator_id==current_user.id %><%= link_to 'Edit', edit_service_path(service) %><%end%></td>
