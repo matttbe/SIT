@@ -22,3 +22,6 @@
 
 # heroku
 .git_heroku
+
+# coveralls
+coverage/

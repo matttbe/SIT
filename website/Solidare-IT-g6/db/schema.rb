@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(version: 20131118180138) do
     t.text     "description"
     t.datetime "date_start"
     t.datetime "date_end"
-    t.boolean  "quick_match"
-    t.integer  "matching_service_id"
+    t.boolean  "quick_match",         default: false
+    t.integer  "matching_service_id", default: -1
     t.integer  "creator_id"
     t.datetime "created_at"
     t.datetime "updated_at"

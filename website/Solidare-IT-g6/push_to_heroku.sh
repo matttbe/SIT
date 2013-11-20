@@ -13,6 +13,14 @@ git commit -am "`date -R`"
 echo "== Git: Push =="
 git push heroku master
 
+# DB
+echo "== Migrate DB =="
+heroku run rake db:migrate
+
+# Open
+echo "== Open website =="
+heroku open
+
 # stop
 echo "== Press Enter to end =="
 read
