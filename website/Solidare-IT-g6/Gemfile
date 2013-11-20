@@ -46,6 +46,9 @@ gem 'bootstrap_forms', github: 'gagalago/bootstrap_forms'
 # admin
 gem 'activeadmin', github: 'gregbell/active_admin'
 
+# coveralls
+gem 'coveralls', require: false
+
 ####### Group #######
 
 # tests
