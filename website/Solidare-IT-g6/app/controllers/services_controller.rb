@@ -65,8 +65,7 @@ class ServicesController < ApplicationController
           format.html { redirect_to @service, notice: 'Service was successfully created.' }
           format.json { render action: 'show', status: :created, location: @service }
         else
-          format.html { render action: 'new' }
-          format.json { render json: @service.errors, status: :unprocessable_entity }
+          show_error(format,'new')
         end
       end
   end
@@ -82,8 +81,7 @@ class ServicesController < ApplicationController
           format.html { redirect_to @service, notice: 'Service was successfully updated.' }
           format.json { head :no_content }
         else
-          format.html { render action: 'edit' }
-          format.json { render json: @service.errors, status: :unprocessable_entity }
+          show_error(format,'edit')
         end
       end
     end
@@ -132,5 +130,12 @@ class ServicesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
       params.require(:service).permit(:title,:description, :date_start, :date_end,:is_demand)
+    end
+
+    protected
+
+    def show_error(format,actionName)
+      format.html { render action: actionName }
+      format.json { render json: @service.errors, status: :unprocessable_entity }
     end
 end
