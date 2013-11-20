@@ -1,7 +1,25 @@
+<% location= request.env['PATH_INFO'] %>
 <h3>Search Result</h3>
 
 <div class="row">
-      <div class="span3">Menu</div>
+      <div class="span3">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Sort</li>
+              <% @param="&q_order_end=on"
+                 @link=generateLink(@search,@param)
+                 @active=!@link.include?(@param)
+               %>
+              <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Time : ending soonest</a></li>
+              <li class="nav-header">Filter</li>
+              <% @param="&filter=active"
+                 @link=generateLink(@search,@param)
+                 @active=!@link.include?(@param)
+               %>
+              <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only active service</a></li>
+            </ul>
+          </div>
+      </div>
       <div class="span9">
 
         <% if @services.size ==0 %>
