@@ -1,5 +1,7 @@
 SolidareItG6::Application.routes.draw do
   
+  resources :organisations
+
   resources :services
 
   # devise_for :admin_users, ActiveAdmin::Devise.config ## => we took info from Devise
