@@ -1,14 +1,18 @@
 language: ruby
 rvm:
   - "2.0.0"
-env:
-  - CARD_SET=services
-  - CARD_SET=users
-  - CARD_SET=search
+
+## multijobs: can be useful if we have hundreds of tests...
+# env:
+#   - CARD_SET=services
+#   - CARD_SET=users
+#   - CARD_SET=search
+
 script:
   - rake db:test:purge
   - rake db:test:prepare
-  - bundle exec --verbose cucumber -f progress -r features features/$CARD_SET
+#  - bundle exec --verbose cucumber -f progress -r features features/$CARD_SET
+  - rake cucumber
 
 before_script:
   # go to the right directory
