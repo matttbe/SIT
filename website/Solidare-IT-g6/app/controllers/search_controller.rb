@@ -15,11 +15,18 @@ class SearchController < ApplicationController
       if (! params[:type_q].nil?)
         @search += "type_q=" + params["type_q"]
       end
+      
+      if(! params[:offer_cbox].nil? and ! params[:demand_cbox].nil?) # Both checkboxes are checked
+        @services = Service.all
+      elsif(! params[:offer_cbox].nil?)
+        @services = Service.where('is_demand = :is_demand', :is_demand => false)
+      elsif(! params[:demand_cbox].nil?)
+        @services = Service.where('is_demand = :is_demand', :is_demand => true)
+      else
+        @services = Service.all #TODO : What do we do if none of the checkboxes are checked ?
+      end 
 
-      @services = Service.where('is_demand = :is_demand',
-                  :is_demand => params["type_q"] == "demand")
-
-      if (! params[:q].nil? and ! params[:q].empty?)
+      if (! params[:q].nil? and ! params[:q].empty? and !@services.nil?)
         @services = @services.where('title LIKE (:titles) or description LIKE (:titles)',
                    :titles => "%" + params[:q] + "%")
       end

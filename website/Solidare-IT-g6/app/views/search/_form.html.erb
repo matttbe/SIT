@@ -2,17 +2,26 @@
 <%= form_tag(search_path, method: "get", :class=>"form-search") do %>
   <div class="input-append">
     <%= text_field_tag(:q, "",:class=>"span2 search-query", :placeholder=>"Search") %>
-    <select id="type_q" name="type_q">
-    <option value="demand">Demand</option>
-    <option value="offer">Offer</option>
+    <%= submit_tag("Search", :class=>"btn") %>
     </select>
+    
+    <p id="typesCheckboxes">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" checked="checked" name="offer_cbox" id="offer_cbox"> Offers &nbsp  
+            </label>
+            <label>
+                <input type="checkbox" checked="checked" name="demand_cbox" id="demand_cbox"> Demands
+            </label>
+        </div>
+    </p>
+    
     <p id="show_option">More options</p>
     <div id="more" style=""">
         <label class="checkbox">
           <input type="checkbox" name="q_order_end"> Order by date
         </label>
     </div>
-    <%= submit_tag("Search", :class=>"btn") %>
   </div>
 <% end %>
 <script>
