@@ -16,6 +16,12 @@ Feature: Basic search
       And I do a search of  search words in Offer
       And I click on the Search button
       Then I should not see my service
+   
+    Scenario: User who do a search on both offer and demand with "search" show anything
+      When I return to the site
+      And I do a search of  search words in Both
+      And I click on the Search button
+      Then I should not see my service
 
     Scenario: User who do a search on offer with no argument should see something
       When I return to the site
