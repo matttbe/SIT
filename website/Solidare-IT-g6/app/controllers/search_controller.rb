@@ -5,10 +5,16 @@ class SearchController < ApplicationController
   def match
 
     # no filter
-    if (params.empty?)
+    if (params.length <= 2) # The params hash will always contain the :controller and :action keys
       @services = Service.all # TODO: display all services?
     else
-      @search = "/search?q="+params[:q]+"&type_q="+params["type_q"]
+      @search = "/search?"
+      if (! params[:q].nil?)
+        @search += "/search?q=" + params[:q] + "&"
+      end
+      if (! params[:type_q].nil?)
+        @search += "type_q=" + params["type_q"]
+      end
 
       @services = Service.where('is_demand = :is_demand',
                   :is_demand => params["type_q"] == "demand")
