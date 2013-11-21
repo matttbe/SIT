@@ -59,15 +59,13 @@ class ServicesController < ApplicationController
   def create
       @service = Service.new(service_params)
       @service.creator_id=current_user.id
-      @service.is_demand=(params["service.demand"]=="demand")
 
       respond_to do |format|
         if @service.save
           format.html { redirect_to @service, notice: 'Service was successfully created.' }
           format.json { render action: 'show', status: :created, location: @service }
         else
-          format.html { render action: 'new' }
-          format.json { render json: @service.errors, status: :unprocessable_entity }
+          show_error(format,'new')
         end
       end
   end
@@ -83,8 +81,7 @@ class ServicesController < ApplicationController
           format.html { redirect_to @service, notice: 'Service was successfully updated.' }
           format.json { head :no_content }
         else
-          format.html { render action: 'edit' }
-          format.json { render json: @service.errors, status: :unprocessable_entity }
+          show_error(format,'edit')
         end
       end
     end
@@ -132,6 +129,13 @@ class ServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:title,:description, :date_start, :date_end,:demand)
+      params.require(:service).permit(:title,:description, :date_start, :date_end,:is_demand)
+    end
+
+    protected
+
+    def show_error(format,actionName)
+      format.html { render action: actionName }
+      format.json { render json: @service.errors, status: :unprocessable_entity }
     end
 end

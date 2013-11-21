@@ -1,41 +1,64 @@
+<% location= request.env['PATH_INFO'] %>
 <h3>Search Result</h3>
 
-<% if @services.size ==0 %>
-  No result
-<% else %>
+<div class="row">
+      <div class="span3">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Sort</li>
+              <% @param="&q_order_end=on"
+                 @link=generateLink(@search,@param)
+                 @active=!@link.include?(@param)
+               %>
+              <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Time : ending soonest</a></li>
+              <li class="nav-header">Filter</li>
+              <% @param="&filter=active"
+                 @link=generateLink(@search,@param)
+                 @active=!@link.include?(@param)
+               %>
+              <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only active service</a></li>
+            </ul>
+          </div>
+      </div>
+      <div class="span9">
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Date start</th>
-      <th>Date end</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+        <% if @services.size ==0 %>
+          No result
+        <% else %>
 
-  <tbody>
-    <% @services.each do |service| %>
-      <tr>
-        <td><%= service.title %></td>
-        <td><%= service.description %></td>
-        <td><%= service.date_start %></td>
-        <td><%= service.date_end %></td>
-        <td><%= link_to 'Show', service %></td>
-        <td><% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= link_to 'Accept', accept_service_path(service) %><%end%></td>
-        <td><% if !current_user.nil?&&service.creator_id==current_user.id %><%= link_to 'Edit', edit_service_path(service) %><%end%></td>
-        <td><% if !current_user.nil?&&service.creator_id==current_user.id %><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %><%end%></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<% end %>
-<br>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Date start</th>
+              <th>Date end</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
 
+          <tbody>
+            <% @services.each do |service| %>
+              <tr>
+                <td><%= service.title %></td>
+                <td><%= service.description %></td>
+                <td><%= service.date_start %></td>
+                <td><%= service.date_end %></td>
+                <td><%= link_to 'Show', service %></td>
+                <td><% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= link_to 'Accept', accept_service_path(service) %><%end%></td>
+                <td><% if !current_user.nil?&&service.creator_id==current_user.id %><%= link_to 'Edit', edit_service_path(service) %><%end%></td>
+                <td><% if !current_user.nil?&&service.creator_id==current_user.id %><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %><%end%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% end %>
+        <br>
+      </div>
+    </div>
 
 <% if !current_user.nil?%>
 <%= link_to 'New Service', new_service_path %>

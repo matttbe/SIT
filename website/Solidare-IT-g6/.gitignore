@@ -19,3 +19,9 @@
 .secret
 
 /nbproject
+
+# heroku
+.git_heroku
+
+# coveralls
+coverage/

@@ -7,6 +7,20 @@ class ApplicationController < ActionController::Base
           format.html { redirect_to "/sign_in", alert: 'You need to sign in or sign up before continuing.' }
     end
   end
+
+  def generateLink(search,param)
+    link=search
+    if search.nil?
+      link="/search?q="+param
+    elsif search.include?(param)
+      link=search.gsub(param, "")
+    elsif
+      link=search+param
+    end
+    return link
+  end
+
+  helper_method :generateLink
   
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

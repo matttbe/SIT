@@ -20,6 +20,14 @@ Feature: Admin backoffice
     And I go to admin page
     Then I should see the Dashboard
 
+  Scenario: User signs out
+    Given I exist as an admin user
+    And I am not logged in
+    When I sign in with valid credentials for admin user
+    And I go to admin page
+    And I sign out
+    Then I should see a signed out message
+
   Scenario: As an admin user, I can see non validated user
     Given I exist as an admin user
     And I am not logged in
