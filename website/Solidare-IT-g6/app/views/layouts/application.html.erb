@@ -37,7 +37,15 @@ $(document).ready(function(){
                                                 <li>
                                               <% end %>
                                                 <a href="<%= services_path  %>">Services</a></li>
-						<%= render 'search/form' %>
+
+				  							  <% if location==group_index_path %>
+                                                <li class="active">
+                                              <% else %>
+                                                <li>
+                                              <% end %>
+                                                <a href="<%= group_index_path  %>">Groups</a></li>
+
+											  <%= render 'search/form' %>
                                                 
                                             </ul>
                                              <ul class="nav pull-right">
