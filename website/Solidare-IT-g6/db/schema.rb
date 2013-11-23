@@ -84,6 +84,47 @@ ActiveRecord::Schema.define(version: 20131202132750) do
     t.datetime "updated_at"
   end
 
+  create_table "group_post_comments", force: true do |t|
+    t.integer  "group_post_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_post_comments", ["group_post_id"], name: "index_group_post_comments_on_group_post_id"
+  add_index "group_post_comments", ["user_id"], name: "index_group_post_comments_on_user_id"
+
+  create_table "group_posts", force: true do |t|
+    t.integer  "group_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_posts", ["group_id"], name: "index_group_posts_on_group_id"
+  add_index "group_posts", ["user_id"], name: "index_group_posts_on_user_id"
+
+  create_table "group_user_relations", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_user_relations", ["group_id"], name: "index_group_user_relations_on_group_id"
+  add_index "group_user_relations", ["user_id"], name: "index_group_user_relations_on_user_id"
+
+  create_table "groups", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "private"
+    t.boolean  "secret"
+  end
+
   create_table "notifications", force: true do |t|
     t.integer  "notified_user"
     t.string   "notification_type"

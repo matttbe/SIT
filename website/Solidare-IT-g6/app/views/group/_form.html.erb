@@ -1,0 +1,15 @@
+<%= form_for :group, url: group_index_path do |f| %>
+  <p>
+    <%= f.label :Name %><br>
+    <%= f.text_field :name %>
+  </p>
+ 
+  <p>
+    <%= f.label :Description %><br>
+    <%= f.text_area :description%>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
