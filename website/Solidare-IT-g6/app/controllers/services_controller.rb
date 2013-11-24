@@ -27,9 +27,8 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
-    @services = Service.all
     respond_to do |format|
-        format.html
+        format.html { redirect_to match_path }
       end
   end
 
