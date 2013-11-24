@@ -197,25 +197,7 @@ Then /^I should be signed out$/ do
   assert !page.has_content?("Logout")
 end
 
-Then /^I see an unconfirmed account message$/ do
-  assert page.has_content?("You have to confirm your account before continuing.")
-end
 
-Then /^I see a successful sign in message$/ do
-  assert page.has_content?("Signed in successfully.")
-end
-
-Then /^I see a non valid account message$/ do
-  assert page.has_content?("A admin must first accept you.  Be patient !")
-end
-
-Then /^I should see a successful sign up message$/ do
-  assert page.has_content?("Welcome! You have signed up successfully.")
-end
-
-Then /^I should see an invalid email message$/ do
-  assert page.has_content?("Email is invalid")
-end
 
 
 
@@ -223,21 +205,6 @@ Then /^I should see a missing password confirmation msg$/ do
   assert page.has_content?("Password confirmation doesn't match Password")
 end
 
-Then /^I should see a mismatched password message$/ do
-  assert page.has_content?("Password confirmation doesn't match Password")
-end
-
-Then /^I should see a signed out message$/ do
-  assert page.has_content?("Signed out successfully.")
-end
-
-Then /^I see an invalid login message$/ do
-  assert page.has_content?("Invalid email or password.")
-end
-
-Then /^I should see an account edited message$/ do
-  assert page.has_content?("You updated your account successfully.")
-end
 
 Then /^I should see my name$/ do
   create_user

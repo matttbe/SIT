@@ -6,4 +6,4 @@ Feature: Edit User
     Scenario: I sign in and edit my account
       Given I am logged in
       When I edit my account details
-      Then I should see an account edited message
+      Then I see a You updated your account successfully message

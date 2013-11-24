@@ -26,7 +26,7 @@ Feature: Admin backoffice
     When I sign in with valid credentials for admin user
     And I go to admin page
     And I sign out
-    Then I should see a signed out message
+    Then I see a Signed out successfully message
 
   Scenario: As an admin user, I can see non validated user
     Given I exist as an admin user

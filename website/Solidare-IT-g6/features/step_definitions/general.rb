@@ -18,3 +18,7 @@ Then(/^I should see a missing (.*) message$/) do |blank|
   assert page.has_content?(blank||" can't be blank")
 end
 
+Then(/^I see a (.*) message$/) do |message|
+  assert page.has_content?(message)
+end
+
