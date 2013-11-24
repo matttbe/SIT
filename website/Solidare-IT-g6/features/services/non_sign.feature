@@ -21,4 +21,3 @@ Feature: Service for non signed User
       Then I see a service
       And I should not see the accept link
 
-

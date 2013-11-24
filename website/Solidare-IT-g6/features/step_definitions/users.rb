@@ -68,8 +68,6 @@ def sign_up
   select(2010, :from=> "user_birthdate_1i")
   select('November', :from=>  "user_birthdate_2i")
   select(10, :from=>  "user_birthdate_3i")
-  select(17, :from=>  "user_birthdate_4i")
-  select(27, :from=>  "user_birthdate_5i")
   click_button "Sign up"
   find_user
 end
@@ -86,7 +84,7 @@ Given /^The DB have a lot of users$/ do
   create_all_users
 end
 Given /^I am not logged in$/ do
-  visit '/users/sign_out'
+  visit '/users/sign_out' #TODO sign out if I am NOT logged in ?
 end
 
 Given /^I am logged in$/ do

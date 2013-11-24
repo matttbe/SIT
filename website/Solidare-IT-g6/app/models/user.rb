@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
   validates :firstname, :presence => true
   validates :birthdate, :presence => true,:date => { :before => Time.now }
   validates :email, :presence => true,:format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create }
-
+  
+  has_many :addresses, :class_name => 'Address', :foreign_key => 'user_id'
 
   has_many :own_services, :class_name => 'Service', :foreign_key => 'creator_id'
   def all_name

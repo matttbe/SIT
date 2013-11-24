@@ -5,11 +5,11 @@
     <%= f.text_field :name , :autofocus => true %>
     <%= f.label :firstname %>
     <%= f.text_field :firstname %>
-    <%= f.label :birthdate %>
-    <%= f.datetime_select :birthdate %>
+    <%= f.date_select(:birthdate, :start_year => Time.now.year - 100, :end_year => Time.now.year)%>
   <%= f.email_field :email%>
   <%= f.password_field :password %>
   <%= f.password_field :password_confirmation %>
+
   <div><%= f.submit "Sign up" %></div>
 <% end %>
 
