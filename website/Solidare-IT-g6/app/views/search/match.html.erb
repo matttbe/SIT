@@ -17,6 +17,11 @@
                  @active=!@link.include?(@param)
                %>
               <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only active service</a></li>
+              <% @param="&filter=karma"
+                 @link=generateLink(@search,@param)
+                 @active=!@link.include?(@param)
+               %>
+              <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only service proposed by good karma</a></li>
             </ul>
           </div>
       </div>

@@ -38,6 +38,10 @@ class SearchController < ApplicationController
                       :time=> Time.now)
         end
 
+        if (@filter=="karma")
+          @services = @services.joins(:user).where('users.karma>=0')
+        end
+
         @search = @search + "&filter=" + @filter
       end
 
