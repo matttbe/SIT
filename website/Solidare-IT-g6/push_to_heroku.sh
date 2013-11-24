@@ -1,9 +1,9 @@
 #! /bin/bash
 
 # Prepare
-mv .git_heroku .git
-mv Gemfile.lock Gemfile.lock.tmp
-cp ../../Gemfile.lock .
+mv .git_heroku .git || exit
+mv Gemfile.lock Gemfile.lock.tmp || exit
+cp ../../Gemfile.lock . || exit
 
 # Push
 echo "== Git: Add files =="
