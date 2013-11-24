@@ -28,12 +28,12 @@
 
 <p>
   <strong>Date start:</strong>
-  <%= @service.date_start %>
+  <%= @service.date_start.to_date().to_formatted_s(:rfc82) %>
 </p>
 
 <p>
   <strong>Date end:</strong>
-  <%= @service.date_end %>
+  <%= @service.date_end.to_date().to_formatted_s(:rfc82) %>
 </p>
 
 
