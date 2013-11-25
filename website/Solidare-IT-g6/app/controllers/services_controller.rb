@@ -1,5 +1,6 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:edit, :update, :destroy, :accept_service]
+  before_action :set_good_service, only: [:create_transaction, :new_transaction]
 
 
   # GET /user/services
@@ -102,11 +103,46 @@ class ServicesController < ApplicationController
     end
   end
 
+  #Transaction
+
+  #GET /transaction/:id
+  def new_transaction
+    @transaction=Transaction.new
+  end
+  
+  #PUT /transaction/:id
+  def create_transaction
+    @transaction=Transaction.new(transaction_params)
+    @transaction.user_id=@service.creator_id
+    @transaction.service_id=@service.id
+    #TODO update karma
+    respond_to do |format|
+       if @transaction.save
+         format.html { redirect_to my_services_path, notice: 'thanks for your feedback !' }
+         format.json { head :no_content }
+       else
+         show_error(format,'my_services')
+       end
+     end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
+
+    def set_good_service
+      set_service
+      if !@service.matching_service.nil?&&(@service.creator_id==current_user.id||@service.matching_service.creator_id=current_user.id)
+        if @service.creator_id==current_user.id
+          @service=@service.matching_service
+        end
+      else
+        dont_see
+      end
+    end
     def set_service
       if !user_signed_in?
-      dont_see
+        dont_see
       else
         @service = Service.find(params[:id])
       end
@@ -131,6 +167,10 @@ class ServicesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
       params.require(:service).permit(:title,:description, :date_start, :date_end,:is_demand)
+    end
+
+    def transaction_params
+      params.require(:transaction).permit(:feedback_comments, :feedback_evaluation)
     end
 
     protected

@@ -23,6 +23,10 @@ SolidareItG6::Application.routes.draw do
   get '/search' => 'search#match', :as=>"match"
   post '/search' => 'search#match'
 
+  #transaction routing
+  get '/transaction/:id' => 'services#new_transaction', :as=>"add_transaction"
+  post '/transaction/:id' => 'services#create_transaction', :as=>"create_transaction"
+
   devise_scope :user do
     get "sign_in", :to => "devise/sessions#new"
     get "create_account", :to =>"devise/registrations#new"
