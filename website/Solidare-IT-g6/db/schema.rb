@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131125072307) do
+ActiveRecord::Schema.define(version: 20131125103806) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -113,6 +113,8 @@ ActiveRecord::Schema.define(version: 20131125072307) do
     t.string   "unconfirmed_email"
     t.string   "language",               default: "en"
     t.boolean  "superadmin",             default: false, null: false
+    t.integer  "coworker_org_id",        default: -1
+    t.integer  "managed_org_id",         default: -1
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
