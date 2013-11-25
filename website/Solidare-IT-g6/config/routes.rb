@@ -34,13 +34,7 @@ SolidareItG6::Application.routes.draw do
     #get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
   end
   
-  #an Address is contained in a User or Organisation
-  resources :users do
-    resources :addresses
-  end
-  
-  resources :organisations do
-    resources :addresses
-  end
+  #address routing
+  resources :address
   
 end

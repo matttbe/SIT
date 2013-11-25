@@ -1,6 +1,10 @@
 class AddressController < ApplicationController
-      before_action :is_logged_in, only: [:create]
+      before_action :is_logged_in, only: [:new,:create]
 
+    def new
+    @address =Adress.new
+    end
+    
     def create
       @address = Address.new(address_params)
       #TODO how to know if the current_user is a User or an Organisation ?
