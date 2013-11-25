@@ -12,12 +12,17 @@
   <%= @service.title %>
         </span>
 </p>
-<% if !current_user.nil?&&!@service.matching_service.nil?&&(@service.creator_id==current_user.id||@service.matching_service.creator_id=current_user.id) %>
-<div class="alert alert-notice">
-  How was your experience ?
-<%= link_to 'Give a feedback !', add_transaction_path(@service)%></div>
-<br />
-<% end %>
+<% if !current_user.nil?&&!@service.matching_service.nil?&&(@service.creator_id==current_user.id||@service.matching_service.creator_id=current_user.id)&&(@service.transaction.nil?||@service.matching_service.transaction.nil?) %>
+  <% if !(!@service.matching_service.nil?&&!@service.matching_service.transaction.nil?) %>
+    <div class="alert alert-notice">
+      How was your experience ?
+    <%= link_to 'Give a feedback !', add_transaction_path(@service)%></div>
+    <br />
+  <%else%>
+    Your feedback :
+    <%=  render 'show_feedback', :transaction=>@service.matching_service.transaction%>
+  <%end%>
+<%end%>
 <p>
   <strong>Created by:</strong>
   <%  #TODO add a link to the user profile ? %>
