@@ -5,7 +5,16 @@ class AddressController < ApplicationController
       @address = Address.new(address_params)
       #TODO how to know if the current_user is a User or an Organisation ?
       @address.user_id = current_user.id
-      @address.save #TODO handle error
+      
+      respond_to do |format|
+        if @address.save
+          format.html { redirect_to @address, notice: 'Address was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @address }
+        else
+          show_error(format,'new')
+        end
+      end
+      
     end
 
     private 
