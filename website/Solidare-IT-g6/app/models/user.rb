@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   
   has_many :addresses, :class_name => 'Address', :foreign_key => 'user_id'
 
+  has_many :transactions, :class_name => 'Transaction', :foreign_key => 'user_id'
+
   has_many :own_services, :class_name => 'Service', :foreign_key => 'creator_id'
   def all_name
     "#{firstname} #{name}"
