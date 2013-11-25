@@ -1,8 +1,14 @@
 class AddressController < ApplicationController
-      before_action :is_logged_in, only: [:new,:create]
+      before_action :is_logged_in, only: [:new,:create,:index]
 
     def new
-    @address =Adress.new
+        @address =Address.new
+    end
+    
+    def index
+        #TODO quand julien aura rajoute les orga, faudra les gérer
+        @addresses=Address.all.where('user_id = :user_id', :user_id => current_user.id )
+        
     end
     
     def create
