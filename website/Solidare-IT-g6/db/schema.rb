@@ -28,6 +28,18 @@ ActiveRecord::Schema.define(version: 20131125072307) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
 
+  create_table "addresses", force: true do |t|
+    t.string   "street"
+    t.integer  "number"
+    t.integer  "postal_code"
+    t.string   "city"
+    t.string   "country"
+    t.integer  "user_id"
+    t.integer  "orga_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -57,8 +69,8 @@ ActiveRecord::Schema.define(version: 20131125072307) do
     t.text     "description"
     t.datetime "date_start"
     t.datetime "date_end"
-    t.boolean  "quick_match"
-    t.integer  "matching_service_id"
+    t.boolean  "quick_match",         default: false
+    t.integer  "matching_service_id", default: -1
     t.integer  "creator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
