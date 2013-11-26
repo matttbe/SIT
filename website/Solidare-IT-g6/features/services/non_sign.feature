@@ -3,6 +3,7 @@ Feature: Service for non signed User
 
     Background:
       Given I am not logged in
+      And The DB have a lot of users
       And The database contains services
 
     Scenario: User not signed up can show all services

@@ -2,7 +2,8 @@ Feature: Add, edit and destroy a Service
   testing action when a registered user add, edit or destroy a service
 
     Background:
-      Given The database contains services
+      Given The DB have a lot of users
+      And The database contains services
 
     Scenario: Validated user can create a service
       And I am logged in

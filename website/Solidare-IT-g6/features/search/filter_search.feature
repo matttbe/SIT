@@ -3,6 +3,7 @@ Feature: Search with filter
 
     Background:
       Given I am not logged in
+      And The DB have a lot of users
       And The database contains services
 
     Scenario: Filter with active show anything

@@ -1,7 +1,3 @@
-def player
-  @visitorP ||= { :id=>15,:email =>"obli@player.edu", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Malou", :firstname => "Eddy", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>false }
-end
-
 def create_admin_user
   @visitor ||= { :email =>"maitre@dieu.ciel", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Maitre", :firstname => "Ciel", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true, :superadmin=>true }
 end
@@ -14,14 +10,11 @@ def create_visitor
   @visitor ||= { :email =>"eddy.malou@savoir.congo", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Malou", :firstname => "Eddy", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true }
 end
 
-def force_player
-  player
-  @user = User.create!(@visitorP)
-end
-
 def show_page
   save_and_open_page
 end
+
+
 def find_user
   @user ||= User.where(:email => @visitor[:email]).first
 end
@@ -35,6 +28,9 @@ end
 
 def create_all_users
 
+  @u ||= User.where(:email => "maitre@dieu.ciel").first
+  @u.destroy unless @u.nil?
+  User.create!({:email =>"maitre@dieu.ciel", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Maitre", :firstname => "Ciel", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true, :superadmin=>true })
   @u ||= User.where(:email => "eddy@savoir.congo").first
   @u.destroy unless @u.nil?
   User.create!({ :email =>"eddy@savoir.congo", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Malou", :firstname => "Eddy", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>false })
@@ -96,6 +92,11 @@ Given /^I am not logged in$/ do
   visit '/users/sign_out' #TODO sign out if I am NOT logged in ?
 end
 
+Given /^I log in$/ do
+  find_user
+  sign_in
+end
+
 Given /^I am logged in$/ do
   create_user
   sign_in
@@ -124,7 +125,7 @@ end
 
 ### WHEN ###
 When /^I sign in with valid credentials for admin user$/ do
-  createadmin_user
+  #createadmin_user
   sign_in
 end
 When /^I sign in with valid credentials$/ do
