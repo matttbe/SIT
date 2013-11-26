@@ -115,9 +115,11 @@ class ServicesController < ApplicationController
     @transaction=Transaction.new(transaction_params)
     @transaction.user_id=@service.creator_id
     @transaction.service_id=@service.id
+    @user=User.find(@transaction.user_id)
+    @user.karma=@user.karma+@transaction.feedback_evaluation
     #TODO update karma
     respond_to do |format|
-       if @transaction.save
+       if @transaction.save && @user.update
          format.html { redirect_to my_services_path, notice: 'thanks for your feedback !' }
          format.json { head :no_content }
        else

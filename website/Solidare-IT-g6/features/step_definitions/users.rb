@@ -1,3 +1,7 @@
+def player
+  @visitorP ||= { :id=>15,:email =>"obli@player.edu", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Malou", :firstname => "Eddy", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>false }
+end
+
 def create_admin_user
   @visitor ||= { :email =>"maitre@dieu.ciel", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Maitre", :firstname => "Ciel", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true, :superadmin=>true }
 end
@@ -8,6 +12,11 @@ end
 
 def create_visitor
   @visitor ||= { :email =>"eddy.malou@savoir.congo", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Malou", :firstname => "Eddy", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true }
+end
+
+def force_player
+  player
+  @user = User.create!(@visitorP)
 end
 
 def show_page
