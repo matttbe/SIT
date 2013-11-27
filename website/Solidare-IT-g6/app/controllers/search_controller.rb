@@ -27,9 +27,12 @@ class SearchController < ApplicationController
       end 
 
       if (! params[:q].nil? and ! params[:q].empty? and !@services.nil?)
-        #@services = @services.where(:quick_match=>false).where('(title LIKE (:titles) or description LIKE (:titles))',
-        #           :titles => "%" + params[:q] + "%")
-        @services = @services.search(params[:q])
+        if Rails.env.production?||Rails.env.development?
+          @services = @services.search(params[:q])
+        else
+          @services = @services.where(:quick_match=>false).where('(title LIKE (:titles) or description LIKE (:titles))',
+                   :titles => "%" + params[:q] + "%")
+        end
       end
 
       if (!params[:filter].nil?)

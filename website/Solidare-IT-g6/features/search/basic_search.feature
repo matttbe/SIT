@@ -8,9 +8,9 @@ Feature: Basic search
 
     Scenario: User can perform a search
       When I return to the site
-      And I do a search of IA words in Demand
+      And I do a search of Livre words in Demand
       And I click on the Search button
-      Then I see the IA service
+      Then I see a service
 
     Scenario: User who do a search on offer with "search" show anything
       When I return to the site
