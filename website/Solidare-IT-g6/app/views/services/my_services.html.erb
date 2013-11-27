@@ -1,7 +1,9 @@
 <h3>My services</h3>
 <br /><br />
 <% @services.each do |service|  
-  if service.quick_match%>
+  if service.quick_match
+    service=service.matching_service
+  %>
   You have accept this service :
   <br /><br />
 <%end%>
