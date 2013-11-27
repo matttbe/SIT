@@ -50,6 +50,11 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
+    algoliasearch (1.1.8)
+      curb
+    algoliasearch-rails (1.4.2)
+      algoliasearch (>= 1.1.7)
+      json (>= 1.5.1)
     arbre (1.0.1)
       activesupport (>= 3.0.0)
     arel (4.0.1)
@@ -93,6 +98,7 @@ GEM
       cucumber (>= 1.2.0)
       nokogiri (>= 1.5.0)
       rails (>= 3.0.0)
+    curb (0.8.5)
     database_cleaner (1.2.0)
     date_validator (0.7.0)
       activemodel (>= 3)
@@ -103,7 +109,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    docile (1.1.0)
+    docile (1.1.1)
     erubis (2.7.0)
     execjs (2.0.2)
     ffi (1.9.3)
@@ -271,6 +277,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
+  algoliasearch-rails
   bootstrap_forms!
   capybara
   coffee-rails (~> 4.0.0)

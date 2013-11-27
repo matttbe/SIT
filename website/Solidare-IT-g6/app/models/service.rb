@@ -1,4 +1,5 @@
 class Service < ActiveRecord::Base
+  include AlgoliaSearch
 
   validates :date_start, :presence => true,:date => { :after => Time.now }
   validates :date_end, :presence => true,:date => { :after => :date_start }
@@ -12,4 +13,8 @@ class Service < ActiveRecord::Base
 
   has_one :matching_service, :class_name => 'Service', :foreign_key => 'matching_service_id'
   belongs_to :service
+
+  algoliasearch do
+    attribute :title, :description
+  end
 end
