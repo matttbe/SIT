@@ -11,7 +11,7 @@ Then /^show me the page$/ do
 end
 
 Then /^I should be on root page$/ do
-    assert page.has_content?("This is the home page!!!")
+    assert page.has_content?("Trollol")
 end
 
 Then(/^I should see a missing (.*) message$/) do |blank|
