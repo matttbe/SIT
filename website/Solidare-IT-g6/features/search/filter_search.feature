@@ -8,7 +8,7 @@ Feature: Search with filter
 
     Scenario: Filter with active show anything
       When I return to the site
-      And I do a search of Livre words in Demand
+      And I do a search of IA words in Demand
       And I click on the Search button
       And I click on the Show only active service link
       Then I see a No result message

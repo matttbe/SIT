@@ -124,6 +124,10 @@ Then(/^I see a service$/) do
   assert page.has_content?(@serviceC[:title])
 end
 
+Then(/^I see the IA service$/) do
+
+end
+
 Then(/^I see the add service button$/) do
   assert page.has_content?(:link_or_button, 'Add a service')
 end
