@@ -1,5 +1,17 @@
 <%if user_signed_in? %>
-                                                <li><%=  current_user.all_name %></li>
+                                                <li>
+                                                    <%=  current_user.all_name %>
+                                                    <%  @karma=current_user.karma 
+                                                        if @karma>0%>
+                                                          <span class="badge badge-success">
+                                                     <% elsif @karma<0 %>
+                                                          <span class="badge badge-important">
+                                                     <% else %>
+                                                          <span class="badge">
+                                                     <% end %>
+                                                     <%= @karma %>
+                                                          </span>
+                                                </li>
                                                 <li class="divider-vertical"></li>
                                                 <li class="dropdown">
                                                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= image_tag "profil.jpg", :class=>'img-circle' %><b class="caret"></b></a>
