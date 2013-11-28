@@ -7,7 +7,7 @@ ActiveAdmin.register User do
       f.input :password_confirmation
       f.input :superadmin, :label => "Super Administrator"
     end
-    f.buttons
+    f.actions
   end
 
   create_or_edit = Proc.new {
