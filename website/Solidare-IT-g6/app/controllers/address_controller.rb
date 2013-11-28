@@ -5,11 +5,43 @@ class AddressController < ApplicationController
         @address =Address.new
     end
     
+    def create
+    
+    end
+    
     def index
         #TODO quand julien aura rajoute les orga, faudra les gérer
-        @addresses=Address.all.where('user_id = :user_id', :user_id => current_user.id )
+        @addresses = current_user.addresses
         
     end
+    
+    def update
+        if !(@address.user_id==current_user.id)
+            dont_see
+        else
+            respond_to do |format|
+                if @address.update(service_params)
+                    format.html { redirect_to @address, notice: 'Service was successfully updated.' }
+                    format.json { head :no_content }
+                else
+                    show_error(format,'edit')
+                end
+            end
+        end
+    end
+    
+    def destroy
+        if !(@address.user_id==current_user.id)
+            dont_see
+        else
+            @address.destroy
+            respond_to do |format|
+                format.html { redirect_to addresses_url }
+                format.json { head :no_content }
+            end
+        end
+    end
+
     
     def create
       @address = Address.new(address_params)

@@ -14,6 +14,9 @@
   </script>
 </head>
 <body>
+
+<!-- <div class="container"> -->
+  <div id="header" class="jumbotron">
   <% location= request.env['PATH_INFO'] %>
     <nav class="navbar" role="navigation">
       <div class="navbar-inner">
@@ -43,15 +46,12 @@
         </ul>
       </div>
     </nav>
-<div class="container">
-  <div id="header" class="jumbotron">
-
     <div style="text-align: center;"><img src="/images/logo.png" alt ="logo" align="center"></img></div>
     <h1>Solidare-it</h1>
     <p>Un site solidaire!</p>
-    
+
     <%= render 'search/form' %>
-  </div>
+  <!-- </div> -->
 
 
   <% if notice.present? %>

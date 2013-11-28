@@ -19,3 +19,14 @@ body.active_admin span.icon svg {
 #search-box {
     margin: 15px 0px 15px 0px
 }
+
+.jumbotron {
+    /*background: url("http://www.voyageurs-du-temps.fr/images/sites/afrique/enfants-africains-cours-de-recreation.jpg") no-repeat;
+    /*background: url("images/bg.png") no-repeat;*/
+    background-position: center center;
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+    background-size: cover; 
+    background-size: 100% 100%;    
+    color:white;
+}
