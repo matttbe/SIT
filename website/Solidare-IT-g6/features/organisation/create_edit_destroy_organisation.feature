@@ -16,4 +16,4 @@ Feature: Add, edit and destroy a Organisation
       And I click on the Create an organisation link
       And I fill the organisation form
       And I click on the Create Organisation button
-      Then I see a organisation was successfully created. message
+      Then I see a Organisation was successfully created. message
