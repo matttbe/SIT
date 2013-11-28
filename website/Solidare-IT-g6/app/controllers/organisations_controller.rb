@@ -15,7 +15,7 @@ class OrganisationsController < InheritedResources::Base
   # POST /organisations.json
   def create
       @organisation = Organisation.new(organisation_params)
-      #@organisation.creator_id=current_user.id
+      @organisation.creator_id=current_user.id
 
       respond_to do |format|
         if @organisation.save
