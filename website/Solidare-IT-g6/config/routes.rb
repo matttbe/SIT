@@ -37,4 +37,7 @@ SolidareItG6::Application.routes.draw do
   #address routing
   resources :address
   
+  #authenticate
+  
+  
 end
