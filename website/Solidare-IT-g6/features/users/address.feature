@@ -19,4 +19,9 @@ Feature: Addresses of user
       And I am logged in
       When I return to the site 
       And I click on the Manage my addresses link
-      Then I can see the add adresses link
+      And I click on the New address link
+      And I fill the address form
+      And I click on the Add address button
+      Then I see a Address was successfully created. message
+      And I see my address
+

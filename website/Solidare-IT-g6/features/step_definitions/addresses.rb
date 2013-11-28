@@ -1,7 +1,21 @@
 def create_address_user
-  @address ||= { :street =>"rue du savoir", :number=>'12', :password_confirmation=>'iloveponcin', :name =>"Maitre", :firstname => "Ciel", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true }
+  @address ||= { :street =>"rue du savoir", :number=>'12', :postal_code=>'1234', :city =>"Kinshasa", :country => "Congo" }
 end
 
+def fill_form_address
+  fill_in "address_street", :with => @address[:street]
+  fill_in "address_number", :with => @address[:number]
+  fill_in "address_postal_code", :with => @address[:postal_code]
+  fill_in "address_city", :with => @address[:city]
+  fill_in "address_country", :with => @address[:country]
+
+end
+
+### WHEN ###
+When(/^I fill the address form$/) do
+  create_address_user
+  fill_form_address
+end
 ### THEN ###
 Then /^I can not see the manage my adresses link$/ do
   assert !page.has_content?("Manage my addresses")
@@ -13,4 +27,8 @@ end
 
 Then /^I can see the add adresses link$/ do
   assert page.has_content?("New address")
+end
+
+Then /^I see my address$/ do
+  assert page.has_content?(@address[:street])
 end
