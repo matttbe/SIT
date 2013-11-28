@@ -8,8 +8,17 @@
   <%= @group.description %>
 </p>
 
+<%= form_for([@group, @group.group_posts.build]) do |f| %>
+  <p>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit "Add new post"%>
+  </p>
+<% end %>
+
 <p>
-<%= link_to 'Destroy', group_path(@group),
+<%= link_to 'Delete group', group_path(@group),
                     method: :delete, data: { confirm: 'Are you sure?' } %>
 
 </p>
