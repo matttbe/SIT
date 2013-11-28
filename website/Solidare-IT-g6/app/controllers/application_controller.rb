@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def show_error(format,actionName,model)
+    format.html { render action: actionName }
+    format.json { render json: model.errors, status: :unprocessable_entity }
+  end
+
   def generateLink(search,param)
     link=search
     if search.nil?
