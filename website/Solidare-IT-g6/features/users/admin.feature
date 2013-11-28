@@ -13,6 +13,19 @@ Feature: Admin backoffice
     When I go to admin page
     Then I see a return message on sign in page
 
+  Scenario: If I am not signed in, I not see the admin link
+    Given I exist as a user
+    And I am not logged in
+    When I return to the site
+    Then I not see the admin link
+
+  Scenario: As an admin user, I can see the admin link
+    Given I exist as an admin user
+    And I am not logged in
+    When I sign in with valid credentials for admin user
+    And I return to the site
+    Then I see the admin link
+
   Scenario: As an admin user, I can see the admin dashboard
     Given I exist as an admin user
     And I am not logged in

@@ -5,6 +5,13 @@ When /^I go to admin page$/ do
 end
 
 ### THEN ###
+Then /^I see the admin link$/ do
+  assert page.has_content?("Admin")
+end
+
+Then /^I not see the admin link$/ do
+  assert !page.has_content?("Admin")
+end
 
 Then /^I should see the Dashboard$/ do
   assert page.has_content?("Dashboard")
