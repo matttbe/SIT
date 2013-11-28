@@ -32,7 +32,8 @@ class User < ActiveRecord::Base
   
   has_many :notifications
   has_many :services, through: :notification
-  
+  has_many :group_posts, :class_name => 'GroupPost', :foreign_key => 'user_id'
+
   def all_name
     "#{firstname} #{name}"
   end

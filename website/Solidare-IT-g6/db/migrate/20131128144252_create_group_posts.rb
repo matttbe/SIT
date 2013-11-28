@@ -4,7 +4,6 @@ class CreateGroupPosts < ActiveRecord::Migration
       t.references :group, index: true
       t.references :user, index: true
       t.text :body
-      t.datetime :time
 
       t.timestamps
     end

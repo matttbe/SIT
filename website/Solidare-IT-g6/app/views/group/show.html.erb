@@ -8,14 +8,18 @@
   <%= @group.description %>
 </p>
 
-<%= form_for([@group, @group.group_posts.build]) do |f| %>
+<h2>Posts</h2>
+<% @group.group_posts.each do |group_post| %>
   <p>
-    <%= f.text_area :body %>
-  </p>
-  <p>
-    <%= f.submit "Add new post"%>
+    <%if !group_post.user.nil? %>
+      <strong><%=group_post.user.all_name %>	</strong>
+	<% end %>
+    <%= group_post.body %>
   </p>
 <% end %>
+
+
+<%= render 'post_form' %>
 
 <p>
 <%= link_to 'Delete group', group_path(@group),
