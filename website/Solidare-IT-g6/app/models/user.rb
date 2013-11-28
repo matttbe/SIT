@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
 
   has_many :transactions, :class_name => 'Transaction', :foreign_key => 'user_id'
   has_many :own_organisations, :class_name => 'Organisation', :foreign_key => 'creator_id'
+  has_many :coworkers
+  has_many :organisations,:foreign_key => 'org_id', through: :coworkers
   has_many :own_services, :class_name => 'Service', :foreign_key => 'creator_id'
   def all_name
     "#{firstname} #{name}"

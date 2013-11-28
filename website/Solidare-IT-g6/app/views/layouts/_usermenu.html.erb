@@ -24,6 +24,9 @@
                                                          <li><%= link_to "See my services",  my_services_path %></li>
                                                       <li class="divider"></li>
                                                       <li class="nav-header">Organisation</li>
+                                                        <%if current_user.own_organisations.nil?  %>
+                                                         <li><%= link_to "Manage my organisations",  new_organisation_path %></li>
+                                                        <% end %>
                                                          <li><%= link_to "Create an organisation",  new_organisation_path %></li>
                                                          <li><%= link_to "Join an organisation",  join_organisation_path %></li>
                                                       <li class="divider"></li>

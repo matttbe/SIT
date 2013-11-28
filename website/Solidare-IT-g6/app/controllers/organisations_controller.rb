@@ -16,11 +16,17 @@ class OrganisationsController < InheritedResources::Base
   def create
       @organisation = Organisation.new(organisation_params)
       @organisation.creator_id=current_user.id
-
       respond_to do |format|
         if @organisation.save
-          format.html { redirect_to @organisation, notice: 'organisation was successfully created.' }
-          format.json { render action: 'show', status: :created, location: @organisation }
+          @coworker = Coworker.new()
+          @coworker.user = current_user
+          @coworker.organisation = @organisation
+          if @coworker.save
+              format.html { redirect_to @organisation, notice: 'Organisation was successfully created.' }
+              format.json { render action: 'show', status: :created, location: @organisation }
+          else
+              show_error(format,'new',@coworker)
+          end
         else
           show_error(format,'new',@organisation)
         end
