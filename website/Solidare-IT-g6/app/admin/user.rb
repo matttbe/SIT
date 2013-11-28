@@ -5,17 +5,19 @@ ActiveAdmin.register User do
       f.input :email
       f.input :password
       f.input :password_confirmation
-      f.input :superadmin, :label => "Super Administrator"
+      f.input :superadmin, :as => :boolean, :label => "Super Administrator"
     end
     f.actions
   end
 
   create_or_edit = Proc.new {
     @user            = User.find_or_create_by_id(params[:id])
-    @user.superadmin = params[:user][:superadmin]
-    @user.attributes = params[:user].delete_if do |k, v|
-      (k == "superadmin") ||
-      (["password", "password_confirmation"].include?(k) && v.empty? && !@user.new_record?)
+    if not params[:user][:superadmin].nil?
+      @user.superadmin = params[:user][:superadmin]
+    end
+    @user.email = params[:user][:email]
+    if not params[:user][:password].nil? and not params[:user][:password].empty? and params[:user][:password] == params[:user][:password_confirmation]
+      user.password = params[:user][:password]
     end
     if @user.save
       redirect_to :action => :show, :id => @user.id

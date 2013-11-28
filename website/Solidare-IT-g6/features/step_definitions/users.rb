@@ -1,5 +1,6 @@
 def create_admin_user
-  @visitor ||= { :email =>"maitre@dieu.ciel", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Maitre", :firstname => "Ciel", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true, :superadmin=>true }
+  @visitor ||= { :email =>"maitre@dieu.ciel", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Maitre", :firstname => "Ciel", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true }
+  @visitor.add_role "superadmin"
 end
 
 def create_non_valide_user
@@ -30,7 +31,8 @@ def create_all_users
 
   @u ||= User.where(:email => "maitre@dieu.ciel").first
   @u.destroy unless @u.nil?
-  User.create!({:email =>"maitre@dieu.ciel", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Maitre", :firstname => "Ciel", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true, :superadmin=>true })
+  a = User.create!({:email =>"maitre@dieu.ciel", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Maitre", :firstname => "Ciel", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true })
+  a.add_role "superadmin"
   @u ||= User.where(:email => "eddy@savoir.congo").first
   @u.destroy unless @u.nil?
   User.create!({ :email =>"eddy@savoir.congo", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Malou", :firstname => "Eddy", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>false })

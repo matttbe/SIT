@@ -28,4 +28,16 @@ class User < ActiveRecord::Base
     #self.id_ok||=false
   end
 
+  def superadmin
+    return self.has_role? "superadmin"
+  end
+
+  def superadmin=(newAdmin)
+    if newAdmin
+      self.add_role "superadmin"
+    else
+      self.remove_role "superadmin"
+    end
+  end
+
 end
