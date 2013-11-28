@@ -4,8 +4,8 @@ class SearchController < ApplicationController
   # GET /search
   def match
 
-    # no filter
-    if (params.length <= 2) # The params hash will always contain the :controller and :action keys
+    # no filter (min 2 items in params)
+    if (params.length <= 2)
       @services = Service.all # TODO: display all services?
     else
       @search = "/search?"
