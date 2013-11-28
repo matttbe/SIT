@@ -32,7 +32,7 @@
               <li>
           <% end %>
           <a href="<%= services_path  %>">Services</a></li>
-          <% if !current_user.nil?&&current_user.superadmin %>
+          <% if !current_user.nil? && current_user.superadmin %>
               <li><a href="/admin">Admin</a></li>
           <% end %>
 

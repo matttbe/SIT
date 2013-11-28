@@ -1,6 +1,5 @@
 def create_admin_user
   @visitor ||= { :email =>"maitre@dieu.ciel", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Maitre", :firstname => "Ciel", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true }
-  @visitor.add_role "superadmin"
 end
 
 def create_non_valide_user
@@ -57,6 +56,7 @@ def createadmin_user
   create_admin_user
   delete_user
   @user = User.create!(@visitor)
+  @user.add_role "superadmin"
 end
 
 def delete_user
