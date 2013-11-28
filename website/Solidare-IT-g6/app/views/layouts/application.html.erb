@@ -26,12 +26,15 @@
           <% end %>
           <a href="<%= root_path  %>">Home</a></li>
 
-          <% if location==services_path %>
+          <% if location==search_path %>
               <li class="active">
           <% else %>
               <li>
           <% end %>
           <a href="<%= services_path  %>">Services</a></li>
+          <% if current_user.superadmin %>
+              <li><a href="/admin">Admin</a></li>
+          <% end %>
 
 
         </ul>
