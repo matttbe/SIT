@@ -21,7 +21,7 @@ class AddressController < ApplicationController
           format.html { redirect_to @address, notice: 'Address was successfully created.' }
           format.json { render action: 'show', status: :created, location: @address }
         else
-          show_error(format,'new')
+          show_error(format,'new',@adress)
         end
       end
       

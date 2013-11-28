@@ -22,7 +22,7 @@ class OrganisationsController < InheritedResources::Base
           format.html { redirect_to @organisation, notice: 'organisation was successfully created.' }
           format.json { render action: 'show', status: :created, location: @organisation }
         else
-          show_error(format,'new')
+          show_error(format,'new',@organisation)
         end
       end
   end
@@ -36,11 +36,6 @@ class OrganisationsController < InheritedResources::Base
     # Never trust parameters from the scary internet, only allow the white list through.
     def organisation_params
       params.require(:organisation).permit(:name)
-    end
-    
-    def show_error(format,actionName)
-      format.html { render action: actionName }
-      format.json { render json: @organisation.errors, status: :unprocessable_entity }
     end
 
 end

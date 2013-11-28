@@ -67,7 +67,7 @@ class ServicesController < ApplicationController
           format.html { redirect_to @service, notice: 'Service was successfully created.' }
           format.json { render action: 'show', status: :created, location: @service }
         else
-          show_error(format,'new')
+          show_error(format,'new',@service)
         end
       end
   end
@@ -83,7 +83,7 @@ class ServicesController < ApplicationController
           format.html { redirect_to @service, notice: 'Service was successfully updated.' }
           format.json { head :no_content }
         else
-          show_error(format,'edit')
+          show_error(format,'edit',@service)
         end
       end
     end
@@ -123,7 +123,7 @@ class ServicesController < ApplicationController
          format.html { redirect_to my_services_path, notice: 'thanks for your feedback !' }
          format.json { head :no_content }
        else
-         show_error(format,'my_services')
+         show_error(format,'my_services',@transaction)
        end
      end
   end
@@ -175,10 +175,5 @@ class ServicesController < ApplicationController
       params.require(:transaction).permit(:feedback_comments, :feedback_evaluation)
     end
 
-    protected
 
-    def show_error(format,actionName)
-      format.html { render action: actionName }
-      format.json { render json: @service.errors, status: :unprocessable_entity }
-    end
 end
