@@ -1,0 +1,2 @@
+class GroupPostsController < ApplicationController
+end
