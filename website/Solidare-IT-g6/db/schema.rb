@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20131128144252) do
     t.integer  "group_id"
     t.integer  "user_id"
     t.text     "body"
-    t.datetime "time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
 
   has_many :own_services, :class_name => 'Service', :foreign_key => 'creator_id'
+  has_many :group_posts, :class_name => 'GroupPost', :foreign_key => 'user_id'
   def all_name
     "#{firstname} #{name}"
   end
