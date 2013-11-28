@@ -26,6 +26,9 @@ SolidareItG6::Application.routes.draw do
   #transaction routing
   get '/transaction/:id' => 'services#new_transaction', :as=>"add_transaction"
   post '/transaction/:id' => 'services#create_transaction', :as=>"create_transaction"
+  
+  #organisation routing
+  get '/organisation/all' => 'organisations#join_organisation', :as=>"join_organisation"
 
   devise_scope :user do
     get "sign_in", :to => "devise/sessions#new"
