@@ -1,4 +1,4 @@
-<%=bootstrap_form_for(@address) do |f| %>
+<%=bootstrap_form_for(@address ,:url => {:action => "create", :id => @address.id}) do |f| %>
 
     <%= f.text_field :street %>
     <%= f.text_field :number %>

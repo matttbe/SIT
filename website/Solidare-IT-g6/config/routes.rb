@@ -39,5 +39,7 @@ SolidareItG6::Application.routes.draw do
   
   #address routing
   resources :address
+  post '/adresses' => 'adresses#create', :as=>"addresses_create_path"
+
   
 end
