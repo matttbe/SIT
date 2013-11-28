@@ -24,8 +24,15 @@
               <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only service proposed by good karma</a></li>
               <li class="nav-header">Categories</li>
               <% if (!@categories.nil?&&@categories.size>0) %>
-                <% @categories.each do |category| %>
-                  <li><a href=""><%=Category.find(category.first).title%> <span class="badge"><%=category.second.size%></span></a></li>
+                <% @categories.each do |category|
+                   if category.first>-1
+                    @category=Category.find(category.first)
+                     @param="&category="+@category.id.to_s
+                     @link=generateLink(@search,@param)
+                      @active=!@link.include?(@param)
+                      %>
+                    <li <% if @active%> class="active"<% end%>><a href="<%= @link %>"><%=@category.title%> <span class="badge"><%=category.second.size%></span></a></li>
+                <% end %>
                 <% end %>
               <% end %>
             </ul>

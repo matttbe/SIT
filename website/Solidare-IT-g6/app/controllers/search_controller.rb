@@ -47,6 +47,11 @@ class SearchController < ApplicationController
         @search = @search + "&filter=" + @filter
       end
 
+      if(!params[:category].nil?)
+        @services = @services.where('category_id==:cato',:cato=>params[:category])
+        @search = @search + "&category=" + params[:category]
+      end
+
       if (! params[:q_order_end].nil?)
         @services = @services.order(date_end: :asc)
         @search = @search + "&q_order_end=on"
