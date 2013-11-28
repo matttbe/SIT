@@ -36,6 +36,24 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
 
+    columns do
+
+      column do
+        panel "Organisation to confirm" do
+          table_for Organisation.where(:validated => false).limit(10).each do |customer|
+            column("Name")   {|customer| customer.name}
+            column("")       {|customer| link_to "Validate", valid_organisation_admin_organisation_path(customer)}
+          end
+        end
+      end
+
+      column do
+        panel "Report problem (irly ? :p)" do
+          para "to do"
+        end
+      end
+    end
+
   # Here is an example of a simple dashboard with columns and panels.
   #
   # columns do

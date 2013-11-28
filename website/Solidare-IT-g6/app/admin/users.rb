@@ -14,8 +14,8 @@ ActiveAdmin.register User, :as => "Users" do
     respond_to do |format|
       format.html{ redirect_to request.referer}
     end
-
   end
+
   index do
     selectable_column
     id_column
