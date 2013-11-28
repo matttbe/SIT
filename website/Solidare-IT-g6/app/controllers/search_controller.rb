@@ -26,11 +26,13 @@ class SearchController < ApplicationController
         @services = Service.all #TODO : What do we do if none of the checkboxes are checked ?
       end 
 
+      #includes category infos
+      @services=@services.includes(:category)
       if (! params[:q].nil? and ! params[:q].empty? and !@services.nil?)
         if Rails.env.production?||Rails.env.development?
-          @services = @services.search(params[:q])
+          @services = @services.includes(:category).search(params[:q])
         else
-          @services = @services.where(:quick_match=>false).where('(title LIKE (:titles) or description LIKE (:titles))',
+          @services = @services.where(:quick_match=>false).where('(services.title LIKE (:titles) or services.description LIKE (:titles))',
                    :titles => "%" + params[:q] + "%")
         end
       end
@@ -55,6 +57,14 @@ class SearchController < ApplicationController
       end
 
       @search = @search + "&commit=Search"
+      if Rails.env.production?||Rails.env.development?
+        @services.reverse!
+        @categories=@services.group_by &:category_id
+        
+      else
+        @categories=@services.group("categories.title")
+      end
+
     end
   end
 
