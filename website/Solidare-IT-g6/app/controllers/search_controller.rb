@@ -10,7 +10,7 @@ class SearchController < ApplicationController
     else
       @search = "/search?"
       if (! params[:q].nil?)
-        @search += "/search?q=" + params[:q] + "&"
+        @search += "q=" + params[:q] + "&"
       end
       if (! params[:type_q].nil?)
         @search += "type_q=" + params["type_q"]
@@ -29,12 +29,8 @@ class SearchController < ApplicationController
       #includes category infos
       @services=@services.includes(:category)
       if (! params[:q].nil? and ! params[:q].empty? and !@services.nil?)
-        if Rails.env.production?||Rails.env.development?
-          @services = @services.includes(:category).search(params[:q])
-        else
-          @services = @services.where(:quick_match=>false).where('(services.title LIKE (:titles) or services.description LIKE (:titles))',
+          @services = @services.where(:quick_match=>false).where('(services.title LIKE (:titles) or services.description LIKE (:titles) or categories.title LIKE (:titles) or categories.text LIKE (:titles))',
                    :titles => "%" + params[:q] + "%")
-        end
       end
 
       if (!params[:filter].nil?)
@@ -57,14 +53,8 @@ class SearchController < ApplicationController
       end
 
       @search = @search + "&commit=Search"
-      if Rails.env.production?||Rails.env.development?
-        @services.reverse!
-        @categories=@services.group_by &:category_id
-        
-      else
-        @categories=@services.group("categories.title")
-      end
-
+      @services.reverse!
+      @categories=@services.group_by &:category_id
     end
   end
 

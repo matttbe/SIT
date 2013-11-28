@@ -23,7 +23,7 @@
                %>
               <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only service proposed by good karma</a></li>
               <li class="nav-header">Categories</li>
-              <% if (Rails.env.production?||Rails.env.development?)&&(!@categories.nil?&&@categories.size>0) %>
+              <% if (!@categories.nil?&&@categories.size>0) %>
                 <% @categories.each do |category| %>
                   <li><a href=""><%=Category.find(category.first).title%> <span class="badge"><%=category.second.size%></span></a></li>
                 <% end %>
