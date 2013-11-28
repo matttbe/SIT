@@ -46,6 +46,10 @@ gem 'bootstrap_forms', github: 'gagalago/bootstrap_forms'
 # admin
 gem 'activeadmin', github: 'gregbell/active_admin'
 
+# manage rights
+gem 'cancan'
+gem 'rolify'
+
 # coveralls
 gem 'coveralls', require: false
 

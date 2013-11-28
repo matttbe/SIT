@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  rolify
   before_save :default_values
 
   # Include default devise modules. Others available are:
