@@ -21,7 +21,7 @@ else
   a1 = User.create! :name => "Admin", :firstname => "Root", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :email => "root@localhost.local", :karma => 0, :id_ok => true, :presentation => "Super Admin", :inscription_ok => true, :password => 'password', :password_confirmation => 'password'
   a1.add_role :superadmin
   a2 = User.create! :email =>"maitre@dieu.ciel", :password=>'password', :password_confirmation=>'password', :name =>"Dieu", :firstname => "Maitre", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 0, :id_ok => true
-  a1.add_role :superadmin
+  a2.add_role :superadmin
 
   # services
   s1 = Service.create! :title=>"Livre",:description => "vente livre congolexicomatisation", :date_start => 'Mon, 28 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2015 15:00:00 UTC +00:00', :creator_id => u2.id, :is_demand=>true, :quick_match=>false
