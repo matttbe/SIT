@@ -1,8 +1,8 @@
 class Address < ActiveRecord::Base
 
   validates :street, :presence => true
-  validates :number, :presence => true
-  validates :postal_code, :presence => true
+  validates_numericality_of :number, :presence => true,:only_integer => true
+  validates_numericality_of :postal_code, :presence => true ,:only_integer => true
   validates :city, :presence => true
   validates :country, :presence => true
   
