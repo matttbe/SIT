@@ -21,6 +21,11 @@ class GroupController < ApplicationController
     redirect_to group_index_path
   end
 
+  def index
+    @groups = Group.all
+    render 
+  end
+
   private
     def group_params
       params.require(:group).permit(:name, :description)

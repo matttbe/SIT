@@ -1,5 +1,24 @@
 <!-- TODO : in here will be suggested some groups -->
-
+<!-- List all groups for now-->
 <p>In here will be suggested some groupes to the user</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @groups.each do |group| %>
+      <tr>
+        <td><%= group.name %></td>
+        <td><%= group.description %></td>
+        <td><%= link_to 'Show', group%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'New Group', new_group_path %>
