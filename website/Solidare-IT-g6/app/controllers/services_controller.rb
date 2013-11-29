@@ -136,7 +136,7 @@ class ServicesController < ApplicationController
       @follower.user = current_user
       respond_to do |format|
         if @follower.save
-          format.html{redirect_to service_path(@service), notice: 'You follow the service'}
+          format.html{redirect_to request.referer, notice: 'You follow the service'}
         else
           show_error(format, 'show', @follower)
         end
@@ -147,7 +147,7 @@ class ServicesController < ApplicationController
       @follower = Follower.find(params[:follower_id])
       respond_to do |format|
         if @follower.destroy
-          format.html{redirect_to service_path(@service), notice: 'Service unfollow'}
+          format.html{redirect_to request.referer, notice: 'Service unfollow'}
         else
           show_error(format, 'show', @follower)
         end

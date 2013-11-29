@@ -2,8 +2,8 @@ class SearchController < ApplicationController
 
 
   # GET /search
-  def match
-
+  def match    
+    
     # no filter (min 2 items in params)
     if (params.length <= 2)
       @services = Service.all # TODO: display all services?
