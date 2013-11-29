@@ -11,7 +11,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20131129101018) do
 
   create_table "active_admin_comments", force: true do |t|
@@ -29,14 +28,6 @@ ActiveRecord::Schema.define(version: 20131129101018) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
 
-  create_table "group_post_comments", force: true do |t|
-    t.integer  "group_post_id"
-    t.integer  "user_id"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "addresses", force: true do |t|
     t.string   "street"
     t.integer  "number"
@@ -45,43 +36,6 @@ ActiveRecord::Schema.define(version: 20131129101018) do
     t.string   "country"
     t.integer  "user_id"
     t.integer  "orga_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-
-  add_index "group_post_comments", ["group_post_id"], name: "index_group_post_comments_on_group_post_id"
-  add_index "group_post_comments", ["user_id"], name: "index_group_post_comments_on_user_id"
-
-  create_table "group_posts", force: true do |t|
-    t.integer  "group_id"
-    t.integer  "user_id"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "admin_users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "group_posts", ["group_id"], name: "index_group_posts_on_group_id"
-  add_index "group_posts", ["user_id"], name: "index_group_posts_on_user_id"
-
-  create_table "groups", force: true do |t|
-    t.string   "name"
-    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -100,6 +54,35 @@ ActiveRecord::Schema.define(version: 20131129101018) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "validated",       default: false
+  end
+
+  create_table "group_post_comments", force: true do |t|
+    t.integer  "group_post_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_post_comments", ["group_post_id"], name: "index_group_post_comments_on_group_post_id"
+  add_index "group_post_comments", ["user_id"], name: "index_group_post_comments_on_user_id"
+
+  create_table "group_posts", force: true do |t|
+    t.integer  "group_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_posts", ["group_id"], name: "index_group_posts_on_group_id"
+  add_index "group_posts", ["user_id"], name: "index_group_posts_on_user_id"
+
+  create_table "groups", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "organisations", force: true do |t|
@@ -126,8 +109,8 @@ ActiveRecord::Schema.define(version: 20131129101018) do
     t.text     "description"
     t.datetime "date_start"
     t.datetime "date_end"
-    t.boolean  "quick_match"
-    t.integer  "matching_service_id"
+    t.boolean  "quick_match",         default: false
+    t.integer  "matching_service_id", default: -1
     t.integer  "creator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -157,11 +140,11 @@ ActiveRecord::Schema.define(version: 20131129101018) do
     t.boolean  "inscription_ok"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "encrypted_password",     default: "",   null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,    null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -170,7 +153,6 @@ ActiveRecord::Schema.define(version: 20131129101018) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.boolean  "superadmin",             default: false, null: false
     t.string   "language",               default: "en"
     t.integer  "coworker_org_id",        default: -1
     t.integer  "managed_org_id",         default: -1
