@@ -1,1 +1,5 @@
   <%= render 'show',:service=> @service %>
+
+<% if user_signed_in?%>
+  <%= render 'follow', :service=>@service%>
+<%end%>

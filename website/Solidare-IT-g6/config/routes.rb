@@ -42,8 +42,14 @@ SolidareItG6::Application.routes.draw do
   
   #address routing
   resources :address
+
   #post '/adresses' => 'adresses#create', :as=>"addresses_create_path"
   get '/adresses/:id/main' =>'address#main', :as=> "main_address"
+
+  
+  #follower
+  get '/service/:id/follow' => 'services#follow', :as=>"follow"
+  get '/service/:id/unfollow/:follower_id' => 'services#unfollow', :as=>"unfollow"  
 
   
 end
