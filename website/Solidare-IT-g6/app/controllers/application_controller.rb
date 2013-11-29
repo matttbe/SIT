@@ -8,6 +8,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def protect_param_integer
+    @can=true
+    if defined?(params[:id])&&!params[:id].nil?&& (params[:id]=="all")
+      @can=false
+      logger.debug(params[:id])
+      logger.debug("===================================")
+      respond_to do |format|
+        format.html { redirect_to '/', alert: 'You can not do that !' }
+      end
+    end
+  end
+
   def show_error(format,actionName,model)
     format.html { render action: actionName }
     format.json { render json: model.errors, status: :unprocessable_entity }

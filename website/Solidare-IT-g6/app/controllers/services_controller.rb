@@ -35,7 +35,10 @@ class ServicesController < ApplicationController
   # GET /services/1
   # GET /services/1.json
   def show
-    @service = Service.find(params[:id])
+    protect_param_integer
+    if @can
+      @service = Service.find(params[:id])
+    end
   end
 
   # GET /services/new

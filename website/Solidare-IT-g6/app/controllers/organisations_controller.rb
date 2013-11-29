@@ -12,7 +12,10 @@ class OrganisationsController < InheritedResources::Base
   end
   
   def show
-    @organisation = Organisation.find(params[:id])
+     protect_param_integer
+    if @can
+      @organisation = Organisation.find(params[:id])
+    end
   end
   
   # GET /join_organisations
