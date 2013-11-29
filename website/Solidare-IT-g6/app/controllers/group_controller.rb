@@ -26,6 +26,10 @@ class GroupController < ApplicationController
     render 
   end
 
+  def add_user
+
+  end
+
   private
     def group_params
       params.require(:group).permit(:name, :description)

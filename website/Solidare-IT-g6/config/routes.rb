@@ -10,6 +10,8 @@ SolidareItG6::Application.routes.draw do
 
   resources :services
 
+  resources :group_user_relation
+
   # devise_for :admin_users, ActiveAdmin::Devise.config ## => we took info from Devise
   ActiveAdmin.routes(self)
   devise_for :users
@@ -50,5 +52,5 @@ SolidareItG6::Application.routes.draw do
   resources :address
   post '/adresses' => 'adresses#create', :as=>"addresses_create_path"
 
-  
+
 end

@@ -38,6 +38,8 @@ else
   s2 = Service.create! :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id => u1.id, :is_demand=>true, :quick_match=>false, :category_id=>c222.id
   s3 = Service.create! :title=>"Livre Réseau",:description => "vente livre réseau", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2015 15:00:00 UTC +00:00', :creator_id => a1.id, :is_demand=>false, :quick_match=>false, :category_id =>c222.id
 
+  #group
+  g1 = Group.create! :name=>"Les mamadous du microcredit", :description => "Trololol"
 
   # Organisation
   o1 = Organisation.create! :name => "Les joyeux éboueurs de charleroi", :creator_id => u1.id

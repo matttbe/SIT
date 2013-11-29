@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
   has_many :own_services, :class_name => 'Service', :foreign_key => 'creator_id'
   has_many :group_posts, :class_name => 'GroupPost', :foreign_key => 'user_id'
   has_many :group_post_comments, :class_name => 'GroupPostComment', :foreign_key => 'user_id'
+  has_many :group_user_relations
+  has_many :groups, :through => :group_user_relations
   def all_name
     "#{firstname} #{name}"
   end
