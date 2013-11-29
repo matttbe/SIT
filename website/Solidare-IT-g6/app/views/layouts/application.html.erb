@@ -15,7 +15,7 @@
 </head>
 <body>
   <div id="header" class="jumbotron">
-  <% location= request.env['PATH_INFO'] %>
+    <% location= request.env['PATH_INFO'] %>
     <nav class="navbar" role="navigation">
       <div class="navbar-inner">
 
@@ -36,6 +36,7 @@
           <% if !current_user.nil? && current_user.superadmin %>
               <li><a href="/admin">Admin</a></li>
           <% end %>
+
 
 
         </ul>
@@ -65,11 +66,22 @@
 											  <%= render 'search/form' %>
                                                 
                                             </ul>
+                                            <ul>
+                                              <% if location==group_index_path %>
+                                                <li class="active">
+                                            <% else %>
+                                                <li>
+                                            <% end %>
+                                            <a href="<%= group_index_path  %>">Groups</a></li>
+
+
+                                            </ul>
                                              <ul class="nav pull-right">
                                                 <%= render 'layouts/usermenu' %>
                                             </ul>
                                           </div>
                                         </div>
+
 
 
 
