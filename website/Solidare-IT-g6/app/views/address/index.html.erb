@@ -5,7 +5,7 @@
   <tbody>
     <% @addresses.each do |address| %>
       <tr>
-        <td> <%= render 'address' %> </td>
+        <td> <%= render 'address', :address=>address %> </td>
         <td><% if !current_user.nil?&&address.user_id==current_user.id %><%= link_to 'Edit', edit_address_path(address) %><%end%></td>
         <td><% if !current_user.nil?&&address.user_id==current_user.id %><%= link_to 'Destroy', address, method: :delete, data: { confirm: 'Are you sure?' } %><%end%></td>
       </tr>

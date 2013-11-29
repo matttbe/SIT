@@ -1,12 +1,27 @@
 class AddressController < ApplicationController
-      before_action :is_logged_in, only: [:new,:create,:index]
+    before_action :is_logged_in, only: [:new,:create,:index, :update, :destroy, :show]
+    before_action :set_address, only: [:edit,:show, :destroy,:update]
 
     def new
         @address =Address.new
     end
     
     def create
+      @address = Address.new(address_params)
+      @address.user_id=current_user.id
+
+      respond_to do |format|
+        if @address.save
+          format.html { redirect_to @address, notice: 'Address was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @address }
+        else
+          show_error(format,'new',@address)
+        end
+      end
     
+    end
+
+    def show
     end
     
     def index
@@ -20,11 +35,11 @@ class AddressController < ApplicationController
             dont_see
         else
             respond_to do |format|
-                if @address.update(service_params)
+                if @address.update(address_params)
                     format.html { redirect_to @address, notice: 'Service was successfully updated.' }
                     format.json { head :no_content }
                 else
-                    show_error(format,'edit')
+                    show_error(format,'edit',@adress)
                 end
             end
         end
@@ -68,6 +83,10 @@ class AddressController < ApplicationController
         if !user_signed_in?
             dont_see
         end
+    end
+
+    def set_address
+      @address = Address.find(params[:id])
     end
     
 end

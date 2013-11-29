@@ -1,3 +1,6 @@
+<%if defined?(address)&&!address.nil? 
+    @address=address
+  end%>
 <p>
   <%= @address.street %>
   , &nbsp

@@ -10,7 +10,7 @@ class SearchController < ApplicationController
     else
       @search = "/search?"
       if (! params[:q].nil?)
-        @search += "/search?q=" + params[:q] + "&"
+        @search += "q=" + params[:q] + "&"
       end
       if (! params[:type_q].nil?)
         @search += "type_q=" + params["type_q"]
@@ -26,13 +26,11 @@ class SearchController < ApplicationController
         @services = Service.all #TODO : What do we do if none of the checkboxes are checked ?
       end 
 
+      #includes category infos
+      @services=@services.includes(:category)
       if (! params[:q].nil? and ! params[:q].empty? and !@services.nil?)
-        if Rails.env.production?||Rails.env.development?
-          @services = @services.search(params[:q])
-        else
-          @services = @services.where(:quick_match=>false).where('(title LIKE (:titles) or description LIKE (:titles))',
+          @services = @services.where(:quick_match=>false).where('(services.title LIKE (:titles) or services.description LIKE (:titles) or categories.title LIKE (:titles) or categories.text LIKE (:titles))',
                    :titles => "%" + params[:q] + "%")
-        end
       end
 
       if (!params[:filter].nil?)
@@ -49,12 +47,19 @@ class SearchController < ApplicationController
         @search = @search + "&filter=" + @filter
       end
 
+      if(!params[:category].nil?)
+        @services = @services.where('category_id==:cato',:cato=>params[:category])
+        @search = @search + "&category=" + params[:category]
+      end
+
       if (! params[:q_order_end].nil?)
         @services = @services.order(date_end: :asc)
         @search = @search + "&q_order_end=on"
       end
 
       @search = @search + "&commit=Search"
+      @services.reverse!
+      @categories=@services.group_by &:category_id
     end
   end
 

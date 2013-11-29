@@ -23,11 +23,6 @@ else
   a2 = User.create! :email =>"maitre@dieu.ciel", :password=>'password', :password_confirmation=>'password', :name =>"Dieu", :firstname => "Maitre", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 0, :id_ok => true
   a2.add_role :superadmin
 
-  # services
-  s1 = Service.create! :title=>"Livre",:description => "vente livre congolexicomatisation", :date_start => 'Mon, 28 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2015 15:00:00 UTC +00:00', :creator_id => u2.id, :is_demand=>true, :quick_match=>false
-  s2 = Service.create! :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id => u1.id, :is_demand=>true, :quick_match=>false
-  s3 = Service.create! :title=>"Livre Réseau",:description => "vente livre réseau", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2015 15:00:00 UTC +00:00', :creator_id => a1.id, :is_demand=>false, :quick_match=>false
-
   # categories
   c1   = Category.create! :title => 'Clothes', :text => 'All clothes'
   c11  = Category.create! :title => 'Pullovers', :text => 'All pullover', :parent => c1
@@ -37,6 +32,12 @@ else
   c22  = Category.create! :title => 'Computer Sciences', :text => 'All books about computer sciences', :parent => c2
   c221 = Category.create! :title => 'Bachelor', :text => 'All books about computer sciences for bachelor', :parent => c22
   c222 = Category.create! :title => 'Master', :text => 'All books about computer sciences for master', :parent => c22
+
+  # services
+  s1 = Service.create! :title=>"Livre",:description => "vente livre congolexicomatisation", :date_start => 'Mon, 28 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2015 15:00:00 UTC +00:00', :creator_id => u2.id, :is_demand=>true, :quick_match=>false, :category_id=>c2.id
+  s2 = Service.create! :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id => u1.id, :is_demand=>true, :quick_match=>false, :category_id=>c222.id
+  s3 = Service.create! :title=>"Livre Réseau",:description => "vente livre réseau", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2015 15:00:00 UTC +00:00', :creator_id => a1.id, :is_demand=>false, :quick_match=>false, :category_id =>c222.id
+
 
   # Organisation
   o1 = Organisation.create! :name => "Les joyeux éboueurs de charleroi", :creator_id => u1.id
