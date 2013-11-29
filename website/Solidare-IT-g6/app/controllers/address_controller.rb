@@ -39,7 +39,7 @@ class AddressController < ApplicationController
                     format.html { redirect_to @address, notice: 'Service was successfully updated.' }
                     format.json { head :no_content }
                 else
-                    show_error(format,'edit',@adress)
+                    show_error(format,'edit',@address)
                 end
             end
         end
