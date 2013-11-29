@@ -8,7 +8,7 @@ Feature: Sign up
 
     Scenario: User signs up with valid data
       When I sign up with valid user data
-      Then I see a Welcome! You have signed up successfully message
+      Then I see a A admin must first accept you. Be patient ! message
       
     Scenario: User signs up with invalid email
       When I sign up with an invalid email

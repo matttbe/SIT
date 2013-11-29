@@ -12,9 +12,7 @@ class ApplicationController < ActionController::Base
     @can=true
     if defined?(params[:id])&&!params[:id].nil?&& (params[:id]=="all")
       @can=false
-      respond_to do |format|
-        format.html { redirect_to '/', alert: 'You can not do that !' }
-      end
+      redirect_to root_path, alert: 'You can not do that !'
     end
   end
 
@@ -50,12 +48,18 @@ class ApplicationController < ActionController::Base
   end
 
   def can_log_in
+    @redirect=false
     if defined?(params) && !params['user'].nil?
       @u = User.find_by_email(params['user']['email'])
-      if !@u.nil? &&!@u.id_ok
-        #format.html { redirect_to root_path, alert: 'You must first validated' }
+      @redirect=true
+    elsif defined?(current_user) && !current_user.nil?
+      @u = current_user
+      @redirect=true
+    end
+
+    if @redirect&&!@u.nil? &&!@u.id_ok
+        sign_out @u
         redirect_to root_path, alert: "A admin must first accept you.  Be patient !"
-      end
     end
   end
 
