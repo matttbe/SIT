@@ -3,22 +3,25 @@
 <p>In here will be suggested some groupes to the user</p>
 <table class="table table-striped">
   <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th></th>
-    </tr>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @groups.each do |group| %>
+  <% @groups.each do |group| %>
       <tr>
         <td><%= group.name %></td>
         <td><%= group.description %></td>
         <td><%= link_to 'Show', group%></td>
+        <td><span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user, :format => "json"}, remote:true%></span></td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 
 <%= link_to 'New Group', new_group_path %>
+

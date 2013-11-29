@@ -36,6 +36,9 @@ class User < ActiveRecord::Base
 
   has_many :group_post_comments, :class_name => 'GroupPostComment', :foreign_key => 'user_id'
 
+  has_many :group_user_relations
+  has_many :groups, :through => :group_user_relations
+  
   def all_name
     "#{firstname} #{name}"
   end
