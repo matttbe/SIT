@@ -41,6 +41,7 @@ class ServicesController < ApplicationController
       if user_signed_in?
         @follower = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
       end
+    end
   end
 
   # GET /services/new
