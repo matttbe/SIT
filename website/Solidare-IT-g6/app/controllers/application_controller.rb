@@ -12,8 +12,6 @@ class ApplicationController < ActionController::Base
     @can=true
     if defined?(params[:id])&&!params[:id].nil?&& (params[:id]=="all")
       @can=false
-      logger.debug(params[:id])
-      logger.debug("===================================")
       respond_to do |format|
         format.html { redirect_to '/', alert: 'You can not do that !' }
       end
