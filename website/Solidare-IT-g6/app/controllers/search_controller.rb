@@ -4,13 +4,13 @@ class SearchController < ApplicationController
   # GET /search
   def match
 
-    # no filter
-    if (params.length <= 2) # The params hash will always contain the :controller and :action keys
+    # no filter (min 2 items in params)
+    if (params.length <= 2)
       @services = Service.all # TODO: display all services?
     else
       @search = "/search?"
       if (! params[:q].nil?)
-        @search += "/search?q=" + params[:q] + "&"
+        @search += "q=" + params[:q] + "&"
       end
       if (! params[:type_q].nil?)
         @search += "type_q=" + params["type_q"]
@@ -26,8 +26,10 @@ class SearchController < ApplicationController
         @services = Service.all #TODO : What do we do if none of the checkboxes are checked ?
       end 
 
+      #includes category infos
+      @services=@services.includes(:category)
       if (! params[:q].nil? and ! params[:q].empty? and !@services.nil?)
-        @services = @services.where('title LIKE (:titles) or description LIKE (:titles)',
+          @services = @services.where(:quick_match=>false).where('(services.title LIKE (:titles) or services.description LIKE (:titles) or categories.title LIKE (:titles) or categories.text LIKE (:titles))',
                    :titles => "%" + params[:q] + "%")
       end
 
@@ -38,7 +40,16 @@ class SearchController < ApplicationController
                       :time=> Time.now)
         end
 
+        if (@filter=="karma")
+          @services = @services.joins(:user).where('users.karma>=0')
+        end
+
         @search = @search + "&filter=" + @filter
+      end
+
+      if(!params[:category].nil?)
+        @services = @services.where('category_id==:cato',:cato=>params[:category])
+        @search = @search + "&category=" + params[:category]
       end
 
       if (! params[:q_order_end].nil?)
@@ -47,6 +58,8 @@ class SearchController < ApplicationController
       end
 
       @search = @search + "&commit=Search"
+      @services.reverse!
+      @categories=@services.group_by &:category_id
     end
   end
 

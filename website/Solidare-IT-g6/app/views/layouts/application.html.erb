@@ -5,31 +5,39 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-<script>
-$(document).ready(function(){
-  $("#show_option").click(function(){
-    $("#more").toggle();
-  });
-});
-</script>
+  <script>
+      $(document).ready(function(){
+          $("#show_option").click(function(){
+              $("#more").toggle();
+          });
+      });
+  </script>
 </head>
 <body>
-<div class="container">
-        <div id="header" class="hero-unit">
-            <div style="text-align: center;"><img src="/images/logo.png" alt ="logo" align="center"></img></div>
-            <h1>Solidare-it</h1>
-            <p>Un site solidaire!</p>
-                                    <% location= request.env['PATH_INFO'] %>
-                                        <div class="navbar">
-                                          <div class="navbar-inner">
 
-                                            <ul class="nav">
-                                               <% if location=='/' %>
-                                                <li class="active">
-                                              <% else %>
-                                                <li>
-                                              <% end %>
-                                                <a href="<%= root_path  %>">Home</a></li>
+<div class="container">
+  <div id="header" class="jumbotron">
+  <% location= request.env['PATH_INFO'] %>
+    <nav class="navbar" role="navigation">
+      <div class="navbar-inner">
+
+        <ul class="nav">
+          <% if location=='/' %>
+              <li class="active">
+          <% else %>
+              <li>
+          <% end %>
+          <a href="<%= root_path  %>">Home</a></li>
+
+          <% if location==search_path %>
+              <li class="active">
+          <% else %>
+              <li>
+          <% end %>
+          <a href="<%= services_path  %>">Services</a></li>
+          <% if !current_user.nil? && current_user.superadmin %>
+              <li><a href="/admin">Admin</a></li>
+          <% end %>
 
                                               <% if location==services_path %>
                                                 <li class="active">
@@ -54,20 +62,30 @@ $(document).ready(function(){
                                           </div>
                                         </div>
 
+        </ul>
+        <ul class="nav pull-right">
+          <%= render 'layouts/usermenu' %>
+        </ul>
+      </div>
+    </nav>
+    <div style="text-align: center;"><img src="/images/logo.png" alt ="logo" align="center"></img></div>
+    <h1>Solidare-it</h1>
+    <p>Un site solidaire!</p>
 
-          </div>
+    <%= render 'search/form' %>
+</div>
 
-  
-   <% if notice.present? %>
+
+  <% if notice.present? %>
       <div class="alert alert-success"><%= content_tag :p, notice, :class => 'notice'%></div>
-    <% end %>
-    <% if alert.present? %>
+  <% end %>
+  <% if alert.present? %>
       <div class="alert alert-error"><%= content_tag :p, alert,  :class => 'alert'%></div>
   <% end %>
 
 
-<%= yield %>
-  </div>
+  <%= yield %>
+</div>
 
 </body>
 </html>

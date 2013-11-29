@@ -2,7 +2,8 @@ Feature: Accept a Service
   testing action when a registered user accept a service
 
     Background:
-      Given The database contains services
+      Given The DB have a lot of users
+      And The database contains services
 
     Scenario: Validated user visiting a not own service can accept it
       And I am logged in

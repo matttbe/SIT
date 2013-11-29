@@ -17,6 +17,24 @@
                  @active=!@link.include?(@param)
                %>
               <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only active service</a></li>
+              <% @param="&filter=karma"
+                 @link=generateLink(@search,@param)
+                 @active=!@link.include?(@param)
+               %>
+              <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only service proposed by good karma</a></li>
+              <li class="nav-header">Categories</li>
+              <% if (!@categories.nil?&&@categories.size>0) %>
+                <% @categories.each do |category|
+                   if category.first>-1
+                    @category=Category.find(category.first)
+                     @param="&category="+@category.id.to_s
+                     @link=generateLink(@search,@param)
+                      @active=!@link.include?(@param)
+                      %>
+                    <li <% if @active%> class="active"<% end%>><a href="<%= @link %>"><%=@category.title%> <span class="badge"><%=category.second.size%></span></a></li>
+                <% end %>
+                <% end %>
+              <% end %>
             </ul>
           </div>
       </div>
@@ -45,8 +63,8 @@
               <tr>
                 <td><%= service.title %></td>
                 <td><%= service.description %></td>
-                <td><%= service.date_start %></td>
-                <td><%= service.date_end %></td>
+                <td><%= service.date_start.to_date().to_formatted_s(:rfc822) %></td>
+                <td><%= service.date_end.to_date().to_formatted_s(:rfc822) %></td>
                 <td><%= link_to 'Show', service %></td>
                 <td><% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= link_to 'Accept', accept_service_path(service) %><%end%></td>
                 <td><% if !current_user.nil?&&service.creator_id==current_user.id %><%= link_to 'Edit', edit_service_path(service) %><%end%></td>

@@ -1,5 +1,5 @@
 def create_admin_user
-  @visitor ||= { :email =>"maitre@dieu.ciel", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Maitre", :firstname => "Ciel", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true, :superadmin=>true }
+  @visitor ||= { :email =>"maitre@dieu.ciel", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Maitre", :firstname => "Ciel", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true }
 end
 
 def create_non_valide_user
@@ -13,6 +13,8 @@ end
 def show_page
   save_and_open_page
 end
+
+
 def find_user
   @user ||= User.where(:email => @visitor[:email]).first
 end
@@ -26,6 +28,10 @@ end
 
 def create_all_users
 
+  @u ||= User.where(:email => "maitre@dieu.ciel").first
+  @u.destroy unless @u.nil?
+  a = User.create!({:email =>"maitre@dieu.ciel", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Maitre", :firstname => "Ciel", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>true })
+  a.add_role "superadmin"
   @u ||= User.where(:email => "eddy@savoir.congo").first
   @u.destroy unless @u.nil?
   User.create!({ :email =>"eddy@savoir.congo", :password=>'iloveponcin', :password_confirmation=>'iloveponcin', :name =>"Malou", :firstname => "Eddy", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 1, :id_ok=>false })
@@ -50,6 +56,7 @@ def createadmin_user
   create_admin_user
   delete_user
   @user = User.create!(@visitor)
+  @user.add_role "superadmin"
 end
 
 def delete_user
@@ -68,8 +75,6 @@ def sign_up
   select(2010, :from=> "user_birthdate_1i")
   select('November', :from=>  "user_birthdate_2i")
   select(10, :from=>  "user_birthdate_3i")
-  select(17, :from=>  "user_birthdate_4i")
-  select(27, :from=>  "user_birthdate_5i")
   click_button "Sign up"
   find_user
 end
@@ -86,7 +91,12 @@ Given /^The DB have a lot of users$/ do
   create_all_users
 end
 Given /^I am not logged in$/ do
-  visit '/users/sign_out'
+  visit '/users/sign_out' #TODO sign out if I am NOT logged in ?
+end
+
+Given /^I log in$/ do
+  find_user
+  sign_in
 end
 
 Given /^I am logged in$/ do
@@ -117,7 +127,7 @@ end
 
 ### WHEN ###
 When /^I sign in with valid credentials for admin user$/ do
-  createadmin_user
+  #createadmin_user
   sign_in
 end
 When /^I sign in with valid credentials$/ do
@@ -199,25 +209,7 @@ Then /^I should be signed out$/ do
   assert !page.has_content?("Logout")
 end
 
-Then /^I see an unconfirmed account message$/ do
-  assert page.has_content?("You have to confirm your account before continuing.")
-end
 
-Then /^I see a successful sign in message$/ do
-  assert page.has_content?("Signed in successfully.")
-end
-
-Then /^I see a non valid account message$/ do
-  assert page.has_content?("A admin must first accept you.  Be patient !")
-end
-
-Then /^I should see a successful sign up message$/ do
-  assert page.has_content?("Welcome! You have signed up successfully.")
-end
-
-Then /^I should see an invalid email message$/ do
-  assert page.has_content?("Email is invalid")
-end
 
 
 
@@ -225,21 +217,6 @@ Then /^I should see a missing password confirmation msg$/ do
   assert page.has_content?("Password confirmation doesn't match Password")
 end
 
-Then /^I should see a mismatched password message$/ do
-  assert page.has_content?("Password confirmation doesn't match Password")
-end
-
-Then /^I should see a signed out message$/ do
-  assert page.has_content?("Signed out successfully.")
-end
-
-Then /^I see an invalid login message$/ do
-  assert page.has_content?("Invalid email or password.")
-end
-
-Then /^I should see an account edited message$/ do
-  assert page.has_content?("You updated your account successfully.")
-end
 
 Then /^I should see my name$/ do
   create_user

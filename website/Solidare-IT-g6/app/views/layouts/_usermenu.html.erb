@@ -1,19 +1,41 @@
 <%if user_signed_in? %>
-                                                <li><%=  current_user.all_name %></li>
+                                                <li>
+
+                                                </li>
                                                 <li class="divider-vertical"></li>
                                                 <li class="dropdown">
-                                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= image_tag "profil.jpg", :class=>'img-circle' %><b class="caret"></b></a>
+                                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">   
+                                                    <%=  current_user.all_name %>
+                                                    <%  @karma=current_user.karma 
+                                                        if @karma>0%>
+                                                          <span class="badge badge-success">
+                                                     <% elsif @karma<0 %>
+                                                          <span class="badge badge-important">
+                                                     <% else %>
+                                                          <span class="badge">
+                                                     <% end %>
+                                                     <%= @karma %>
+                                                          </span>
+                                                   <b class="caret"></b></a>
                                                   <ul class="dropdown-menu">
                                                       <li class="nav-header">Personnal</li>
                                                     <li><%= link_to "Edit account",  edit_user_registration_path(current_user) %></li>
+                                                    <li><%= link_to "Manage my addresses",  address_index_path %></li>
                                                     <li class="divider"></li>
                                                       <li class="nav-header">Services</li>
                                                          <li><%= link_to "Add a service",  new_service_path %></li>
                                                          <li><%= link_to "See my services",  my_services_path %></li>
                                                       <li class="divider"></li>
+                                                      <li class="nav-header">Organisation</li>
+                                                        <%if current_user.own_organisations.size !=0 || current_user.own_organisations.nil? %>
+                                                         <li><%= link_to "Manage my organisations",  manage_organisation_path %></li>
+                                                        <% end %>
+                                                         <li><%= link_to "Create an organisation",  new_organisation_path %></li>
+                                                         <li><%= link_to "Join an organisation",  join_organisation_path %></li>
+                                                      <li class="divider"></li>
                                                     <li><%= link_to "Sign out",  destroy_user_session_path, :method => "delete" %></li>
                                                   </ul>
                                                 </li>
 <% else %>
-                                                <li><%= link_to "Sign up",  create_account_path %><a href="/sign_in">Sign in</a></li>
+                                                <li><%= link_to "Sign up",  create_account_path %></li> <li><a href="/sign_in">Sign in</a></li>
 <% end %>

@@ -8,11 +8,11 @@ Feature: Sign up
 
     Scenario: User signs up with valid data
       When I sign up with valid user data
-      Then I should see a successful sign up message
+      Then I see a Welcome! You have signed up successfully message
       
     Scenario: User signs up with invalid email
       When I sign up with an invalid email
-      Then I should see an invalid email message
+      Then I see a Email is invalid message
 
     Scenario: User signs up without password
       When I sign up without a password
@@ -25,4 +25,4 @@ Feature: Sign up
 
     Scenario: User signs up with mismatched password and confirmation
       When I sign up with a mismatched password confirmation
-      Then I should see a mismatched password message
+      Then I see a Password confirmation doesn't match Password message

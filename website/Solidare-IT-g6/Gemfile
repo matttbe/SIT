@@ -31,22 +31,30 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# user
+# user management
 gem 'devise'
 
 # js
 gem 'therubyracer'
 
-# bootstrap
+# Design: bootstrap 3
 gem "less-rails"
 gem 'twitter-bootstrap-rails'
 gem 'date_validator'
 gem 'bootstrap_forms', github: 'gagalago/bootstrap_forms'
 
-# admin
+# admin interface: github: compatible with RoR 4.0
 gem 'activeadmin', github: 'gregbell/active_admin'
 
-# coveralls
+# manage rights
+gem 'cancan'
+gem 'rolify'
+
+#country
+gem 'countries'
+gem 'country_select'
+
+# coveralls: https://coveralls.io/r/matttbe/SIT
 gem 'coveralls', require: false
 
 ####### Group #######
@@ -74,6 +82,8 @@ group :production do
   gem 'pg'
   # needed for Heroku
   gem 'rails_12factor'
+  # heroku addon
+  gem 'newrelic_rpm'
 end
 
 ####### Misc #######

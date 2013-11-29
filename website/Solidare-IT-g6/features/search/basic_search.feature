@@ -3,6 +3,7 @@ Feature: Basic search
 
     Background:
       Given I am not logged in
+      And The DB have a lot of users
       And The database contains services
 
     Scenario: User can perform a search

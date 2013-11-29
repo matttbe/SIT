@@ -1,0 +1,11 @@
+
+<p>
+    <% @organisations.each do |organisation|%>
+          <strong>Name:</strong>
+          <%= organisation.name %>
+          <%= link_to 'Edit', edit_organisation_path(organisation) %> |
+    <%end %>
+</p>
+
+
+<%= link_to 'Back', organisations_path %>

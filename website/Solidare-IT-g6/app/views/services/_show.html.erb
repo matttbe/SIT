@@ -12,7 +12,17 @@
   <%= @service.title %>
         </span>
 </p>
-
+<% if !current_user.nil?&&!@service.matching_service.nil?&&(@service.creator_id==current_user.id||@service.matching_service.creator_id=current_user.id)&&(@service.transaction.nil?||@service.matching_service.transaction.nil?) %>
+  <% if !(!@service.matching_service.nil?&&!@service.matching_service.transaction.nil?)&&(@service.matching_service.quick_match&&@service.transaction.nil?) %>
+    <div class="alert alert-notice">
+      How was your experience ?
+    <%= link_to 'Give a feedback !', add_transaction_path(@service)%></div>
+    <br />
+  <%else%>
+    Your feedback :
+    <%=  render 'show_feedback', :transaction=>@service.matching_service.transaction%>
+  <%end%>
+<%end%>
 <p>
   <strong>Created by:</strong>
   <%  #TODO add a link to the user profile ? %>
@@ -28,19 +38,20 @@
 
 <p>
   <strong>Date start:</strong>
-  <%= @service.date_start %>
+  <%= @service.date_start.to_date().to_formatted_s(:rfc822) %>
 </p>
 
 <p>
   <strong>Date end:</strong>
-  <%= @service.date_end %>
+  <%= @service.date_end.to_date().to_formatted_s(:rfc822) %>
 </p>
 
 
-<% if @service.creator_id==current_user.id %>
+
+<% if !current_user.nil?&&@service.creator_id==current_user.id %>
 <%= link_to 'Edit', edit_service_path(@service) %> |
 <%= link_to 'Destroy', service_path(@service), :method=>'delete' %> |
-<% elsif @service.matching_service.nil?%>
+<% elsif !current_user.nil?&&@service.matching_service.nil?%>
 <%= link_to 'Accept', accept_service_path(@service) %> |
 <%end%>
 <%= link_to 'Back', services_path %>

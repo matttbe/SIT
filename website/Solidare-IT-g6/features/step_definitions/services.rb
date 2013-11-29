@@ -1,13 +1,17 @@
 def create_service
-  @serviceC ||= { :title=>"Livre",:description => "vente livre congolexicomatisation", :date_start => 'Mon, 28 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id => 0, :is_demand=>true}
-end
-
-def new_service
-  @serviceNew ||= { :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>true}
+  @serviceC ||= { :title=>"Livre",:description => "vente livre congolexicomatisation", :date_start => 'Mon, 28 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id => 0, :is_demand=>true, :quick_match=>false,:category_id=>-1}
 end
 
 def new_service_offer
-  @serviceNew ||= { :title=>"Livre Réseau",:description => "Livre obo", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>false}
+  @serviceNew ||= { :title=>"Livre Réseau",:description => "Livre obo", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>false,:quick_match=>false,:category_id=>-1}
+end
+
+def new_service
+  @serviceNew ||= { :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>true, :quick_match=>false,:category_id=>-1}
+end
+
+def accept_service
+  @serviceAccept ||= { :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>false, :quick_match=>true,:category_id=>-1}
 end
 
 def add_service
@@ -15,6 +19,14 @@ def add_service
   create_service
   @serviceC[:creator_id]=@user.id
   @service = Service.create!(@serviceC)
+end
+
+def add_not_my_service
+   @admin=User.where(:email => "maitre@dieu.ciel").first
+   new_service
+   @serviceC[:creator_id]=@admin.id
+   @service = Service.create!(@serviceC)
+  
 end
 
 def fill_form
@@ -36,11 +48,13 @@ end
 Given /^The database contains services$/ do
   create_user
   add_service
+  add_not_my_service
 end
 
 Given /^The database contains my services$/ do
   add_service
 end
+
 
 ### WHEN ###
 When /^I go to the services list$/ do
@@ -97,12 +111,19 @@ When(/^I fill a new title for my service$/) do
   fill_in "service_title", :with => "new title"
 end
 
+When(/^I give a feedback$/) do 
+  fill_in "transaction_feedback_evaluation", :with => "5"
+  fill_in "transaction_feedback_comments", :with => "ok missieur"
+  click_button "Give your feedback"
+end
+
 
 ### THEN ###
 
 Then(/^I see a service$/) do
   assert page.has_content?(@serviceC[:title])
 end
+
 
 Then(/^I see the add service button$/) do
   assert page.has_content?(:link_or_button, 'Add a service')
@@ -160,3 +181,10 @@ Then(/^I should see the service in my services espace$/) do
    assert page.has_content?("My services")
 end
 
+Then(/^I should see a feedback link$/) do
+   assert page.has_content?("How was your experience ? Give a feedback !")
+end
+
+Then(/^I should not see a feedback link$/) do
+   assert !page.has_content?("How was your experience ? Give a feedback !")
+end

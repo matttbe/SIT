@@ -1,0 +1,18 @@
+<%=bootstrap_form_for(@address ,:url => {:action => "create", :id => @address.id}) do |f| %>
+
+    <%= f.text_field :street %>
+    <%= f.text_field :number %>
+    <%= f.text_field :postal_code %>
+    <%= f.text_field :city %>
+    <select id="address_country" name="address[country]">
+    <% Country.all.each do |country|%>
+    <option value="<%= country.first%>"><%=country.first%></option>
+    <% end %>
+    </select>
+
+    <% if type=="new"%>
+      <%= f.submit "Add address",:class =>"btn btn-primary"  %>
+    <% else %>
+      <%= f.submit "Edit address",:class =>"btn btn-primary"  %>
+    <%end%>
+<% end %>

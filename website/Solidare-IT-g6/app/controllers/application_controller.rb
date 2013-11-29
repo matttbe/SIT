@@ -8,6 +8,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def protect_param_integer
+    @can=true
+    if defined?(params[:id])&&!params[:id].nil?&& (params[:id]=="all")
+      @can=false
+      respond_to do |format|
+        format.html { redirect_to '/', alert: 'You can not do that !' }
+      end
+    end
+  end
+
+  def show_error(format,actionName,model)
+    format.html { render action: actionName }
+    format.json { render json: model.errors, status: :unprocessable_entity }
+  end
+
   def generateLink(search,param)
     link=search
     if search.nil?
@@ -47,7 +62,7 @@ class ApplicationController < ActionController::Base
   # protected?
   def authenticate_active_admin_user!
     authenticate_user!
-    unless current_user.superadmin?
+    unless current_user.has_role? "superadmin"
       flash[:alert] = "Unauthorized Access!"
       redirect_to root_path
     end
