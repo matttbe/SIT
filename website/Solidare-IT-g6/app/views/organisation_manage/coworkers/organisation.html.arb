@@ -1,0 +1,6 @@
+ table_for assigns[:organisation].coworkers.each do 
+    
+    column "name" do |coworker|
+        coworker.user.all_name
+      end
+  end

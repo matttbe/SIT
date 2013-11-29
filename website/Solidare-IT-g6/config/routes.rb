@@ -31,6 +31,10 @@ SolidareItG6::Application.routes.draw do
   get '/manage_organisations' => 'organisations#manage', :as=>"manage_organisation"
   get '/join_organisations' => 'organisations#join_organisation', :as=>"join_organisation"
   get '/join_organisations/:id' => 'organisations#join_action', :as=>"join_action"
+
+  #organisation manage
+  get '/organisation_manage/:id/coworkers/' =>'organisation_manage/coworkers#index_organisation', :as=>'manage_coworkers'
+
   
 
   devise_scope :user do

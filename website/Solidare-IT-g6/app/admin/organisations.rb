@@ -21,5 +21,18 @@ ActiveAdmin.register Organisation, :as => "Organisation" do
               end
             }
   end
+end
 
+ActiveAdmin.register Organisation, :as => "Organisation", namespace: :organisation_manage  do
+  config.clear_action_items!
+  actions :index
+  
+  index do
+    table_for current_user.own_organisations.each do |organisation|
+      column :name
+      column("Coworkers"){|organisation| link_to organisation.coworkers.size, organisation_organisation_manage_coworker_path(organisation)}
+      column(){}
+    end
+  end
+  
 end

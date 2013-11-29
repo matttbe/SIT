@@ -29,6 +29,7 @@
                                                       <li class="nav-header">Organisation</li>
                                                         <%if current_user.own_organisations.size !=0 || current_user.own_organisations.nil? %>
                                                          <li><%= link_to "Manage my organisations",  manage_organisation_path %></li>
+                                                         <li><%= link_to "New Manage my organisations",  organisation_manage_organisations_path %></li>
                                                         <% end %>
                                                          <li><%= link_to "Create an organisation",  new_organisation_path %></li>
                                                          <li><%= link_to "Join an organisation",  join_organisation_path %></li>

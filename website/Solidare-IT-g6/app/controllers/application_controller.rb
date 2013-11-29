@@ -2,6 +2,9 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :can_log_in
 
+  def can_manage_orga
+  end
+
   def dont_see
     respond_to do |format|
           format.html { redirect_to "/sign_in", alert: 'You need to sign in or sign up before continuing.' }
