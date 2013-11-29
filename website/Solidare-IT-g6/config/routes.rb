@@ -46,6 +46,6 @@ SolidareItG6::Application.routes.draw do
   
   #follower
   get '/service/:id/follow' => 'services#follow', :as=>"follow"
-  get '/service/:id/unfollow' => 'services#unfollow', :as=>"unfollow"  
+  get '/service/:id/unfollow/:follower_id' => 'services#unfollow', :as=>"unfollow"  
   
 end

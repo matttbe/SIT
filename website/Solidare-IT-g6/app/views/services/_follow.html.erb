@@ -1,2 +1,5 @@
-<%= link_to 'Follow', follow_path(@service) %>
-<%= link_to 'Unfollow', unfollow_path(@service) %> 
+<% if @follower.size == 0%>
+	<%= link_to 'Follow', follow_path(@service) %>
+<%else%>
+	<%= link_to 'Unfollow', unfollow_path(@service, @follower.first.id) %>
+<%end%> 
