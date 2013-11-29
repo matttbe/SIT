@@ -1,5 +1,5 @@
 def create_address_user
-  @address ||= { :street =>"rue du savoir", :number=>'12', :postal_code=>'1234', :city =>"Kinshasa", :country => "Congo" }
+  @address ||= { :street =>"rue du savoir", :number=>'12', :postal_code=>'1234', :city =>"Kinshasa", :country => "Canada" }
 end
 
 def fill_form_address
@@ -7,7 +7,7 @@ def fill_form_address
   fill_in "address_number", :with => @address[:number]
   fill_in "address_postal_code", :with => @address[:postal_code]
   fill_in "address_city", :with => @address[:city]
-  fill_in "address_country", :with => @address[:country]
+  select(@address[:country], :from=>  "address_country")
 
 end
 

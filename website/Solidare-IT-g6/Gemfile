@@ -50,6 +50,10 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'cancan'
 gem 'rolify'
 
+#country
+gem 'countries'
+gem 'country_select'
+
 # coveralls: https://coveralls.io/r/matttbe/SIT
 gem 'coveralls', require: false
 

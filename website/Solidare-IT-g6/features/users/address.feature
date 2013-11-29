@@ -46,4 +46,3 @@ Feature: Addresses of user
       And I click on the Add address button
       Then I see a Postal code is not a number message
       And I not see my address
-
