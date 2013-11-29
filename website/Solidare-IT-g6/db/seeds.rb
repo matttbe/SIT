@@ -40,7 +40,10 @@ else
 
 
   # Organisation
-  o1 = Organisation.create! :name => "Les joyeux éboueurs de charleroi", :creator_id => u1.id
+  o1 = Organisation.create! :name => "Les savant de la rive nord", :creator_id => u2.id
+
+  #coworker
+  co1=Coworker.create! :organisation_id=>o1.id, :user_id=>u2.id
 
   # links between classes
   u1.add_role :moderator, c22
