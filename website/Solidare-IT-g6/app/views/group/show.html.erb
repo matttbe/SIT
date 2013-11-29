@@ -8,18 +8,7 @@
   <%= @group.description %>
 </p>
 
-<h2>Posts</h2>
-<% @group.group_posts.each do |group_post| %>
-  <p>
-    <%if !group_post.user.nil? %>
-      <strong><%=group_post.user.all_name %>	</strong>
-	<% end %>
-    <%= group_post.body %>
-  </p>
-<% end %>
-
-
-<%= render 'post_form' %>
+<%= render 'post' %>
 
 <p>
 <%= link_to 'Delete group', group_path(@group),

@@ -1,0 +1,8 @@
+<% @post.group_post_comments.each do |group_post_comment| %>
+  <p>
+    <%if !group_post_comment.user.nil? %>
+      <%=group_post.user.all_name %>
+	<% end %>
+    <%= group_post.body %>
+  </p>
+<% end %>

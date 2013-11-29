@@ -1,0 +1,25 @@
+<h2>Posts</h2>
+<% @group.group_posts.each do |group_post| %>
+  <p>
+    <%if !group_post.user.nil? %>
+      <strong><%=group_post.user.all_name %>	</strong>
+	<% end %>
+    <%= group_post.body %>
+  </p>
+	
+	<% group_post.group_post_comments.each do |group_post_comment| %>
+	  <%if !group_post_comment.user.nil? %>
+        <%=group_post_comment.user.all_name %> :
+	  <% end %>
+    <%= group_post_comment.body %>
+	<% end %>	
+
+	<%= form_for(GroupPostComment.new, :url=> group_group_post_group_post_comments_path(@group,group_post),:method=>'post') do |f| %>
+  	  <p>
+        <%= f.text_area :body %><%= f.submit "Comment"%>
+      </p>
+	<% end %>
+<% end %>
+
+
+<%= render 'post_form' %>

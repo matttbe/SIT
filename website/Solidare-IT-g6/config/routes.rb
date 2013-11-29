@@ -1,7 +1,9 @@
 SolidareItG6::Application.routes.draw do
 
   resources :group do
-	resources :group_posts
+	resources :group_posts do
+	  resources :group_post_comments	
+	end
   end
   
   resources :organisations
