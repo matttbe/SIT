@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-  before_action :set_service, only: [:edit, :update, :destroy, :accept_service]
+  before_action :set_service, only: [:edit, :update, :destroy, :accept_service, :follow, :unfollow]
   before_action :set_good_service, only: [:create_transaction, :new_transaction]
 
 
@@ -126,6 +126,24 @@ class ServicesController < ApplicationController
        end
      end
   end
+  
+    def follow
+      @follower = Follower.new
+      @follower.service = @service
+      @follower.user = current_user
+      @follower.save
+      respond_to do |format|
+        if @follower.save
+          format.html{redirect_to service_path(@service), notice: 'You follow the service'}
+        else
+          show_error(format, 'show', @follower)
+        end
+      end
+    end
+    
+    def unfollow
+      @follower
+    end
 
 
   private
@@ -172,10 +190,6 @@ class ServicesController < ApplicationController
     def transaction_params
       params.require(:transaction).permit(:feedback_comments, :feedback_evaluation)
     end
-    
-    def follow
-      
-    end
-    
+   
 
 end

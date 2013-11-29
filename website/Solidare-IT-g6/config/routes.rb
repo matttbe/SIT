@@ -44,8 +44,8 @@ SolidareItG6::Application.routes.draw do
   resources :address
   post '/adresses' => 'adresses#create', :as=>"addresses_create_path"
   
-  
-  #authenticate
-  
+  #follower
+  get '/service/:id/follow' => 'services#follow', :as=>"follow"
+  get '/service/:id/unfollow' => 'services#unfollow', :as=>"unfollow"  
   
 end
