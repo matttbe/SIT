@@ -4,7 +4,7 @@
 
   <tbody>
     <% @addresses.each do |address| %>
-      <tr>
+      <tr <% if address.principal %> class="success"<%  end %>>
         <td><% if address.principal %> <i class="icon-home"></i><%  end %> </td>
         <td> <%= render 'address', :address=>address %> </td>
         <td>

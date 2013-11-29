@@ -26,6 +26,10 @@ class AddressController < ApplicationController
       @address = Address.new(address_params)
       @address.user_id=current_user.id
 
+      if current_user.addresses.nil?
+        @address.principal=true
+      end
+
       respond_to do |format|
         if @address.save
           format.html { redirect_to @address, notice: 'Address was successfully created.' }
@@ -67,7 +71,7 @@ class AddressController < ApplicationController
         else
             @address.destroy
             respond_to do |format|
-                format.html { redirect_to addresses_url }
+                format.html { redirect_to address_index_path }
                 format.json { head :no_content }
             end
         end
