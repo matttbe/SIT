@@ -132,7 +132,6 @@ class ServicesController < ApplicationController
       @follower = Follower.new
       @follower.service = @service
       @follower.user = current_user
-      @follower.save
       respond_to do |format|
         if @follower.save
           format.html{redirect_to service_path(@service), notice: 'You follow the service'}
