@@ -11,6 +11,41 @@ class OrganisationsController < InheritedResources::Base
 
   end
   
+  def show
+    @organisation = Organisation.find(params[:id])
+  end
+  
+  # GET /join_organisations
+  def join_organisation
+    if user_signed_in?
+      @organisations = Organisation.all
+    else
+      dont_see
+    end
+  end
+  
+  # GET /manage_organisation
+  def manage
+    @organisations = Organisation.all
+  end
+    
+  
+  # GET /join_organisation/:id
+  def join_action
+    @organisation = Organisation.find(params[:id])
+    @coworker = Coworker.new
+    @coworker.user = current_user
+    @coworker.organisation = @organisation
+    @organisation.coworkers << @coworker
+    respond_to do |format|
+        if @organisation.save
+            format.html { redirect_to @organisation, notice: 'You\'ve been added to coworkers from ' +@organisation.name+'. Wait to be accepted'}
+        else
+            show_error(format,'new',@coworker)
+        end
+    end
+  end
+  
   # POST /organisations
   # POST /organisations.json
   def create
@@ -18,7 +53,7 @@ class OrganisationsController < InheritedResources::Base
       @organisation.creator_id=current_user.id
       respond_to do |format|
         if @organisation.save
-          @coworker = Coworker.new()
+          @coworker = Coworker.new
           @coworker.user = current_user
           @coworker.organisation = @organisation
           if @coworker.save
@@ -32,6 +67,8 @@ class OrganisationsController < InheritedResources::Base
         end
       end
   end
+  
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

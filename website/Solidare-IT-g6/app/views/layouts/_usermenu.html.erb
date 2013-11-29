@@ -1,5 +1,10 @@
 <%if user_signed_in? %>
                                                 <li>
+
+                                                </li>
+                                                <li class="divider-vertical"></li>
+                                                <li class="dropdown">
+                                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">   
                                                     <%=  current_user.all_name %>
                                                     <%  @karma=current_user.karma 
                                                         if @karma>0%>
@@ -11,10 +16,7 @@
                                                      <% end %>
                                                      <%= @karma %>
                                                           </span>
-                                                </li>
-                                                <li class="divider-vertical"></li>
-                                                <li class="dropdown">
-                                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= image_tag "profil.jpg", :class=>'img-circle' %><b class="caret"></b></a>
+                                                   <b class="caret"></b></a>
                                                   <ul class="dropdown-menu">
                                                       <li class="nav-header">Personnal</li>
                                                     <li><%= link_to "Edit account",  edit_user_registration_path(current_user) %></li>
@@ -25,8 +27,8 @@
                                                          <li><%= link_to "See my services",  my_services_path %></li>
                                                       <li class="divider"></li>
                                                       <li class="nav-header">Organisation</li>
-                                                        <%if current_user.own_organisations.nil?  %>
-                                                         <li><%= link_to "Manage my organisations",  new_organisation_path %></li>
+                                                        <%if current_user.own_organisations.size !=0 || current_user.own_organisations.nil? %>
+                                                         <li><%= link_to "Manage my organisations",  manage_organisation_path %></li>
                                                         <% end %>
                                                          <li><%= link_to "Create an organisation",  new_organisation_path %></li>
                                                          <li><%= link_to "Join an organisation",  join_organisation_path %></li>

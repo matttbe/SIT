@@ -13,8 +13,8 @@ class Service < ActiveRecord::Base
 
   has_one :transaction, :class_name => 'Transaction', :foreign_key => 'service_id'
 
-  has_one :matching_service, :class_name => 'Service', :foreign_key => 'matching_service_id'
   belongs_to :service
+  has_one :matching_service, :class_name => 'Service', :foreign_key => 'matching_service_id'
 
   if Rails.env.production?||Rails.env.development?
     algoliasearch do

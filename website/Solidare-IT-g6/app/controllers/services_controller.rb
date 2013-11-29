@@ -6,8 +6,7 @@ class ServicesController < ApplicationController
   # GET /user/services
   def my_services
     if user_signed_in?
-      @services = current_user.own_services.order(:is_demand)#Service.where('creator_id = (:id)',
-               #:id => current_user.id).order_by("Service.is_demand")
+      @services = current_user.own_services.order(:is_demand)
     else
       dont_see
     end
@@ -163,7 +162,6 @@ class ServicesController < ApplicationController
       @serviceQ.matching_service=@service
       @serviceQ.is_demand=@service.is_demand==true
       @serviceQ.save
-
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
