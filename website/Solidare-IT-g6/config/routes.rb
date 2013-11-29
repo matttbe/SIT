@@ -45,4 +45,7 @@ SolidareItG6::Application.routes.draw do
   post '/adresses' => 'adresses#create', :as=>"addresses_create_path"
   
   
+  #authenticate
+  
+  
 end
