@@ -36,8 +36,44 @@ class ApplicationController < ActionController::Base
     return link
   end
 
-  helper_method :generateLink
-  
+  def getAllCategoriesChilds(category)
+    cats = Array.new
+    category.childs.each do |child|
+      cats << child
+      childs = getAllCategoriesChilds(child)
+      if not childs.empty?
+        cats << childs
+      end
+    end
+    cats
+  end
+
+  def getAllCategoriesRootOrChilds(withChild)
+    cats = Array.new
+    Category.all.each do |cat|
+      if cat.parent.nil?
+        cats << cat
+        if withChild
+          childs = getAllCategoriesChilds(cat)
+          if not childs.empty?
+            cats << childs
+          end
+        end
+      end
+    end
+    cats
+  end
+
+  def getAllCategories
+    getAllCategoriesRootOrChilds(true)
+  end
+
+  def getAllRootCategories
+    getAllCategoriesRootOrChilds(false)
+  end
+
+  helper_method :generateLink, :getAllCategories, :getAllCategoriesChilds, :getAllRootCategories
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -66,7 +102,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # protected?
   def authenticate_active_admin_user!
     authenticate_user!
     unless current_user.has_role? "superadmin"
@@ -74,5 +109,4 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
-
 end
