@@ -26,13 +26,9 @@ class AddressController < ApplicationController
       @address = Address.new(address_params)
       @address.user_id=current_user.id
 
-      if current_user.addresses.nil?
-        @address.principal=true
-      end
-
       respond_to do |format|
         if @address.save
-          format.html { redirect_to @address, notice: 'Address was successfully created.' }
+          format.html { redirect_to address_index_path, notice: 'Address was successfully created.' }
           format.json { render action: 'show', status: :created, location: @address }
         else
           show_error(format,'new',@address)
@@ -46,8 +42,7 @@ class AddressController < ApplicationController
     
     def index
         #TODO quand julien aura rajoute les orga, faudra les gérer
-        @addresses = current_user.addresses
-        
+        @addresses = current_user.addresses.order(principal: :desc)
     end
     
     def update
@@ -96,7 +91,7 @@ class AddressController < ApplicationController
 
     private 
     def address_params
-        params.require(:address).permit(:street, :number, :postal_code, :city, :country)
+        params.require(:address).permit(:street, :number, :postal_code, :city, :country, :principal)
     end
     
     def is_logged_in

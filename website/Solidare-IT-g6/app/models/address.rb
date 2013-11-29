@@ -2,7 +2,7 @@ class Address < ActiveRecord::Base
 
   validates :street, :presence => true
   validates_numericality_of :number, :presence => true,:only_integer => true
-  validates_numericality_of :postal_code, :presence => true ,:only_integer => true
+  validates :postal_code, :presence => true 
   validates :city, :presence => true
   validates :country, :presence => true
   
@@ -10,4 +10,5 @@ class Address < ActiveRecord::Base
   belongs_to :user, :class_name => 'User', :foreign_key => 'user_id'
   belongs_to :organisation, :class_name => 'Organisation', :foreign_key => 'orga_id'
 
+  
 end

@@ -35,14 +35,3 @@ Feature: Addresses of user
       And I click on the Add address button
       Then I see a Number is not a number message
       And I not see my address
-
-    Scenario: A registered user can not add a address with a not alpha postal code
-      And I am logged in
-      When I return to the site
-      And I click on the Manage my addresses link
-      And I click on the New address link
-      And I fill the address form
-      And I fill a wrong postal code
-      And I click on the Add address button
-      Then I see a Postal code is not a number message
-      And I not see my address

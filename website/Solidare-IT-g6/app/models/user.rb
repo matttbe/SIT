@@ -27,6 +27,19 @@ class User < ActiveRecord::Base
     "#{firstname} #{name}"
   end
 
+  def main_address
+    if addresses.size==0
+      return nil
+    end
+    @a=addresses.where(:principal=>true)
+    if(@a.size==0)
+      return addresses.first
+    else
+      return @a.first
+    end
+
+  end
+
   def default_values
     self.karma ||= 0
     #self.id_ok||=false
