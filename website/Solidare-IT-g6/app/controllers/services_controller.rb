@@ -172,6 +172,10 @@ class ServicesController < ApplicationController
     def transaction_params
       params.require(:transaction).permit(:feedback_comments, :feedback_evaluation)
     end
-
+    
+    def follow
+      
+    end
+    
 
 end

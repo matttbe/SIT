@@ -14,5 +14,8 @@ class Service < ActiveRecord::Base
 
   belongs_to :service
   has_one :matching_service, :class_name => 'Service', :foreign_key => 'matching_service_id'
+  
+  has_many :followers
+  has_many :users, through: :followers
 
 end
