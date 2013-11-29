@@ -36,7 +36,9 @@ class ServicesController < ApplicationController
   # GET /services/1.json
   def show
     @service = Service.find(params[:id])
-    @follower = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
+    if user_signed_in?
+      @follower = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
+    end
   end
 
   # GET /services/new
