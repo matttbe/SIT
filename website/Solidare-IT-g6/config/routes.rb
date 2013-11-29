@@ -42,7 +42,8 @@ SolidareItG6::Application.routes.draw do
   
   #address routing
   resources :address
-  post '/adresses' => 'adresses#create', :as=>"addresses_create_path"
+  #post '/adresses' => 'adresses#create', :as=>"addresses_create_path"
+  get '/adresses/:id/main' =>'address#main', :as=> "main_address"
 
   
 end

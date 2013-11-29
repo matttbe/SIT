@@ -1,9 +1,25 @@
 class AddressController < ApplicationController
-    before_action :is_logged_in, only: [:new,:create,:index, :update, :destroy, :show]
-    before_action :set_address, only: [:edit,:show, :destroy,:update]
+    before_action :is_logged_in, only: [:main, :new,:create,:index, :update, :destroy, :show]
+    before_action :set_address, only: [:main,:edit,:show, :destroy,:update]
 
     def new
         @address =Address.new
+    end
+
+    def main
+      current_user.addresses.each do |address|
+        address.principal=false
+        address.save
+      end
+      @address.principal=true
+      respond_to do |format|
+        if @address.save
+          format.html { redirect_to address_index_path, notice: 'You have change your main address !' }
+          format.json { head :no_content }
+          else
+            show_error(format,address_index_path,@address)
+            end
+      end
     end
     
     def create
@@ -36,7 +52,7 @@ class AddressController < ApplicationController
         else
             respond_to do |format|
                 if @address.update(address_params)
-                    format.html { redirect_to @address, notice: 'Service was successfully updated.' }
+                    format.html { redirect_to @address, notice: 'Address was successfully updated.' }
                     format.json { head :no_content }
                 else
                     show_error(format,'edit',@address)
