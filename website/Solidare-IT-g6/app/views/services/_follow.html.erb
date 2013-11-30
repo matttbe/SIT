@@ -1,9 +1,9 @@
 <% if user_signed_in?%>
 	<% if !(@service.creator_id==current_user.id) %>
 		<% if @follower.size == 0%>
-			<%= link_to 'Follow', follow_path(@service) %>
+			<%= button_to 'Follow', follow_path(@service), :class=>"btn" %>
 		<%else%>
-			<%= link_to 'Unfollow', unfollow_path(@service, @follower.first.id) %>
+			<%= button_to 'Unfollow', unfollow_path(@service, @follower.first.id), :class=>"btn" %>
 		<%end%> 
 	<% end %>
 <% end%>
