@@ -17,7 +17,9 @@
         <td><%= group.name %></td>
         <td><%= group.description %></td>
         <td><%= link_to 'Show', group%></td>
-        <td><span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user, :format => "json"}, remote:true%></span></td>
+        <%if !current_user.nil? %>
+          <td><span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user, :format => "json"}, remote:true%></span></td>
+          <% end %>
       </tr>
   <% end %>
   </tbody>
