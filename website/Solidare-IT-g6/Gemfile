@@ -48,7 +48,7 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 
 # manage rights
 gem 'cancan'
-gem 'rolify'
+gem 'rolify', '~> 3.3.0.rc4' # rc4 => https://github.com/EppO/rolify/issues/183
 
 #country
 gem 'countries'
