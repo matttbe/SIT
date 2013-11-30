@@ -10,8 +10,13 @@
 
 <%= render 'post' %>
 
+<h2>Users</h2>
+	<% @group.users.each do |user| %>
+		<p><%= user.name %></p>
+	<% end %>
 <p>
 <%= link_to 'Delete group', group_path(@group),
                     method: :delete, data: { confirm: 'Are you sure?' } %>
 
 </p>
+
