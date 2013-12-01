@@ -2,6 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@font-face {
+  font-family: 'fontello';
+  src: font-url('fontello.eot?26748181');
+  src: font-url('fontello.eot?26748181#iefix') format('embedded-opentype'),
+       font-url('fontello.woff?26748181') format('woff'),
+       font-url('fontello.ttf?26748181') format('truetype'),
+       font-url('fontello.svg?26748181#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
 .service {
 	box-shadow: 5px 5px 5px #888888;
 }
@@ -15,9 +25,12 @@
 
 .service .service-action {
 	float: right;
-	display: inline;
+	display: inline-block;
 }
 
+.service .btn {
+	margin-top: 5px;
+}
 .service-action form {
 	float:left;
 	margin: 0px 5px 0px 5px;
@@ -27,3 +40,11 @@
 	margin-right: 10px;
 	margin-top: 10px;
 }
+
+.service-desc {
+	display: inline-block;
+	margin: 15px 15px 15px 5px;
+}
+
+.icon-grid:before { content: '\e800'; 
+font-family: "fontello";} /* '' */
