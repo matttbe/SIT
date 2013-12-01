@@ -84,6 +84,14 @@ ActiveRecord::Schema.define(version: 20131202124028) do
     t.datetime "updated_at"
   end
 
+  create_table "notifications", force: true do |t|
+    t.integer  "notified_user"
+    t.string   "type"
+    t.integer  "service_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "organisations", force: true do |t|
     t.string   "name"
     t.datetime "created_at"

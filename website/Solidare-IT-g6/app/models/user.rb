@@ -28,7 +28,10 @@ class User < ActiveRecord::Base
   has_many :own_services, :class_name => 'Service', :foreign_key => 'creator_id'  
   
   has_many :followers
-  has_many :services, through: :followers
+  has_many :services, through: :followers  
+  
+  has_many :notifications
+  has_many :services, through: :notification
   
   def all_name
     "#{firstname} #{name}"
