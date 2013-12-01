@@ -8,16 +8,14 @@ $(document).ready ->
 		services = $('.service').detach()
 		for parent, i in $('.service-parent')
 			$(parent).append(services[i])
-		$(services).removeClass('span4').addClass('.span12')
+		$(services).removeClass('span4').addClass('span12')
 	grid = ->
 		$('.service-parent').removeClass("row-fluid")
 		services = $('.service').detach()
 		for box, i in $('.service-parent')
 			if i % 3 == 0
 				$(box).addClass('row-fluid')
-				$(box).append(services[i])
-				$(box).append(services[i+1])
-				$(box).append(services[i+2])
+				$(box).append(services[i]).append(services[i+1]).append(services[i+2])
 		$('.service').removeClass('span12').addClass('span4')
 	$('#grid').click ->
 		grid()
