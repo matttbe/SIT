@@ -3,6 +3,13 @@ class ServicesController < ApplicationController
   before_action :set_good_service, only: [:create_transaction, :new_transaction]
 
 
+  #GET /user/following_services
+  def following_services
+    if user_signed_in?
+      @following = Follower.where("user_id = :user_id", :user_id => current_user.id)
+    end
+  end
+
   # GET /user/services
   def my_services
     if user_signed_in?
