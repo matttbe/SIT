@@ -13,6 +13,7 @@
 
   <tbody>
   <% @groups.each do |group| %>
+	<%unless group.secret == true %>
       <tr>
         <td><%= group.name %></td>
         <td><%= group.description %></td>
@@ -21,6 +22,7 @@
           <td><span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user, :format => "json"}, remote:true%></span></td>
           <% end %>
       </tr>
+	<% end %>
   <% end %>
   </tbody>
 </table>
