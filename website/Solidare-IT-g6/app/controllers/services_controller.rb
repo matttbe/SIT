@@ -37,11 +37,9 @@ class ServicesController < ApplicationController
   def show
     protect_param_integer
     if @can
-      @service = Service.find(params[:id])
-      if user_signed_in?
-        @follower = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
-      end
-    end
+    @service = Service.find(params[:id])   
+    #NETTOYER ca pour faire une seule fois la requete followers
+    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)  
   end
 
   # GET /services/new
@@ -149,7 +147,7 @@ class ServicesController < ApplicationController
    else
      show_error("You already follow this service")
    end
-  end
+ end
     
   def unfollow
     @follower = Follower.find(params[:follower_id])
@@ -162,6 +160,8 @@ class ServicesController < ApplicationController
     end
   end
 
+
+# ----------- PRIVATE -------------------------------
 
   private
     # Use callbacks to share common setup or constraints between actions.

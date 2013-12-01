@@ -3,3 +3,5 @@
 <% if user_signed_in?%>
   <%= render 'follow', :service=>@service%>
 <%end%>
+
+  <%= render 'followers', :followers_list=>@followers_list%>
