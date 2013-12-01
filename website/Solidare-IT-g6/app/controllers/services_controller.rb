@@ -37,7 +37,7 @@ class ServicesController < ApplicationController
   def show
     @service = Service.find(params[:id])
     if user_signed_in?
-      @follower = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
+      @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
     end
   end
 
@@ -130,7 +130,9 @@ class ServicesController < ApplicationController
      end
   end
   
-    def follow
+  def follow    
+    @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
+    if @followers.size == 0
       @follower = Follower.new
       @follower.service = @service
       @follower.user = current_user
@@ -141,18 +143,21 @@ class ServicesController < ApplicationController
           show_error(format, 'show', @follower)
         end
       end
-    end
+   else
+     show_error("You already follow this service")
+   end
+  end
     
-    def unfollow
-      @follower = Follower.find(params[:follower_id])
-      respond_to do |format|
-        if @follower.destroy
-          format.html{redirect_to request.referer, notice: 'Service unfollow'}
-        else
-          show_error(format, 'show', @follower)
-        end
+  def unfollow
+    @follower = Follower.find(params[:follower_id])
+    respond_to do |format|
+      if @follower.destroy
+        format.html{redirect_to request.referer, notice: 'Service unfollow'}
+      else
+        show_error(format, 'show', @follower)
       end
     end
+  end
 
 
   private

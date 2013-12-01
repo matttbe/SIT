@@ -68,9 +68,9 @@
                 <td><%= service.date_end.to_date().to_formatted_s(:rfc822) %></td>
                 <td><%= link_to 'Show', service %></td>
                 <td><% if user_signed_in?%>
-                	<% @follower = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => service.id, :user_id => current_user.id)%>
+                	<% @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => service.id, :user_id => current_user.id)%>
                 	<% @service = service %>
-                	<%= render 'services/follow', :service=>@service, :follower=>@follower %>
+                	<%= render 'services/follow', :service=>@service, :followers=>@followers %>
                 <%end%></td>
                 <td><% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= link_to 'Accept', accept_service_path(service) %><%end%></td>
                 <td><% if !current_user.nil?&&service.creator_id==current_user.id %><%= link_to 'Edit', edit_service_path(service) %><%end%></td>
