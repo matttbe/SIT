@@ -1,6 +1,6 @@
 class GroupUserRelationController < ApplicationController
   def new
-	unless Relations.where(:id => params[:idUser]).blank ?
+	  if GroupUserRelation.where(user_id: current_user.id, group_id: params[:idGroup]).blank?
   		@relation = GroupUserRelation.new(user_id:params[:idUser] , group_id:params[:idGroup])
   		respond_to do |format|
   			if @relation.save
@@ -8,7 +8,7 @@ class GroupUserRelationController < ApplicationController
 			else
 				format.json { render json: {:error => "error"}} #TODO 
 			end
-		end
-    end
+	     end
+      end
   end
 end
