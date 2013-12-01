@@ -1,6 +1,5 @@
-include GeoKit::Geocoders
-
 class AddressController < ApplicationController
+    
     before_action :is_logged_in, only: [:main, :new,:create,:index, :update, :destroy, :show]
     before_action :set_address, only: [:main,:edit,:show, :destroy,:update]
 
@@ -27,6 +26,9 @@ class AddressController < ApplicationController
     def create
       @address = Address.new(address_params)
       @address.user_id=current_user.id
+      coordinates = Geokit::Geocoders::GeonamesGeocoder.geocode(@address.country + " " + @address.postal_code.to_s)
+      @address.latitude = coordinates.lat
+      @address.longitude = coordinates.lng
 
       respond_to do |format|
         if @address.save
@@ -72,23 +74,6 @@ class AddressController < ApplicationController
                 format.json { head :no_content }
             end
         end
-    end
-
-    
-    def create
-      @address = Address.new(address_params)
-      #TODO how to know if the current_user is a User or an Organisation ?
-      @address.user_id = current_user.id
-      
-      respond_to do |format|
-        if @address.save
-          format.html { redirect_to @address, notice: 'Address was successfully created.' }
-          format.json { render action: 'show', status: :created, location: @address }
-        else
-          show_error(format,'new',@adress)
-        end
-      end
-      
     end
 
     private 

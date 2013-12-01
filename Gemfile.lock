@@ -115,6 +115,11 @@ GEM
     formatador (0.2.4)
     formtastic (2.3.0.rc2)
       actionpack (>= 3.0)
+    geokit (1.7.1)
+      multi_json (>= 1.3.2)
+    geokit-rails (2.0.1)
+      geokit (~> 1.5)
+      rails (>= 3.0)
     gherkin (2.12.2)
       multi_json (~> 1.3)
     guard (2.2.4)
@@ -288,6 +293,7 @@ DEPENDENCIES
   database_cleaner
   date_validator
   devise
+  geokit-rails
   guard-cucumber
   jbuilder (~> 1.2)
   jquery-rails

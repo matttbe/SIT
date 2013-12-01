@@ -54,6 +54,9 @@ gem 'rolify', '~> 3.3.0.rc4' # rc4 => https://github.com/EppO/rolify/issues/183
 gem 'countries'
 gem 'country_select'
 
+#geokit
+gem 'geokit-rails'
+
 # coveralls: https://coveralls.io/r/matttbe/SIT
 gem 'coveralls', require: false
 
