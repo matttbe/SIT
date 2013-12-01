@@ -1,12 +1,22 @@
 <%= form_for :group, url: group_index_path do |f| %>
   <p>
-    <%= f.label :Name %><br>
-    <%= f.text_field :name %>
+    <%= f.label :Name %>
+	<%= f.text_field :name %>
   </p>
  
   <p>
-    <%= f.label :Description %><br>
+    <%= f.label :Description %>
     <%= f.text_area :description%>
+  </p>
+  <p>
+	Private ?
+	<%= f.check_box :private %>
+	If checked, people will be able to reach the group and see who's in it, but not to see the post and post themselves.
+  </P>
+  <p>
+	Secret ?
+	<%= f.check_box :secret %>
+	If checked, the group will be secret and reachable only for members.
   </p>
 
   <p>
