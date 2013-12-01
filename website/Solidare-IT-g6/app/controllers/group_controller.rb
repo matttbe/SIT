@@ -9,8 +9,12 @@ class GroupController < ApplicationController
 
   def create
 	@group = Group.new(group_params)
- 
+
     @group.save
+
+	@relation = GroupUserRelation.new(:user_id => current_user.id, :group_id => @group.id)
+	@relation.save
+
     redirect_to @group
   end
 
@@ -32,7 +36,7 @@ class GroupController < ApplicationController
 
   private
     def group_params
-      params.require(:group).permit(:name, :description)
+      params.require(:group).permit(:name, :description, :private, :secret)
     end
 
 end
