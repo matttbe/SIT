@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20131129133726) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "principal",   default: false
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   create_table "categories", force: true do |t|

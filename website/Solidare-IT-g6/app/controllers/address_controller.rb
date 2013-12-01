@@ -1,3 +1,5 @@
+include GeoKit::Geocoders
+
 class AddressController < ApplicationController
     before_action :is_logged_in, only: [:main, :new,:create,:index, :update, :destroy, :show]
     before_action :set_address, only: [:main,:edit,:show, :destroy,:update]
