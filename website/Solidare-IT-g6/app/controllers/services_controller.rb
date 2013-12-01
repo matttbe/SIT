@@ -6,7 +6,7 @@ class ServicesController < ApplicationController
   #GET /user/following_services
   def following_services
     if user_signed_in?
-      @following = Follower.where("user_id = :user_id", :user_id => current_user.id)
+      @following = Follower.where("user_id = :user_id", :user_id => current_user.id)      
     end
   end
 
@@ -44,9 +44,10 @@ class ServicesController < ApplicationController
   def show
     protect_param_integer
     if @can
-    @service = Service.find(params[:id])   
-    #NETTOYER ca pour faire une seule fois la requete followers
+    @service = Service.find(params[:id])
+   #NETTOYER ca pour faire une seule fois la requete followers
     @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)  
+    end
   end
 
   # GET /services/new

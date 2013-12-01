@@ -9,6 +9,7 @@
 		<% @services = Service.where(" id = :service_id", :service_id => follow.service) %>
 		<% @services.each do |service|%>
 		  	<%= render 'show',:service=> service %>
+		  	<br /><br />
 	  	<%end%>
 	<% end %>
 <%end%>
