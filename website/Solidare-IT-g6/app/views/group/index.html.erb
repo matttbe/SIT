@@ -27,5 +27,8 @@
   </tbody>
 </table>
 
-<%= link_to 'New Group', new_group_path %>
-
+<% if current_user.nil?%>
+  <%= link_to 'New Group', sign_in_path %>
+<% else %>
+  <%= link_to 'New Group', new_group_path %>
+<% end %>
