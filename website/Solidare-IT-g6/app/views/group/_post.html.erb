@@ -1,5 +1,11 @@
 <h2>Posts</h2>
 
+<% if @group.group_posts.empty?%>
+  <p>
+	No post :( Be the first !
+  </p>
+<% end %>
+
 <% @group.group_posts.order('updated_at DESC').each do |group_post| %>
   <p>
     <%if !group_post.user.nil? %>
