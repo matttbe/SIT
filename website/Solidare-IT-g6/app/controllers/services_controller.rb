@@ -2,7 +2,6 @@ class ServicesController < ApplicationController
   before_action :set_service, only: [:edit, :update, :destroy, :accept_service, :follow, :unfollow]
   before_action :set_good_service, only: [:create_transaction, :new_transaction]
 
-
   #GET /user/following_services
   def following_services
     if user_signed_in?
@@ -28,9 +27,10 @@ class ServicesController < ApplicationController
         format.html { redirect_to my_services_path, notice: 'you have accepted a service' }
       end
     else
-      #TODO adding to the follow list
+      #TODO add notification to the follower list
     end
   end
+  
   # GET /services
   # GET /services.json
   def index
@@ -54,13 +54,19 @@ class ServicesController < ApplicationController
     else
       dont_see
     end
-
   end
 
   # GET /services/1/edit
   def edit
     if !(@service.creator_id==current_user.id)
       dont_see
+    end
+    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)
+    @followers_list.each do |follower|
+      @notification = Notification.new
+      @notification.notified_user = follower.user
+      @notification.service = @service
+      @notification.type = 'EDIT'
     end
   end
 
