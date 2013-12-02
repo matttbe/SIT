@@ -84,13 +84,24 @@ class ServicesController < ApplicationController
   
   def notify
     @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)
-    @followers_list.each do |follower|
-      @notification = Notification.new
-      @notification.notified_user = follower.user_id
-      @notification.service = @service
-      @notification.notification_type = 'EDIT'
+    @followers_list.each do |follower| 
+      @notification = nil
+      #Est-ce qu'il vaut mieux faire une requete SQL a iteration ou une requete plus grosse avant et une double boucle?
+      @notification_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => @service.id, :user_id => follower.user_id)
+      if @notification_list.size > 0
+        @notification_list.each do |notif|
+          @notification = notif
+          @notification.seen = false          
+        end
+      else          
+        @notification = Notification.new
+        @notification.notified_user = follower.user_id
+        @notification.service = @service
+        @notification.notification_type = 'EDIT'
+        @notification.seen = false
+      end
       if ! @notification.save
-        show_error(format,'new',@notification)
+          show_error(format,'new',@notification)
       end
     end
   end
