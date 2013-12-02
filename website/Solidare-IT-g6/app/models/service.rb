@@ -17,6 +17,7 @@ class Service < ActiveRecord::Base
 
   belongs_to :category, :class_name => 'Category', :foreign_key => 'category_id'
 
+  belongs_to :address
   has_one :transaction, :class_name => 'Transaction', :foreign_key => 'service_id'
 
   belongs_to :service
