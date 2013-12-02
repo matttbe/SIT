@@ -6,9 +6,13 @@ class GroupUserRelationController < ApplicationController
   			if @relation.save
 				format.json { render json: @relation}
 			else
-				format.json { render json: {:error => "error"}} #TODO 
+				format.json { render json: {:error => "error"}}
 			end
 	     end
-      end
+	 else
+		respond_to do |format|
+		  format.json { render json: {:error => "Already in group"}}
+		end
+	 end
   end
 end
