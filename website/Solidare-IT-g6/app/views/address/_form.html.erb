@@ -6,7 +6,7 @@
     <%= f.text_field :city %>
     <select id="address_country" name="address[country]">
     <% Country.all.each do |country|%>
-    <option value="<%= country.first%>"><%=country.first%></option>
+    <option value="<%= country.first%>" <% if @address.country == country.first%>selected <% end %>  ><%=country.first%></option>
     <% end %>
     </select>
 
