@@ -26,3 +26,5 @@ before_script:
   - psql -c 'create database SolidareITg6_test;' -U postgres
   # Install dependences
   - travis_retry bundle install --verbose
+  # Env
+  cp .env.travis .env

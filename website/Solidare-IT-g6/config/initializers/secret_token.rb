@@ -9,17 +9,4 @@ require 'securerandom'
 # no regular words or you'll be exposed to dictionary attacks.
 # You can use `rake secret` to generate a secure secret key.
 
-def find_secure_token
-  token_file = Rails.root.join('.secret')
-  if File.exist? token_file
-    # Use the existing token.
-    File.read(token_file).chomp
-  else
-    # Generate a new token of 64 random hexadecimal characters and store it in token_file.
-    token = SecureRandom.hex(64)
-    File.write(token_file, token)
-    token
-  end
-end
-
-SolidareItG6::Application.config.secret_token = find_secure_token
+SolidareItG6::Application.config.secret_token = ENV['SECRET_TOKEN']

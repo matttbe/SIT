@@ -17,6 +17,7 @@
 
 # secret token (cookies)
 .secret
+.env
 
 /nbproject
 

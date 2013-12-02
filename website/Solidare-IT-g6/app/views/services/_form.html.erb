@@ -1,4 +1,4 @@
-<%=bootstrap_form_for(@service,:html => { :method => :put, :multipart => true  }) do |f| %>
+<%=bootstrap_form_for(@service,:html => { :multipart => true  }) do |f| %>
 
   <%=f.radio_buttons :is_demand, { "Demand" => true, "Offer" => false }, :label => "what do you want to propose ?"%>
 

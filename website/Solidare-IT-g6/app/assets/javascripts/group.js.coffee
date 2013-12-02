@@ -7,5 +7,10 @@
 $(document).on "ready page:change", ->
   $("#join").on("ajax:success", (e, data, status, xhr) ->
     $("#join").empty()
-    $("#join").append "<p>USER ADDED</p>").bind "ajax:error", (e, xhr, status, error) ->
+    response = xhr.responseJSON
+    if response.error
+    	$("#join").append response.error
+    else
+   		$("#join").append "<p>USER ADDED</p>")
+  $("#join").on "ajax:error", (e, xhr, status, error) ->
       $("#join").append "<p>ERROR</p>"
