@@ -38,7 +38,13 @@
           <% if !current_user.nil? && current_user.superadmin %>
               <li><a href="/admin">Admin</a></li>
           <% end %>
-
+          <% if !current_user.nil? && current_user.organisations.empty? %>
+              <% if current_user.organisations.length == 1 %>
+                   <li><a href="<%=organisation_main_panel_path+'/'+current_user.organisations.first.id%>"> Organisations </a></li>
+              <% else %>
+                   <li><a href="<%=organisation_choose_path%>"> Organisations </a></li>
+              <% end %>
+          <%end%>
 
         </ul>
         <ul class="nav pull-right">

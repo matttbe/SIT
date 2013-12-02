@@ -18,6 +18,13 @@ class OrganisationsController < InheritedResources::Base
     end
   end
   
+  
+  # GET /manage_organisation
+  def manage
+    @organisations = Organisation.all
+  end
+    
+  
   # GET /join_organisations
   def join_organisation
     if user_signed_in?
@@ -32,6 +39,12 @@ class OrganisationsController < InheritedResources::Base
     @organisations = Organisation.all
   end
     
+  # GET /choose_organisations
+  def choose
+    @organisations = current_user.organisations.all
+  end
+    
+  
   
   # GET /join_organisation/:id
   def join_action
@@ -70,6 +83,7 @@ class OrganisationsController < InheritedResources::Base
         end
       end
   end
+  
   
   
 
