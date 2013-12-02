@@ -28,4 +28,9 @@ class Service < ActiveRecord::Base
 
   has_many :notifications
   has_many :users, through: :notification
+
+  def distance(latitude,longitude)
+    logger.debug("+++++++++++++++++++++++++")
+    (self.address.latitude-latitude).abs+(self.address.longitude-longitude).abs
+  end
 end
