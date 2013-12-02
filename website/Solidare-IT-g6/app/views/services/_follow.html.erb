@@ -3,7 +3,7 @@
           <% if @followers.size == 0%>
                   <%= link_to 'Follow', follow_path(@service) %>
           <%else%>
-                  <%= link_to 'Unfollow', unfollow_path(@service, @followers.first.id) %>
+                  <%= link_to 'Unfollow', unfollow_path(@service, @follower.first.id) %>
           <%end%>
   <% end %>
 <% end %>
