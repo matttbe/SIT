@@ -10,4 +10,4 @@ Feature: All about following
       When I visit the page of one service
       Then I should see a follow link
       And I can not see the unfollow link   
-      
+ 
