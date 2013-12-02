@@ -13,10 +13,6 @@ class Address < ActiveRecord::Base
   belongs_to :organisation, :class_name => 'Organisation', :foreign_key => 'orga_id'
 
 
-  def distance(latitude,longitude)
-    logger.debug("+++++++++++++++++++++++++")
-    logger.debug(current_user.all_name)
-    (self.latitude-latitude).abs+(self.longitude-longitude).abs
-  end
+  
 
 end
