@@ -1,4 +1,11 @@
 
-	<%= @notification.service.id %>
-	<%= @notification.type %>
-	<br />
+<%if @notifications.size > 0 %>
+	<% @notifications.each do |notification| %>		
+		<%= notification.service.id %>
+		<%= notification.type %>
+		<br />
+	<%end%>
+<%else%>
+	<%= notifications.size %>
+	Vous n'avez pas de notification
+<%end%>
