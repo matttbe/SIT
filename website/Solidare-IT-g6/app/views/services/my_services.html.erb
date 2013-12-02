@@ -1,16 +1,17 @@
 <h3>My services</h3>
 <br /><br />
-<% @services.each do |service|  
-  if service.quick_match
-    service=service.matching_service
-  %>
-  You have accept this service :
-  <br /><br />
-<%end%>
-  <%= render 'show',:service=> service %>
-<hr></hr>
-<% end %>
-<% if @services.nil? ||@services.length==0 %>
-no services
-<%  end%>
 
+<% @services.each do |service|  
+	if service.quick_match
+    	service=service.matching_service
+  	%>
+	  	You have accept this service :
+	  	<br /><br />
+	<%end%>
+  	<%= render 'show',:service=> service %>
+	<hr></hr>
+<% end %>
+
+<% if @services.nil? ||@services.length==0 %>
+	You've no services.
+<% end%>

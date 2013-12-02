@@ -49,6 +49,10 @@ class AddressController < ApplicationController
         @addresses = current_user.addresses.order(principal: :desc)
     end
     
+    def edit
+
+    end
+    
     def update
         if !(@address.user_id==current_user.id)
             dont_see
@@ -57,6 +61,10 @@ class AddressController < ApplicationController
                 if @address.update(address_params)
                     format.html { redirect_to @address, notice: 'Address was successfully updated.' }
                     format.json { head :no_content }
+                    coordinates = Geokit::Geocoders::GeonamesGeocoder.geocode(@address.country + " " + @address.postal_code.to_s)
+                    @address.latitude = coordinates.lat
+                    @address.longitude = coordinates.lng
+                    @address.save
                 else
                     show_error(format,'edit',@address)
                 end

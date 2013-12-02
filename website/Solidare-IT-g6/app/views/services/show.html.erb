@@ -1,5 +1,6 @@
-  <%= render 'show',:service=> @service %>
+<%= render 'show',:service=> @service %>
 
-<% if user_signed_in?%>
-  <%= render 'follow', :service=>@service%>
-<%end%>
+<%= render 'followers', :followers_list=>@followers_list%>
+
+<br /><br />
+<%= link_to 'Back', services_path %>

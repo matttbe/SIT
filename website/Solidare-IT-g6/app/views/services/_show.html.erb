@@ -54,4 +54,7 @@
 <% elsif !current_user.nil?&&@service.matching_service.nil?%>
 	<%= link_to 'Accept', accept_service_path(@service) %> |
 <%end%>
-<%= link_to 'Back', services_path %>
+<% if user_signed_in?%>
+    <% @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)%>
+	<%= render 'follow', :service=>@service, :followers =>@followers%>
+<%end%>

@@ -1,0 +1,15 @@
+<h3>My following services</h3>
+<br /><br />
+
+<% if @following.nil? ||@following.length==0 %>
+	You don't follow any services.
+<%else%>
+	You follow thoses services :
+	<% @following.each do |follow|%>
+		<% @services = Service.where(" id = :service_id", :service_id => follow.service) %>
+		<% @services.each do |service|%>
+		  	<%= render 'show',:service=> service %>
+		  	<br /><br />
+	  	<%end%>
+	<% end %>
+<%end%>

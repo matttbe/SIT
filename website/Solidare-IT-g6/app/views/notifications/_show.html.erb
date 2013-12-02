@@ -1,0 +1,21 @@
+
+<%if @notifications.size > 0 %>
+	<% @notifications.each do |notif| %>
+		<% @users.each do |user| %>
+			<%if user.id == notif.service.creator_id %>
+				<% @creator_firstname = user.firstname %>
+				<% @creator_name = user.name %>
+			<%end%>
+		<%end%>
+		<% case notif.notification_type %>
+		<%when 'EDIT'%>
+			<% @notif_type = "eddited" %>
+		<%else%>
+			<% @notif_type = "NO MESSAGE FOR THIS TYPE" %>
+		<%end %>
+		The service "<%= notif.service.title %>" of <%= @creator_firstname %> <%= @creator_name %> was <%= @notif_type %><br />
+	<%end%>
+<%else%>
+	<%= @notifications.size %>
+	Vous n'avez pas de notification
+<%end%>

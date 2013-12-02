@@ -2,6 +2,12 @@ class ServicesController < ApplicationController
   before_action :set_service, only: [:edit, :update, :destroy, :accept_service, :follow, :unfollow]
   before_action :set_good_service, only: [:create_transaction, :new_transaction]
 
+  #GET /user/following_services
+  def following_services
+    if user_signed_in?
+      @following = Follower.where("user_id = :user_id", :user_id => current_user.id)      
+    end
+  end
 
   # GET /user/services
   def my_services
@@ -21,9 +27,10 @@ class ServicesController < ApplicationController
         format.html { redirect_to my_services_path, notice: 'you have accepted a service' }
       end
     else
-      #TODO adding to the follow list
+      #TODO add notification to the follower list
     end
   end
+  
   # GET /services
   # GET /services.json
   def index
@@ -37,10 +44,9 @@ class ServicesController < ApplicationController
   def show
     protect_param_integer
     if @can
-      @service = Service.find(params[:id])
-      if user_signed_in?
-        @follower = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
-      end
+    @service = Service.find(params[:id])
+   #NETTOYER ca pour faire une seule fois la requete followers
+    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)  
     end
   end
 
@@ -51,14 +57,13 @@ class ServicesController < ApplicationController
     else
       dont_see
     end
-
   end
 
   # GET /services/1/edit
   def edit
     if !(@service.creator_id==current_user.id)
       dont_see
-    end
+    end    
   end
 
   # POST /services
@@ -76,6 +81,19 @@ class ServicesController < ApplicationController
         end
       end
   end
+  
+  def notify
+    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)
+    @followers_list.each do |follower|
+      @notification = Notification.new
+      @notification.notified_user = follower.user_id
+      @notification.service = @service
+      @notification.notification_type = 'EDIT'
+      if ! @notification.save
+        show_error(format,'new',@notification)
+      end
+    end
+  end
 
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
@@ -83,6 +101,7 @@ class ServicesController < ApplicationController
     if !(@service.creator_id==current_user.id)
       dont_see
     else
+      notify
       respond_to do |format|
         if @service.update(service_params)
           format.html { redirect_to @service, notice: 'Service was successfully updated.' }
@@ -133,30 +152,41 @@ class ServicesController < ApplicationController
      end
   end
   
-    def follow
-      @follower = Follower.new
-      @follower.service = @service
-      @follower.user = current_user
-      respond_to do |format|
-        if @follower.save
-          format.html{redirect_to request.referer, notice: 'You follow the service'}
-        else
-          show_error(format, 'show', @follower)
+  def follow   
+    if user_signed_in?
+      @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
+      if @followers.size == 0
+        @follower = Follower.new
+        @follower.service = @service
+        @follower.user = current_user
+        respond_to do |format|
+          if @follower.save
+            format.html{redirect_to request.referer, notice: 'You follow the service'}
+          else
+            show_error(format, 'show', @follower)
+          end
         end
-      end
+     else
+       show_error("You already follow this service")
+     end
+    else
+      dont_see
     end
+ end
     
-    def unfollow
-      @follower = Follower.find(params[:follower_id])
-      respond_to do |format|
-        if @follower.destroy
-          format.html{redirect_to request.referer, notice: 'Service unfollow'}
-        else
-          show_error(format, 'show', @follower)
-        end
+  def unfollow
+    @follower = Follower.find(params[:follower_id])
+    respond_to do |format|
+      if @follower.destroy
+        format.html{redirect_to request.referer, notice: 'Service unfollow'}
+      else
+        show_error(format, 'show', @follower)
       end
     end
+  end
 
+
+# ----------- PRIVATE -------------------------------
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -196,7 +226,7 @@ class ServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:title,:description, :date_start, :date_end,:is_demand)
+      params.require(:service).permit(:title,:description, :date_start, :date_end,:is_demand, :photo)
     end
 
     def transaction_params
