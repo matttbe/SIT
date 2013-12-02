@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131202124028) do
+
+ActiveRecord::Schema.define(version: 20131202132750) do
+
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -86,7 +88,7 @@ ActiveRecord::Schema.define(version: 20131202124028) do
 
   create_table "notifications", force: true do |t|
     t.integer  "notified_user"
-    t.string   "type"
+    t.string   "notification_type"
     t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "updated_at"

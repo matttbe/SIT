@@ -1,11 +1,9 @@
 
 <%if @notifications.size > 0 %>
-	<% @notifications.each do |notification| %>		
-		<%= notification.service.id %>
-		<%= notification.type %>
-		<br />
+	<% @notifications.each do |notif| %>
+		The service <%= notif.service.title %> of <%= @creator_firstname %>was <%= notif.notification_type %><br />
 	<%end%>
 <%else%>
-	<%= notifications.size %>
+	<%= @notifications.size %>
 	Vous n'avez pas de notification
 <%end%>
