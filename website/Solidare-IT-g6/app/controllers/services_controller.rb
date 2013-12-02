@@ -60,14 +60,7 @@ class ServicesController < ApplicationController
   def edit
     if !(@service.creator_id==current_user.id)
       dont_see
-    end
-    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)
-    @followers_list.each do |follower|
-      @notification = Notification.new
-      @notification.notified_user = follower.user
-      @notification.service = @service
-      @notification.type = 'EDIT'
-    end
+    end    
   end
 
   # POST /services
@@ -85,6 +78,19 @@ class ServicesController < ApplicationController
         end
       end
   end
+  
+  def notify
+    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)
+    @followers_list.each do |follower|
+      @notification = Notification.new
+      @notification.notified_user = follower.user_id
+      @notification.service = @service
+      @notification.type = 'EDIT'
+      if ! @notification.save
+        show_error(format,'new',@notification)
+      end
+    end
+  end
 
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
@@ -92,6 +98,7 @@ class ServicesController < ApplicationController
     if !(@service.creator_id==current_user.id)
       dont_see
     else
+      notify
       respond_to do |format|
         if @service.update(service_params)
           format.html { redirect_to @service, notice: 'Service was successfully updated.' }
