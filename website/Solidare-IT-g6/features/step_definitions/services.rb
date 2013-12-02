@@ -107,6 +107,12 @@ When(/^I visit the page of one service$/) do
   visit @link
 end
 
+When(/^I visit the page of my service$/) do 
+  add_service
+  @link="/services/"+@service.id.to_s
+  visit @link
+end
+
 When(/^I fill a new title for my service$/) do 
   fill_in "service_title", :with => "new title"
 end

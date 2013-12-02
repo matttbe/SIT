@@ -1,13 +1,17 @@
-<h1>Listing addresses</h1>
+<h1>My addresses</h1>
 
-<table>
+<table class="table table-striped">
 
   <tbody>
     <% @addresses.each do |address| %>
-      <tr>
+      <tr <% if address.principal %> class="success"<%  end %>>
+        <td><% if address.principal %> <i class="icon-home"></i><%  end %> </td>
         <td> <%= render 'address', :address=>address %> </td>
-        <td><% if !current_user.nil?&&address.user_id==current_user.id %><%= link_to 'Edit', edit_address_path(address) %><%end%></td>
-        <td><% if !current_user.nil?&&address.user_id==current_user.id %><%= link_to 'Destroy', address, method: :delete, data: { confirm: 'Are you sure?' } %><%end%></td>
+        <td>
+            <% if !current_user.nil?&&address.user_id==current_user.id %><%= link_to 'Edit', edit_address_path(address) %><%end%>
+            <% if !current_user.nil?&&address.user_id==current_user.id %><%= link_to 'Destroy', address, method: :delete, data: { confirm: 'Are you sure?' } %><%end%>
+            <% if !address.principal %><%= link_to 'Put this as my main address', main_address_path(address) %><% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

@@ -4,7 +4,8 @@
                                                 </li>
                                                 <li class="divider-vertical"></li>
                                                 <li class="dropdown">
-                                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">   
+                                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <%= image_tag current_user.avatar.url(:thumb) %>
                                                     <%=  current_user.all_name %>
                                                     <%  @karma=current_user.karma 
                                                         if @karma>0%>
@@ -29,6 +30,7 @@
                                                       <li class="nav-header">Organisation</li>
                                                         <%if current_user.own_organisations.size !=0 || current_user.own_organisations.nil? %>
                                                          <li><%= link_to "Manage my organisations",  manage_organisation_path %></li>
+                                                         <li><%= link_to "New Manage my organisations",  organisation_manage_organisations_path %></li>
                                                         <% end %>
                                                          <li><%= link_to "Create an organisation",  new_organisation_path %></li>
                                                          <li><%= link_to "Join an organisation",  join_organisation_path %></li>

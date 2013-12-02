@@ -44,15 +44,22 @@ gem 'date_validator'
 gem 'bootstrap_forms', github: 'gagalago/bootstrap_forms'
 
 # admin interface: github: compatible with RoR 4.0
-gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'activeadmin', git: 'https://github.com/gregbell/active_admin.git'
 
 # manage rights
 gem 'cancan'
-gem 'rolify'
+gem 'rolify', '~> 3.3.0.rc4' # rc4 => https://github.com/EppO/rolify/issues/183
 
 #country
 gem 'countries'
 gem 'country_select'
+
+#paperclip
+#gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+gem "paperclip-dropbox", ">= 1.1.7"
+
+#geokit
+gem 'geokit-rails'
 
 # coveralls: https://coveralls.io/r/matttbe/SIT
 gem 'coveralls', require: false

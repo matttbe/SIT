@@ -7,6 +7,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_attached_file :avatar,
+    :storage => :dropbox,
+    :dropbox_credentials => Rails.root.join("config/dropbox.yml"),
+    :styles => { :medium => "300x300>", :thumb => "32x32>" },
+    :default_url => "/images/user.png",
+    :path => ":style/user/:id_:filename"
+
   validates :name, :presence => true
   validates :firstname, :presence => true
   validates :birthdate, :presence => true,:date => { :before => Time.now }
@@ -18,13 +25,30 @@ class User < ActiveRecord::Base
   has_many :own_organisations, :class_name => 'Organisation', :foreign_key => 'creator_id'
   has_many :coworkers
   has_many :organisations,:foreign_key => 'org_id', through: :coworkers
+
   has_many :own_services, :class_name => 'Service', :foreign_key => 'creator_id'
   has_many :group_posts, :class_name => 'GroupPost', :foreign_key => 'user_id'
   has_many :group_post_comments, :class_name => 'GroupPostComment', :foreign_key => 'user_id'
   has_many :group_user_relations
   has_many :groups, :through => :group_user_relations
+  has_many :followers
+  has_many :services, through: :followers
+
   def all_name
     "#{firstname} #{name}"
+  end
+
+  def main_address
+    if addresses.size==0
+      return nil
+    end
+    @a=addresses.where(:principal=>true)
+    if(@a.size==0)
+      return addresses.first
+    else
+      return @a.first
+    end
+
   end
 
   def default_values

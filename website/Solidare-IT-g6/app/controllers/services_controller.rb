@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-  before_action :set_service, only: [:edit, :update, :destroy, :accept_service]
+  before_action :set_service, only: [:edit, :update, :destroy, :accept_service, :follow, :unfollow]
   before_action :set_good_service, only: [:create_transaction, :new_transaction]
 
 
@@ -38,6 +38,9 @@ class ServicesController < ApplicationController
     protect_param_integer
     if @can
       @service = Service.find(params[:id])
+      if user_signed_in?
+        @follower = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
+      end
     end
   end
 
@@ -129,6 +132,30 @@ class ServicesController < ApplicationController
        end
      end
   end
+  
+    def follow
+      @follower = Follower.new
+      @follower.service = @service
+      @follower.user = current_user
+      respond_to do |format|
+        if @follower.save
+          format.html{redirect_to request.referer, notice: 'You follow the service'}
+        else
+          show_error(format, 'show', @follower)
+        end
+      end
+    end
+    
+    def unfollow
+      @follower = Follower.find(params[:follower_id])
+      respond_to do |format|
+        if @follower.destroy
+          format.html{redirect_to request.referer, notice: 'Service unfollow'}
+        else
+          show_error(format, 'show', @follower)
+        end
+      end
+    end
 
 
   private
@@ -169,12 +196,12 @@ class ServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:title,:description, :date_start, :date_end,:is_demand)
+      params.require(:service).permit(:title,:description, :date_start, :date_end,:is_demand, :photo)
     end
 
     def transaction_params
       params.require(:transaction).permit(:feedback_comments, :feedback_evaluation)
     end
-
+   
 
 end

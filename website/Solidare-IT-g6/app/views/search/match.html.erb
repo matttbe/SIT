@@ -1,7 +1,8 @@
 <% location= request.env['PATH_INFO'] %>
 <h3>Search Result</h3>
 
-<div class="row">
+<div class="container-fluid">
+    <div class="row-fluid">
       <div class="span3">
         <div class="well sidebar-nav">
             <ul class="nav nav-list">
@@ -38,45 +39,51 @@
             </ul>
           </div>
       </div>
-      <div class="span9">
-
+      <div class="span9 service-cont">
+        
+        <div class="btn-toolbar">
+          <div class="btn-group">
+            <a class="btn" id="list" ><i class="icon-list"></i></a>
+            <a class="btn" id="grid" ><i class="icon-grid"></i></a>
+          </div>
+        </div>
         <% if @services.size ==0 %>
           No result
         <% else %>
 
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Date start</th>
-              <th>Date end</th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @services.each do |service| %>
-              <tr>
-                <td><%= service.title %></td>
-                <td><%= service.description %></td>
-                <td><%= service.date_start.to_date().to_formatted_s(:rfc822) %></td>
-                <td><%= service.date_end.to_date().to_formatted_s(:rfc822) %></td>
-                <td><%= link_to 'Show', service %></td>
-                <td><% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= link_to 'Accept', accept_service_path(service) %><%end%></td>
-                <td><% if !current_user.nil?&&service.creator_id==current_user.id %><%= link_to 'Edit', edit_service_path(service) %><%end%></td>
-                <td><% if !current_user.nil?&&service.creator_id==current_user.id %><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %><%end%></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+          <% @services.each_with_index do |service, index| %>
+          
+            <div class="row-fluid service-parent">
+            <div class="well well-large service span12">
+                <a class="pull-left" href="#">
+                  <%= image_tag service.photo.url(:thumb) %>
+                </a>
+                <h3><%= service.title %></h3>
+                <div class="service-action">
+                  <%= button_to 'Show', service, :class=>"btn", :method => :get  %>
+                  <% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= button_to 'Accept', accept_service_path(service), :class=>"btn", :method => :get %><%end%>
+                  <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Edit', edit_service_path(service), :class=>"btn", :method => :get %><%end%>
+                  <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn", :method => :get%><%end%>
+                  <% if user_signed_in?%>
+                  <% @follower = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => service.id, :user_id => current_user.id)%>
+                  <% @service = service %>
+                  <%= render 'services/follow', :service=>@service, :follower=>@follower %>
+                  <%end%>
+                </div>
+                
+                <p class="service-desc"><%= service.description %></p>
+                <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> to <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
+                </p>
+            </div>
+          </div>
+          <% end %>
+           <!-- close the last div class="row" -->
         <% end %>
         <br>
+      
       </div>
     </div>
+  </div>
 
 <% if !current_user.nil?%>
 <%= link_to 'New Service', new_service_path %>

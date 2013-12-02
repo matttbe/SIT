@@ -39,6 +39,10 @@ SolidareItG6::Application.routes.draw do
   get '/manage_organisations' => 'organisations#manage', :as=>"manage_organisation"
   get '/join_organisations' => 'organisations#join_organisation', :as=>"join_organisation"
   get '/join_organisations/:id' => 'organisations#join_action', :as=>"join_action"
+
+  #organisation manage
+  get '/organisation_manage/:id/coworkers/' =>'organisation_manage/coworkers#index_organisation', :as=>'manage_coworkers'
+
   
 
   devise_scope :user do
@@ -50,7 +54,14 @@ SolidareItG6::Application.routes.draw do
   
   #address routing
   resources :address
-  post '/adresses' => 'adresses#create', :as=>"addresses_create_path"
+
+  #post '/adresses' => 'adresses#create', :as=>"addresses_create_path"
+  get '/adresses/:id/main' =>'address#main', :as=> "main_address"
+
+  
+  #follower
+  get '/service/:id/follow' => 'services#follow', :as=>"follow"
+  get '/service/:id/unfollow/:follower_id' => 'services#unfollow', :as=>"unfollow"  
 
 
 end

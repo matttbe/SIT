@@ -2,8 +2,8 @@ class SearchController < ApplicationController
 
 
   # GET /search
-  def match
-
+  def match    
+    
     # no filter (min 2 items in params)
     if (params.length <= 2)
       @services = Service.all # TODO: display all services?
@@ -27,7 +27,7 @@ class SearchController < ApplicationController
       end 
 
       #includes category infos
-      @services=@services.includes(:category)
+      @services=@services.includes(:category).references(:category)
       if (! params[:q].nil? and ! params[:q].empty? and !@services.nil?)
           @services = @services.where(:quick_match=>false).where('(services.title LIKE (:titles) or services.description LIKE (:titles) or categories.title LIKE (:titles) or categories.text LIKE (:titles))',
                    :titles => "%" + params[:q] + "%")
