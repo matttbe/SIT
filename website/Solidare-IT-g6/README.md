@@ -12,6 +12,9 @@ Installation
 
 **TODO**
 
+* Create `.env` file
+* Modify `config/database.yml` (for postgresql, check `config/database.yml.postgresql`)
+
 License
 =======
 
