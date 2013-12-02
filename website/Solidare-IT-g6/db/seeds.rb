@@ -38,10 +38,20 @@ else
   c221 = Category.create! :title => 'Bachelor', :text => 'All books about computer sciences for bachelor', :parent => c22
   c222 = Category.create! :title => 'Master', :text => 'All books about computer sciences for master', :parent => c22
 
+
+  #addresses
+
+  coo1 = Geokit::Geocoders::GeonamesGeocoder.geocode("Belgium 1341")
+  ad1=Address.create! :street => "rue grande", :number => 53, :postal_code=>1341,:city=>"Céroux", :country=>"Belgium", :user_id=>u1.id, :latitude=>coo1.lat, :longitude=> coo1.lng
+  coo2 = Geokit::Geocoders::GeonamesGeocoder.geocode("Canada H2A")
+  ad2=Address.create! :street => "rue principale", :number => 53, :postal_code=>"H2A",:city=>"Saint Michel", :country=>"Canada", :user_id=>u2.id, :latitude=>coo2.lat, :longitude=> coo2.lng, :principal => true
+  coo3 = Geokit::Geocoders::GeonamesGeocoder.geocode("Bulgaria 5029")
+  ad3=Address.create! :street => "rue du PSG", :number => 53, :postal_code=>"5029",:city=>"Ajrista", :country=>"Bulgaria", :user_id=>a1.id, :latitude=>coo3.lat, :longitude=> coo3.lng, :principal => true
+
   # services
-  s1 = Service.create! :title=>"Livre",:description => "vente livre congolexicomatisation", :date_start => 'Mon, 28 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2015 15:00:00 UTC +00:00', :creator_id => u2.id, :is_demand=>true, :quick_match=>false, :category_id=>c2.id, :photo=>File.open("../../img/congo.png")
-  s2 = Service.create! :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id => u1.id, :is_demand=>true, :quick_match=>false, :category_id=>c222.id, :photo=>File.open("../../img/ai.jpg")
-  s3 = Service.create! :title=>"Livre Réseau",:description => "vente livre réseau", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2015 15:00:00 UTC +00:00', :creator_id => a1.id, :is_demand=>false, :quick_match=>false, :category_id =>c222.id
+  s1 = Service.create! :title=>"Livre",:description => "vente livre congolexicomatisation", :date_start => 'Mon, 28 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2015 15:00:00 UTC +00:00', :creator_id => u2.id, :is_demand=>true, :quick_match=>false, :category_id=>c2.id, :photo=>File.open("../../img/congo.png"), :address_id=>ad2.id
+  s2 = Service.create! :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id => u1.id, :is_demand=>true, :quick_match=>false, :category_id=>c222.id, :photo=>File.open("../../img/ai.jpg"), :address_id=>ad1.id
+  s3 = Service.create! :title=>"Livre Réseau",:description => "vente livre réseau", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2015 15:00:00 UTC +00:00', :creator_id => a1.id, :is_demand=>false, :quick_match=>false, :category_id =>c222.id, :address_id=>ad3.id
 
   #group
   g1 = Group.create! :name=>"Les mamadous du microcredit", :description => "Trololol"
@@ -56,10 +66,4 @@ else
   u1.add_role :moderator, c22
 
 
-  #addresses
-
-  coo1 = Geokit::Geocoders::GeonamesGeocoder.geocode("Belgium 1341")
-  ad1=Address.create! :street => "rue grande", :number => 53, :postal_code=>1341,:city=>"Céroux", :country=>"Belgium", :user_id=>u2.id, :latitude=>coo1.lat, :longitude=> coo1.lng
-  coo2 = Geokit::Geocoders::GeonamesGeocoder.geocode("Canada H2A")
-  ad2=Address.create! :street => "rue principale", :number => 53, :postal_code=>"H2A",:city=>"Saint Michel", :country=>"Canada", :user_id=>u2.id, :latitude=>coo2.lat, :longitude=> coo2.lng, :principal => true
-end
+  end
