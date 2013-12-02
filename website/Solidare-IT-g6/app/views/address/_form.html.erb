@@ -1,4 +1,9 @@
-<%=bootstrap_form_for(@address ,:url => {:action => "create", :id => @address.id}) do |f| %>
+<% if type=="new"
+    @action="create"
+   else
+    @action="update"
+end%>
+<%=bootstrap_form_for(@address ,:url => {:action => @action, :id => @address.id}) do |f| %>  
 
     <%= f.text_field :street %>
     <%= f.text_field :number %>
