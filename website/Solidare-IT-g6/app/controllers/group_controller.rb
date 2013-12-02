@@ -37,7 +37,7 @@ class GroupController < ApplicationController
 
   private
     def group_params
-      params.require(:group).permit(:name, :description, :private, :secret)
+      params.require(:group).permit(:name, :description, :private, :secret, :photo)
     end
 
     def is_logged_in
