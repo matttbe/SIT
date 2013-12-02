@@ -54,6 +54,10 @@ gem 'rolify', '~> 3.3.0.rc4' # rc4 => https://github.com/EppO/rolify/issues/183
 gem 'countries'
 gem 'country_select'
 
+#paperclip
+#gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+gem "paperclip-dropbox", ">= 1.1.7"
+
 #geokit
 gem 'geokit-rails'
 

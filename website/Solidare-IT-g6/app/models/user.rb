@@ -7,6 +7,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_attached_file :avatar,
+    :storage => :dropbox,
+    :dropbox_credentials => Rails.root.join("config/dropbox.yml"),
+    :styles => { :medium => "300x300>", :thumb => "32x32>" },
+    :default_url => "/images/user.png",
+    :path => ":style/user/:id_:filename"
+
   validates :name, :presence => true
   validates :firstname, :presence => true
   validates :birthdate, :presence => true,:date => { :before => Time.now }
