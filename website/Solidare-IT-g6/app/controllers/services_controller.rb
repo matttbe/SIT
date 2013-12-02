@@ -21,13 +21,14 @@ class ServicesController < ApplicationController
   # GET /services/:id/accept
   def accept_service
     if @service.matching_service.nil?
+      notify_owner
       create_quick_service
       @service.matching_service=@serviceQ
       respond_to do |format|
         format.html { redirect_to my_services_path, notice: 'you have accepted a service' }
       end
     else
-      #TODO add notification to the follower list
+      #TODO
     end
   end
   
@@ -90,19 +91,37 @@ class ServicesController < ApplicationController
       @notification_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => @service.id, :user_id => follower.user_id)
       if @notification_list.size > 0
         @notification_list.each do |notif|
-          @notification = notif
-          @notification.seen = false          
+          @notification = notif     
         end
       else          
         @notification = Notification.new
         @notification.notified_user = follower.user_id
         @notification.service = @service
         @notification.notification_type = 'EDIT'
-        @notification.seen = false
       end
+      @notification.seen = false     
       if ! @notification.save
           show_error(format,'new',@notification)
       end
+    end
+  end
+
+  def notify_owner
+    @notification_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => @service.id, :user_id => @service.creator_id)
+    @notification = nil
+    if @notification_list.size > 0
+      @notification_list.each do |notif|
+        @notification = notif
+      end
+    else
+      @notification = Notification.new
+      @notification.notified_user = @service.creator_id
+      @notification.service = @service
+      @notification.notification_type = 'ACCEPT' 
+    end
+    @notification.seen = false
+    if ! @notification.save
+        show_error(format,'new',@notification)
     end
   end
 
