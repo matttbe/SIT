@@ -1,5 +1,12 @@
 class Service < ActiveRecord::Base
 
+  has_attached_file :photo,
+    :storage => :dropbox,
+    :dropbox_credentials => Rails.root.join("config/dropbox.yml"),
+    :styles => { :medium => "300x300>", :thumb => "64x64>" },
+    :default_url => "/assets/64.png",
+    :path => ":style/service/:id_:filename"
+
   validates :date_start, :presence => true,:date => { :after => Time.now }
   validates :date_end, :presence => true,:date => { :after => :date_start }
   validates :title, :presence => true

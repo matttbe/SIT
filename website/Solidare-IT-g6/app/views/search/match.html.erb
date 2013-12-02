@@ -56,7 +56,7 @@
             <div class="row-fluid service-parent">
             <div class="well well-large service span12">
                 <a class="pull-left" href="#">
-                  <img class="media-object" src=<%= image_path "64.png"%>> <!-- TODO link to image -->
+                  <%= image_tag service.photo.url(:thumb) %>
                 </a>
                 <h3><%= service.title %></h3>
                 <div class="service-action">
