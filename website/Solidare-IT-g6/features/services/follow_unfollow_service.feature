@@ -24,7 +24,7 @@ Feature: All about following
 	  Then I can not see the follow link
 	  And I can not see the unfollow link
 
-	Scenario: A creater can not follow his own service
+	Scenario: A creator can not follow his own service
 	  And I log in
 	  When I visit the page of my service
 	  Then I can not see the follow link
