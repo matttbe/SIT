@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   end
   
   def notifications_number
-	Notification.where(notified_user: id).count
+	Notification.where(notified_user: id, seen: false).count
   end
 
   def default_values
