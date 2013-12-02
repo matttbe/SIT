@@ -26,8 +26,7 @@ class AddressController < ApplicationController
     
     def index
         #TODO quand julien aura rajoute les orga, faudra les gérer
-        @addresses = current_user.addresses
-        
+        @addresses = current_user.addresses        
     end
     
     def update

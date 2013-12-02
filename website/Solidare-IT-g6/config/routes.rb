@@ -52,6 +52,6 @@ SolidareItG6::Application.routes.draw do
   get '/service/:id/unfollow/:follower_id' => 'services#unfollow', :as=>"unfollow" 
   
   #notification routing
-  get '/user/:id/notification' => 'notifications#show', :as => "show_notification"
+  get '/notifications' => 'notifications#show', :as => "show"
   
 end

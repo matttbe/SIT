@@ -1,8 +1,0 @@
-
-<%if @notifications.size > 0 %>
-	<% @notifications.each do |notification| %>
-		<%= render 'show',:notification=> notification %>
-	<%end%>
-<%else%>
-	Vous n'avez pas de notification
-<%end%>
