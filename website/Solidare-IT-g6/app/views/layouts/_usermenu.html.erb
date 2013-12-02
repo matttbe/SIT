@@ -1,4 +1,5 @@
 <%if user_signed_in? %>
+
                                                 <li>
 
                                                 </li>
@@ -38,6 +39,7 @@
                                                     <li><%= link_to "Sign out",  destroy_user_session_path, :method => "delete" %></li>
                                                   </ul>
                                                 </li>
+
 
 <% else %>
 	<li><%= link_to "Sign up",  create_account_path %></li> <li><a href="/sign_in">Sign in</a></li>

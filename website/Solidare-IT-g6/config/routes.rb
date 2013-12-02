@@ -3,6 +3,8 @@ SolidareItG6::Application.routes.draw do
   resources :organisations
 
   resources :services
+  
+  resources :notifications
 
   # devise_for :admin_users, ActiveAdmin::Devise.config ## => we took info from Devise
   ActiveAdmin.routes(self)
@@ -52,9 +54,12 @@ SolidareItG6::Application.routes.draw do
   get '/adresses/:id/main' =>'address#main', :as=> "main_address"
 
   
-  #follower
+  #follower routing
   get '/service/:id/follow' => 'services#follow', :as=>"follow"
-  get '/service/:id/unfollow/:follower_id' => 'services#unfollow', :as=>"unfollow"  
+  get '/service/:id/unfollow/:follower_id' => 'services#unfollow', :as=>"unfollow" 
+  
+  #notification routing
+  get '/user/:id/notification' => 'notifications#show', :as => "show_notification"
 
   
 end
