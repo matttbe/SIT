@@ -85,7 +85,7 @@ class ServicesController < ApplicationController
       @notification = Notification.new
       @notification.notified_user = follower.user_id
       @notification.service = @service
-      @notification.type = 'EDIT'
+      @notification.notification_type = 'EDIT'
       if ! @notification.save
         show_error(format,'new',@notification)
       end
