@@ -27,4 +27,4 @@ Feature: All about following
 	Scenario: A creater can not follow his own service
 	  And I log in
 	  When I visit the page of my service
-	  Then I can not see the follow link 
+	  Then I can not see the follow link
