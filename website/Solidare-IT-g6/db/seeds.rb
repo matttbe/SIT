@@ -55,4 +55,11 @@ else
   # links between classes
   u1.add_role :moderator, c22
 
+
+  #addresses
+
+  coo1 = Geokit::Geocoders::GeonamesGeocoder.geocode("Belgium 1341")
+  ad1=Address.create! :street => "rue grande", :number => 53, :postal_code=>1341,:city=>"Céroux", :country=>"Belgium", :user_id=>u2.id, :latitude=>coo1.lat, :longitude=> coo1.lng
+  coo2 = Geokit::Geocoders::GeonamesGeocoder.geocode("Canada H2A")
+  ad2=Address.create! :street => "rue principale", :number => 53, :postal_code=>"H2A",:city=>"Saint Michel", :country=>"Canada", :user_id=>u2.id, :latitude=>coo2.lat, :longitude=> coo2.lng, :principal => true
 end
