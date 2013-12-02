@@ -2,7 +2,7 @@ class Service < ActiveRecord::Base
 
   has_attached_file :photo,
     :storage => :dropbox,
-    :dropbox_credentials => Rails.root.join("config/dropbox.yml"),
+    :dropbox_credentials => DROPBOX_CREDENTIALS,
     :styles => { :medium => "300x300>", :thumb => "64x64>" },
     :default_url => "/assets/64.png",
     :path => ":style/service/:id_:filename"
