@@ -58,7 +58,7 @@ class SearchController < ApplicationController
       end
 
       #toujours en dernier car on convertit services
-      if (! params[:q_order_distance].nil?)
+      if (! params[:q_order_distance].nil?&&current_user.addresses.size>0)
 
         #@services=@services.joins(:address).where("addresses.latitude is not 'nil'").order("ABS(addresses.longitude"+current_user.main_address.longitude.to_s+") and ABS(addresses.latitude-"+current_user.main_address.latitude.to_s+")")#, :lat=>current_user.main_address.latitude, :long=>current_user.main_address.longitude)
         @services=@services.joins(:address).sort_by{|r| r.distance(current_user.main_address.latitude,current_user.main_address.longitude)}.reverse
