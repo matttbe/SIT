@@ -28,3 +28,4 @@ Feature: All about following
 	  And I log in
 	  When I visit the page of my service
 	  Then I can not see the follow link
+
