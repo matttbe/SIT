@@ -113,6 +113,9 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.1)
+    dotenv (0.9.0)
+    dotenv-rails (0.9.0)
+      dotenv (= 0.9.0)
     dropbox-sdk (1.6.2)
       json
     erubis (2.7.0)
@@ -307,6 +310,7 @@ DEPENDENCIES
   database_cleaner
   date_validator
   devise
+  dotenv-rails
   geokit-rails
   guard-cucumber
   jbuilder (~> 1.2)
