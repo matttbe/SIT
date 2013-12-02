@@ -49,6 +49,10 @@ class User < ActiveRecord::Base
     end
 
   end
+  
+  def notifications_number
+	Notification.where(notified_user: id).count
+  end
 
   def default_values
     self.karma ||= 0
