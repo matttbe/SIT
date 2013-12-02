@@ -9,8 +9,8 @@ Feature: All about following
       And I log in
       When I visit the page of one service
       Then I should see a follow link
-      And I can not see the unfollow link   
-      
+      And I can not see the unfollow link
+
    Scenario: Validated user can unfollow a service
       And I log in
       When I visit the page of one service
@@ -27,5 +27,4 @@ Feature: All about following
    Scenario: A creater can not follow his own service
       And I log in
       When I visit the page of my service
-      Then I can not see the follow link   
-      
+      Then I can not see the follow link      
