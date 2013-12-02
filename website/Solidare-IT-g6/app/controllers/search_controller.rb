@@ -57,7 +57,13 @@ class SearchController < ApplicationController
         @search = @search + "&q_order_end=on"
       end
 
-      @search = @search + "&commit=Search"
+      #toujours en dernier car on convertit services
+      if (! params[:q_order_distance].nil?)
+        #@services=@services.sort_by_distance_from(['50.70566' ,'4.74843'])
+        @search = @search + "&q_order_distance=on"
+      end
+
+      @search = @search + "&commit=Search"      
       @services.reverse!
       @categories=@services.group_by &:category_id
     end

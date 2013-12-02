@@ -43,6 +43,24 @@ ActiveRecord::Schema.define(version: 20131202124028) do
     t.float    "longitude"
   end
 
+  create_table "admin_users", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
+  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+
   create_table "categories", force: true do |t|
     t.string   "title"
     t.text     "text"
@@ -90,8 +108,8 @@ ActiveRecord::Schema.define(version: 20131202124028) do
     t.text     "description"
     t.datetime "date_start"
     t.datetime "date_end"
-    t.boolean  "quick_match",         default: false
-    t.integer  "matching_service_id", default: -1
+    t.boolean  "quick_match"
+    t.integer  "matching_service_id"
     t.integer  "creator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -120,16 +138,16 @@ ActiveRecord::Schema.define(version: 20131202124028) do
     t.datetime "birthdate"
     t.string   "email"
     t.integer  "karma"
-    t.boolean  "id_ok",                  default: false
+    t.boolean  "id_ok"
     t.text     "presentation"
     t.boolean  "inscription_ok"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",          default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
