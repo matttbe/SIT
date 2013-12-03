@@ -58,7 +58,7 @@ else
 
   # Organisation
   o1 = Organisation.create! :name => "Les savant de la rive nord", :creator_id => u2.id
-  o2 = Organisation.create! :name => "Les savant de la rive sud", :creator_id => u3.id
+  o2 = Organisation.create! :name => "Les savant de la rive sud", :creator_id => u1.id
 
   #coworker
   co1=Coworker.create! :organisation_id=>o1.id, :user_id=>u2.id
