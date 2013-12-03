@@ -26,7 +26,7 @@ Feature: Addresses of user
       Then I see a Address was successfully created. message
       And I see my address
 
-    Scenario: A registered user can not add a address with a not alpha number
+    Scenario: A registered user cannot add an address with a not alpha number
       And I am logged in
       When I return to the site
       And I click on the Manage my addresses link
@@ -42,4 +42,17 @@ Feature: Addresses of user
       When I return to the site
       And I visit a not own address
       Then I see a You can not do that ! message
+
+      
+    Scenario: A registered user can edit one of his addresses
+      And I am logged in
+      When I return to the site
+      And I have already givent a address
+      And I click on the Manage my addresses link
+      And I click on the edit link of the first address in the list
+      And I fill the address form
+      And I click on the Edit address button
+      Then show me the page
+      And I see a Address was successfully updated. message
+      And I see my address
 
