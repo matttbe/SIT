@@ -1,0 +1,15 @@
+
+<p>
+<div class="form-group">
+      <label for="orgChooseList">Where are you working now ?</label>
+      <select id="orgChooseList" class="form-control">
+          <% @organisations.each do |organisation|%>
+          
+                  <option> <%= organisation.name %></option>
+            <%end %>
+      </select>
+</p>
+</div>
+
+
+<%= link_to 'Back', organisations_path %>

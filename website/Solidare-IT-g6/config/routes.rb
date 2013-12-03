@@ -31,7 +31,7 @@ SolidareItG6::Application.routes.draw do
   get '/services/:id/accept' => 'services#accept_service', :as =>"accept_service"
 
   #search routing
-  get '/search' => 'search#match', :as=>"match"
+  get '/search/(:page)' => 'search#match', :as=>"match"
   post '/search' => 'search#match'
 
   #transaction routing
@@ -42,10 +42,14 @@ SolidareItG6::Application.routes.draw do
   get '/manage_organisations' => 'organisations#manage', :as=>"manage_organisation"
   get '/join_organisations' => 'organisations#join_organisation', :as=>"join_organisation"
   get '/join_organisations/:id' => 'organisations#join_action', :as=>"join_action"
-
-  #organisation manage
   get '/organisation_manage/:id/coworkers/' =>'organisation_manage/coworkers#index_organisation', :as=>'manage_coworkers'
-
+  get '/mainmenu_organisations/:id' =>'organisations#show_main_panel', :as=>'mainmenu_organisations'
+  get '/choose_organisations' =>'organisations#choose', :as=>'organisation_choose'
+  
+  #managed user routing
+  get '/create_managed_user/:org_id' =>'organisations#new_managed', :as=>'new_managed'
+  post '/create_managed_user_filled' =>'organisations#create_managed', :as=>'new_managed_created'
+  
   
 
   devise_scope :user do

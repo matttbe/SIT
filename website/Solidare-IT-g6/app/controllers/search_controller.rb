@@ -17,11 +17,11 @@ class SearchController < ApplicationController
       end
       
       if(! params[:offer_cbox].nil? and ! params[:demand_cbox].nil?) # Both checkboxes are checked
-        @services = Service.all
+        @services = Service.where(:quick_match => false).where(:matching_service_id => 0)
       elsif(! params[:offer_cbox].nil?)
-        @services = Service.where('is_demand = :is_demand', :is_demand => false)
+        @services = Service.where('is_demand = :is_demand', :is_demand => false).where(:quick_match => false).where(:matching_service_id => 0)
       elsif(! params[:demand_cbox].nil?)
-        @services = Service.where('is_demand = :is_demand', :is_demand => true)
+        @services = Service.where('is_demand = :is_demand', :is_demand => true).where(:quick_match => false).where(:matching_service_id => 0)
       else
         @services = Service.all #TODO : What do we do if none of the checkboxes are checked ?
       end 
@@ -70,6 +70,14 @@ class SearchController < ApplicationController
       @services.reverse!
       @categories=@services.group_by &:category_id
     end
+    if (defined? params[:page])
+      @services = @services.paginate(:page => params[:page])
+    end
+    respond_to do |format|
+        format.html 
+        format.json { render json: @services}
+        format.js 
+      end
   end
 
 end

@@ -44,7 +44,7 @@ gem 'date_validator'
 gem 'bootstrap_forms', github: 'gagalago/bootstrap_forms'
 
 # admin interface: github: compatible with RoR 4.0
-gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'activeadmin', git: 'https://github.com/gregbell/active_admin.git'
 
 # manage rights
 gem 'cancan'
@@ -63,6 +63,10 @@ gem 'geokit-rails'
 
 # coveralls: https://coveralls.io/r/matttbe/SIT
 gem 'coveralls', require: false
+
+#infinite scroll
+gem 'will_paginate', '~> 3.0'
+
 
 ####### Group #######
 
