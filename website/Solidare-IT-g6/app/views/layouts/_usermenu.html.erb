@@ -25,6 +25,7 @@
        <b class="caret"></b></a>
        <ul class="dropdown-menu">
         <li class="nav-header">Personnal</li>
+        <li><%= link_to "Show profile",  show_profile_path(current_user) %></li>
         <li><%= link_to "Edit account",  edit_user_registration_path(current_user) %></li>
         <li><%= link_to "Manage my addresses",  address_index_path %></li>
         <li class="divider"></li>
