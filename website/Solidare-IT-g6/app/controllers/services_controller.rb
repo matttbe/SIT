@@ -145,6 +145,7 @@ class ServicesController < ApplicationController
     if user_signed_in?
       @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
       if @followers.size == 0
+        notify_owner(@service, 'FOLLOW')
         @follower = Follower.new
         @follower.service = @service
         @follower.user = current_user
@@ -165,8 +166,9 @@ class ServicesController < ApplicationController
     
   def unfollow
     @follower = Follower.find(params[:follower_id])
-    respond_to do |format|
-      if @follower.destroy
+    respond_to do |format|    
+    notify_owner(@service, 'UNFOLLOW')
+      if @follower.destroy        
         format.html{redirect_to request.referer, notice: 'Service unfollow'}
       else
         show_error(format, 'show', @follower)
