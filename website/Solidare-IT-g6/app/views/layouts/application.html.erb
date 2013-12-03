@@ -14,8 +14,6 @@
   </script>
 </head>
 <body>
-
-<div class="container">
   <div id="header" class="jumbotron">
   <% location= request.env['PATH_INFO'] %>
     <nav class="navbar" role="navigation">
@@ -38,13 +36,22 @@
           <% if !current_user.nil? && current_user.superadmin %>
               <li><a href="/admin">Admin</a></li>
           <% end %>
-          <% if !current_user.nil? && current_user.organisations.empty? %>
-              <% if current_user.organisations.length == 1 %>
-                   <li><a href="<%=organisation_main_panel_path+'/'+current_user.organisations.first.id%>"> Organisations </a></li>
+
+          <% if !current_user.nil? && current_user.organisations.length!=0 %>
+              <% if current_user.organisations.length == 1%>
+                   <li><a href="<%=mainmenu_organisations_path(current_user.organisations.first.id)%>"> Organisations </a></li>
               <% else %>
                    <li><a href="<%=organisation_choose_path%>"> Organisations </a></li>
               <% end %>
           <%end%>
+
+          <% if location==group_index_path %>
+                                                          <li class="active">
+                                                      <% else %>
+                                                          <li>
+                                                      <% end %>
+                                                      <a href="<%= group_index_path  %>">Groups</a></li>
+
 
         </ul>
         <ul class="nav pull-right">
@@ -52,12 +59,16 @@
         </ul>
       </div>
     </nav>
+    <div class="container">
     <div style="text-align: center;"><img src="/images/logo.png" alt ="logo" align="center"></img></div>
     <h1>Solidare-it</h1>
     <p>Un site solidaire!</p>
 
     <%= render 'search/form' %>
+  </div>
 </div>
+<div class="container">
+
 
 
   <% if notice.present? %>

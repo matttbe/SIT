@@ -1,22 +1,35 @@
 def create_service
-  @serviceC ||= { :title=>"Livre",:description => "vente livre congolexicomatisation", :date_start => 'Mon, 28 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id => 0, :is_demand=>true, :quick_match=>false,:category_id=>-1}
+  @serviceC = {:id=>1, :title=>"Livre",:description => "vente livre congolexicomatisation", :date_start => 'Mon, 28 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id => 0, :is_demand=>true, :quick_match=>false,:category_id=>-1}
 end
 
 def new_service_offer
-  @serviceNew ||= { :title=>"Livre Réseau",:description => "Livre obo", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>false,:quick_match=>false,:category_id=>-1}
+  @serviceNew = {:id=>2, :title=>"Livre Réseau",:description => "Livre obo", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>false,:quick_match=>false,:category_id=>-1}
 end
 
 def new_service
-  @serviceNew ||= { :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>true, :quick_match=>false,:category_id=>-1}
+  @serviceNew = {:id=>3, :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>true, :quick_match=>false,:category_id=>-1}
 end
 
 def accept_service
-  @serviceAccept ||= { :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>false, :quick_match=>true,:category_id=>-1}
+  @serviceAccept = {:id=>4, :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>false, :quick_match=>true,:category_id=>-1}
+end
+
+def clear_DB
+	$i = 1
+	$num = 5
+
+	while $i < $num  do
+		@service=Service.where("id=:id",:id=>$i).first
+		@service.destroy unless @service.nil?
+       		$i+=1
+	end
 end
 
 def add_service
   find_user
   create_service
+  @dl=Service.where("id=:id",:id=>@serviceC[:id]).first
+  @dl.destroy unless @dl.nil?
   @serviceC[:creator_id]=@user.id
   @service = Service.create!(@serviceC)
 end
@@ -24,8 +37,8 @@ end
 def add_not_my_service
    @admin=User.where(:email => "maitre@dieu.ciel").first
    new_service
-   @serviceC[:creator_id]=@admin.id
-   @service = Service.create!(@serviceC)
+   @serviceNew[:creator_id]=@admin.id
+   @service = Service.create!(@serviceNew)
   
 end
 
@@ -47,9 +60,12 @@ end
 ### GIVEN ###
 Given /^The database contains services$/ do
   create_user
+  clear_DB
+  print("clear")
   add_service
   add_not_my_service
 end
+
 
 Given /^The database contains my services$/ do
   add_service

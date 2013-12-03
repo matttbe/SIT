@@ -50,7 +50,10 @@ class AddressController < ApplicationController
     end
     
     def edit
-        
+      if @address.user_id!=current_user.id
+        can_do_that
+      end
+
     end
     
     def update

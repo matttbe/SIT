@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131202130619) do
+ActiveRecord::Schema.define(version: 20131202165913) do
+
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -43,24 +44,6 @@ ActiveRecord::Schema.define(version: 20131202130619) do
     t.float    "longitude"
   end
 
-  create_table "admin_users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
-  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
-
   create_table "categories", force: true do |t|
     t.string   "title"
     t.text     "text"
@@ -79,6 +62,59 @@ ActiveRecord::Schema.define(version: 20131202130619) do
 
   create_table "followers", force: true do |t|
     t.integer  "user_id"
+    t.integer  "service_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "group_post_comments", force: true do |t|
+    t.integer  "group_post_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_post_comments", ["group_post_id"], name: "index_group_post_comments_on_group_post_id"
+  add_index "group_post_comments", ["user_id"], name: "index_group_post_comments_on_user_id"
+
+  create_table "group_posts", force: true do |t|
+    t.integer  "group_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_posts", ["group_id"], name: "index_group_posts_on_group_id"
+  add_index "group_posts", ["user_id"], name: "index_group_posts_on_user_id"
+
+  create_table "group_user_relations", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_user_relations", ["group_id"], name: "index_group_user_relations_on_group_id"
+  add_index "group_user_relations", ["user_id"], name: "index_group_user_relations_on_user_id"
+
+  create_table "groups", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "private"
+    t.boolean  "secret"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+  end
+
+  create_table "notifications", force: true do |t|
+    t.integer  "notified_user"
+    t.string   "notification_type"
     t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -108,8 +144,8 @@ ActiveRecord::Schema.define(version: 20131202130619) do
     t.text     "description"
     t.datetime "date_start"
     t.datetime "date_end"
-    t.boolean  "quick_match"
-    t.integer  "matching_service_id"
+    t.boolean  "quick_match",         default: false
+    t.integer  "matching_service_id", default: -1
     t.integer  "creator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -117,6 +153,11 @@ ActiveRecord::Schema.define(version: 20131202130619) do
     t.integer  "org_id"
     t.integer  "cat_id",              default: 1
     t.integer  "category_id"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.integer  "address_id"
   end
 
   create_table "transactions", force: true do |t|
@@ -134,16 +175,16 @@ ActiveRecord::Schema.define(version: 20131202130619) do
     t.datetime "birthdate"
     t.string   "email"
     t.integer  "karma"
-    t.boolean  "id_ok"
+    t.boolean  "id_ok",                  default: false
     t.text     "presentation"
     t.boolean  "inscription_ok"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "encrypted_password",      default: "",   null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",           default: 0,    null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -152,10 +193,14 @@ ActiveRecord::Schema.define(version: 20131202130619) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.string   "language",                default: "en"
-    t.integer  "coworker_org_id",         default: -1
-    t.integer  "managed_org_id",          default: -1
     t.integer  "managed_by_organisation",  default: false
+    t.string   "language",               default: "en"
+    t.integer  "coworker_org_id",        default: -1
+    t.integer  "managed_org_id",         default: -1
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

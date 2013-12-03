@@ -1,0 +1,34 @@
+<!-- TODO : in here will be suggested some groups -->
+<!-- List all groups for now-->
+<p>In here will be suggested some groupes to the user</p>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @groups.each do |group| %>
+	<%unless group.secret == true %>
+      <tr>
+        <td><%= group.name %></td>
+        <td><%= group.description %></td>
+        <td><%= link_to 'Show', group%></td>
+        <%if !current_user.nil? %>
+          <td><span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user, :format => "json"}, remote:true%></span></td>
+          <% end %>
+      </tr>
+	<% end %>
+  <% end %>
+  </tbody>
+</table>
+
+<% if current_user.nil?%>
+  <%= link_to 'New Group', sign_in_path %>
+<% else %>
+  <%= link_to 'New Group', new_group_path %>
+<% end %>

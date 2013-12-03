@@ -1,0 +1,41 @@
+<h2>Posts</h2>
+
+<% if @group.group_posts.empty?%>
+  <p>
+	No post :( Be the first !
+  </p>
+<% end %>
+
+<% @group.group_posts.order('updated_at DESC').each do |group_post| %>
+  <p>
+    <%if !group_post.user.nil? %>
+      <strong><%=group_post.user.all_name %>	</strong>
+	<% end %>
+    <%= group_post.body %>
+  </p>
+	
+	<% group_post.group_post_comments.each do |group_post_comment| %>
+	  <p>
+	    <%if !group_post_comment.user.nil? %>
+          <%=group_post_comment.user.all_name %> :
+	    <% end %>
+        <%= group_post_comment.body %>
+	  </p>
+	<% end %>	
+	
+	<% if !(current_user.nil?)%>
+	<% if !(GroupUserRelation.where(user_id: current_user.id, group_id: @group.id).blank?) %>
+	  <%= form_for(GroupPostComment.new, :url=> group_group_post_group_post_comments_path(@group,group_post),:method=>'post') do |f| %>
+  	    <p>
+          <%= f.text_area :body %><%= f.submit "Comment"%>
+        </p>
+	  <% end %>
+	<% end %>
+	<% end %>
+<% end %>
+
+<%if !(current_user.nil?)%>
+<% if !(GroupUserRelation.where(user_id: current_user.id, group_id: @group.id).blank?) %>
+  <%= render 'post_form' %>
+<% end %>
+<% end %>

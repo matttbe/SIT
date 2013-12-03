@@ -1,8 +1,18 @@
 SolidareItG6::Application.routes.draw do
+
+  resources :group do
+	resources :group_posts do
+	  resources :group_post_comments	
+	end
+  end
   
   resources :organisations
 
   resources :services
+  
+  resources :notifications
+
+  resources :group_user_relation
 
   # devise_for :admin_users, ActiveAdmin::Devise.config ## => we took info from Devise
   ActiveAdmin.routes(self)
@@ -17,6 +27,7 @@ SolidareItG6::Application.routes.draw do
 
   #services routing
   get '/user/services' => 'services#my_services', :as =>"my_services"
+  get '/user/following_services' => 'services#following_services', :as=>"following_services"
   get '/services/:id/accept' => 'services#accept_service', :as =>"accept_service"
 
   #search routing
@@ -32,8 +43,12 @@ SolidareItG6::Application.routes.draw do
   get '/join_organisations' => 'organisations#join_organisation', :as=>"join_organisation"
   get '/join_organisations/:id' => 'organisations#join_action', :as=>"join_action"
   get '/organisation_manage/:id/coworkers/' =>'organisation_manage/coworkers#index_organisation', :as=>'manage_coworkers'
-  get '/mainmenu_organisations/:id' =>'organisations#show_main_panel', :as=>'organisation_main_panel'
+  get '/mainmenu_organisations/:id' =>'organisations#show_main_panel', :as=>'mainmenu_organisations'
   get '/choose_organisations' =>'organisations#choose', :as=>'organisation_choose'
+  
+  #managed user routing
+  get '/create_managed_user/:org_id' =>'organisations#new_managed', :as=>'new_managed'
+  post '/create_managed_user_filled' =>'organisations#create_managed', :as=>'new_managed_created'
   
   
 
@@ -51,9 +66,11 @@ SolidareItG6::Application.routes.draw do
   get '/adresses/:id/main' =>'address#main', :as=> "main_address"
 
   
-  #follower
+  #follower routing
   get '/service/:id/follow' => 'services#follow', :as=>"follow"
-  get '/service/:id/unfollow/:follower_id' => 'services#unfollow', :as=>"unfollow"  
-
+  get '/service/:id/unfollow/:follower_id' => 'services#unfollow', :as=>"unfollow" 
+  
+  #notification routing
+  get '/notifications' => 'notifications#show', :as => "show"
   
 end

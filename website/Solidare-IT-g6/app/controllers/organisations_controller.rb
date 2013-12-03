@@ -23,7 +23,52 @@ class OrganisationsController < InheritedResources::Base
   def manage
     @organisations = Organisation.all
   end
-    
+  
+  # GET /mainmenu_organisations/:id
+  def show_main_panel
+       if !user_signed_in?
+            dont_see
+       else
+           @organisations = Organisation.joins(:coworkers).where("organisations.id=:org_id and coworkers.user_id=:user_id", :org_id=>params[:id], :user_id=>current_user.id)
+           if @organisations.length == 0
+                dont_see
+           elsif !@organisations.first.validated?
+                dont_see
+           else
+                @organisation = @organisations.first
+           end
+           
+       end       
+  end
+  
+  # GET /create_managed_user/:org_id
+  def new_managed
+     if !user_signed_in?
+        dont_see        
+     else
+        @organisation = Organisation.find(params[:org_id])
+        @user = User.new
+        @user.managed_org_id = params[:org_id]
+     end   
+     
+  end
+  
+  # POST /create_managed_user_filled
+  # POST /create_managed_user_filled.json
+  def create_managed
+      @user = User.new(new_managed_params)
+      @user.password = @user.name+@user.firstname+@user.name
+      o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+      string = (0...8).map{ o[rand(o.length)] }.join
+      @user.email= @user.name + @user.firstname + string + '@solidateit.com'
+      respond_to do |format|
+        if @user.save
+          format.html { redirect_to mainmenu_organisations_path(@user.managed_org_id), notice: 'Managed user was successfully created.' }
+        else
+          format.html { redirect_to mainmenu_organisations_path(@user.managed_org_id), alert: @user.name }
+        end
+      end
+  end
   
   # GET /join_organisations
   def join_organisation
@@ -97,5 +142,8 @@ class OrganisationsController < InheritedResources::Base
     def organisation_params
       params.require(:organisation).permit(:name)
     end
-
+    
+    def new_managed_params
+      params.require(:user).permit(:name,:firstname,:birthdate,:managed_org_id)
+    end
 end

@@ -11,6 +11,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def can_do_that
+    respond_to do |format|
+          format.html { redirect_to root_path, alert: 'You can not do that !' }
+    end
+  end
+
   def protect_param_integer
     @can=true
     if defined?(params[:id])&&!params[:id].nil?&& (params[:id]=="all")
@@ -84,6 +90,12 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) << :name
     devise_parameter_sanitizer.for(:sign_up) << :firstname
     devise_parameter_sanitizer.for(:sign_up) << :birthdate
+    devise_parameter_sanitizer.for(:sign_up) << :avatar
+
+    devise_parameter_sanitizer.for(:account_update) << :name
+    devise_parameter_sanitizer.for(:account_update) << :firstname
+    devise_parameter_sanitizer.for(:account_update) << :birthdate
+    devise_parameter_sanitizer.for(:account_update) << :avatar
   end
 
   def can_log_in

@@ -1,16 +1,16 @@
-<%if defined?(address)&&!address.nil? 
+<%if defined?(address)&&!address.nil?
     @address=address
   end%>
 <p>
   <%= @address.street %>
   , &nbsp
-  <%= @address.number %>  
+  <%= @address.number %>
 </p>
 
 <p>
   <%= @address.postal_code %>
   &nbsp
-  <%= @address.city %>  
+  <%= @address.city %>
 </p>
 
 <p>
@@ -22,4 +22,3 @@
   ; &nbsp
   <%=@address.longitude %>
 </p>
-

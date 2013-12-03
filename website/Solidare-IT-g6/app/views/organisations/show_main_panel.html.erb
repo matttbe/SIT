@@ -1,0 +1,21 @@
+<p>
+  <strong>Name:</strong><%= @organisation.name %>
+</p>
+<p>
+<% if @organisation.managed_user.nil? ||@organisation.managed_user.length==0 %>
+	No user managed by your organisation
+<%else%>
+	Users :
+	<% @organisation.managed_user.each do |managed|%>
+		  	<%= render 'users/show',:user=> managed %>
+		  	<br /><br />
+
+   	<% end %>
+<%end%>
+</p>
+<p>
+<%= link_to 'Create new managed', new_managed_path(@organisation) %> |
+</p>
+
+<%= link_to 'Edit', edit_organisation_path(@organisation) %> |
+<%= link_to 'Back', organisations_path %>
