@@ -115,6 +115,14 @@ When(/^I fill a new title for my service$/) do
   fill_in "service_title", :with => "new title"
 end
 
+When(/^I fill a new date for my service$/) do
+  select(2012, :from=> "service_date_start_1i")
+  select('December', :from=>  "service_date_start_2i")
+  select(10, :from=>  "service_date_start_3i")
+  select(17, :from=>  "service_date_start_4i")
+  select(27, :from=>  "service_date_start_5i")
+end
+
 When(/^I give a feedback$/) do 
   fill_in "transaction_feedback_evaluation", :with => "5"
   fill_in "transaction_feedback_comments", :with => "ok missieur"

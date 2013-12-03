@@ -81,7 +81,18 @@ Feature: Add, edit and destroy a Service
       And I fill a new title for my service
       And I click on the Edit service button
       Then I should see my service with new title
-      And I should see edit and destroy link 
+      And I should see edit and destroy link
+
+    Scenario: Validated user edit his service with a previous dateStart
+      And I am logged in
+      And The database contains my services
+      When I visit the page of one service
+      And I click on the Edit link
+      And I fill a new title for my service
+      And I fill a new date for my service
+      And I click on the Edit service button
+      Then I should see my service with new title
+      And I should see edit and destroy link
 
     Scenario: Validated user visiting a not own service can not edit or destroy it
       And I am logged in
@@ -95,6 +106,5 @@ Feature: Add, edit and destroy a Service
       And I click on the Destroy link
       And I click on the See my services link
       Then I should not see my service 
-
 
 
