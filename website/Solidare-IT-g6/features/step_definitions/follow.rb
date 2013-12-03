@@ -1,3 +1,50 @@
+def add_follower
+  $i = 0
+  $num = 5
+
+  while $i < $num  do
+    create_visitor
+    @visitor[:email]=$i.to_s+@visitor[:email]
+    @visitor[:firstname]=$i.to_s
+    @user = User.create!(@visitor)
+    @service=Service.find(1)
+    @follow=Follower.new
+    @follow[:service_id]=@service.id
+    @follow[:user_id]=@user.id
+    $i +=1
+    @follow.save
+  end
+    
+end
+
+### WHEN ###
+When /^I visit the page of the services followed$/ do
+   visit 'user/following_services'
+end
+
+When /^Some users follow my service$/ do
+  add_follower
+end
+
+When /^I follow a service$/ do
+   @admin=User.where(:email => "maitre@dieu.ciel").first
+   @service = Service.where("creator_id=:id",:id=>@admin.id).first
+   @user = find_user
+   @follow = Follower.new
+   @follow[:service_id]=@service.id
+   @follow[:user_id]=@user.id
+   @follow.save
+
+end
+
+When /^The service is updated$/ do
+    
+end
+
+When /^The service is finished$/ do
+    
+end
+
 ### THEN ###
 
 Then(/^I should see a follow link$/) do
@@ -15,3 +62,20 @@ end
 Then(/^I can not see the follow link$/) do
   assert !page.has_link?("Follow")
 end
+
+Then(/^I can see the followers of my service$/) do
+  assert !page.has_content?("No Followers")
+end
+
+Then(/^I should see an accept link$/) do
+  assert page.has_link?("Accept")
+end
+
+Then(/^I should see a notification$/) do
+  
+end
+
+Then(/^I can not see the service anymore$/) do
+  
+end
+

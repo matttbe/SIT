@@ -30,3 +30,16 @@ Feature: All about following
 	  When I visit the page of my service
 	  Then I can not see the follow link
 
+	Scenario: A creator can see the followers of his own service
+	  And I log in
+	  When Some users follow my service
+	  And I visit the page of my service
+	  Then I can see the followers of my service
+
+	Scenario: Validated user can unfollow a service from his following service page
+	  And I log in
+	  When I follow a service
+	  And I visit the page of the services followed
+	  Then I should see a unfollow link
+	  And I should see an accept link
+	  And I can not see the follow link
