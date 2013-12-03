@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   def can_manage_orga
   end
   
- def notify(service)
+ def notify(service, type)
     @followers_list = Follower.where("service_id = :service_id", :service_id => service.id)
     @followers_list.each do |follower| 
       @notification = nil
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
         @notification = Notification.new
         @notification.notified_user = follower.user_id
         @notification.service = service
-        @notification.notification_type = 'EDIT'
+        @notification.notification_type = type
       end
       @notification.seen = false     
       if ! @notification.save
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def notify_owner(service)
+  def notify_owner(service, type)
     @notification_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => service.id, :user_id => service.creator_id)
     @notification = nil
     if @notification_list.size > 0
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
       @notification = Notification.new
       @notification.notified_user = service.creator_id
       @notification.service = service
-      @notification.notification_type = 'ACCEPT' 
+      @notification.notification_type = type 
     end
     @notification.seen = false
     if ! @notification.save

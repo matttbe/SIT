@@ -21,7 +21,8 @@ class ServicesController < ApplicationController
   # GET /services/:id/accept
   def accept_service
     if @service.matching_service.nil?
-      notify_owner(@service)
+      notify_owner(@service, 'ACCEPT')
+      notify(@service, 'ACCEPT')
       create_quick_service
       @service.matching_service=@serviceQ
       respond_to do |format|
@@ -89,7 +90,7 @@ class ServicesController < ApplicationController
     if !(@service.creator_id==current_user.id)
       dont_see
     else
-      notify(@service)
+      notify(@service, 'EDIT')
       respond_to do |format|
         if @service.update(service_params)
           format.html { redirect_to @service, notice: 'Service was successfully updated.' }
