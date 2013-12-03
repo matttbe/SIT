@@ -1,6 +1,6 @@
 <%= render 'show',:service=> @service %>
 
-<%= render 'followers', :followers_list=>@followers_list%>
+<%= render 'followers', :followers_list=>@followers_list, :users => @users%>
 
 <br /><br />
 <%= link_to 'Back', services_path %>
