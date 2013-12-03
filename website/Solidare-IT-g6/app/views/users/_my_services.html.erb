@@ -1,0 +1,12 @@
+<% @services.each do |service| %>
+	<% if service.quick_match %>
+		<% service=service.matching_service	%>
+	  	You have accept this service :
+	  	<br /><br />
+	<%end%>
+	<%= render 'services/show',:service=> service %>
+<% end %>
+
+<% if @services.nil? ||@services.length==0 %>
+	You've no services.
+<% end%>

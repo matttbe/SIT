@@ -26,11 +26,11 @@ SolidareItG6::Application.routes.draw do
   root 'index#home'
 
   #users routing
-  get '/user/:id' => 'users#show', :as => "show_profile"  
+  get '/user/:user_id' => 'users#show', :as => "show_profile"  
   get '/following_services' => 'services#following_services', :as=>"following_services"
 
   #services routing
-  get '/user/services' => 'services#my_services', :as =>"my_services"
+  get '/user/:user_id/services' => 'users#my_services', :as =>"my_services"
   get '/services/:id/accept' => 'services#accept_service', :as =>"accept_service"
   get '/users_managed/:serv_id/services/new' =>'services#new', :as =>"new_service_managed"
   get '/users_managed/:serv_id/managed_services/' => 'services#my_services', :as =>"managed_users_services"
