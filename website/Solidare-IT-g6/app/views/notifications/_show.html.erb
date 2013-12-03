@@ -1,9 +1,13 @@
 
 <%if @notifications.size > 0 %>
-	<% @notifications.each do |notif| %>
+	<% @notifications.each do |notif| %>	
 		<% @users.each do |user| %>
-				user.id
+			<%if user.id == notif.service.creator_id %>
+				<% @creator_firstname = user.firstname %>
+				<% @creator_name = user.name %>
+			<%end%>
 		<%end%>
+		<% @service_string = "The service \"" + notif.service.title + "\""%>
 		<% case notif.notification_type %>
 		<%when 'EDIT'%>
 			<%= @service_string %> of <%= @creator_firstname %> <%= @creator_name %> was eddited<br />
