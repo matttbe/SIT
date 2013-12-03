@@ -14,9 +14,31 @@ def show_page
   save_and_open_page
 end
 
+def address_default
+  coo1 = Geokit::Geocoders::GeonamesGeocoder.geocode("Belgium 1341")
+  @address_default||={:street => "rue grande", :number => 53, :postal_code=>1341,:city=>"Céroux", :country=>"Belgium", :latitude=>coo1.lat, :longitude=> coo1.lng}
+
+end
+
+def add_default_address(user)
+  address_default
+  @address_default[:user_id]=user.id
+  @address=Address.new(@address_default)
+  @address.save
+end
+
 
 def find_user
   @user ||= User.where(:email => @visitor[:email]).first
+end
+
+def find_address(user)
+  @address = Address.where(:user_id => user.id).first
+end
+
+
+def find_admin_user
+  @admin = User.where(:email => "maitre@dieu.ciel").first
 end
 
 def create_unconfirmed_user
@@ -94,23 +116,15 @@ Given /^I am not logged in$/ do
   visit '/users/sign_out' #TODO sign out if I am NOT logged in ?
 end
 
-Given /^I test for$/ do
-
-
-  	$i = 0
-	$num = 5
-
-	while $i < $num  do
-		create_visitor
-		@visitor[:email]=$i.to_s+@visitor[:email]
-		@user = User.create!(@visitor)
-		$i +=1
-	end
-end
-
 Given /^I log in$/ do
   find_user
   sign_in
+end
+
+Given /^All users have a address$/ do
+  find_admin_user
+  add_default_address(@admin)
+  
 end
 
 Given /^I am logged in$/ do
@@ -207,6 +221,13 @@ When /^I look at the list of users$/ do
   visit '/'
 end
 
+When /^I visit a not own address$/ do
+  find_admin_user
+  find_address(@admin)
+  @route="address/"+@address.id.to_s+"/edit"
+  visit @route
+end
+
 ### THEN ###
 Then /^I see a return message on sign in page$/ do
   assert page.has_content?("You need to sign in or sign up before continuing.")
@@ -222,10 +243,6 @@ Then /^I should be signed out$/ do
   assert page.has_content?("Sign in")
   assert !page.has_content?("Logout")
 end
-
-
-
-
 
 Then /^I should see a missing password confirmation msg$/ do
   assert page.has_content?("Password confirmation doesn't match Password")
