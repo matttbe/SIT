@@ -105,6 +105,14 @@ Feature: Add, edit and destroy a Service
       When I visit the page of one service
       And I click on the Destroy link
       And I click on the See my services link
-      Then I should not see my service 
+      Then I should not see my service
+
+    Scenario: Validated user destroy his service
+      And I am logged in
+      And The database contains my services
+      When I do a search of Livre words in Demand
+      And I click on the Search button
+      And I click on the Destroy button
+      Then I should not see my service
 
 

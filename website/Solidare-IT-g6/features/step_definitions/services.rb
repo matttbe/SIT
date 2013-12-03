@@ -150,7 +150,7 @@ Then(/^I should see a date problem message$/) do
 end
 
 Then(/^I should see my services$/) do
-   assert page.has_content?(@serviceC[:title])
+   assert page.has_content?(@serviceC[:description])
 end
 
 Then(/^I should see no services$/) do
@@ -171,7 +171,7 @@ Then(/^I should see my service with new title$/) do
 end
 
 Then(/^I should not see my service$/) do
-   assert !page.has_content?(@serviceC[:title])
+   assert !page.has_content?(@serviceC[:description])
 end
 
 Then(/^I should see services$/) do
