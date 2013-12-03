@@ -37,6 +37,14 @@
               <li><a href="/admin">Admin</a></li>
           <% end %>
 
+          <% if !current_user.nil? && current_user.organisations.length!=0 %>
+              <% if current_user.organisations.length == 1%>
+                   <li><a href="<%=mainmenu_organisations_path(current_user.organisations.first.id)%>"> Organisations </a></li>
+              <% else %>
+                   <li><a href="<%=organisation_choose_path%>"> Organisations </a></li>
+              <% end %>
+          <%end%>
+
           <% if location==group_index_path %>
                                                           <li class="active">
                                                       <% else %>
