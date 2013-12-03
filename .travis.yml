@@ -28,3 +28,12 @@ before_script:
   - travis_retry bundle install --verbose
   # Env
   - cp .env.travis .env
+
+env:
+  global:
+  # Dropbox keys
+  - secure: VyhPLYExnsCraggD4fVw31+E3u/AQzDUleNnJ/hVTIUpeqcTJWmcO+OqTBLqDgSTQiRSuupg0w89fAn0vR8GONQq10+/jHv/fVhtBd2Q9SmpdIk4OLn2z5GVzcEudWX03UPv0JA42NnmSpON7eOaodjI5m1eSURTxVadzHLe2iY=
+  - secure: FxbuzpNs92PmmZTT7DZnfGfrC8ZE00FmpbR1ms5WjeyZYMhpfehktgmiR4u8Q7G6jQ4FVmWcwJEej4bbVRuTmpjsecxf2LEx4CcYh168E84XKnLb9pRPsfoCK14VhdTgbUfNvHUWRMtVxIz3VldiHWrn2cdOtBb86ZuwOk12QoM=
+  - secure: WLRYX/9KinRbsQIv5G0x9px85IgT41spXFaSpBWuSiVtlta7Gy3effL4bsHsS66YHJl91lVp0/n//29F6TAM0y0C3fkJzjiu1LgAc+F7mD4cPNXatAqkJLWyK8lIw1zWJudf8V8y248Sj+CZZvBlTGcQuKNSigpoMoxEu177DtE=
+  - secure: EVT20y+qySBK0w1wt5aWY8rbgU8lLEWOEErG5URvMfVFdpdT5tMigCypb7BNFdNGpU1nGxWDqox4T9NUDT7kZnmRm+YOoiMcIsjxLyH5nNVetukvCKjrVKxmF5JY92QC/cRdme5S7ZCXtWuoZQwslPHjlRRdv1vhqptYcisQAmI=
+  - secure: mntLLko/GRoKG4KlfjoYUy7ywtQU0Qpts2HXc7HOrq6QZGV+U7bTSdCPHtFnuQCOE6mucDhO8Ix0RrUyBaCFyzyG85IkY2XfpRFmGZGk5CulXulbWCmnkPyjLyKaEphQCJURRgcA5/uMPpVzg3I1GzSyzH9fZN8cwkbL6knC6Sc=
