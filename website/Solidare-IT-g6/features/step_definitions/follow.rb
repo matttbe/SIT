@@ -1,14 +1,27 @@
 def add_follower
-  find_admin_user
-  find_user
-  @service=Service.where("creator_id=:id", :id=>@user.id).first
-  print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-  print(@admin_user.id)
-  print(@service.id)
-  @follow=Follower.new
-  @follow[:service_id]=@service.id
-  @follow[:user_id]=@admin_user.id
-  @follow.save
+  #find_admin_user
+  #find_user
+  #@service=Service.where("creator_id=:id", :id=>@user.id).first
+  #print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+  #print(@admin_user.id)
+  #print(@service.id)
+  #@follow=Follower.new
+  #@follow[:service_id]=@service.id
+  #@follow[:user_id]=@admin_user.id
+  #@follow.save
+  $i = 0
+  $num = 5
+
+  while $i < $num  do
+    create_visitor
+    @visitor[:email]=$i.to_s+@visitor[:email]
+    @user = User.create!(@visitor)
+    print(@user.id)
+    @follow=Follower.new
+    @follow[:service_id]=@service.id
+    @follow[:user_id]=@user.id
+    $i +=1
+  end
     
 end
 
