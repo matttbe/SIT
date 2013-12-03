@@ -32,7 +32,12 @@ ActiveAdmin.register Coworker, :as => "Coworkers", namespace: :organisation_mana
   end
 
   index do
+          table_for Coworker.joins(:organisation).where("organisations.creator_id=:id", :id=>current_user.id).each do |coworker|
     
+            column("Name")   {|coworker| coworker.user.all_name}
+            column("Email")  {|coworker| coworker.user.email}
+            column("Organisation")  {|coworker| coworker.organisation.name}
+          end
   end
 
 
