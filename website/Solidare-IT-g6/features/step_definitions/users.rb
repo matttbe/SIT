@@ -94,9 +94,7 @@ def sign_up
   fill_in "user_password", :with => @visitor[:password]
   fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
   fill_in "user_firstname", :with => @visitor[:firstname]
-  select(2010, :from=> "user_birthdate_1i")
-  select('November', :from=>  "user_birthdate_2i")
-  select(10, :from=>  "user_birthdate_3i")
+  fill_in "user_birthdate", :with => @visitor[:birthdate]
   click_button "Sign up"
   find_user
 end

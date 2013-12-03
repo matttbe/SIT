@@ -70,7 +70,7 @@ gem 'will_paginate', '~> 3.0'
 #Some UI Components
 gem "jquery-ui-rails"
 
-
+gem 'bootstrap-datepicker-rails'
 ####### Group #######
 
 # tests
