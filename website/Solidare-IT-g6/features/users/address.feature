@@ -55,4 +55,3 @@ Feature: Addresses of user
       Then show me the page
       And I see a Address was successfully updated. message
       And I see my address
-
