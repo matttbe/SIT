@@ -94,6 +94,20 @@ Given /^I am not logged in$/ do
   visit '/users/sign_out' #TODO sign out if I am NOT logged in ?
 end
 
+Given /^I test for$/ do
+
+
+  	$i = 0
+	$num = 5
+
+	while $i < $num  do
+		create_visitor
+		@visitor[:email]=$i.to_s+@visitor[:email]
+		@user = User.create!(@visitor)
+		$i +=1
+	end
+end
+
 Given /^I log in$/ do
   find_user
   sign_in

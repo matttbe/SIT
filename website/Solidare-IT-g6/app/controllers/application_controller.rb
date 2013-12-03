@@ -11,6 +11,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def can_do_that
+    respond_to do |format|
+          format.html { redirect_to root_path, alert: 'You can not do that !' }
+    end
+  end
+
   def protect_param_integer
     @can=true
     if defined?(params[:id])&&!params[:id].nil?&& (params[:id]=="all")

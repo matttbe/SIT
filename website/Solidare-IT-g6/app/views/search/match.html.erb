@@ -11,12 +11,14 @@
                  @active=!@link.include?(@param)
                %>
               <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Time : ending soonest</a></li>
-              <% @param="&q_order_distance=on"
+              <% 
+                 if user_signed_in?&&current_user.addresses.size>0
+                 @param="&q_order_distance=on"
                  @link=generateLink(@search,@param)
                  @active=!@link.include?(@param)
                %>
               <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Distance : shortest first</a></li>
-
+              <% end %>
               <li class="nav-header">Filter</li>
               <% @param="&filter=active"
                  @link=generateLink(@search,@param)
@@ -87,6 +89,7 @@
                 
                 <p class="service-desc"><%= service.description %></p>
                 <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> to <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
+                <%if !service.address.nil?%> <p class="service-desc"><%= service.address.country %></p><% end %>
                 </p>
             </div>
           </div>
