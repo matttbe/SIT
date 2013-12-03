@@ -67,6 +67,9 @@ gem 'coveralls', require: false
 #infinite scroll
 gem 'will_paginate', '~> 3.0'
 
+#Some UI Components
+gem "jquery-ui-rails"
+
 
 ####### Group #######
 

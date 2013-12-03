@@ -316,6 +316,7 @@ DEPENDENCIES
   guard-cucumber
   jbuilder (~> 1.2)
   jquery-rails
+  jquery-ui-rails
   launchy
   less-rails
   newrelic_rpm
