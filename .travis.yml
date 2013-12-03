@@ -27,4 +27,4 @@ before_script:
   # Install dependences
   - travis_retry bundle install --verbose
   # Env
-  cp .env.travis .env
+  - cp .env.travis .env

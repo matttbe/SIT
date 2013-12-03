@@ -3,4 +3,10 @@
     column "name" do |coworker|
         coworker.user.all_name
       end
+    column "email" do |coworker|
+        coworker.user.email
+      end
+    column "" do |coworker|
+        link_to "Remove", remove_coworker_organisation_manage_coworker_path(coworker)
+      end
   end

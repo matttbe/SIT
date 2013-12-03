@@ -7,7 +7,7 @@ class Service < ActiveRecord::Base
     :default_url => "/assets/64.png",
     :path => ":style/service/:id_:filename"
 
-  validates :date_start, :presence => true,:date => { :after => Time.now }
+  validates :date_start, :presence => true,:date => { :after => Time.now }, :if => :new_service?
   validates :date_end, :presence => true,:date => { :after => :date_start }
   validates :title, :presence => true
   validates :creator_id, :presence => true
@@ -30,7 +30,10 @@ class Service < ActiveRecord::Base
   has_many :users, through: :notification
 
   def distance(latitude,longitude)
-    logger.debug("+++++++++++++++++++++++++")
     (self.address.latitude-latitude).abs+(self.address.longitude-longitude).abs
+  end
+
+  def new_service?
+    new_record?
   end
 end
