@@ -1,7 +1,28 @@
 ActiveAdmin.register Coworker, :as => "Coworkers", namespace: :organisation_manage  do
   config.clear_action_items!
 
-  member_action :remove_coworker, :method => :get, :param =>[:id, :id_coworker] do
+  show :title => "Manage coworker" do
+    render 'show.html.arb'
+  end
+
+  form do |f|
+    f.inputs "User" do
+      f.collection_select :user_id, User.all, :id, :all_name
+    end
+    f.inputs "Organisation" do
+      f.collection_select :organisation_id, Organisation.where("creator_id=:id",:id=>current_user.id), :id, :name
+    end
+    f.actions
+  end
+
+
+  controller do
+    def permitted_params
+      params.permit(:coworkers => [:organisation_id, :user_id])
+    end
+  end
+
+  member_action :remove_coworker, :method => :get do
     coworker = Coworker.find(params[:id])
     
     if !coworker.nil?
@@ -14,8 +35,14 @@ ActiveAdmin.register Coworker, :as => "Coworkers", namespace: :organisation_mana
   end
 
   index do
+          table_for Coworker.joins(:organisation).where("organisations.creator_id=:id", :id=>current_user.id).each do |coworker|
     
+            column("Name")   {|coworker| coworker.user.all_name}
+            column("Email")  {|coworker| coworker.user.email}
+            column("Organisation")  {|coworker| coworker.organisation.name}
+          end
   end
+
 
   member_action :organisation do
     @organisation = Organisation.find(params[:id])

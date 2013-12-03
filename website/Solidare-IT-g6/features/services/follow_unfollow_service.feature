@@ -3,7 +3,6 @@ Feature: All about following
 
 	Background:
 	  Given The DB have a lot of users
-          And I test for
 	  And The database contains services
 
 	Scenario: Validated user can follow a service
