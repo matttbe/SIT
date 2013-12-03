@@ -56,7 +56,8 @@ class ServicesController < ApplicationController
     if @can
     @service = Service.find(params[:id])
    #NETTOYER ca pour faire une seule fois la requete followers
-    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)  
+    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)
+    @users = User.all 
     end
   end
 
