@@ -10,4 +10,10 @@ class Notifier < ActionMailer::Base
     @user=user
     mail to: user.email, :subject=>"Your account is validated"
   end
+
+  def send_notif(user,notification, subject)
+    @user=user
+    @notification=notification
+    mail to: user.email, :subject=>subject
+  end
 end

@@ -1,0 +1,8 @@
+<% services.each_with_index do |service| %>
+
+	<div class="row-fluid service-parent">
+		<% @service = service %>
+		<%= render 'service', :service => @service %>
+
+	</div>
+<% end %>

@@ -21,13 +21,14 @@ class ServicesController < ApplicationController
   # GET /services/:id/accept
   def accept_service
     if @service.matching_service.nil?
+      notify_owner
       create_quick_service
       @service.matching_service=@serviceQ
       respond_to do |format|
         format.html { redirect_to my_services_path, notice: 'you have accepted a service' }
       end
     else
-      #TODO add notification to the follower list
+      #TODO
     end
   end
   
@@ -36,6 +37,8 @@ class ServicesController < ApplicationController
   def index
     respond_to do |format|
         format.html { redirect_to match_path }
+        format.json { redirect_to match_path }
+        format.js {redirect_to match_path(params[:page])}
       end
   end
 
@@ -84,14 +87,43 @@ class ServicesController < ApplicationController
   
   def notify
     @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)
-    @followers_list.each do |follower|
-      @notification = Notification.new
-      @notification.notified_user = follower.user_id
-      @notification.service = @service
-      @notification.notification_type = 'EDIT'
-      if ! @notification.save
-        show_error(format,'new',@notification)
+    @followers_list.each do |follower| 
+      @notification = nil
+      #Est-ce qu'il vaut mieux faire une requete SQL a iteration ou une requete plus grosse avant et une double boucle?
+      @notification_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => @service.id, :user_id => follower.user_id)
+      if @notification_list.size > 0
+        @notification_list.each do |notif|
+          @notification = notif     
+        end
+      else          
+        @notification = Notification.new
+        @notification.notified_user = follower.user_id
+        @notification.service = @service
+        @notification.notification_type = 'EDIT'
       end
+      @notification.seen = false     
+      if ! @notification.save
+          show_error(format,'new',@notification)
+      end
+    end
+  end
+
+  def notify_owner
+    @notification_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => @service.id, :user_id => @service.creator_id)
+    @notification = nil
+    if @notification_list.size > 0
+      @notification_list.each do |notif|
+        @notification = notif
+      end
+    else
+      @notification = Notification.new
+      @notification.notified_user = @service.creator_id
+      @notification.service = @service
+      @notification.notification_type = 'ACCEPT' 
+    end
+    @notification.seen = false
+    if ! @notification.save
+        show_error(format,'new',@notification)
     end
   end
 
