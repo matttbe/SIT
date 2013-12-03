@@ -21,7 +21,7 @@ class ServicesController < ApplicationController
   # GET /services/:id/accept
   def accept_service
     if @service.matching_service.nil?
-      notify_owner
+      notify_owner(@service)
       create_quick_service
       @service.matching_service=@serviceQ
       respond_to do |format|
@@ -82,48 +82,6 @@ class ServicesController < ApplicationController
         end
       end
   end
-  
-  def notify
-    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)
-    @followers_list.each do |follower| 
-      @notification = nil
-      #Est-ce qu'il vaut mieux faire une requete SQL a iteration ou une requete plus grosse avant et une double boucle?
-      @notification_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => @service.id, :user_id => follower.user_id)
-      if @notification_list.size > 0
-        @notification_list.each do |notif|
-          @notification = notif     
-        end
-      else          
-        @notification = Notification.new
-        @notification.notified_user = follower.user_id
-        @notification.service = @service
-        @notification.notification_type = 'EDIT'
-      end
-      @notification.seen = false     
-      if ! @notification.save
-          show_error(format,'new',@notification)
-      end
-    end
-  end
-
-  def notify_owner
-    @notification_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => @service.id, :user_id => @service.creator_id)
-    @notification = nil
-    if @notification_list.size > 0
-      @notification_list.each do |notif|
-        @notification = notif
-      end
-    else
-      @notification = Notification.new
-      @notification.notified_user = @service.creator_id
-      @notification.service = @service
-      @notification.notification_type = 'ACCEPT' 
-    end
-    @notification.seen = false
-    if ! @notification.save
-        show_error(format,'new',@notification)
-    end
-  end
 
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
@@ -131,7 +89,7 @@ class ServicesController < ApplicationController
     if !(@service.creator_id==current_user.id)
       dont_see
     else
-      notify
+      notify(@service)
       respond_to do |format|
         if @service.update(service_params)
           format.html { redirect_to @service, notice: 'Service was successfully updated.' }
