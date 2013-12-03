@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
         else
           @notification = Notification.new
           @notification.notified_user = user_notified_id
-          @notification.service = service
+          @notification.service = service          
         end
       end
     else
@@ -23,7 +23,8 @@ class ApplicationController < ActionController::Base
       @notification.notified_user = user_notified_id
       @notification.service = service
     end
-    @notification.notification_type = type 
+    @notification.notification_type = type
+    @notification.creator_id = current_user.id 
     @notification.seen = false
     if ! @notification.save
         show_error(format,'new',@notification)
