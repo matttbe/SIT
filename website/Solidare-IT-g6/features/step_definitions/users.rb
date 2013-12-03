@@ -27,6 +27,9 @@ def add_default_address(user)
   @address.save
 end
 
+def find_admin_user
+  @admin_user ||= User.where(:email => "maitre@dieu.ciel").first
+end
 
 def find_user
   @user ||= User.where(:email => @visitor[:email]).first
