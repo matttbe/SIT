@@ -9,16 +9,19 @@
     <%= f.file_field :avatar %>
     <%= f.datetime_select :birthdate %>
     <%= f.email_field :email %>
+    <%= f.check_box :mail_notif, :label=>"Receive mails when you have a notification" %>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <i>(leave blank if you don't want to change it)</i><br />
+  
   <%= f.password_field :password, :autocomplete => "off" %>
+    <i>(leave blank if you don't want to change it)</i>
   <%= f.password_field :password_confirmation %>
- <i>(we need your current password to confirm your changes)</i><br />
+ 
   <%= f.password_field :current_password %>
+    <i>(we need your current password to confirm your changes)</i>
 
   <div><%= f.submit "Update" %></div>
 <% end %>
