@@ -1,106 +1,80 @@
 <% location= request.env['PATH_INFO'] %>
 <div class="container-fluid">
   <h3>Search Result</h3>
-    <div class="row-fluid">
-      <div class="span3">
-        <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Sort</li>
-              <% @param="&q_order_end=on"
-                 @link=generateLink(@search,@param)
-                 @active=!@link.include?(@param)
-               %>
-              <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Time : ending soonest</a></li>
-              <% 
-                 if user_signed_in?&&current_user.addresses.size>0
-                 @param="&q_order_distance=on"
-                 @link=generateLink(@search,@param)
-                 @active=!@link.include?(@param)
-               %>
-              <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Distance : shortest first</a></li>
+  <div class="row-fluid">
+    <div class="span3">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+          <li class="nav-header">Sort</li>
+          <% @param="&q_order_end=on"
+          @link=generateLink(@search,@param)
+          @active=!@link.include?(@param)
+          %>
+          <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Time : ending soonest</a></li>
+          <% 
+          if user_signed_in?&&current_user.addresses.size>0
+           @param="&q_order_distance=on"
+           @link=generateLink(@search,@param)
+           @active=!@link.include?(@param)
+           %>
+           <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Distance : shortest first</a></li>
+           <% end %>
+           <li class="nav-header">Filter</li>
+           <% @param="&filter=active"
+           @link=generateLink(@search,@param)
+           @active=!@link.include?(@param)
+           %>
+           <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only active service</a></li>
+           <% @param="&filter=karma"
+           @link=generateLink(@search,@param)
+           @active=!@link.include?(@param)
+           %>
+           <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only service proposed by good karma</a></li>
+           <li class="nav-header">Categories</li>
+           <% if (!@categories.nil?&&@categories.size>0) %>
+           <% @categories.each do |category|
+             if category.first>-1
+              @category=Category.find(category.first)
+              @param="&category="+@category.id.to_s
+              @link=generateLink(@search,@param)
+              @active=!@link.include?(@param)
+              %>
+              <li <% if @active%> class="active"<% end%>><a href="<%= @link %>"><%=@category.title%> <span class="badge"><%=category.second.size%></span></a></li>
               <% end %>
-              <li class="nav-header">Filter</li>
-              <% @param="&filter=active"
-                 @link=generateLink(@search,@param)
-                 @active=!@link.include?(@param)
-               %>
-              <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only active service</a></li>
-              <% @param="&filter=karma"
-                 @link=generateLink(@search,@param)
-                 @active=!@link.include?(@param)
-               %>
-              <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only service proposed by good karma</a></li>
-              <li class="nav-header">Categories</li>
-              <% if (!@categories.nil?&&@categories.size>0) %>
-                <% @categories.each do |category|
-                   if category.first>-1
-                    @category=Category.find(category.first)
-                     @param="&category="+@category.id.to_s
-                     @link=generateLink(@search,@param)
-                      @active=!@link.include?(@param)
-                      %>
-                    <li <% if @active%> class="active"<% end%>><a href="<%= @link %>"><%=@category.title%> <span class="badge"><%=category.second.size%></span></a></li>
-                <% end %>
-                <% end %>
+              <% end %>
               <% end %>
             </ul>
           </div>
-      </div>
-      <div class="span9 service-cont">
-        <div class="row-fluid">
-          <div class="span2">
-            <% if !current_user.nil?%>
-              <%= link_to 'New Service', new_service_path, :class=>"btn btn-primary" %>
-            <% end %>
-          </div>
-
-         <div class="btn-toolbar span2 offset8">
-          <div class="btn-group">
-            <a class="btn" id="list" ><i class="icon-list"></i></a>
-            <a class="btn" id="grid" ><i class="icon-grid"></i></a>
-          </div>
         </div>
-      </div>
+        <div class="span9 service-cont">
+          <div class="row-fluid">
+            <div class="span2">
+              <% if !current_user.nil?%>
+              <%= link_to 'New Service', new_service_path, :class=>"btn btn-primary" %>
+              <% end %>
+            </div>
 
-       
-        
-        <% if @services.size ==0 %>
-          No results
-        <% else %>
-          <% @services.each_with_index do |service, index| %>
-          
-            <div class="row-fluid service-parent">
-            <div class="well well-large service span12">
-                <a class="pull-left" href="#">
-                  <%= image_tag service.photo.url(:thumb) %>
-                </a>
-                <h3><%= service.title %></h3>
-                <div class="service-action">
-                  <%= button_to 'Show', service, :class=>"btn", :method => :get  %>
-                  <% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= button_to 'Accept', accept_service_path(service), :class=>"btn", :method => :get %><%end%>
-                  <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Edit', edit_service_path(service), :class=>"btn", :method => :get %><%end%>
-                  <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn"%><%end%>
-                  <% if user_signed_in?%>
-                  <% @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => service.id, :user_id => current_user.id)%>
-                  <% @service = service %>
-                  <%= render 'services/follow', :service=>@service, :followers => @followers %>
-                  <%end%>
-                </div>
-                
-                <p class="service-desc"><%= service.description %></p>
-                <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> to <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
-                <%if !service.address.nil?%> <p class="service-desc"><%= service.address.country %></p><% end %>
-                </p>
+            <div class="btn-toolbar span2 offset8">
+              <div class="btn-group">
+                <a class="btn" id="list" ><i class="icon-list"></i></a>
+                <a class="btn" id="grid" ><i class="icon-grid"></i></a>
+              </div>
             </div>
           </div>
-          <% end %>
-           <!-- close the last div class="row" -->
 
-        <% end %>
-        <br>
-      
+
+
+          <% if @services.size ==0 %>
+          No results
+          <% else %>
+            <div class="services">
+              <%= render :partial => 'services', :locals => { :services => @services } %>
+            </div>
+            <% if @services.next_page %>
+              <%= link_to 'Load More Services', services_path(:page => @services.next_page), :class => 'load-more-services', :remote => true %>
+            <% end %>
+          <% end %>
+        </div>
       </div>
-    </div>
-  </div>
 
 

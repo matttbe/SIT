@@ -37,6 +37,8 @@ class ServicesController < ApplicationController
   def index
     respond_to do |format|
         format.html { redirect_to match_path }
+        format.json { redirect_to match_path }
+        format.js {redirect_to match_path(params[:page])}
       end
   end
 

@@ -1,0 +1,5 @@
+$('.services').append('<%= escape_javascript(render :partial => 'services', :locals => { :services => @services } )%>');
+$('a.load-more-services').attr('href', '<%=services_path(:page => @services.next_page)%>');
+<% unless @services.next_page %>
+  $('a.load-more-posts').remove();
+<% end %>
