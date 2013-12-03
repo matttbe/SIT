@@ -6,7 +6,9 @@
 	<% @users.each do |user| %>
 		<% @followers_list.each do |follower| %>
 			<% if user.id == follower.user_id %>
-				<%= user.firstname %> <%= user.name %><br />
+				<% @user_full_name = " "+user.firstname+" "+user.name %>
+				<%= link_to @user_full_name,  show_profile_path(user) %><br />
+				<!-- <%= user.firstname %> <%= user.name %><br />-->
 			<%end%>
 		<%end%>
 	<%end%>
