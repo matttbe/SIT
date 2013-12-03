@@ -7,15 +7,16 @@
 				<% @creator_name = user.name %>
 			<%end%>
 		<%end%>
+		<% @service_string = "The service \"" + notif.service.title + "\""%>
 		<% case notif.notification_type %>
 		<%when 'EDIT'%>
-			<% @notif_type = "eddited" %>
+			<%= @service_string %> of <%= @creator_firstname %> <%= @creator_name %> was eddited<br />
+		<%when 'ACCEPT'%>
+			<%= @service_string %> was accepted by <!-- TODO completer le user qui a accept--><br />
 		<%else%>
-			<% @notif_type = "NO MESSAGE FOR THIS TYPE" %>
+			NO MESSAGE FOR THIS TYPE
 		<%end %>
-		The service "<%= notif.service.title %>" of <%= @creator_firstname %> <%= @creator_name %> was <%= @notif_type %><br />
 	<%end%>
 <%else%>
-	<%= @notifications.size %>
 	Vous n'avez pas de notification
 <%end%>

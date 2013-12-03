@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 20131202165913) do
     t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "seen"
   end
 
   create_table "organisations", force: true do |t|
