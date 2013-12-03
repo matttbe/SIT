@@ -31,7 +31,7 @@
         <li class="divider"></li>
         <li class="nav-header">Services</li>
         <li><%= link_to "Add a service",  new_service_path %></li>
-        <li><%= link_to "See my services",  my_services_path %></li>
+        <li><%= link_to "See my services",  my_services_path(current_user) %></li>
         <li><%= link_to "See the services I follow",  following_services_path %></li>
         <li class="divider"></li>
         <li class="nav-header">Organisation</li>

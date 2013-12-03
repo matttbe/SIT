@@ -1,15 +1,6 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:edit, :update, :destroy, :accept_service, :follow, :unfollow]
   before_action :set_good_service, only: [:create_transaction, :new_transaction]
-
-  # GET /user/services
-  def my_services
-    if user_signed_in?
-      @services = current_user.own_services.order(:is_demand)
-    else
-      dont_see
-    end
-  end
   
   
   #GET /following_services
