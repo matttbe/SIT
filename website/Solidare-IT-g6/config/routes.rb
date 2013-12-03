@@ -31,7 +31,7 @@ SolidareItG6::Application.routes.draw do
   get '/services/:id/accept' => 'services#accept_service', :as =>"accept_service"
 
   #search routing
-  get '/search' => 'search#match', :as=>"match"
+  get '/search/(:page)' => 'search#match', :as=>"match"
   post '/search' => 'search#match'
 
   #transaction routing

@@ -70,6 +70,14 @@ class SearchController < ApplicationController
       @services.reverse!
       @categories=@services.group_by &:category_id
     end
+    if (defined? params[:page])
+      @services = @services.paginate(:page => params[:page])
+    end
+    respond_to do |format|
+        format.html 
+        format.json { render json: @services}
+        format.js 
+      end
   end
 
 end
