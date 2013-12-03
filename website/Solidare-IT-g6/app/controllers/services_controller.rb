@@ -110,6 +110,16 @@ class ServicesController < ApplicationController
     if !(@service.creator_id==current_user.id)
       dont_see
     else
+      @notifications = Notification.where("service_id = :service_id", :service_id => @service.id)
+      @notifications.each do |notif|
+        notif.destroy
+      end
+      
+      @followers = Follower.where("service_id = :service_id", :service_id => @service.id)
+      @followers.each do |follower|
+        follower.destroy
+      end
+      
       @service.destroy
       respond_to do |format|
         format.html { redirect_to services_url }
