@@ -157,7 +157,7 @@ class ServicesController < ApplicationController
           end
         end
      else
-       show_error("You already follow this service")
+       show_error(format, 'show', @follower)
      end
     else
       dont_see

@@ -10,7 +10,13 @@ class ApplicationController < ActionController::Base
     @notification = nil
     if @notifications_list.size > 0
       @notifications_list.each do |notif|
-        @notification = notif
+        if notif.notification_type == type 
+          @notification = notif
+        else
+          @notification = Notification.new
+          @notification.notified_user = user_notified_id
+          @notification.service = service
+        end
       end
     else
       @notification = Notification.new
