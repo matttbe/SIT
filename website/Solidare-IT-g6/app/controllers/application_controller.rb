@@ -13,14 +13,14 @@ class ApplicationController < ActionController::Base
       @notification_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => service.id, :user_id => follower.user_id)
       if @notification_list.size > 0
         @notification_list.each do |notif|
-          @notification = notif     
+          @notification = notif          
         end
       else          
         @notification = Notification.new
         @notification.notified_user = follower.user_id
         @notification.service = service
-        @notification.notification_type = type
-      end
+      end      
+      @notification.notification_type = type
       @notification.seen = false     
       if ! @notification.save
           show_error(format,'new',@notification)
@@ -39,8 +39,8 @@ class ApplicationController < ActionController::Base
       @notification = Notification.new
       @notification.notified_user = service.creator_id
       @notification.service = service
-      @notification.notification_type = type 
     end
+    @notification.notification_type = type 
     @notification.seen = false
     if ! @notification.save
         show_error(format,'new',@notification)
