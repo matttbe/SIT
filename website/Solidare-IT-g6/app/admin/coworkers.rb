@@ -22,3 +22,9 @@ ActiveAdmin.register Coworker, :as => "Coworkers", namespace: :organisation_mana
   end
 
 end
+
+ActiveAdmin.register_page "Add coworker", namespace: :organisation_manage do
+    content do
+      para "Hello World"
+    end
+end
