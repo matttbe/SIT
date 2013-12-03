@@ -5,39 +5,16 @@ class ApplicationController < ActionController::Base
   def can_manage_orga
   end
   
- def notify(service, type)
-    @followers_list = Follower.where("service_id = :service_id", :service_id => service.id)
-    @followers_list.each do |follower| 
-      @notification = nil
-      #Est-ce qu'il vaut mieux faire une requete SQL a iteration ou une requete plus grosse avant et une double boucle?
-      @notification_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => service.id, :user_id => follower.user_id)
-      if @notification_list.size > 0
-        @notification_list.each do |notif|
-          @notification = notif          
-        end
-      else          
-        @notification = Notification.new
-        @notification.notified_user = follower.user_id
-        @notification.service = service
-      end      
-      @notification.notification_type = type
-      @notification.seen = false     
-      if ! @notification.save
-          show_error(format,'new',@notification)
-      end
-    end
-  end
-
-  def notify_owner(service, type)
-    @notification_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => service.id, :user_id => service.creator_id)
+  def create_notification(service, type, user_notified_id)
+    @notifications_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => service.id, :user_id => user_notified_id)
     @notification = nil
-    if @notification_list.size > 0
-      @notification_list.each do |notif|
+    if @notifications_list.size > 0
+      @notifications_list.each do |notif|
         @notification = notif
       end
     else
       @notification = Notification.new
-      @notification.notified_user = service.creator_id
+      @notification.notified_user = user_notified_id
       @notification.service = service
     end
     @notification.notification_type = type 
@@ -45,6 +22,17 @@ class ApplicationController < ActionController::Base
     if ! @notification.save
         show_error(format,'new',@notification)
     end
+  end
+  
+  def notify(service, type)
+    @followers_list = Follower.where("service_id = :service_id", :service_id => service.id)
+    @followers_list.each do |follower|
+      create_notification(service, type, follower.user_id)
+    end
+  end
+
+  def notify_owner(service, type)
+    create_notification(service, type, service.creator_id)
   end
   
   
