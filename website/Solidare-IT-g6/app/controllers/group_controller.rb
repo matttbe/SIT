@@ -22,7 +22,7 @@ class GroupController < ApplicationController
 
 	respond_to do |format|
   	  if @group.save
-	    @relation = GroupUserRelation.new(:user_id => current_user.id, :group_id => @group.id)
+	    @relation = GroupUserRelation.new(:user_id => current_user.id, :group_id => @group.id, :role => 'Admin')
 	    if @relation.save
 		  format.html { redirect_to @group, notice: 'Group was successfully created.' }
           format.json { render action: 'show', status: :created, location: @group }
@@ -32,6 +32,20 @@ class GroupController < ApplicationController
 	  else
 		show_error(format,'new',@group)
 	  end
+    end
+  end
+
+  def edit
+	@group = Group.find(params[:id])
+  end
+
+  def update
+    @group = Group.find(params[:id])
+ 
+    if @group.update(params[:group].permit(:name, :description, :private, :secret, :photo_file_name, :photo_content_type, :photo_file_size, :photo_updated_at))
+      redirect_to @group
+    else
+      render 'edit'
     end
   end
 
