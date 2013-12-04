@@ -36,6 +36,7 @@ ActiveAdmin.register User, :as => "Users" do
 end
 
 ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_manage  do
+  menu false
 
   form do |f|
     f.inputs "User" do
@@ -57,7 +58,17 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
     f.actions
   end
 
+  index do
+    render 'all_managed_users.html.arb'
+  end
+
   controller do
+    def index
+      respond_to do |format|
+        format.html {redirect_to }
+      end
+    end
+    
     def destroy
       @user=User.find(params[:id])
       @user.destroy

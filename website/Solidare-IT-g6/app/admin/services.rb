@@ -13,3 +13,7 @@ ActiveAdmin.register Service, :as => "Service" do
   end
 
 end
+
+ActiveAdmin.register Service, :as => "Managed service" , namespace: :organisation_manage  do
+
+end
