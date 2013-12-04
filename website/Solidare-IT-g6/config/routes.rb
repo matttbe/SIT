@@ -30,7 +30,7 @@ SolidareItG6::Application.routes.draw do
 
   #users routing
   get '/user/:user_id' => 'users#show', :as => "show_profile"  
-  get '/following_services' => 'services#following_services', :as=>"following_services"
+  get '/following/services' => 'services#following_services', :as=>"following_services"
 
   #services routing
   get '/user/:user_id/services/' => 'users#my_services', :as =>"my_services"
