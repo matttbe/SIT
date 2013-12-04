@@ -30,13 +30,13 @@ else
 
   # categories
   c1   = Category.create! :title => 'Clothes', :text => 'All clothes'
-  c11  = Category.create! :title => 'Pullovers', :text => 'All pullover', :parent => c1
-  c111 = Category.create! :title => 'Winter Pullovers', :text => 'All pullover for the winter', :parent => c11
-  c112 = Category.create! :title => 'Summer Pullovers', :text => 'All pullover for the summer', :parent => c11
+  c11  = Category.create! :title => 'Pullovers', :text => 'All pullover', :parent_cat => c1
+  c111 = Category.create! :title => 'Winter Pullovers', :text => 'All pullover for the winter', :parent_cat => c11
+  c112 = Category.create! :title => 'Summer Pullovers', :text => 'All pullover for the summer', :parent_cat => c11
   c2   = Category.create! :title => 'Books', :text => 'All books'
-  c22  = Category.create! :title => 'Computer Sciences', :text => 'All books about computer sciences', :parent => c2
-  c221 = Category.create! :title => 'Bachelor', :text => 'All books about computer sciences for bachelor', :parent => c22
-  c222 = Category.create! :title => 'Master', :text => 'All books about computer sciences for master', :parent => c22
+  c22  = Category.create! :title => 'Computer Sciences', :text => 'All books about computer sciences', :parent_cat => c2
+  c221 = Category.create! :title => 'Bachelor', :text => 'All books about computer sciences for bachelor', :parent_cat => c22
+  c222 = Category.create! :title => 'Master', :text => 'All books about computer sciences for master', :parent_cat => c22
 
 
   #addresses
