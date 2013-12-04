@@ -44,7 +44,7 @@
         <li class="divider"></li>
         <li class="nav-header">Group</li>
         <%if true %>
-        <li><%= link_to "Manage my groups",  group_index_path %></li>
+        <li><%= link_to "See my groups",  my_groups_path %></li>
         <% end %>
         <% if !current_user.nil? %>
         <li><%= link_to "Create a group",  new_group_path %></li>

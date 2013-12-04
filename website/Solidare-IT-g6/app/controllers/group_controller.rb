@@ -8,6 +8,15 @@ class GroupController < ApplicationController
 	@group = Group.find(params[:id])
   end
 
+ # GET /user/groups
+  def my_groups
+    if user_signed_in?
+      @groups = Group.joins(:group_user_relations).where(group_user_relations: {user_id: current_user.id})
+    else
+      dont_see
+    end
+  end
+
   def create
 	@group = Group.new(group_params)
 

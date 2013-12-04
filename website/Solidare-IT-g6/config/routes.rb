@@ -39,6 +39,10 @@ SolidareItG6::Application.routes.draw do
   get '/transaction/:id' => 'services#new_transaction', :as=>"add_transaction"
   post '/transaction/:id' => 'services#create_transaction', :as=>"create_transaction"
   
+  #group routing
+  get '/user/groups' => 'group#my_groups', :as => "my_groups"  
+
+
   #organisation routing
   get '/manage_organisations' => 'organisations#manage', :as=>"manage_organisation"
   get '/join_organisations' => 'organisations#join_organisation', :as=>"join_organisation"
