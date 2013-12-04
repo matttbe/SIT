@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
     logger.debug("penisssssssssssssssssssssssssssssssssssssssss")
     self.managed_org_id==-1
   end
+
   
   def all_name
     "#{firstname} #{name}"
