@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.slider
+//= require jquery.sticky
 //= require turbolinks
 //= require jquery.inview.min.js
 //= require bootstrap

@@ -14,8 +14,12 @@ body.active_admin span.icon svg {
 }
 
 #q {
-	width: 80%;
+	width: 70%;
     float: left;
+}
+
+.search-box {
+    width: 100%;
 }
 
 .jumbotron {
