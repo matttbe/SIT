@@ -1,9 +1,9 @@
 SolidareItG6::Application.routes.draw do
 
   resources :group do
-	resources :group_posts do
-	  resources :group_post_comments	
-	end
+  	resources :group_posts do
+  	  resources :group_post_comments	
+  	end
   end
   
   resources :organisations
@@ -25,9 +25,12 @@ SolidareItG6::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'index#home'
 
+  #users routing
+  get '/user/:user_id' => 'users#show', :as => "show_profile"  
+  get '/following_services' => 'services#following_services', :as=>"following_services"
+
   #services routing
-  get '/user/services' => 'services#my_services', :as =>"my_services"
-  get '/user/following_services' => 'services#following_services', :as=>"following_services"
+  get '/user/:user_id/services' => 'users#my_services', :as =>"my_services"
   get '/services/:id/accept' => 'services#accept_service', :as =>"accept_service"
 
   #search routing

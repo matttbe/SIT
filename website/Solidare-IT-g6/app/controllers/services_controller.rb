@@ -1,23 +1,16 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:edit, :update, :destroy, :accept_service, :follow, :unfollow]
   before_action :set_good_service, only: [:create_transaction, :new_transaction]
-
-  #GET /user/following_services
+  
+  
+  #GET /following_services
   def following_services
     if user_signed_in?
       @following = Follower.where("user_id = :user_id", :user_id => current_user.id)      
     end
   end
-
-  # GET /user/services
-  def my_services
-    if user_signed_in?
-      @services = current_user.own_services.order(:is_demand)
-    else
-      dont_see
-    end
-  end
-
+  
+  
   # GET /services/:id/accept
   def accept_service
     if @service.matching_service.nil?
@@ -50,7 +43,8 @@ class ServicesController < ApplicationController
     if @can
     @service = Service.find(params[:id])
    #NETTOYER ca pour faire une seule fois la requete followers
-    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)  
+    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)
+    @users = User.all 
     end
   end
 

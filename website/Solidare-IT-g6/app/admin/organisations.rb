@@ -11,6 +11,18 @@ ActiveAdmin.register Organisation, :as => "Organisation" do
     end
   end
 
+  member_action :add_coworker, :method => :post do
+    coworker = Coworker.find(params[:id])
+
+    if !coworker.nil?
+      coworker.destroy
+    #Notifier.admin_validated(user).deliver
+    end
+    respond_to do |format|
+      format.html{ redirect_to request.referer}
+    end
+  end
+
   index do
     selectable_column
     column("name") {|customer|

@@ -4,6 +4,7 @@ Feature: Addresses of user
     Background:
       Given The DB have a lot of users
       And The database contains services
+      And All users have a address
 
     Scenario: A non registered user can not manage his addresses
       And I do not exist as a user
@@ -35,3 +36,10 @@ Feature: Addresses of user
       And I click on the Add address button
       Then I see a Number is not a number message
       And I not see my address
+
+    Scenario: A registered user can not edit a not own address
+      And I am logged in
+      When I return to the site
+      And I visit a not own address
+      Then I see a You can not do that ! message
+
