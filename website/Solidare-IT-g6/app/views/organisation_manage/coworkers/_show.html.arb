@@ -23,6 +23,7 @@ columns do
         panel "Users managed" do
             table_for coworkers.managed_users.each do |customer|
                         column("Name")   {|customer| customer.all_name}
+                        column()         {|customer| button_to "Remove", organisation_manage_manageduser_path(customer), :method=>'delete'}
              end
 
         end

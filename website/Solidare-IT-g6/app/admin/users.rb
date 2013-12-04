@@ -58,6 +58,14 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
   end
 
   controller do
+    def destroy
+      @user=User.find(params[:id])
+      @user.destroy
+      respond_to do |format|
+          format.html { redirect_to organisation_manage_coworker_path(@user.coworker_id), notice: 'You have successfully deleted managed user.' }
+        end
+    end
+
     def create
       @user=User.new(new_managed_params)
       @user.birthdate='Mon, 18 Jun 1990 15:00:00 UTC +00:00'
