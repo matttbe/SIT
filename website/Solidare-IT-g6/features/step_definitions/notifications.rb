@@ -24,7 +24,6 @@ When /^a user follow my service$/ do
    @follow[:service_id]=@service.id
    @follow[:user_id]=@admin.id
    @follow.save
-   show_page
 end
 
 When /^a user unfollow my service$/ do
