@@ -43,6 +43,9 @@ ActiveAdmin.register User, :as => "Managed_users" , namespace: :organisation_man
       f.input :firstname
       
     end
+    f.inputs "Organisation" do
+      f.collection_select :managed_org_id, Organisation.where("creator_id=:id",:id=>current_user.id), :id, :name
+    end
     #f.inputs "Organisation" do
     #  f.collection_select :organisation_id, Organisation.where("creator_id=:id",:id=>current_user.id), :id, :name
     #end
@@ -50,6 +53,18 @@ ActiveAdmin.register User, :as => "Managed_users" , namespace: :organisation_man
   end
 
   controller do
+    def create
+      @user=User.new(permitted_params)
+      @coworker=Coworker.where(:user_id=>current_user.id).where(:organisation_id=>@user.managed_org_id).first
+      #coworker_id
+      @user.coworker_id=@coworker.id
+      @user.password = @user.name+@user.firstname+@user.name
+      o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+      string = (0...8).map{ o[rand(o.length)] }.join
+      @user.email= @user.name + @user.firstname + string + '@solidateit.com'
+      @user.inscription_ok=true
+      @user.save
+    end
     def permitted_params
       params.permit(:managed_users => [:name, :firstname])
     end
