@@ -21,8 +21,9 @@ end
 columns do
     column do
         panel "Users managed" do
-            table_for coworkers.managed_users.each do |customer|
-                        column("Name")   {|customer| customer.all_name}
+            table_for coworkers.managed_users.each,sortable: true do |customer|
+                        column("Name", sortable: :name)   {|customer| customer.all_name}
+                        column("Karma", sortable: :karma)  {|customer| customer.karma}
                         column()         {|customer| button_to "Remove", organisation_manage_manageduser_path(customer), :method=>'delete'}
              end
 
