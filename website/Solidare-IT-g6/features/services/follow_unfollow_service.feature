@@ -11,10 +11,11 @@ Feature: All about following
 	  Then I should see a follow link
 	  And I can not see the unfollow link
 
+  @wip
 	Scenario: Validated user can unfollow a service
       And I am logged in
 	  When I visit the page of one service
-	  And I click on the Follow link
+	  And I click on the Follow button
 	  Then I should see a unfollow link
 	  And I can not see the follow link
 
