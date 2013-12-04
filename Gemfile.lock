@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: https://github.com/gregbell/active_admin.git
-  revision: 7ee54a9bacddcf4039f7ad4a0ff6090371106e41
+  revision: 388ed07e477af5f5644d0c30cd45b4377c886dd7
   specs:
     activeadmin (1.0.0.pre)
       arbre (~> 1.0)
@@ -144,11 +144,11 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hike (1.2.3)
-    i18n (0.6.5)
+    i18n (0.6.9)
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
-    jbuilder (1.5.2)
+    jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
     jquery-rails (3.0.4)

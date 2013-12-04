@@ -21,6 +21,7 @@
 //= require bootstrap-typeahead
 //= require_tree .
 //= require less-1.5.0.min.js
+//= require holder.js
 //= require flatui-checkbox
 //= require flatui-radio
 
