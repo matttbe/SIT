@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/gagalago/bootstrap_forms.git
+  remote: https://github.com/gagalago/bootstrap_forms.git
   revision: adb0330363e3250e95e98e776220dc4754d27e74
   specs:
     bootstrap_forms (4.0.1)
