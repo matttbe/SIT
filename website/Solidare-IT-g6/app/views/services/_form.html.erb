@@ -2,7 +2,7 @@
 
   <%=f.radio_buttons :is_demand, { "Demand" => true, "Offer" => false }, :label => "what do you want to propose ?"%>
 
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :class => "form-control" %>
     <%= f.collection_select :category_id, Category.all, :id, :title %>
     <%= f.text_area :description %>
     <%= f.file_field :photo %>

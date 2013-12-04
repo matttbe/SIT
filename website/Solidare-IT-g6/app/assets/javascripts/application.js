@@ -16,5 +16,10 @@
 //= require turbolinks
 //= require jquery.inview.min.js
 //= require bootstrap
+//= require bootstrap-select
+//= require bootstrap-switch
+//= require bootstrap-typeahead
 //= require_tree .
 //= require less-1.5.0.min.js
+//= require flatui-checkbox
+//= require flatui-radio
