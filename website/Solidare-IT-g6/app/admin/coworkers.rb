@@ -1,6 +1,9 @@
 ActiveAdmin.register Coworker, :as => "Coworkers", namespace: :organisation_manage  do
   config.clear_action_items!
-  #form :partial =>"form"
+
+  show :title => "Manage coworker" do
+    render 'show.html.arb'
+  end
 
   form do |f|
     f.inputs "User" do

@@ -1,0 +1,30 @@
+
+
+columns do
+    column :max_width => "40%", :min_width => "30%" do
+        panel "Coworker info" do
+                table_for coworkers do
+                        column("Name")   {|customer| customer.user.all_name}
+                        column("Email")  {|customer| customer.user.email}
+                        column("Organisation")  {|customer| customer.organisation.name}
+                        column()         {|customer| link_to "Remove", remove_coworker_organisation_manage_coworker_path(customer)}
+
+                 end
+        end
+    end
+    column :max_width => "30%", :min_width => "15%" do
+        panel "" do
+            button_to "Add a managed user", new_organisation_manage_managed_user_path, :method=> :get
+        end
+    end
+end
+columns do
+    column do
+        panel "Users managed" do
+            table_for coworkers.managed_users.each do |customer|
+                        column("Name")   {|customer| customer.all_name}
+             end
+
+        end
+    end
+end

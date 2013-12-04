@@ -34,3 +34,25 @@ ActiveAdmin.register User, :as => "Users" do
   end
 
 end
+
+ActiveAdmin.register User, :as => "Managed_users" , namespace: :organisation_manage  do
+
+  form do |f|
+    f.inputs "User" do
+      f.input :name
+      f.input :firstname
+      
+    end
+    #f.inputs "Organisation" do
+    #  f.collection_select :organisation_id, Organisation.where("creator_id=:id",:id=>current_user.id), :id, :name
+    #end
+    f.actions
+  end
+
+  controller do
+    def permitted_params
+      params.permit(:managed_users => [:name, :firstname])
+    end
+  end
+
+end

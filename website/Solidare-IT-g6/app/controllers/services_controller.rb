@@ -10,9 +10,15 @@ class ServicesController < ApplicationController
   end
 
   # GET /user/services
+  # GET /users_managed/:serv_id/managed_services/
   def my_services
     if user_signed_in?
-      @services = current_user.own_services.order(:is_demand)
+        if params[:serv_id] == nil
+            @services = current_user.own_services.order(:is_demand)
+        else 
+            @managed_user = User.find(params[:serv_id])
+            @services = @managed_user.own_services.order(:is_demand)
+        end
     else
       dont_see
     end
@@ -55,9 +61,15 @@ class ServicesController < ApplicationController
   end
 
   # GET /services/new
+  #  /users_managed/:serv_id/services/new
   def new
     if user_signed_in?
       @service = Service.new
+      if params[:serv_id]== nil 
+            @service.creator_id=current_user.id
+      else
+            @service.creator_id = params[:serv_id]
+      end
     else
       dont_see
     end
@@ -74,7 +86,7 @@ class ServicesController < ApplicationController
   # POST /services.json
   def create
       @service = Service.new(service_params)
-      @service.creator_id=current_user.id
+
 
       respond_to do |format|
         if @service.save
@@ -84,6 +96,7 @@ class ServicesController < ApplicationController
           show_error(format,'new',@service)
         end
       end
+
   end
 
   # PATCH/PUT /services/1
@@ -229,7 +242,7 @@ class ServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:title,:description, :date_start, :date_end,:is_demand, :photo)
+      params.require(:service).permit(:title,:description, :date_start, :date_end,:is_demand, :photo, :creator_id)
     end
 
     def transaction_params
