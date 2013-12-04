@@ -30,7 +30,7 @@ ActiveAdmin.register_page "Dashboard" do
       end
 
       column do
-        panel "Report problem (irly ? :p)" do
+        panel "Report problem (ta mère ? :p)" do
           para "to do"
         end
       end
