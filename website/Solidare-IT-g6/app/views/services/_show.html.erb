@@ -20,7 +20,7 @@
     <br />
   <%else%>
     Your feedback :
-    <%=  render 'show_feedback', :transaction=>@service.matching_service.transaction%>
+    <%=  render 'services/show_feedback', :transaction=>@service.matching_service.transaction%>
   <%end%>
 <%end%>
 <p>
