@@ -98,6 +98,11 @@ class ApplicationController < ActionController::Base
     cats
   end
 
+  def get_categories_from_node_id(cat_id, withChild)
+    cat = Category.find(cat_id)
+    get_categories_from_node(cat, withChild)
+  end
+
   def get_all_categories_from_root(withChild)
     cats = Array.new
     Category.all.each do |cat|
@@ -122,7 +127,7 @@ class ApplicationController < ActionController::Base
     get_all_categories_from_root(false)
   end
 
-  helper_method :generateLink, :get_all_categories, :get_all_root_categories, :get_categories_from_node
+  helper_method :generateLink, :get_all_categories, :get_all_root_categories, :get_categories_from_node, :get_categories_from_node_id
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
