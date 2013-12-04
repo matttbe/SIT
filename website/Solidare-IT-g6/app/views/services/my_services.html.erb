@@ -1,17 +1,43 @@
 <h3>My services</h3>
 <br /><br />
 
+<% if (@services.nil? ||@services.length==0) && (@pending_services.nil? ||@pending_services.length==0) && (@accepted_services.nil? ||@accepted_services.length==0) %>
+  <p>	
+	You've no services.
+  </p>
+<% end%>
+
 <% @services.each do |service|  
 	if service.quick_match
-    	service=service.matching_service
-  	%>
-	  	You have accept this service :
-	  	<br /><br />
-	<%end%>
+    	next
+	end%>
   	<%= render 'show',:service=> service %>
-	<hr></hr>
+	<p>
+		<%= render 'accepted_by', :service => service%>
+	</p>
 <% end %>
 
-<% if @services.nil? ||@services.length==0 %>
-	You've no services.
-<% end%>
+
+
+<% if !@accepted_services.blank?%>
+  <hr></hr>
+  Accepted Services :
+  <br /><br />
+<%end %>
+<% @accepted_services.each do |service| %>
+	<%= render 'show',:service=> service %>
+<%end%>
+
+<% if !@pending_services.blank?%>
+  <hr></hr>
+  Pending Services :
+  <br /><br />
+<%end %>
+<% @pending_services.each do |service| %>
+	<% chosen = User.joins(:accept_services).where(accept_services: {service_id: service.id, is_chosen_customer: true})
+	if chosen.blank?%>
+		<%= render 'show',:service=> service %>
+	<% end %>
+<%end%>
+
+<% %>

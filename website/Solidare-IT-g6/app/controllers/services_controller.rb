@@ -1,6 +1,8 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:edit, :update, :destroy, :accept_service, :follow, :unfollow]
   before_action :set_good_service, only: [:create_transaction, :new_transaction]
+  
+  helper_method :get_accepters
 
   #GET /user/following_services
   def following_services
@@ -13,6 +15,8 @@ class ServicesController < ApplicationController
   def my_services
     if user_signed_in?
       @services = current_user.own_services.order(:is_demand)
+	  @pending_services = Service.joins(:accept_services).where(accept_services: {user_id: current_user.id,is_chosen_customer: false})
+	  @accepted_services = Service.joins(:accept_services).where(accept_services: {user_id: current_user.id,is_chosen_customer: true})
     else
       dont_see
     end
@@ -20,19 +24,49 @@ class ServicesController < ApplicationController
 
   # GET /services/:id/accept
   def accept_service
+	#TODO check doublon (not supposed to happen technically => button not shown if already accepted) 
+	@accept_service = AcceptService.new()
+	@accept_service.service_id = @service.id
+	@accept_service.user_id = current_user.id
+	@accept_service.is_chosen_customer = false
+	@accept_service.save
     if @service.matching_service.nil?
       notify_owner(@service, 'ACCEPT')
       notify(@service, 'ACCEPT')
-      create_quick_service
-      @service.matching_service=@serviceQ
       respond_to do |format|
         format.html { redirect_to my_services_path, notice: 'you have accepted a service' }
-      end
-    else
+	  end
+    #else
+     # end
       #TODO
-    end
+    end  
   end
-  
+
+  def choose
+	@chosen_service = AcceptService.where(user_id: params[:u_id],service_id: params[:s_id]).first
+
+	#remove old accepted customer (not used anymore since we can only chose once ! But we leave it for robustness, shouldn't have any effect though)
+	#olds = AcceptService.where(service_id: @chosen_service.service_id, is_chosen_customer: true)
+	#olds.each do |old|
+	#	if not old.id == @chosen_service.id
+	#		old.is_chosen_customer = false
+	#		old.save
+	#	end
+	#end 
+
+	@chosen_service.is_chosen_customer = true
+	@chosen_service.save
+
+	@service = Service.find(params[:s_id])
+    create_quick_service
+    @service.matching_service=@serviceQ
+	@service.save!
+
+	respond_to do |format|
+        format.html { redirect_to my_services_path, notice: 'User chosen !' }
+	end
+  end
+
   # GET /services
   # GET /services.json
   def index
@@ -48,7 +82,7 @@ class ServicesController < ApplicationController
     if @can
     @service = Service.find(params[:id])
    #NETTOYER ca pour faire une seule fois la requete followers
-    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)  
+    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id) 
     end
   end
 
@@ -136,7 +170,7 @@ class ServicesController < ApplicationController
          format.html { redirect_to my_services_path, notice: 'thanks for your feedback !' }
          format.json { head :no_content }
        else
-         show_error(format,'my_services',@transaction)
+         show_error(format,'my_services',@transaction)#TODO doesn't work
        end
      end
   end
@@ -204,7 +238,6 @@ class ServicesController < ApplicationController
       @serviceQ=Service.new
       #TODO si on renseigne pas tous les champs, la vérif du modèle va gueuler.  Que faire ?  le boolean quick_match sert-il alors ?
       @serviceQ.title=@service.title
-      @serviceQ.title=@service.title
       @serviceQ.description=@service.description
       @serviceQ.date_start=@service.date_start
       @serviceQ.date_end=@service.date_end
@@ -212,7 +245,7 @@ class ServicesController < ApplicationController
       @serviceQ.quick_match=true
       @serviceQ.matching_service=@service
       @serviceQ.is_demand=@service.is_demand==true
-      @serviceQ.save
+      @serviceQ.save!
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
