@@ -18,19 +18,7 @@ ActiveAdmin.register User, :as => "Users" do
   end
 
   index do
-    selectable_column
-    id_column
-    column("State")   {|customer|
-      if customer.id_ok
-        status_tag("With a ID", :warning)
-      else
-        status_tag("no ID", :error)
-      end
-    }
-    column :name
-    column :firstname
-    column :email
-    column :karma
+    
   end
 
 end
@@ -104,4 +92,11 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
     end
   end
 
+end
+
+ActiveAdmin.register_page "Managed Users", namespace: :organisation_manage  do
+
+  content do
+    render :partial =>'all_managed_users.html.arb'
+  end
 end
