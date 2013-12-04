@@ -57,11 +57,7 @@ SolidareItG6::Application.routes.draw do
   #managed user routing
   get '/create_managed_user/:org_id' =>'organisations#new_managed', :as=>'new_managed'
   post '/create_managed_user_filled' =>'organisations#create_managed', :as=>'new_managed_created'
-<<<<<<< HEAD
   get '/manage_user/:id' =>'organisation#manage', :as=>'manage'
-=======
-  get '/manage_user/:id' =>'organisation#manage', :as=>'manage_'
->>>>>>> add groups to profile page
   
   
 

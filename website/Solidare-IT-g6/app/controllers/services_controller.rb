@@ -24,8 +24,8 @@ class ServicesController < ApplicationController
       @following = Follower.where("user_id = :user_id", :user_id => current_user.id)      
     end
   end
-  
-  
+
+
   # GET /services/:id/accept
   def accept_service
     if @service.matching_service.nil?
