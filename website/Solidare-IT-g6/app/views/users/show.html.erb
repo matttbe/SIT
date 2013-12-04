@@ -1,10 +1,10 @@
+
 <%	@tag = nil
 	if @user == current_user
 		@tag = 'My'
 	else
 		@tag = 'His'
 	end%>
-
 <h3><%=@user.firstname%> <%= @user.name %></h3>
 
 <%= image_tag @user.avatar.url(:thumb) %>
