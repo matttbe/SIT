@@ -55,5 +55,33 @@
 
 
 <% else %>
-  <li><%= link_to "Sign up",  create_account_path %></li> <li><a href="/sign_in">Sign in</a></li>
+  <li>
+        <div class='popbox'>
+          <a class='open' href='#'>Sign up</a>
+
+          <div class='collapse'>
+            <div class='box'>
+              <div class='arrow'></div>
+              <div class='arrow-border'></div>
+
+                coucou!
+
+              <a href="#" class="close">close</a>
+            </div>
+          </div>
+        </div>
+
+  </li> 
+  <li>
+    <a href="/sign_in">Sign in</a>
+  </li>
 <% end %>
+
+
+
+
+
+
+
+
+

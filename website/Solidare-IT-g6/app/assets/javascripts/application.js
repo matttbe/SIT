@@ -23,4 +23,5 @@
 //= require less-1.5.0.min.js
 //= require flatui-checkbox
 //= require flatui-radio
+//= require popbox
 
