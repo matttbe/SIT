@@ -2,8 +2,6 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :can_log_in
 
-  def can_manage_orga
-  end
   
   def create_notification(service, type, user_notified_id)
     @notifications_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => service.id, :user_id => user_notified_id)
