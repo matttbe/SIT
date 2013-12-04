@@ -201,8 +201,8 @@ ActiveRecord::Schema.define(version: 20131203131231) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.boolean  "managed_by_organisation", default: false
     t.boolean  "mail_notif",              default: false
+    t.boolean  "managed_by_organisation", default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
