@@ -1,5 +1,5 @@
 <% @service=service%>
-
+<%= image_tag service.photo.url(:thumb) %>
 <p>
   <strong>Title:</strong>
   <% if @service.matching_service.nil? %>
@@ -25,7 +25,6 @@
 <%end%>
 <p>
   <strong>Created by:</strong>
-  <%  #TODO add a link to the user profile ? %>
   <%if !@service.user.nil? %>
     <%= link_to @service.user.all_name, show_profile_path(@service.user) %>
   <% end %>

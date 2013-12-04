@@ -182,7 +182,7 @@ class ServicesController < ApplicationController
           if @follower.save
             format.html{redirect_to request.referer, notice: 'You follow the service'}
           else
-            show_error(format, 'show', @follower)
+            show_error(format, 'services/show', @follower)
           end
         end
      else
