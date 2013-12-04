@@ -37,6 +37,7 @@ class GroupController < ApplicationController
 
   def edit
 	@group = Group.find(params[:id])
+	@basic_users = User.joins(:group_user_relations).where(group_user_relations: {group_id: params[:id],role:"basic"})
   end
 
   def update
@@ -60,6 +61,14 @@ class GroupController < ApplicationController
   def index
     @groups = Group.all
     render 
+  end
+
+  def delete_user
+	@to_destroy = GroupUserRelation.where(user_id: params[:u_id],group_id: params[:g_id])
+	@to_destroy.each do |t_d|
+	  GroupUserRelation.destroy(t_d.id)
+	end
+	redirect_to edit_group_path(Group.find(params[:g_id]))
   end
 
   def add_user
