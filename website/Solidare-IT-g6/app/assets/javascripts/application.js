@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.slider
+//= require jquery.sticky
 //= require turbolinks
 //= require jquery.inview.min.js
 //= require bootstrap
@@ -24,11 +25,22 @@
 //= require holder.js
 //= require flatui-checkbox
 //= require flatui-radio
+//= require popbox
+
 
 
 $(document).on("ready page:change", function(){
 	$("#show_option").click(function(){
-	  $("#more").toggle();
+	$("#more").toggle();
 	});
 	$(':checkbox').checkbox();
+             $(':popbox').popbox({
+               'open'          : '.open',
+               'box'           : '.box',
+               'arrow'         : '.arrow',
+               'arrow-border'  : '.arrow-border',
+               'close'         : '.close'
+              });
+
 });
+

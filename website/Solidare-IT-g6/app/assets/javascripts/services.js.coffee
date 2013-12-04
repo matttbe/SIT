@@ -22,6 +22,8 @@ $(document).on "ready page:change", ->
 	$('#list').click ->
 		list()
 	$(':radio').radio();
+	$("#sticker").sticky({topSpacing:0, className:"sticker-active"});
+	$("#sticker-filter").sticky({topSpacing:130});
 	$("select").selectpicker({style: 'btn', menuStyle: 'dropdown'});
 	$('a.load-more-services').on 'inview', (e, visible) ->
     	return unless visible
