@@ -1,13 +1,28 @@
+
+<%	@tag = nil
+	if @user == current_user
+		@tag = 'My'
+	else
+		@tag = 'His'
+	end%>
 <h3><%=@user.firstname%> <%= @user.name %></h3>
 
-<h4>His coordinate</h4>
+<%= image_tag @user.avatar.url(:thumb) %>
+
+<h4><%= @tag%> coordinate</h4>
 <%= render 'coordinate', :user => @user %>
 
-<h4>His Services</h4>
+<h4><%= @tag%> Services</h4>
 <%= render 'my_services', :services => @services %>
 
-<h4>His Groups</h4>
-Here will be the groups <br />
+<h4><%= @tag%> Groups</h4>
+<%= render 'my_groups', :user => @user %>
 
-<h4>The services I follow</h4>
+<%	@follow = nil
+	if @user == current_user
+		@follow = 'I follow'
+	else
+		@follow = 'he follows'
+	end%>
+<h4>The services <%= @follow%></h4>
 <%= render 'services/following_services', :following => @following %>

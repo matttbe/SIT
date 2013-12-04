@@ -21,7 +21,9 @@ end
 columns do
     column do
         panel "Users managed" do
-            para "to do"
+            table_for coworkers.managed_users.each do |customer|
+                        column("Name")   {|customer| customer.all_name}
+             end
 
         end
     end
