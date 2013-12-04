@@ -5,18 +5,18 @@
 $(document).on "ready page:change", ->
 	list = ->
 		$('.service-parent').addClass("row")
-		services = $('.service').detach()
+		services = $('.service-box').detach()
 		for parent, i in $('.service-parent')
 			$(parent).append(services[i])
 		$(services).removeClass('col-md-4').addClass('col-md-12')
 	grid = ->
 		$('.service-parent').removeClass("row")
-		services = $('.service').detach()
+		services = $('.service-box').detach()
 		for box, i in $('.service-parent')
 			if i % 3 == 0
 				$(box).addClass('row')
 				$(box).append(services[i]).append(services[i+1]).append(services[i+2])
-		$('.service').removeClass('col-md-12').addClass('col-md-4')
+		$(services).removeClass('col-md-12').addClass('col-md-4')
 	$('#grid').click ->
 		grid()
 	$('#list').click ->

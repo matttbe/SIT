@@ -1,4 +1,5 @@
-<div class="well well-large service col-md-12">
+<div class="service-box col-md-12">
+  <div class="well well-large service">
                 <a class="pull-left" href="#">
                   <%= image_tag service.photo.url(:thumb) %>
                 </a>
@@ -19,4 +20,5 @@
                 <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> to <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
                 <%if !service.address.nil?%> <p class="service-desc"><%= service.address.country %></p><% end %>
                 </p>
+              </div>
 </div>

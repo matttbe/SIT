@@ -5,7 +5,7 @@ class SearchController < ApplicationController
   def match    
     
     # no filter (min 2 items in params)
-    if (params.length <= 2)
+    if (params.length <= 3)
       @services = Service.paginate(:page => params[:page]) # TODO: display all services?
     else
       @search = "/search?"
@@ -78,7 +78,6 @@ class SearchController < ApplicationController
     logger.debug(@services)
     respond_to do |format|
         format.html 
-        format.json { render json: @services}
         format.js 
       end
   end
