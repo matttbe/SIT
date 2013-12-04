@@ -59,7 +59,7 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
       @user=User.find(params[:id])
       @user.destroy
       respond_to do |format|
-          format.html { redirect_to organisation_manage_coworker_path(@user.coworker_id), notice: 'You have successfully deleted managed user.' }
+          format.html { redirect_to request.referer, notice: 'You have successfully deleted managed user.' }
         end
     end
 
