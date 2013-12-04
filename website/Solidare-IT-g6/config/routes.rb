@@ -64,7 +64,12 @@ SolidareItG6::Application.routes.draw do
   
   #address routing
   resources :address
-
+  get '/org_adresses/:org_id/new' => 'address#new', :as => "new_address_org"
+  get '/org_adresses/:org_id/main' => 'address#main', :as =>"main_address_org"
+  post '/org_adresses/:org_id/create'=> 'address#create', :as=>'create_address_org'
+  get '/managed_adresses/:man_id/new' => 'address#new', :as => "new_address_man"
+  get '/managed_adresses/:man_id/main' => 'address#main', :as =>"main_address_man"
+  post '/managed_adresses/:man_id/create'=> 'address#create', :as=>'create_address_man'
   #post '/adresses' => 'adresses#create', :as=>"addresses_create_path"
   get '/adresses/:id/main' =>'address#main', :as=> "main_address"
 

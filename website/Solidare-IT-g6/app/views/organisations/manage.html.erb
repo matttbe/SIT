@@ -3,7 +3,9 @@
     <% @organisations.each do |organisation|%>
           <strong>Name:</strong>
           <%= organisation.name %>
-          <%= link_to 'Edit', edit_organisation_path(organisation) %> |
+          <%= link_to 'Edit', edit_organisation_path(organisation), :class=>"btn btn-warning" %> |
+          <%= link_to 'Add address', new_address_org_path(organisation), :class=>"btn btn-primary" %> |
+
     <%end %>
 </p>
 
