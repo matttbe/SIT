@@ -4,19 +4,19 @@
 
 $(document).on "ready page:change", ->
 	list = ->
-		$('.service-parent').addClass("row-fluid")
+		$('.service-parent').addClass("row")
 		services = $('.service').detach()
 		for parent, i in $('.service-parent')
 			$(parent).append(services[i])
-		$(services).removeClass('span4').addClass('span12')
+		$(services).removeClass('col-md-4').addClass('col-md-12')
 	grid = ->
-		$('.service-parent').removeClass("row-fluid")
+		$('.service-parent').removeClass("row")
 		services = $('.service').detach()
 		for box, i in $('.service-parent')
 			if i % 3 == 0
-				$(box).addClass('row-fluid')
+				$(box).addClass('row')
 				$(box).append(services[i]).append(services[i+1]).append(services[i+2])
-		$('.service').removeClass('span12').addClass('span4')
+		$('.service').removeClass('col-md-12').addClass('col-md-4')
 	$('#grid').click ->
 		grid()
 	$('#list').click ->

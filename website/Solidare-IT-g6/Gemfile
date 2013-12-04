@@ -39,9 +39,8 @@ gem 'therubyracer'
 
 # Design: bootstrap 3
 gem "less-rails"
-gem 'twitter-bootstrap-rails'
 gem 'date_validator'
-gem 'bootstrap_forms', github: 'gagalago/bootstrap_forms'
+gem 'bootstrap_forms', git: 'https://github.com/gagalago/bootstrap_forms'
 
 # admin interface: github: compatible with RoR 4.0
 gem 'activeadmin', git: 'https://github.com/gregbell/active_admin.git'

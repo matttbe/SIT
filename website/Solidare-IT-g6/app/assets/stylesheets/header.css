@@ -13,17 +13,11 @@ body.active_admin span.icon svg {
     width: 100%;
 }
 
-#q {
-    width: 90%
-}
-
-#search-box {
-    margin: 15px 0px 15px 0px
-}
 
 .jumbotron {
     /*background: url("http://www.voyageurs-du-temps.fr/images/sites/afrique/enfants-africains-cours-de-recreation.jpg") no-repeat;
     /*background: url("images/bg.png") no-repeat;*/
+    padding: 0px;
     background: -moz-linear-gradient(top, #E6E6E6 34%, #ffffff 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(34%,#E6E6E6), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
 background: -webkit-linear-gradient(top, #E6E6E6 34%,#ffffff 100%); /* Chrome10+,Safari5.1+ */

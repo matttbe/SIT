@@ -6,7 +6,7 @@ class SearchController < ApplicationController
     
     # no filter (min 2 items in params)
     if (params.length <= 2)
-      @services = Service.all # TODO: display all services?
+      @services = Service.paginate(:page => params[:page]) # TODO: display all services?
     else
       @search = "/search?"
       if (! params[:q].nil?)
@@ -17,11 +17,11 @@ class SearchController < ApplicationController
       end
       
       if(! params[:offer_cbox].nil? and ! params[:demand_cbox].nil?) # Both checkboxes are checked
-        @services = Service.where(:quick_match => false).where(:matching_service_id => 0)
+        @services = Service.where(:quick_match => false)#.where(:matching_service_id => 0)
       elsif(! params[:offer_cbox].nil?)
-        @services = Service.where('is_demand = :is_demand', :is_demand => false).where(:quick_match => false).where(:matching_service_id => 0)
+        @services = Service.where('is_demand = :is_demand', :is_demand => false).where(:quick_match => false)#.where(:matching_service_id => 0)
       elsif(! params[:demand_cbox].nil?)
-        @services = Service.where('is_demand = :is_demand', :is_demand => true).where(:quick_match => false).where(:matching_service_id => 0)
+        @services = Service.where('is_demand = :is_demand', :is_demand => true).where(:quick_match => false)#.where(:matching_service_id => 0)
       else
         @services = Service.all #TODO : What do we do if none of the checkboxes are checked ?
       end 
@@ -52,6 +52,11 @@ class SearchController < ApplicationController
         @search = @search + "&category=" + params[:category]
       end
 
+      #PAGINATE BEFORE ORDERING BECAUSE ORDERING CONVERT SERVICE TO ARRAY
+      if (defined? params[:page])
+        @services = @services.paginate(:page => params[:page])
+      end
+
       if (! params[:q_order_end].nil?)
         @services = @services.order(date_end: :asc)
         @search = @search + "&q_order_end=on"
@@ -70,9 +75,7 @@ class SearchController < ApplicationController
       @services.reverse!
       @categories=@services.group_by &:category_id
     end
-    if (defined? params[:page])
-      @services = @services.paginate(:page => params[:page])
-    end
+    logger.debug(@services)
     respond_to do |format|
         format.html 
         format.json { render json: @services}
