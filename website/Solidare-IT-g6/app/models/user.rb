@@ -37,6 +37,8 @@ class User < ActiveRecord::Base
 
   has_many :group_user_relations
   has_many :groups, :through => :group_user_relations
+
+  belongs_to :coworker
   
   def check_managed?
     self.managed_org_id==-1
