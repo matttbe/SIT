@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131203142339) do
+ActiveRecord::Schema.define(version: 20131204214035) do
 
   create_table "accept_services", force: true do |t|
     t.integer  "service_id"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 20131203142339) do
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "role"
   end
 
   add_index "group_user_relations", ["group_id"], name: "index_group_user_relations_on_group_id"
