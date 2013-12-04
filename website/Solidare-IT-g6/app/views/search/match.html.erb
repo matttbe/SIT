@@ -1,5 +1,17 @@
 <% location= request.env['PATH_INFO'] %>
-  <h3>Search Result</h3>
+<div class="full-width-header"> 
+  <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+              <h3 >Search Result</h3> 
+            </div>
+  <div class="col-md-2">
+  <% if !current_user.nil?%>
+    <%= link_to 'New Service', new_service_path, :class=>"btn btn-primary" %>
+  <% end %>
+</div>
+</div>
+</div>
+  
   <div class="row-fluid">
     <div class="col-md-3">
       <div class="well sidebar-nav">
@@ -48,9 +60,7 @@
         <div class="col-md-9 service-cont">
           <div class="row">
             <div class="col-md-2">
-              <% if !current_user.nil?%>
-              <%= link_to 'New Service', new_service_path, :class=>"btn btn-primary" %>
-              <% end %>
+              
             </div>
 
             <div class="btn-toolbar col-md-2 col-md-offset-8">

@@ -18,6 +18,15 @@ body {
     color : blue;
 }
 
+.full-width-header {
+	margin-left: -150px;
+	margin-right: -150px;
+	margin-bottom: 30px;
+	padding: 30px;
+	background-color: #777777;
+	color:white;
+}
+
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url('../assets/glyphicons-halflings-regular.eot');
