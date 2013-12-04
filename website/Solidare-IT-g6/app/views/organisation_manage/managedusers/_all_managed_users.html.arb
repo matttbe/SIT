@@ -6,7 +6,7 @@ columns do
                 table_for User.joins(:coworker).where("coworkers.user_id=:id",:id=>current_user.id).each do |customer|
                         column("Name")   {|customer| customer.all_name}
                         column("Email")  {|customer| customer.email}
-                        column()         {|customer| link_to "Remove", remove_coworker_organisation_manage_coworker_path(customer)}
+                        column()         {|customer| button_to "Remove", remove_coworker_organisation_manage_coworker_path(customer), :method=>:delete}
 
                  end
         end
