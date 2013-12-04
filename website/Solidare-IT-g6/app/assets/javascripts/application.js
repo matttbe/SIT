@@ -16,3 +16,4 @@
 //= require turbolinks
 //= require_tree .
 //= require jquery.inview.min.js
+//= require less-1.5.0.min.js

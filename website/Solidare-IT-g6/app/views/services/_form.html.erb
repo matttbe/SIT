@@ -8,6 +8,7 @@
     <%= f.file_field :photo %>
     <%= f.datetime_select :date_start %>
     <%= f.datetime_select :date_end %>
+    <div style="display:none"><%= f.text_field :creator_id,  content:@service.creator_id %></div>
     <% if type=="new"%>
       <%= f.submit "Create service",:class =>"btn btn-primary"  %>
     <% else %>

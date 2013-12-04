@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   validates :name, :presence => true
   validates :firstname, :presence => true
   validates :birthdate, :presence => true,:date => { :before => Time.now }
-  validates :email, :presence => true,:format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create }, :if => :seemypenis?
+  validates :email, :presence => true,:format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create }, :if => :check_managed?
   
   has_many :addresses, :class_name => 'Address', :foreign_key => 'user_id'
 
@@ -38,8 +38,7 @@ class User < ActiveRecord::Base
   has_many :group_user_relations
   has_many :groups, :through => :group_user_relations
   
-  def seemypenis?
-    logger.debug("penisssssssssssssssssssssssssssssssssssssssss")
+  def check_managed?
     self.managed_org_id==-1
   end
   
