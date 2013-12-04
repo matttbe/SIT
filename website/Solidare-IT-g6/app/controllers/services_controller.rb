@@ -161,7 +161,7 @@ class ServicesController < ApplicationController
     #TODO update karma
     respond_to do |format|
        if @transaction.save && @user.save
-         format.html { redirect_to my_services_path(current_user), notice: 'thanks for your feedback !' }
+         format.html { redirect_to my_services_path(@user), notice: 'thanks for your feedback !' }
          format.json { head :no_content }
        else
          show_error(format,'my_services',@transaction)
