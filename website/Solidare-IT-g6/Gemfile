@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 ruby '2.0.0'
 
@@ -41,7 +41,7 @@ gem 'therubyracer'
 gem "less-rails"
 gem 'twitter-bootstrap-rails'
 gem 'date_validator'
-gem 'bootstrap_forms', github: 'gagalago/bootstrap_forms'
+gem 'bootstrap_forms', git: 'https://github.com/gagalago/bootstrap_forms.git'
 
 # admin interface: github: compatible with RoR 4.0
 gem 'activeadmin', git: 'https://github.com/gregbell/active_admin.git'
