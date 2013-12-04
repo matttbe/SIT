@@ -21,7 +21,25 @@
 //= require bootstrap-typeahead
 //= require_tree .
 //= require less-1.5.0.min.js
+//= require holder.js
 //= require flatui-checkbox
 //= require flatui-radio
 //= require popbox
+
+
+
+$(document).on("ready page:change", function(){
+	$("#show_option").click(function(){
+	$("#more").toggle();
+	});
+	$(':checkbox').checkbox();
+             $(':popbox').popbox({
+               'open'          : '.open',
+               'box'           : '.box',
+               'arrow'         : '.arrow',
+               'arrow-border'  : '.arrow-border',
+               'close'         : '.close'
+              });
+
+});
 
