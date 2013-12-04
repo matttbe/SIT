@@ -242,4 +242,21 @@ ActiveAdmin.setup do |config|
     user.logout_link_path = :destroy_user_session_path
   end
 
+  config.namespace :organisation_manage do |admin|
+      admin.build_menu do |menu|
+        menu.add :label => "Solidare It", :url => "/", :priority => 0
+        menu.add :label => "Organisations",:url =>"/organisation_manage/organisations", :priority => 1 
+        menu.add :label => "Coworkers",:url =>"/organisation_manage/coworkers", :priority => 2
+        menu.add :label => "Managed users",:url =>"/organisation_manage/coworkers", :priority => 3 do |manage|
+          manage.add :label => "Add a new user" ,:url =>"/organisation_manage/managedusers/new"
+        end
+
+        menu.add :label => "Sites" do |sites|
+          sites.add :label => "Google", :url => "http://google.com", :html_options => { :target => :blank }
+          sites.add :label => "Facebook", :url => "http://facebook.com"
+          sites.add :label => "Github", :url => "http://github.com"
+        end
+      end
+    end
+
 end

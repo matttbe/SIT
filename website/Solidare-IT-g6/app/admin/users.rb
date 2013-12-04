@@ -18,24 +18,13 @@ ActiveAdmin.register User, :as => "Users" do
   end
 
   index do
-    selectable_column
-    id_column
-    column("State")   {|customer|
-      if customer.id_ok
-        status_tag("With a ID", :warning)
-      else
-        status_tag("no ID", :error)
-      end
-    }
-    column :name
-    column :firstname
-    column :email
-    column :karma
+    
   end
 
 end
 
 ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_manage  do
+  menu false
 
   form do |f|
     f.inputs "User" do
@@ -44,12 +33,21 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
       
     end
     f.inputs "Organisation" do
-      f.collection_select :managed_org_id, Organisation.where("creator_id=:id",:id=>current_user.id).where("id=:id",:id=>params[:id_orga]), :id, :name
+      if defined?(params[:id_orga])
+        f.collection_select :managed_org_id, Organisation.where("creator_id=:id",:id=>current_user.id).where("id=:id",:id=>params[:id_orga]), :id, :name
+      else
+        f.collection_select :managed_org_id, Organisation.where("creator_id=:id",:id=>current_user.id), :id, :name
+      end
     end
 
     f.inputs "Coworker" do
-      @co=Coworker.where("id=:id",:id=>params[:id_coworker]).first
-      f.collection_select :coworker_id, User.where(:id=>@co.user_id), :id, :all_name
+       if defined?(params[:id_coworker])
+        @co=Coworker.where("id=:id",:id=>params[:id_coworker]).first
+        f.collection_select :coworker_id, User.where(:id=>@co.user_id), :id, :all_name
+       else
+         @co=User.joins(:coworkers).includes(:organisations).where("organisations.creator_id=:id", :id=> current_user.id)
+        f.collection_select :coworker_id, @co, :id, :all_name
+       end
     end
     #f.inputs "Organisation" do
     #  f.collection_select :organisation_id, Organisation.where("creator_id=:id",:id=>current_user.id), :id, :name
@@ -57,12 +55,20 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
     f.actions
   end
 
+  
+
+
   controller do
+
+    def index
+      render :partial =>'all_managed_users.html.arb'
+    end
+    
     def destroy
       @user=User.find(params[:id])
       @user.destroy
       respond_to do |format|
-          format.html { redirect_to organisation_manage_coworker_path(@user.coworker_id), notice: 'You have successfully deleted managed user.' }
+          format.html { redirect_to request.referer, notice: 'You have successfully deleted managed user.' }
         end
     end
 
@@ -95,4 +101,11 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
     end
   end
 
+end
+
+ActiveAdmin.register_page "Managed Users", namespace: :organisation_manage  do
+
+  content do
+    render :partial =>'all_managed_users.html.arb'
+  end
 end
