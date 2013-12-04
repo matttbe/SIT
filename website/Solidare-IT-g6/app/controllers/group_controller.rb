@@ -11,13 +11,21 @@ class GroupController < ApplicationController
   def create
 	@group = Group.new(group_params)
 
-  @group.save
-
-	@relation = GroupUserRelation.new(:user_id => current_user.id, :group_id => @group.id)
-	@relation.save
-
-    redirect_to @group
+	respond_to do |format|
+  	  if @group.save
+	    @relation = GroupUserRelation.new(:user_id => current_user.id, :group_id => @group.id)
+	    if @relation.save
+		  format.html { redirect_to @group, notice: 'Group was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @group }
+		else
+		  show_error(format,'new',@relation)
+		end
+	  else
+		show_error(format,'new',@group)
+	  end
+    end
   end
+
 
   def destroy
     @group = Group.find(params[:id])
