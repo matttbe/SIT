@@ -2,7 +2,18 @@
 <%if @notifications.size > 0 %>
 	<% @notifications.each do |notif| %>
 		<% if notif.service.nil? %>
-			notification de group
+			<% @users.each do |user| %>
+				<% if user.id == notif.creator_id %>
+					<% @creator = user %>				
+					<% @creator_fullname = " "+@creator.firstname+" "+@creator.name+" " %>
+				<%end%>
+			<%end%>
+			<% case notif.notification_type %>
+			<%when 'POST'%>
+				<%= link_to @creator_fullname, show_profile_path(notif.creator_id) %> posted in "<%= notif.group.name %>"
+			<%else%>
+				NO MESSAGE FOR THIS TYPE OF NOTIFICATION
+			<%end%>
 		<%else%>	
 			<% @users.each do |user| %>
 				<%if user.id == notif.service.creator_id %>
@@ -25,10 +36,10 @@
 			<%when 'UNFOLLOW'%>
 				<%= @service_string %> was unfollowed by <%= @creator_fullname%> <br />
 			<%else%>
-				NO MESSAGE FOR THIS TYPE
+				NO MESSAGE FOR THIS TYPE OF NOTIFICATION
 			<%end %>
 		<%end%>
 	<%end%>
 <%else%>
-	Vous n'avez pas de notification
+	You've no notifications
 <%end%>
