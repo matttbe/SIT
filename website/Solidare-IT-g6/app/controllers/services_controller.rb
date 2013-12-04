@@ -172,8 +172,8 @@ class ServicesController < ApplicationController
   
   def follow   
     if user_signed_in?
-      @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
-      if @followers.size == 0
+      @followers = Follower.where(:service_id => @service.id).where(:user_id => current_user.id)
+      if @followers.empty?
         notify_owner(@service, 'FOLLOW')
         @follower = Follower.new
         @follower.service = @service
@@ -185,9 +185,7 @@ class ServicesController < ApplicationController
             show_error(format, 'services/show', @follower)
           end
         end
-     else
-       show_error(format, 'show', @follower)
-     end
+      end
     else
       dont_see
     end
