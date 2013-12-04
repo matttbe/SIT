@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131203131231) do
+ActiveRecord::Schema.define(version: 20131204122627) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -203,6 +203,7 @@ ActiveRecord::Schema.define(version: 20131203131231) do
     t.datetime "avatar_updated_at"
     t.boolean  "mail_notif",              default: false
     t.boolean  "managed_by_organisation", default: false
+    t.integer  "coworker_id",             default: -1
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

@@ -61,6 +61,7 @@ class OrganisationsController < InheritedResources::Base
       o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
       string = (0...8).map{ o[rand(o.length)] }.join
       @user.email= @user.name + @user.firstname + string + '@solidateit.com'
+      @user.inscription_ok=true
       respond_to do |format|
         if @user.save
           format.html { redirect_to mainmenu_organisations_path(@user.managed_org_id), notice: 'Managed user was successfully created.' }
@@ -100,7 +101,7 @@ class OrganisationsController < InheritedResources::Base
     @organisation.coworkers << @coworker
     respond_to do |format|
         if @organisation.save
-            format.html { redirect_to @organisation, notice: 'You\'ve been added to coworkers from ' +@organisation.name+'. Wait to be accepted'}
+            format.html { redirect_to @organisation, notice: 'You\'ve been added to coworkers list from ' +@organisation.name+'. Wait to be accepted'}
         else
             show_error(format,'new',@coworker)
         end
