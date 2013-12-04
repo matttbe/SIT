@@ -19,7 +19,7 @@ class OrganisationsController < InheritedResources::Base
   end
   
   
-  # GET /manage_organisation
+  # GET /manage_organisations
   def manage
     @organisations = Organisation.where("creator_id=:id", :id=>current_user.id)
   end
@@ -52,6 +52,8 @@ class OrganisationsController < InheritedResources::Base
      end   
      
   end
+
+
   
   # POST /create_managed_user_filled
   # POST /create_managed_user_filled.json
@@ -80,10 +82,6 @@ class OrganisationsController < InheritedResources::Base
     end
   end
   
-  # GET /manage_organisation
-  def manage
-    @organisations = Organisation.all
-  end
     
   # GET /choose_organisations
   def choose
@@ -130,9 +128,6 @@ class OrganisationsController < InheritedResources::Base
       end
   end
   
-  
-  
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_organisation

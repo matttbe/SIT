@@ -4,7 +4,7 @@ class AddressController < ApplicationController
     before_action :set_address, only: [:main,:edit,:show, :destroy,:update]
 
     def new
-        @address =Address.new
+        @address = Address.new
     end
 
     def main
@@ -23,19 +23,26 @@ class AddressController < ApplicationController
       end
     end
     
+    #GET 
+
     def create
       @address = Address.new(address_params)
+      
       @address.user_id=current_user.id
-      coordinates = Geokit::Geocoders::GeonamesGeocoder.geocode(@address.country + " " + @address.postal_code.to_s)
+      coordinates = Geokit::Geocoders::Google3Geocoder.geocode(@address.street + ", " + @address.number.to_s + ", " + @address.country)
       @address.latitude = coordinates.lat
       @address.longitude = coordinates.lng
 
       respond_to do |format|
-        if @address.save
-          format.html { redirect_to address_index_path, notice: 'Address was successfully created.' }
-          format.json { render action: 'show', status: :created, location: @address }
+        if @address.latitude.nil?
+            format.html { render action: 'wrong_zip_new' }
         else
-          show_error(format,'new',@address)
+          if @address.save
+              format.html { redirect_to address_index_path, notice: 'Address was successfully created.' }
+              format.json { render action: 'show', status: :created, location: @address }
+          else
+              show_error(format,'new',@address)
+          end
         end
       end
     
@@ -61,15 +68,22 @@ class AddressController < ApplicationController
             can_do_that
         else
             respond_to do |format|
-                if @address.update(address_params)
-                    format.html { redirect_to @address, notice: 'Address was successfully updated.' }
-                    format.json { head :no_content }
-                    coordinates = Geokit::Geocoders::GeonamesGeocoder.geocode(@address.country + " " + @address.postal_code.to_s)
-                    @address.latitude = coordinates.lat
-                    @address.longitude = coordinates.lng
-                    @address.save
+                @tmp = Address.new(address_params)
+                coordinates = Geokit::Geocoders::Google3Geocoder.geocode(@tmp.street + ", " + @tmp.number.to_s + ", " + @tmp.country)
+                if coordinates.lat.nil?
+                    format.html { render action: 'wrong_zip_edit' }
                 else
-                    show_error(format,'edit',@address)
+                    if @address.update(address_params)                    
+                        @address.latitude = coordinates.lat
+                        @address.longitude = coordinates.lng
+                        @address.save
+                        format.html { redirect_to @address, notice: 'Address was successfully updated.' }
+                        format.json { head :no_content }
+                        @tmp.destroy
+                    
+                    else
+                        show_error(format,'edit',@address)
+                    end
                 end
             end
         end

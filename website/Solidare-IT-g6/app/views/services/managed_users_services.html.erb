@@ -1,0 +1,17 @@
+<h3>Services of <%= managed_user.firstname +' '+managed_user.name%></h3>
+<br /><br />
+
+<% @services.each do |service|  
+	if service.quick_match
+    	service=service.matching_service
+  	%>
+	  	He accepted this service :
+	  	<br /><br />
+	<%end%>
+  	<%= render 'show',:service=> service %>
+	<hr></hr>
+<% end %>
+
+<% if @services.nil? ||@services.length==0 %>
+	He has no services.
+<% end%>

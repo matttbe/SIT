@@ -12,9 +12,9 @@ columns do
                  end
         end
     end
-    column :max_width => "10%", :min_width => "5%" do
-        panel "Manage" do
-            para "to do"
+    column :max_width => "30%", :min_width => "15%" do
+        panel "" do
+            button_to "Add a managed user", new_managed_user_for_coworker_path(coworkers.organisation.id,coworkers.id), :method=> :get
         end
     end
 end
