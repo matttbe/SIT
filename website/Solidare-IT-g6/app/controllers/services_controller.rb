@@ -19,7 +19,7 @@ class ServicesController < ApplicationController
       create_quick_service
       @service.matching_service=@serviceQ
       respond_to do |format|
-        format.html { redirect_to my_services_path, notice: 'you have accepted a service' }
+        format.html { redirect_to my_services_path(current_user), notice: 'you have accepted a service' }
       end
     else
       #TODO
