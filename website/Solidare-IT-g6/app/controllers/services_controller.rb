@@ -22,7 +22,8 @@ class ServicesController < ApplicationController
         format.html { redirect_to my_services_path(current_user), notice: 'you have accepted a service' }
       end
     else
-      #TODO
+      #TODO verify this generated error
+      show_error(format,'services/show',@service)
     end
   end
   
