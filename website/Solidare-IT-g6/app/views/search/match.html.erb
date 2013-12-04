@@ -61,15 +61,10 @@
             </div>
           </div>
 
-
-          <% logger.debug("LOOOOOOOOOOOOOOOOOOOOOOOLLLLLLL") %>
-              <% logger.debug(@services) %>
           <% if @services.size ==0 %>
           No results
           <% else %>
             <div class="services">
-              <% logger.debug("LOOOOOOOOOOOOOOOOOOOOOOOLLLLLLL") %>
-              <% logger.debug(@services) %>
               <%= render :partial => 'services', :locals => { :services => @services } %>
             </div>
             <% if @services.next_page %>
