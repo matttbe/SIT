@@ -103,7 +103,6 @@ end
 
 When(/^I visit the page of one service$/) do 
   @link="/services/"+@service.id.to_s
-  puts @link
   visit @link
 end
 

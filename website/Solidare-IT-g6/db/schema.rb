@@ -203,11 +203,7 @@ ActiveRecord::Schema.define(version: 20131204122627) do
     t.datetime "avatar_updated_at"
     t.boolean  "mail_notif",              default: false
     t.boolean  "managed_by_organisation", default: false
-<<<<<<< HEAD
     t.integer  "coworker_id"
-=======
-    t.integer  "coworker_id",             default: -1
->>>>>>> add groups to profile page
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

@@ -131,7 +131,6 @@ end
 Given /^I am logged in$/ do
   create_user
   sign_in
-  puts @user.id
 end
 
 Given /^I exist as a user$/ do
