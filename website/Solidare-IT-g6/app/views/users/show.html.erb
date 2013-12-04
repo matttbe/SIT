@@ -1,5 +1,7 @@
 <h3><%=@user.firstname%> <%= @user.name %></h3>
 
+<%= image_tag @user.avatar.url(:thumb) %>
+
 <h4>His coordinate</h4>
 <%= render 'coordinate', :user => @user %>
 
