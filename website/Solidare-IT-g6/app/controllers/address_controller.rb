@@ -8,6 +8,7 @@ class AddressController < ApplicationController
     end
 
     def main
+
       current_user.addresses.each do |address|
         address.principal=false
         address.save
@@ -23,12 +24,18 @@ class AddressController < ApplicationController
       end
     end
     
-    #GET 
-
     def create
       @address = Address.new(address_params)
-      
-      @address.user_id=current_user.id
+      if params[:org_id] == nil
+        if params[:man_id] == nil
+          @address.user_id=current_user.id
+        else
+          @address.user_id=params[:man_id]    
+        end
+      else
+        @address.orga_id = params[:org_id]
+      end
+
       coordinates = Geokit::Geocoders::Google3Geocoder.geocode(@address.street + ", " + @address.number.to_s + ", " + @address.country)
       @address.latitude = coordinates.lat
       @address.longitude = coordinates.lng
