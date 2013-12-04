@@ -58,7 +58,7 @@ class AddressController < ApplicationController
     
     def update
         if !(@address.user_id==current_user.id)
-            dont_see
+            can_do_that
         else
             respond_to do |format|
                 if @address.update(address_params)

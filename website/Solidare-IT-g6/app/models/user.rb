@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
   def check_managed?
     self.managed_org_id==-1
   end
+
   
   def all_name
     "#{firstname} #{name}"

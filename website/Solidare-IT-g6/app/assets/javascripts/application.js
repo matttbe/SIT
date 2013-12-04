@@ -12,8 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.slider
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
 //= require jquery.inview.min.js
 //= require less-1.5.0.min.js
+//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.es
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr

@@ -4,7 +4,45 @@ class ApplicationController < ActionController::Base
 
   def can_manage_orga
   end
+  
+  def create_notification(service, type, user_notified_id)
+    @notifications_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => service.id, :user_id => user_notified_id)
+    @notification = nil
+    if @notifications_list.size > 0
+      @notifications_list.each do |notif|
+        if notif.notification_type == type 
+          @notification = notif
+        else
+          @notification = Notification.new
+          @notification.notified_user = user_notified_id
+          @notification.service = service          
+        end
+      end
+    else
+      @notification = Notification.new
+      @notification.notified_user = user_notified_id
+      @notification.service = service
+    end
+    @notification.notification_type = type
+    @notification.creator_id = current_user.id 
+    @notification.seen = false
+    if ! @notification.save
+        show_error(format,'new',@notification)
+    end
+  end
+  
+  def notify(service, type)
+    @followers_list = Follower.where("service_id = :service_id", :service_id => service.id)
+    @followers_list.each do |follower|
+      create_notification(service, type, follower.user_id)
+    end
+  end
 
+  def notify_owner(service, type)
+    create_notification(service, type, service.creator_id)
+  end
+  
+  
   def dont_see
     respond_to do |format|
           format.html { redirect_to "/sign_in", alert: 'You need to sign in or sign up before continuing.' }
