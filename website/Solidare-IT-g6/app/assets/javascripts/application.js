@@ -23,3 +23,11 @@
 //= require less-1.5.0.min.js
 //= require flatui-checkbox
 //= require flatui-radio
+
+
+$(document).on("ready page:change", function(){
+	$("#show_option").click(function(){
+	  $("#more").toggle();
+	});
+	$(':checkbox').checkbox();
+});
