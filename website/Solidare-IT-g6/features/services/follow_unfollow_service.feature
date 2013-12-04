@@ -43,3 +43,9 @@ Feature: All about following
 	  Then I should see a unfollow link
 	  And I should see an accept link
 	  And I can not see the follow link
+	  
+	Scenario: Validated user who follows a finished service should not see this service anymore
+	  And I log in
+	  When I follow a service
+	  And The service is finished
+	  Then I can not see the service anymore

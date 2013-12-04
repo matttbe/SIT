@@ -54,13 +54,10 @@ When /^I follow a service$/ do
 
 end
 
-When /^The service is updated$/ do
-    
-end
-
 When /^The service is finished$/ do
     
 end
+
 
 ### THEN ###
 
@@ -90,11 +87,6 @@ Then(/^I should see an accept link$/) do
   assert page.has_link?("Accept")
 end
 
-Then(/^I should see a notification$/) do
-  
-end
-
 Then(/^I can not see the service anymore$/) do
   
 end
-
