@@ -1,0 +1,4 @@
+<% @groups = user.groups %>
+<% @groups.each do |group| %>
+	<%= link_to group.name,  show_group_path(group) %>
+<%end%>
