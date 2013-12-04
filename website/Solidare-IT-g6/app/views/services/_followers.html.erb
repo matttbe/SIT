@@ -8,7 +8,6 @@
 			<% if user.id == follower.user_id %>
 				<% @user_full_name = " "+user.firstname+" "+user.name %>
 				<%= link_to @user_full_name,  show_profile_path(user) %><br />
-				<!-- <%= user.firstname %> <%= user.name %><br />-->
 			<%end%>
 		<%end%>
 	<%end%>
