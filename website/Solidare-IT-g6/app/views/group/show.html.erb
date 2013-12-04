@@ -18,14 +18,18 @@
 	<% end %>
 <% end %>
 
-
-<h2>Users</h2>
-	<% @group.users.each do |user| %>
-		<%= link_to ""+user.firstname+" "+user.name, show_profile_path(user) %><br />
-	<% end %>
-<p>
-<%= link_to 'Delete group', group_path(@group),
-                    method: :delete, data: { confirm: 'Are you sure?' } %>
+<% if ! current_user.nil?%>
+	<h2>Users</h2>
+		<% @group.users.each do |user| %>
+			<%= link_to ""+user.firstname+" "+user.name, show_profile_path(user) %><br />
+		<% end %>
+	<p>
+	<% current_user.groups.each do |group| %>
+		<% if group.id == @group.id %>
+			<%= link_to 'Delete group', group_path(@group), method: :delete, data: { confirm: 'Are you sure?' } %>
+		<%end%>
+	<%end%>
+<%end%>
 
 </p>
 

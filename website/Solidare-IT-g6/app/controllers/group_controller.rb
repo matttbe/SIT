@@ -1,5 +1,5 @@
 class GroupController < ApplicationController
-  before_action :is_logged_in, only: [:new,:create, :update, :destroy]
+  before_action :is_logged_in, only: [:new,:create, :member?, :update, :destroy]
 
   def new
   end
@@ -33,6 +33,17 @@ class GroupController < ApplicationController
 
   def add_user
 
+  end  
+  
+  def member?
+    logger.debug("+++++++++++ I TAKE THIS METHOD ++++++++++++++")
+    @group = Group.find(params[:id])
+    @group.users.each do |member|
+      if member.id == current_user.id
+        return true
+      end
+    end
+    return false
   end
 
   private
