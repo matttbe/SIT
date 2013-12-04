@@ -21,7 +21,8 @@ $(document).on "ready page:change", ->
 		grid()
 	$('#list').click ->
 		list()
-
+	$(':radio').radio();
+	$("select").selectpicker({style: 'btn', menuStyle: 'dropdown'});
 	$('a.load-more-services').on 'inview', (e, visible) ->
     	return unless visible
     	

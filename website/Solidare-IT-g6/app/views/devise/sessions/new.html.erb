@@ -1,7 +1,7 @@
 
 <%= bootstrap_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <%= f.email_field :email, :autofocus => true %>
-  <%= f.password_field :password %>
+  <%= f.email_field :email, :autofocus => true, :class => "form-control" %>
+  <%= f.password_field :password, :class => "form-control" %>
   <% if devise_mapping.rememberable? -%>
     <%= f.check_box :remember_me %>
   <% end -%>

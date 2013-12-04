@@ -1,20 +1,21 @@
 
 <%= form_tag(search_path, method: "get", :class=>"form-search", :role=>"search") do %>
     <div class="container-full">
-      <form class="form-search">
+      <div class="btn-group">
       <%= text_field_tag(:q, "",:class=>"search-query form-control", :placeholder=>"Search") %>
-      <div class="input-group-btn"><%= submit_tag("Search", :class=>"btn") %></div>
-    
-    </form>
+      <%= submit_tag("Search", :class=>"btn btn-primary") %>
+      </div>
       <div id="typesCheckboxes" >
         
-          <input type="checkbox" checked="checked" name="offer_cbox" id="offer_cbox"/> 
-          <label>Offers &nbsp </label>
-        
-          <input type="checkbox" checked="checked" name="demand_cbox" id="demand_cbox"/> 
-          <label>Demands</label>
+        <label class="checkbox" for="offer_cbox">
+  <input type="checkbox" value="" id="offer_cbox" data-toggle="checkbox">
+  Offers &nbsp
+</label>
+<label class="checkbox" for="demand_cbox">
+  <input type="checkbox" value="" name="demand_cbox" id="demand_cbox" data-toggle="checkbox">
+  Demands
+</label>
       </div>
-
 
       <p id="show_option">More options</p>
       <div id="more" style="">

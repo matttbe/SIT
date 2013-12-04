@@ -13,6 +13,10 @@ body.active_admin span.icon svg {
     width: 100%;
 }
 
+#q {
+	width: 80%;
+    float: left;
+}
 
 .jumbotron {
     /*background: url("http://www.voyageurs-du-temps.fr/images/sites/afrique/enfants-africains-cours-de-recreation.jpg") no-repeat;
