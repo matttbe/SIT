@@ -10,7 +10,11 @@ class ApplicationController < ActionController::Base
     @notification = nil
     if @notifications_list.size > 0
       @notifications_list.each do |notif|
-        if notif.notification_type == type 
+        if type == 'FOLLOW' and notif.notification_type == 'UNFOLLOW'
+          @notification = notif
+        elsif type == 'UNFOLLOW' and notif.notification_type == 'FOLLOW'
+          @notification = notif
+        elsif notif.notification_type == type 
           @notification = notif
         else
           @notification = Notification.new
