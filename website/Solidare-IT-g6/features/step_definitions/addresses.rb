@@ -1,5 +1,5 @@
 def create_address_user
-  @addr ||= { :street =>"rue du savoir", :number=>'12', :postal_code=>'1234', :city =>"Kinshasa", :country => "Canada"}
+  @addr ||= { :street =>"rue aux fleurs", :number=>'8', :postal_code=>'1341', :city =>"Céroux", :country => "Belgium"}
 end
 
 def add_my_address
@@ -8,7 +8,7 @@ def add_my_address
     @u.destroy unless @u.nil?
     find_user
     @addr[:user_id]=@user.id
-    @addr = Address.create!(@addr)
+    @address = Address.create!(@addr)
 end
 
 def fill_form_address
@@ -39,9 +39,11 @@ When(/^I fill a wrong postal code$/) do
 end
 
 When(/^I click on the edit link of the first address in the list$/) do
-  @addr=Address.where("user_id = :user_id", :user_id=>find_user).first
+  #@addr=Address.where("user_id = :user_id", :user_id=>find_user).first
   #@addr = Address.all.first
-  visit 'http://localhost:3000/address/'+@addr.id.to_s+'/edit'  
+  puts @address.id
+  visit '/address/'+@address.id.to_s+'/edit'  
+  show_page
 end
 ### THEN ###
 Then /^I can not see the manage my adresses link$/ do
