@@ -4,7 +4,7 @@ class AddressController < ApplicationController
     before_action :set_address, only: [:main,:edit,:show, :destroy,:update]
 
     def new
-        @address =Address.new
+        @address = Address.new
     end
 
     def main
@@ -26,7 +26,7 @@ class AddressController < ApplicationController
     def create
       @address = Address.new(address_params)
       @address.user_id=current_user.id
-      coordinates = Geokit::Geocoders::GeonamesGeocoder.geocode(@address.country + " " + @address.postal_code.to_s)
+      coordinates = Geokit::Geocoders::Google3Geocoder.geocode(@address.street + ", " + @address.number.to_s + ", " + @address.country)
       @address.latitude = coordinates.lat
       @address.longitude = coordinates.lng
 
@@ -66,7 +66,7 @@ class AddressController < ApplicationController
         else
             respond_to do |format|
                 @tmp = Address.new(address_params)
-                coordinates = Geokit::Geocoders::GeonamesGeocoder.geocode(@tmp.country + " " + @tmp.postal_code.to_s)
+                coordinates = Geokit::Geocoders::Google3Geocoder.geocode(@tmp.street + ", " + @tmp.number.to_s + ", " + @tmp.country)
                 if coordinates.lat.nil?
                     format.html { render action: 'wrong_zip_edit' }
                 else

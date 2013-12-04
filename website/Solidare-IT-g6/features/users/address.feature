@@ -47,7 +47,7 @@ Feature: Addresses of user
     Scenario: A registered user can edit one of his addresses
       And I am logged in
       When I return to the site
-      And I have already givent a address
+      And I have already given a address
       And I click on the Manage my addresses link
       And I click on the edit link of the first address in the list
       And I fill the address form

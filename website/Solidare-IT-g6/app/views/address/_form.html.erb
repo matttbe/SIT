@@ -6,7 +6,7 @@ end%>
 <%=bootstrap_form_for(@address ,:url => {:action => @action, :id => @address.id}) do |f| %>  
     
     <% if type == "wrong zip new" || type == "wrong zip edit" %>
-        <font size="4" color="red">The combination country - postal code seems to be incorrect</font>
+        <font size="4" color="red">The address you gave seems to be incorrect</font>
     <% end %>
     
     <%= f.text_field :street %>
