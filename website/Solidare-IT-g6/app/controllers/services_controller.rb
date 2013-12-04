@@ -10,9 +10,15 @@ class ServicesController < ApplicationController
   end
 
   # GET /user/services
+  # GET /users_managed/:serv_id/managed_services/
   def my_services
     if user_signed_in?
-      @services = current_user.own_services.order(:is_demand)
+        if params[:serv_id] == nil
+            @services = current_user.own_services.order(:is_demand)
+        else 
+            @managed_user = User.find(params[:serv_id])
+            @services = @managed_user.own_services.order(:is_demand)
+        end
     else
       dont_see
     end

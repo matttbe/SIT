@@ -30,6 +30,7 @@ SolidareItG6::Application.routes.draw do
   get '/user/following_services' => 'services#following_services', :as=>"following_services"
   get '/services/:id/accept' => 'services#accept_service', :as =>"accept_service"
   get '/users_managed/:serv_id/services/new' =>'services#new', :as =>"new_service_managed"
+  get '/users_managed/:serv_id/managed_services/' => 'services#my_services', :as =>"managed_users_services"
 
   #search routing
   get '/search/(:page)' => 'search#match', :as=>"match"
@@ -50,7 +51,7 @@ SolidareItG6::Application.routes.draw do
   #managed user routing
   get '/create_managed_user/:org_id' =>'organisations#new_managed', :as=>'new_managed'
   post '/create_managed_user_filled' =>'organisations#create_managed', :as=>'new_managed_created'
-  get '/manage_user/:id' =>'organisation#manage', :as=>'manage_'
+  get '/manage_user/:id' =>'organisation#manage', :as=>'manage'
   
   
 
