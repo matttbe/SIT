@@ -15,11 +15,11 @@
       		max: 5,
       		step: 1,
       		slide: function( event, ui ) {
-        		$( "#transaction_feedback_evaluation").val(ui.value + " Karma" );
+        		$( "#transaction_feedback_evaluation").val(ui.value );
       		}
     	});
     $( "#transaction_feedback_evaluation" ).attr('readonly', true);
-    $( "#transaction_feedback_evaluation" ).val($( "#slider" ).slider( "value" ) +" Karma" );
+    $( "#transaction_feedback_evaluation" ).val($( "#slider" ).slider( "value" ) );
   });
   </script>
 <% end %>
