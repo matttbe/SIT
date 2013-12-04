@@ -23,8 +23,11 @@ class AddressController < ApplicationController
       end
     end
     
+    #GET 
+
     def create
       @address = Address.new(address_params)
+      
       @address.user_id=current_user.id
       coordinates = Geokit::Geocoders::Google3Geocoder.geocode(@address.street + ", " + @address.number.to_s + ", " + @address.country)
       @address.latitude = coordinates.lat
