@@ -2,41 +2,35 @@ def add_follower
   $i = 0
   $num = 5
 
-  # get default user
-  puts @user.inspect
-  puts @service.inspect
-  Service.all.each do |s|
-    puts s.inspect
-  end
+  creator = User.where(:email => "eddy.malou@savoir.congo").first
+  @service = Service.where("creator_id=:id",:id=>creator.id).first
 
   while $i < $num do
     create_visitor
     @visitor[:email] = $i.to_s + @visitor[:email]
     @visitor[:firstname] = $i.to_s
 
-    user = User.where(:email => @visitor[:email]).first
-    user.destroy unless user.nil?
-    user = User.create!(@visitor)
+    @user = User.create!(@visitor)
 
-    f = Follower.where(:service_id => @service.id).where(:user_id => user.id).first
+    f = Follower.where(:service_id => @service.id).where(:user_id => @user.id).first
     f.destroy unless f.nil?
 
     @follow = Follower.new
     @follow[:service_id] = @service.id
-    @follow[:user_id] = user.id
+    @follow[:user_id] = @user.id
     $i += 1
     @follow.save
   end
   @visitor = nil
   create_visitor
-  Follower.all.each do |f|
-    puts f.inspect
-  end
+  @link="/services/"+@service.id.to_s
+  visit @link
 end
 
 ### WHEN ###
+
 When /^I visit the page of the services followed$/ do
-   visit 'user/following_services'
+   visit 'following/services'
 end
 
 When /^Some users follow my service$/ do
@@ -66,7 +60,6 @@ Then(/^I should see a follow link$/) do
 end
 
 Then(/^I can not see the unfollow link$/) do
-  show_page
   assert !page.has_link?("Unfollow")
 end
 
@@ -79,7 +72,6 @@ Then(/^I can not see the follow link$/) do
 end
 
 Then(/^I can see the followers of my service$/) do
-  show_page
   assert !page.has_content?("No Followers")
 end
 
