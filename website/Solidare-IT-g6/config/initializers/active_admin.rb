@@ -250,7 +250,7 @@ ActiveAdmin.setup do |config|
         menu.add :label => "Managed users",:url =>"/organisation_manage/coworkers", :priority => 3 do |manage|
           manage.add :label => "Add a new user" ,:url =>"/organisation_manage/managedusers/new"
         end
-        menu.add :label => "Managed Services",:url =>"/organisation_manage/coworkers", :priority => 4 do |manage|
+        menu.add :label => "Managed Services",:url =>"/organisation_manage/managed_services", :priority => 4 do |manage|
           manage.add :label => "Add a new service" ,:url =>"/organisation_manage/managedservices/new"
         end
 
