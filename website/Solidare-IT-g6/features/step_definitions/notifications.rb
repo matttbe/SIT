@@ -15,7 +15,7 @@ end
 def accept_serv
   @service = Service.where(:creator_id=>@admin.id).first
   visit '/services/'+@service.id.to_s
-  click_link "Accept"  
+  click_button "Accept"
 end
 
 def user_follow
@@ -92,7 +92,7 @@ When /^The service is updated$/ do
 end
 
 When /^The service is accepted$/ do
-  accept_serv 
+  accept_serv
 end
 
 ### THEN ###
