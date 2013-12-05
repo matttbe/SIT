@@ -19,6 +19,10 @@ Then(/^I should be on root page$/)do
   current_path == '/'
 end
 
+Then(/^I should be on the url (.+?)$/)do |url|
+  current_path == url
+end
+
 Then(/^I should see a missing (.*) message$/)do |blank|
   assert page.has_content?(blank||" can't be blank")
 end
