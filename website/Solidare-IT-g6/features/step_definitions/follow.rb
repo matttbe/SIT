@@ -30,9 +30,7 @@ end
 def i_follow 
    @admin=User.where(:email => "maitre@dieu.ciel").first
    @service = Service.where("creator_id=:id",:id=>@admin.id).first
-   print('############### ')
    print(@service.id)
-   print(' ###############')
    find_user
    @follow = Follower.new
    @follow[:service_id]=@service.id
