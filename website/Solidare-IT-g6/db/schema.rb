@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205120953) do
+ActiveRecord::Schema.define(version: 20131205123600) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -42,6 +42,17 @@ ActiveRecord::Schema.define(version: 20131205120953) do
     t.integer  "latitude",    default: 0
     t.integer  "longitude",   default: 0
   end
+
+  create_table "badges_sashes", force: true do |t|
+    t.integer  "badge_id"
+    t.integer  "sash_id"
+    t.boolean  "notified_user", default: false
+    t.datetime "created_at"
+  end
+
+  add_index "badges_sashes", ["badge_id", "sash_id"], name: "index_badges_sashes_on_badge_id_and_sash_id"
+  add_index "badges_sashes", ["badge_id"], name: "index_badges_sashes_on_badge_id"
+  add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id"
 
   create_table "categories", force: true do |t|
     t.string   "title"
@@ -111,6 +122,38 @@ ActiveRecord::Schema.define(version: 20131205120953) do
     t.datetime "photo_updated_at"
   end
 
+  create_table "merit_actions", force: true do |t|
+    t.integer  "user_id"
+    t.string   "action_method"
+    t.integer  "action_value"
+    t.boolean  "had_errors",    default: false
+    t.string   "target_model"
+    t.integer  "target_id"
+    t.boolean  "processed",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "merit_activity_logs", force: true do |t|
+    t.integer  "action_id"
+    t.string   "related_change_type"
+    t.integer  "related_change_id"
+    t.string   "description"
+    t.datetime "created_at"
+  end
+
+  create_table "merit_score_points", force: true do |t|
+    t.integer  "score_id"
+    t.integer  "num_points", default: 0
+    t.string   "log"
+    t.datetime "created_at"
+  end
+
+  create_table "merit_scores", force: true do |t|
+    t.integer "sash_id"
+    t.string  "category", default: "default"
+  end
+
   create_table "notifications", force: true do |t|
     t.integer  "notified_user"
     t.string   "notification_type"
@@ -139,6 +182,11 @@ ActiveRecord::Schema.define(version: 20131205120953) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], name: "index_roles_on_name"
+
+  create_table "sashes", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "services", force: true do |t|
     t.string   "title"
@@ -203,6 +251,8 @@ ActiveRecord::Schema.define(version: 20131205120953) do
     t.boolean  "mail_notif",              default: false
     t.boolean  "managed_by_organisation", default: false
     t.integer  "coworker_id",             default: 0
+    t.integer  "sash_id"
+    t.integer  "level",                   default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
