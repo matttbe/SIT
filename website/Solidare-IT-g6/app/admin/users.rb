@@ -83,6 +83,7 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
       string = (0...8).map{ o[rand(o.length)] }.join
       @user.email= @user.name + @user.firstname + string + '@solidateit.com'
       @user.inscription_ok=true
+      @user.managed_by_organisation=true
       if @user.save
         respond_to do |format|
           format.html { redirect_to organisation_manage_coworker_path(@user.coworker_id), notice: 'You have successfully created a new managed user.' }
