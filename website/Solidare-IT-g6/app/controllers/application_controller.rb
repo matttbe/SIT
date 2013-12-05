@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
       @user.add_badge(3) unless User.find(@user.id).badges.any?{|badge| badge.id=3}
     when @user.karma>10
       @user.add_badge(4) unless User.find(@user.id).badges.any?{|badge| badge.id=4}
+    when @user.karma>25
+      @user.add_badge(5) unless User.find(@user.id).badges.any?{|badge| badge.id=5}
+    when @user.karma>50
+      @user.add_badge(6) unless User.find(@user.id).badges.any?{|badge| badge.id=6}
     end
   end
   
