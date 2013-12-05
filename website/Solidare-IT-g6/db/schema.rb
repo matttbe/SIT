@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204122627) do
+ActiveRecord::Schema.define(version: 20131205120953) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -30,17 +30,17 @@ ActiveRecord::Schema.define(version: 20131204122627) do
 
   create_table "addresses", force: true do |t|
     t.string   "street"
-    t.integer  "number"
-    t.integer  "postal_code"
+    t.integer  "number",      default: 0
+    t.integer  "postal_code", default: 0
     t.string   "city"
     t.string   "country"
-    t.integer  "user_id"
-    t.integer  "orga_id"
+    t.integer  "user_id",     default: 0
+    t.integer  "orga_id",     default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "principal",   default: false
-    t.float    "latitude"
-    t.float    "longitude"
+    t.integer  "latitude",    default: 0
+    t.integer  "longitude",   default: 0
   end
 
   create_table "admin_users", force: true do |t|
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20131204122627) do
   create_table "categories", force: true do |t|
     t.string   "title"
     t.text     "text"
-    t.integer  "parent"
+    t.integer  "parent",     default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -169,21 +169,20 @@ ActiveRecord::Schema.define(version: 20131204122627) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_demand",           default: false
-    t.integer  "org_id"
-    t.integer  "cat_id",              default: 1
-    t.integer  "category_id"
+    t.integer  "org_id",              default: 0
+    t.integer  "category_id",         default: 1
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.integer  "address_id"
+    t.integer  "address_id",          default: 0
   end
 
   create_table "transactions", force: true do |t|
     t.text     "feedback_comments"
     t.integer  "feedback_evaluation"
-    t.integer  "service_id"
-    t.integer  "user_id"
+    t.integer  "service_id",          default: 0
+    t.integer  "user_id",             default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -193,10 +192,10 @@ ActiveRecord::Schema.define(version: 20131204122627) do
     t.string   "firstname"
     t.datetime "birthdate"
     t.string   "email"
-    t.integer  "karma"
+    t.integer  "karma",                   default: 0
     t.boolean  "id_ok"
     t.text     "presentation"
-    t.boolean  "inscription_ok"
+    t.boolean  "inscription_ok",          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "encrypted_password",      default: "",    null: false
@@ -213,15 +212,15 @@ ActiveRecord::Schema.define(version: 20131204122627) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.string   "language",                default: "en"
-    t.integer  "coworker_org_id",         default: -1
-    t.integer  "managed_org_id",          default: -1
+    t.integer  "coworker_org_id",         default: 0
+    t.integer  "managed_org_id",          default: 0
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.boolean  "managed_by_organisation", default: false
     t.boolean  "mail_notif",              default: false
-    t.integer  "coworker_id",             default: -1
+    t.integer  "coworker_id",             default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

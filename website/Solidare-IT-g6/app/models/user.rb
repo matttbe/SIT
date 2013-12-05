@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   belongs_to :coworker
   
   def check_managed?
-    self.managed_org_id==-1
+    self.managed_org_id == 0
   end
 
   

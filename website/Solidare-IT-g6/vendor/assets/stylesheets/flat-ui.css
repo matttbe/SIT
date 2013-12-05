@@ -549,6 +549,44 @@ fieldset[disabled] .btn-primary:active,
 fieldset[disabled] .btn-primary.active {
   background-color: #E94E9A;
 }
+
+.btn-back {
+  color: #ffffff;
+  background-color: #A6581C;
+}
+.btn-back:hover,
+.btn-back:focus,
+.btn-back:active,
+.btn-back.active,
+.open .dropdown-toggle.btn-back {
+  color: #ffffff;
+  background-color: #F47AB6;
+  border-color: #F47AB6;
+}
+.btn-back:active,
+.btn-back.active,
+.open .dropdown-toggle.btn-back {
+  background: #971957;
+}
+.btn-back.disabled,
+.btn-back[disabled],
+fieldset[disabled] .btn-back,
+.btn-back.disabled:hover,
+.btn-back[disabled]:hover,
+fieldset[disabled] .btn-back:hover,
+.btn-back.disabled:focus,
+.btn-back[disabled]:focus,
+fieldset[disabled] .btn-back:focus,
+.btn-back.disabled:active,
+.btn-back[disabled]:active,
+fieldset[disabled] .btn-back:active,
+.btn-back.disabled.active,
+.btn-back[disabled].active,
+fieldset[disabled] .btn-back.active {
+  background-color: #E94E9A;
+}
+
+
 .btn-info {
   color: #ffffff;
   background-color: #3498db;
