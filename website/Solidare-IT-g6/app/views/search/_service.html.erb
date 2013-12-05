@@ -1,3 +1,4 @@
+<% cache(service) do %>
 <div class="well well-large service span12">
                 <a class="pull-left" href="#">
                   <%= image_tag service.photo.url(:thumb) %>
@@ -20,3 +21,4 @@
                 <%if !service.address.nil?%> <p class="service-desc"><%= service.address.country %></p><% end %>
                 </p>
 </div>
+<% end %>
