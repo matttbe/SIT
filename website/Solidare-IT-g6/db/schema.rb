@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204122627) do
+ActiveRecord::Schema.define(version: 20131205120548) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -152,8 +152,7 @@ ActiveRecord::Schema.define(version: 20131204122627) do
     t.datetime "updated_at"
     t.boolean  "is_demand",           default: false
     t.integer  "org_id"
-    t.integer  "cat_id",              default: 1
-    t.integer  "category_id"
+    t.integer  "category_id",         default: 1
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
@@ -203,7 +202,6 @@ ActiveRecord::Schema.define(version: 20131204122627) do
     t.datetime "avatar_updated_at"
     t.boolean  "mail_notif",              default: false
     t.boolean  "managed_by_organisation", default: false
-    t.integer  "coworker_id",             default: -1
     t.integer  "coworker_id"
   end
 
