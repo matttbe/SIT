@@ -29,3 +29,23 @@ $(document).on "ready page:change", ->
     	return unless visible
     	
     	$.getScript $(this).attr('href')
+    
+    append = (e) ->
+    	path = "/child_categories/#{e.target.value}"
+    	$.getJSON path, (json) ->
+    		$(e.target).attr("id","service_category_id_0");
+    		select = document.createElement("select")
+    		$("#categories").append(select)
+    		for cat in json 
+    			option = document.createElement("option")
+    			$(option).attr("value", cat.id)
+    			$(option).append(cat.title)
+    			$(select).append(option)
+    		$(".new-cat").remove()
+    		$(select).attr("name", "service[category_id]")
+    		$(select).attr("class", "new-cat")
+    		$(select).attr("id","service_category_id");
+    		$(select).selectpicker({style: 'btn', menuStyle: 'dropdown'});
+    $("#service_category_id").change (e) ->
+    	append e
+    	

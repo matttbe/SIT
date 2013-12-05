@@ -1,7 +1,9 @@
 <%=bootstrap_form_for(@service,:html => { :multipart => true  }) do |f| %>
     <%=f.radio_buttons :is_demand, { "Demand" => true, "Offer" => false }, :label => "Asking for a service or offering one ?"%>
     <%= f.text_field :title, :class => "form-control" %>
+    <div id="categories">
     <%= f.collection_select :category_id, get_all_root_categories, :id, :title %>
+    </div>
     <%= f.text_area :description %>
     <%= f.file_field :photo %>
     <%= f.datetime_select :date_start %>
