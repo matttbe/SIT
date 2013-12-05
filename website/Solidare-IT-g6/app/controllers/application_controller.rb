@@ -2,9 +2,6 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :can_log_in
 
-  def can_manage_orga
-  end
-
   def give_badge_transaction(transaction)
     @user=User.find(transaction.user_id)
     case
@@ -108,7 +105,7 @@ class ApplicationController < ActionController::Base
   
   def dont_see
     respond_to do |format|
-          format.html { redirect_to "/sign_in", alert: 'You need to sign in or sign up before continuing.' }
+      format.html { redirect_to "/sign_in", alert: 'You need to sign in or sign up before continuing.' }
     end
   end
 
@@ -192,6 +189,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  # for ActiveAdmin & Canca
+  def access_denied(exception)
+    redirect_to root_path, :alert => exception.message
+  end
+
   protected
 
   def configure_permitted_parameters
@@ -220,19 +222,11 @@ class ApplicationController < ActionController::Base
 
     if @redirect&&!@u.nil? &&!@u.id_ok
         sign_out @u
-        redirect_to root_path, alert: "A admin must first accept you.  Be patient !"
+        redirect_to root_path, alert: "An admin must first accept you. Please be patient!"
     end
   end
 
   def add_unique_badge(user,id)
     
-  end
-
-  def authenticate_active_admin_user!
-    authenticate_user!
-    unless current_user.has_role? "superadmin"
-      flash[:alert] = "Unauthorized Access!"
-      redirect_to root_path
-    end
   end
 end

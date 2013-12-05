@@ -1,6 +1,7 @@
 
 <%=bootstrap_form_for(@transaction,method: 'post', :url=>create_transaction_path(@service)) do |f| %>
 
+
     <%= f.text_field :feedback_evaluation %>
     <div id="slider"></div>
     <%= f.text_area :feedback_comments %>
@@ -23,3 +24,4 @@
   });
   </script>
 <% end %>
+

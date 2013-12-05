@@ -18,6 +18,7 @@
         <td><%= group.name %></td>
         <td><%= group.description %></td>
         <td><%= link_to 'Show', group%></td>
+
         <td><%if !current_user.nil? %>
         		<% @member = false%>
 	        	<% current_user.groups.each do |group_user|%>
@@ -26,7 +27,7 @@
 	          		<%end%>
 	          	<%end%>
 	          	<% if !@member%>
-		          	<span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user}%></span>
+		          	<span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user, :role => 'basic'}%></span>
 	          	<%end%>
           	<% end %></td>
       </tr>

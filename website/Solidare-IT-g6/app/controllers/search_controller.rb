@@ -19,8 +19,26 @@ class SearchController < ApplicationController
     elsif(! params[:demand_cbox].nil?)
       @services = Service.where('is_demand = :is_demand', :is_demand => true).where(:quick_match => false).where(:matching_service_id => 0)
     else
-      @services = Service.all #TODO : What do we do if none of the checkboxes are checked ?
+
+      @search = "/search?"
+      if (! params[:q].nil?)
+        @search += "q=" + params[:q] + "&"
+      end
+      if (! params[:type_q].nil?)
+        @search += "type_q=" + params["type_q"]
+      end
+      
+      if(! params[:offer_cbox].nil? and ! params[:demand_cbox].nil?) # Both checkboxes are checked
+        @services = Service.where(:quick_match=>false)
+      elsif(! params[:offer_cbox].nil?)
+        @services = Service.where('is_demand = :is_demand', :is_demand => false).where(:quick_match=>false).where(:matching_service_id=>nil)
+      elsif(! params[:demand_cbox].nil?)
+        @services = Service.where('is_demand = :is_demand', :is_demand => true).where(:quick_match=>false).where(:matching_service_id=>nil)
+      else
+        @services = Service.all #TODO : What do we do if none of the checkboxes are checked ?
+      end
     end 
+
 
     #includes category infos
     @services=@services.includes(:category).references(:category)
