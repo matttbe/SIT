@@ -9,11 +9,11 @@ class ApplicationController < ActionController::Base
     @user=User.find(transaction.user_id)
     case
     when @user.karma>0
-      @user.add_badge(2)
+      @user.add_badge(2) unless User.find(@user.id).badges.any?{|badge| badge.id=2}
     when @user.karma>5
-      @user.add_badge(3)
+      @user.add_badge(3) unless User.find(@user.id).badges.any?{|badge| badge.id=3}
     when @user.karma>10
-      @user.add_badge(4)
+      @user.add_badge(4) unless User.find(@user.id).badges.any?{|badge| badge.id=4}
     end
   end
   
