@@ -1,10 +1,31 @@
 body {
   background-color: #fff;
-  color: #333;
+  color: #29131E;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
 }
+
+.carousel-caption{
+  
+  position: absolute;
+  right: 15%;
+  bottom: 50px;
+  left: 15%;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.form-control.huge{
+    color: #29131E;
+      font-size: 17px;
+
+}
+
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
@@ -23,10 +44,7 @@ a {
   &:visited {
     color: #666;
   }
-  &:hover {
-    color: #fff;
-    background-color: #000;
-  }
+
 }
 
 a.btn:visited {

@@ -38,7 +38,7 @@ SolidareItG6::Application.routes.draw do
   get '/services/:id/accept' => 'services#accept_service', :as =>"accept_service"
   post '/services/:s_id/choose/:u_id' => 'services#choose', :as =>"choose"
   get '/users_managed/:serv_id/services/new' =>'services#new', :as =>"new_service_managed"
-  get '/users_managed/:serv_id/managed_services/' => 'services#my_services', :as =>"managed_users_services"
+  get '/users_managed/:user_id/managed_services/' => 'users#my_services', :as =>"managed_users_services"
 
   #search routing
   get '/search/(:page)' => 'search#match', :as=>"match"
@@ -60,6 +60,8 @@ SolidareItG6::Application.routes.draw do
   get '/organisation_manage/:id/coworkers/' =>'organisation_manage/coworkers#index_organisation', :as=>'manage_coworkers'
   get '/mainmenu_organisations/:id' =>'organisations#show_main_panel', :as=>'mainmenu_organisations'
   get '/choose_organisations' =>'organisations#choose', :as=>'organisation_choose'
+  post '/chosen_org' => 'organisations#chosen_org', :as=>'chosen_org'
+  get '/waitforvalidation/' => 'organisations#waitforvalidation', :as=>'waitforvalidation'
   
   #managed user routing
   get '/create_managed_user/:org_id' =>'organisations#new_managed', :as=>'new_managed'
@@ -69,7 +71,7 @@ SolidareItG6::Application.routes.draw do
   
 
   devise_scope :user do
-    get "sign_in", :to => "devise/sessions#new"
+    get "sign_in", :to => "devise/sessions#new", as:"sign_in"
     get "create_account", :to =>"devise/registrations#new"
     get '/users/sign_out' => 'devise/sessions#destroy'
     #get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
@@ -92,10 +94,14 @@ SolidareItG6::Application.routes.draw do
   get '/service/:id/unfollow/:follower_id' => 'services#unfollow', :as=>"unfollow" 
   
   #notification routing
-  get '/notifications' => 'notifications#show', :as => "show"
+  get '/notifications' => 'notifications#show', :as => "show_notifications"
+
 
   #orga admin
   match 'organisation_manage/:id_orga/managed_users/:id_coworker/new'=> 'organisation_manage/managedusers#new', via: :get, :as=>'new_managed_user_for_coworker'
+
+  #categories routing 
+  get 'child_categories/:id' => 'application#get_child_categories'
 
   #orga admin
   match 'organisation_manage/managedservices/:id_managed/new'=> 'organisation_manage/managedservices#new', via: :get, :as=>'new_service_for_managed_user'

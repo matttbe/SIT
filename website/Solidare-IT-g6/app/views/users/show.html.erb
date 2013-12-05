@@ -9,23 +9,26 @@
 
 <%= image_tag @user.avatar.url(:thumb) %>
 
-<h4><%= @tag%> coordinate</h4>
-<%= render 'coordinate', :user => @user %>
 
-<h4><%= @tag%> Services</h4>
-<%= render 'my_services', :services => @services %>
-
-<h4><%= @tag%> Groups</h4>
-<%= render 'my_groups', :user => @user %>
-
-<%	@follow = nil
-	if @user == current_user
-		@follow = 'I follow'
-	else
-		@follow = 'he follows'
-	end%>
-<h4>The services <%= @follow%></h4>
-<%= render 'services/following_services', :following => @following %>
-
-<h4><%= @tag%> Badges</h4>
-<%= render 'badge/own_badges', :badges=>@user.badges %>
+<% if ! current_user.nil? %>
+	<h4><%= @tag%> coordinate</h4>
+	<%= render 'coordinate', :user => @user %>
+	
+	<h4><%= @tag%> Services</h4>
+	<%= render 'my_services', :services => @services %>
+	
+	<h4><%= @tag%> Groups</h4>
+	<%= render 'my_groups', :user => @user %>
+	
+	<%	@follow = nil
+		if @user == current_user
+			@follow = 'I follow'
+		else
+			@follow = 'he follows'
+		end%>
+	<h4>The services <%= @follow%></h4>
+	<%= render 'services/following_services', :following => @following %>
+	
+	<h4><%= @tag%> Badges</h4>
+	<%= render 'badge/own_badges', :badges=>@user.badges %>
+<%end%>

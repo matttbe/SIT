@@ -13,12 +13,35 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.slider
-//= require twitter/bootstrap
+//= require jquery.sticky
 //= require turbolinks
-//= require_tree .
 //= require jquery.inview.min.js
+//= require bootstrap
+//= require bootstrap-select
+//= require bootstrap-switch
+//= require bootstrap-typeahead
+//= require_tree .
 //= require less-1.5.0.min.js
-//= require bootstrap-datepicker
-//= require bootstrap-datepicker/core
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.es
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr
+//= require holder.js
+//= require flatui-checkbox
+//= require flatui-radio
+//= require popbox
+
+
+
+$(document).on("ready page:change", function(){
+	$("#show_option").click(function(){
+	$("#more").toggle();
+	});
+	$(':checkbox').checkbox();
+             $(':popbox').popbox({
+               'open'          : '.open',
+               'box'           : '.box',
+               'arrow'         : '.arrow',
+               'arrow-border'  : '.arrow-border',
+               'close'         : '.close'
+              });
+  $('.carousel').carousel();
+
+});
+

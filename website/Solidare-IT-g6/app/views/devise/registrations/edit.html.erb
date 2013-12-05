@@ -1,14 +1,14 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="container"><h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= bootstrap_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true  }) do |f| %>
 
 
 
-    <%= f.text_field :name , :autofocus => true %>
-    <%= f.text_field :firstname %>
+    <%= f.text_field :name , :autofocus => true, :class=>"form-control" %>
+    <%= f.text_field :firstname, :class=>"form-control" %>
     <%= f.file_field :avatar %>
     <%=f.date_select :birthdate%>
-    <%= f.email_field :email %>
+    <%= f.email_field :email, :class=>"form-control" %>
     <%= f.check_box :mail_notif, :label=>"Receive mails when you have a notification" %>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -16,21 +16,23 @@
   <% end %>
 
   
-  <%= f.password_field :password, :autocomplete => "off" %>
+  <%= f.password_field :password, :autocomplete => "off", :class=>"form-control" %>
     <i>(leave blank if you don't want to change it)</i>
-  <%= f.password_field :password_confirmation %>
+  <%= f.password_field :password_confirmation, :class=>"form-control" %>
  
-  <%= f.password_field :current_password %>
+  <%= f.password_field :current_password, :class=>"form-control" %>
     <i>(we need your current password to confirm your changes)</i>
 
   <div><%= f.submit "Update" %></div>
 <% end %>
 
-<h3>Cancel my account</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>   
+
+<p><h3><span class="label label-default">Want to delete this account?</span> </h3>
+  <%= button_to "Delete my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class=>"btn btn-danger btn-lg" %></p>   
 
 <% if false %>
  <%= render "users/authenticate"%></br>
 <% end %>
 <%= link_to "Back", :back %>
+</div>

@@ -1,6 +1,6 @@
 ### WHEN ###
 When /^I do a search of (.*) words in (.*)$/ do |search,type|
-  fill_in "q", :with => search
+  find_by_id('q').set(search)
   if(type=='Demand')
     check('demand_cbox')
   elsif(type=='Offer')
@@ -11,7 +11,7 @@ When /^I do a search of (.*) words in (.*)$/ do |search,type|
   end
 end
 When /^I do a search without any words in (.*)$/ do |type|
-  fill_in "q", :with => ""
+  find_by_id('q').set("")
   if(type=='Demand')
     check('demand_cbox')
   elsif(type=='Offer')

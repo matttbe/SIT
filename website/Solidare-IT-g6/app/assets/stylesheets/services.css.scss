@@ -19,6 +19,14 @@
 	color: #EB4F92;
 }
 
+.service h4 {
+	color: #EB4F92;
+}
+
+#s {
+	width: 300px;
+	float: left;
+}
 .date-service {
 	margin: 20px 0px 20px 10px;	
 }
@@ -26,6 +34,10 @@
 .service .service-action {
 	float: right;
 	display: inline-block;
+}
+
+.full-width-header .btn {
+	margin-top: 30px;
 }
 
 .service .btn {
@@ -46,6 +58,12 @@
 	margin: 15px 15px 15px 5px;
 }
 
+#sticker-filter {
+	width: 262px;
+}
+.service-list {
+	margin-top: 30px;
+}
 #slider {
 	max-width: 400px;
 	margin: 15px 0px 40px 0px;

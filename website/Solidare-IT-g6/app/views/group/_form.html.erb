@@ -1,27 +1,28 @@
 <%= form_for :group, url: group_index_path ,:html => { :multipart => true  } do |f| %>
-  <p>
-    <%= f.label :Name %>
-	<%= f.text_field :name %>
-  </p>
+  <div>
+    <%= f.label :Name, :class=>"label label-default" %>
+    <%= f.text_field :name, :class => "form-control" %>
+  </div>
  
-  <p>
-    <%= f.label :Description %>
-    <%= f.text_area :description%>
-  </p>
+  <div>
+    <%= f.label :Description , :class=>"label label-default"%>
+    <%= f.text_area :description, :class => "form-control"%>
+  </div>
 
-  <%= f.file_field :photo %>
-  <p>
-	Private ?
-	<%= f.check_box :private %>
-	If checked, people will be able to reach the group and see who's in it, but not to see the post and post themselves.
-  </P>
-  <p>
-	Secret ?
-	<%= f.check_box :secret %>
-	If checked, the group will be secret and reachable only for members.
-  </p>
+  <div>
+    <%= f.file_field :photo %>
+  </div>
+  <div>
+    <%= f.check_box :private, :label=>"Private ?"%>
+    If checked, people will be able to reach the group and see who's in it, but not to see the post and post themselves.
+  </div>
 
-  <p>
-    <%= f.submit %>
-  </p>
+  <div>
+    <%= f.check_box :secret, :label=>"Secret ?" %>
+    If checked, the group will be secret and reachable only for members.
+  </div>
+
+  <div>
+    <%= f.submit%>
+  </div>
 <% end %>

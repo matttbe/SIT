@@ -4,9 +4,11 @@ class UsersController < ApplicationController
    # GET /user/:user_id/services
   def my_services
     if user_signed_in?
-      @services = current_user.own_services.order(:is_demand)
-	  @pending_services = Service.joins(:accept_services).where(accept_services: {user_id: current_user.id,is_chosen_customer: false})
-	  @accepted_services = Service.joins(:accept_services).where(accept_services: {user_id: current_user.id,is_chosen_customer: true})
+
+     @services = User.find(params[:user_id]).own_services.order(:is_demand)
+	  @pending_services = Service.joins(:accept_services).where(accept_services: {user_id: params[:user_id],is_chosen_customer: false})
+	  @accepted_services = Service.joins(:accept_services).where(accept_services: {user_id: params[:user_id],is_chosen_customer: true})
+
     else
       dont_see
     end

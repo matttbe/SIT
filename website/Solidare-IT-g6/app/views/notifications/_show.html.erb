@@ -1,6 +1,7 @@
 
 <%if @notifications.size > 0 %>
 	<% @notifications.each do |notif| %>
+	<% @notifications.order(:seen).each do |notif| %>
 		<% if !notif.group.nil? %>
 			<% @users.each do |user| %>
 				<% if user.id == notif.creator_id %>
@@ -42,7 +43,7 @@
 		<%else%>
 			NOTIFICATION TYPE UNKNOWN
 		<%end%>
-
+	<%end%>
 	<%end%>
 <%else%>
 	You've no notifications

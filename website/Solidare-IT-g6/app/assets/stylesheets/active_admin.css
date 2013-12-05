@@ -318,9 +318,12 @@ body.active_admin form {
   /* Buttons */ }
   body.active_admin form ul, body.active_admin form ol, body.active_admin form li, body.active_admin form fieldset, body.active_admin form legend, body.active_admin form input, body.active_admin form textarea, body.active_admin form select, body.active_admin form p {
     margin: 0;
-    padding: 0; }
+    padding: 0; 
+  }
   body.active_admin form ol, body.active_admin form ul {
-    list-style: none; }
+    list-style: none; 
+  }
+
   body.active_admin form fieldset {
     border: 0;
     padding: 10px 0;

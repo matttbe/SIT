@@ -1,4 +1,4 @@
-<%=@organisations.size%>
+<div class="container"><%=@organisations.size%>
 <p>
     <% @organisations.each do |organisation|%>
           <strong>Name:</strong>
@@ -10,4 +10,5 @@
 </p>
 
 
-<%= link_to 'Back', organisations_path %>
+<%= link_to 'Back', organisations_path, :class=>"btn btn-back" %>
+</div>

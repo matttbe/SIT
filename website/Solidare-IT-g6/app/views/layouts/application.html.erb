@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
+
   <title>SolidareItG6</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
+    
   <script>
       $(document).ready(function(){
           $("#show_option").click(function(){
               $("#more").toggle();
           });
+          $(':checkbox').checkbox();
       });
   </script>
+  <style id="holderjs-style" type="text/css">
+.holderjs-fluid {font-size:16px;font-weight:bold;text-align:center;font-family:sans-serif;margin:0}
+</style>
 </head>
 <body>
+  
   <div id="header" class="jumbotron">
   <% location= request.env['PATH_INFO'] %>
-    <nav class="navbar" role="navigation">
-      <div class="navbar-inner">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="collapse navbar-collapse">
 
-        <ul class="nav">
+        <ul class="nav navbar-nav">
+          <!--HOME button-->
           <% if location=='/' %>
               <li class="active">
           <% else %>
@@ -29,16 +38,20 @@
           <% end %>
           <a href="<%= root_path  %>">Home</a></li>
 
+          <!--search button-->
           <% if location==search_path %>
               <li class="active">
           <% else %>
               <li>
           <% end %>
           <a href="<%= services_path  %>">Services</a></li>
+
+          <!--Admin button-->
           <% if !current_user.nil? && current_user.superadmin %>
               <li><a href="/admin">Admin</a></li>
           <% end %>
 
+          <!--Organisations button-->
           <% if !current_user.nil? && current_user.organisations.length!=0 %>
               <% if current_user.organisations.length == 1%>
                    <li><a href="<%=mainmenu_organisations_path(current_user.organisations.first.id)%>"> Organisations </a></li>
@@ -47,29 +60,80 @@
               <% end %>
           <%end%>
 
+          <!--Groups button-->
           <% if location==group_index_path %>
-                                                          <li class="active">
-                                                      <% else %>
-                                                          <li>
-                                                      <% end %>
-                                                      <a href="<%= group_index_path  %>">Groups</a></li>
-
+            <li class="active">
+          <% else %>
+            <li>
+          <% end %>
+          <a href="<%= group_index_path  %>">Groups</a></li>
 
         </ul>
-        <ul class="nav pull-right">
+
+        <ul class="nav navbar-nav navbar-right">
           <%= render 'layouts/usermenu' %>
         </ul>
       </div>
     </nav>
-    <div class="container">
-    <div style="text-align: center;"><img src="/images/logo.png" alt ="logo" align="center"></img></div>
-    <h1>Solidare-it</h1>
-    <p>A solidare website !</p>
 
-    <%= render 'search/form' %>
-  </div>
-</div>
-<div class="container">
+      <% unless location == '/'%>
+      <div class="container">
+        <div style="text-align: center;"><img src="/images/logo.png" alt ="logo" align="center"></img></div>
+              <h1>Solidare-it</h1>
+              <p>Un site solidaire!</p>
+
+              <%= render 'search/form' %>
+            </div>
+        </div>
+      <% else %>
+      <div>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+      <div class="carousel-inner">
+        <div class="item active">
+          <center><img src="images/slide-01.jpg" alt=""></center>
+          
+            <div class="carousel-caption">
+                           <h1>Welcome to Solidare-It website</h1>
+              <p class="lead">Share services easily with people in the need </p>
+              <% if current_user.nil? %>
+                <%= link_to 'Sign up now', create_account_path , :class=>"btn btn-primary btn-lg" %>
+              <% end %>
+            </div>
+          
+        </div>
+        <div class="item">
+          <center><img src="images/slide-02.jpg" alt=""></center>
+          
+            <div class="carousel-caption">
+              <h1>Special features for your social organisation</h1>
+              <p class="lead">This platform allows you to register your organisation. Easy coworking job</p>
+              <a class="btn btn-primary btn-lg" href="#">Learn more</a>
+            </div>
+          
+        </div>
+        <div class="item">
+          <center><img src="images/slide-03.jpg" alt=""></center>
+          
+            <div class="carousel-caption">
+              <h1>Improve your karma</h1>
+              <p class="lead">Give and receive Karma points related to your service exchanges and get some awesome rewards !</p>
+              <span class="glyphicon glyphicon-certificate" style="font-size:75px;"></span>
+            </div>
+          
+        </div>
+      </div>
+      <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  </ol>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"> <span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div><!-- /.carousel -->      
+
+      <% end %>
+    
 
 
 
@@ -82,7 +146,13 @@
 
 
   <%= yield %>
-</div>
 
+
+</div>
+<div>
+<footer>
+  <p>Built by the 8 most awesome Computer Sciences students at Université Catholique de Louvain</p>
+  </footer>
+</div>
 </body>
 </html>

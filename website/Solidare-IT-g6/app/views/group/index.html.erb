@@ -1,11 +1,16 @@
 <!-- TODO : in here will be suggested some groups -->
 <!-- List all groups for now-->
-<p>In here will be suggested some groups to the user</p>
-<table class="table table-striped">
+<div class="container">
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><h6>Groups</h6></div>
+
+  <!-- Table -->
+  <table class="table">
   <thead>
   <tr>
-    <th>Title</th>
-    <th>Description</th>
+    <th><h6><span class="label label-info">Group Name</span></h6></th>
+    <th><h6><span class="label label-info">Description</span></h6></th>
     <th></th>
     <th></th>
   </tr>
@@ -13,12 +18,11 @@
 
   <tbody>
   <% @groups.each do |group| %>
-	<%unless group.secret == true %>
+  <%unless group.secret == true %>
       <tr>
-        <td><%= group.name %></td>
-        <td><%= group.description %></td>
-        <td><%= link_to 'Show', group%></td>
-
+        <td><h6><%= group.name %></h6></td>
+        <td><h8><%= group.description %></h8></td>
+        <td><%= link_to 'Show details', group, :class=>"btn btn-info"%></td>
         <td><%if !current_user.nil? %>
         		<% @member = false%>
 	        	<% current_user.groups.each do |group_user|%>
@@ -27,17 +31,24 @@
 	          		<%end%>
 	          	<%end%>
 	          	<% if !@member%>
-		          	<span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user, :role => 'basic'}%></span>
+
+		          	<span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user, :role => 'basic'}, :class=>"btn btn-success "%></span>
+
 	          	<%end%>
           	<% end %></td>
       </tr>
-	<% end %>
+  <% end %>
   <% end %>
   </tbody>
-</table>
+
+  </table>
+</div>
+
+
 
 <% if current_user.nil?%>
-  <%= link_to 'New Group', sign_in_path %>
+  <%= link_to 'Create group', sign_in_path, :class=>"btn btn-success btn-lg" %>
 <% else %>
-  <%= link_to 'New Group', new_group_path %>
+  <%= link_to 'Create group', new_group_path, :class=>"btn btn-success btn-lg" %>
 <% end %>
+</div>

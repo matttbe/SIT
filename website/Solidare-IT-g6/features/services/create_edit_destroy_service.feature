@@ -36,16 +36,6 @@ Feature: Add, edit and destroy a Service
       Then I should see a missing Title message
       And I see the add service button
 
-    Scenario: Validated user create a service with no description
-      And I am logged in
-      When I click on the Add a service link
-      And I want to create a demand-service
-      And I fill the service form
-      And I fill blank the service_description fill in the service form
-      And I click on the Create service button
-      Then I should see a missing Description message
-      And I see the add service button
-
     Scenario: Validated user create a service with a date end before date start
       And I am logged in
       When I click on the Add a service link
@@ -77,7 +67,7 @@ Feature: Add, edit and destroy a Service
       And I am logged in
       And The database contains my services
       When I visit the page of one service
-      And I click on the Edit link
+      And I click on the Edit button
       And I fill a new title for my service
       And I click on the Edit service button
       Then I should see my service with new title
@@ -87,7 +77,7 @@ Feature: Add, edit and destroy a Service
       And I am logged in
       And The database contains my services
       When I visit the page of one service
-      And I click on the Edit link
+      And I click on the Edit button
       And I fill a new title for my service
       And I fill a new date for my service
       And I click on the Edit service button
@@ -103,13 +93,14 @@ Feature: Add, edit and destroy a Service
       And I am logged in
       And The database contains my services
       When I visit the page of one service
-      And I click on the Destroy link
+      And I click on the Destroy button
       And I click on the See my services link
       Then I should not see my service
 
     Scenario: Validated user destroy his service
       And I am logged in
       And The database contains my services
+      And I go back to the search page
       When I do a search of Livre words in Demand
       And I click on the Search button
       And I click on the Destroy button

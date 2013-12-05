@@ -14,16 +14,18 @@ body.active_admin span.icon svg {
 }
 
 #q {
-    width: 90%
+	width: 70%;
+    float: left;
 }
 
-#search-box {
-    margin: 15px 0px 15px 0px
+.search-box {
+    width: 100%;
 }
 
 .jumbotron {
     /*background: url("http://www.voyageurs-du-temps.fr/images/sites/afrique/enfants-africains-cours-de-recreation.jpg") no-repeat;
     /*background: url("images/bg.png") no-repeat;*/
+    padding: 0px;
     background: -moz-linear-gradient(top, #E6E6E6 34%, #ffffff 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(34%,#E6E6E6), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
 background: -webkit-linear-gradient(top, #E6E6E6 34%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
@@ -31,3 +33,64 @@ background: -o-linear-gradient(top, #E6E6E6 34%,#ffffff 100%); /* Opera 11.10+ *
 background: -ms-linear-gradient(top, #E6E6E6 34%,#ffffff 100%); /* IE10+ */
 background: linear-gradient(to bottom, #E6E6E6 34%,#ffffff 100%); /* W3C */
 }
+
+/** For the login popup **/
+
+.popbox {
+  margin:0px auto;
+  text-align:center;
+  position:relative;
+}
+
+  .collapse { position:relative; }
+
+  .open {
+    background:#DDD;
+    border:solid 1px #FFF;
+    border-radius:5px;
+    box-shadow: 0px 0px 5px #CCC;
+    background:-webkit-gradient(linear,left top,left bottom,from(#f4f4f4),to(#e8e8e8));
+    background:-moz-linear-gradient(top,#f4f4f4,#e8e8e8);
+    background:linear-gradient(top,#f4f4f4,#e8e8e8);
+    padding:8px;
+  }
+
+    .box {
+      display:block;
+      display:none;
+      background:#FFF;
+      border:solid 1px #BBBBBB;
+      border-radius:5px;
+      box-shadow:0px 0px 15px #999;
+      position:absolute;
+    }
+
+      .box a.close {
+       color:red;
+       font-size:12px;
+       font-family:arial;
+       text-decoration:underline;
+      }
+
+      .arrow {
+              width: 0;
+              height: 0;
+              border-left: 11px solid transparent;
+              border-right: 11px solid transparent;
+              border-bottom: 11px solid #FFF;
+              position:absolute;
+              left:1px;
+              top:-10px;
+              z-index:1001;
+      }
+
+      .arrow-border {
+              width: 0;
+              height: 0;
+              border-left: 11px solid transparent;
+              border-right: 11px solid transparent;
+              border-bottom: 11px solid #BBBBBB;
+              position:absolute;
+              top:-12px;
+              z-index:1000;
+      }

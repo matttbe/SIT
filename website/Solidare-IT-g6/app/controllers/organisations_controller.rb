@@ -24,19 +24,26 @@ class OrganisationsController < InheritedResources::Base
   
   # GET /mainmenu_organisations/:id
   def show_main_panel
-       if !user_signed_in?
+       unless user_signed_in?
             dont_see
        else
            @organisations = Organisation.joins(:coworkers).where("organisations.id=:org_id and coworkers.user_id=:user_id", :org_id=>params[:id], :user_id=>current_user.id)
            if @organisations.length == 0
                 dont_see
            elsif !@organisations.first.validated?
-                dont_see
+              respond_to do |format|
+                  format.html { redirect_to waitforvalidation_path }
+              end
            else
                 @organisation = @organisations.first
            end
            
        end       
+  end
+
+  # GET /waitforvalidation
+  def waitforvalidation
+
   end
   
   # GET /create_managed_user/:org_id
@@ -83,10 +90,22 @@ class OrganisationsController < InheritedResources::Base
     
   # GET /choose_organisations
   def choose
-    @organisations = current_user.organisations.all
+
+      logger.debug "coucou"
+    if user_signed_in?
+      @organisations = current_user.organisations.all
+      logger.debug @organisations.length
+      logger.debug "coucou"
+      @organisation = Organisation.new
+    else
+      dont_see
+    end
   end
     
-  
+  # POST /chosen_org
+  def chosen_org
+    
+  end
   
   # GET /join_organisation/:id
   def join_action

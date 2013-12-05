@@ -1,10 +1,8 @@
 <%if user_signed_in? %>
 
-<li>
 
-</li>
-<li><%= link_to "Notifications",  notifications_path %></li>
-<li><%= link_to notifications_path, :title => "Notifications" do %>
+<li><%= link_to show_notifications_path(current_user), :title => "Notifications" do %>
+    Notifications
 	<span class="badge"><%= current_user.notifications_number %></span>
 <% end %></li>
 <li class="divider-vertical"></li>
@@ -12,54 +10,54 @@
   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
     <%= image_tag current_user.avatar.url(:thumb) %>
     <%=  current_user.all_name %>
-    <%  @karma=current_user.karma 
-    if @karma>0%>
-    <span class="badge badge-success">
-     <% elsif @karma<0 %>
-     <span class="badge badge-important">
-       <% else %>
-       <span class="badge">
-         <% end %>
-         <%= @karma %>
-       </span>
-       <b class="caret"></b></a>
-       <ul class="dropdown-menu">
-        <li class="nav-header">Personnal</li>
-        <li><%= link_to "Show profile",  show_profile_path(current_user) %></li>
-        <li><%= link_to "Edit account",  edit_user_registration_path(current_user) %></li>
-        <li><%= link_to "Manage my addresses",  address_index_path %></li>
-        <li class="divider"></li>
-        <li class="nav-header">Services</li>
-        <li><%= link_to "Add a service",  new_service_path %></li>
-        <li><%= link_to "See my services",  my_services_path(current_user) %></li>
-        <li><%= link_to "See the services I follow",  following_services_path %></li>
-        <li class="divider"></li>
-        <li class="nav-header">Organisation</li>
-        <%if current_user.own_organisations.size !=0 || current_user.own_organisations.nil? %>
-        <li><%= link_to "Manage my organisations",  manage_organisation_path %></li>
-        <li><%= link_to "New Manage my organisations",  organisation_manage_organisations_path %></li>
-        <% end %>
-        <li><%= link_to "Create an organisation",  new_organisation_path %></li>
-        <li><%= link_to "Join an organisation",  join_organisation_path %></li>
-
-        <li class="divider"></li>
-        <li class="nav-header">Group</li>
-        <%if true %>
-        <li><%= link_to "See my groups",  my_groups_path %></li>
-        <% end %>
-        <% if !current_user.nil? %>
-        <li><%= link_to "Create a group",  new_group_path %></li>
-        <% end %>
-        <li><%= link_to "Join an group",  group_index_path %></li>
-        <li class="divider"></li>
-        <li><%= link_to "Sign out",  destroy_user_session_path, :method => "delete" %></li>
-      </ul>
-    </li>
-
-
-
-
-
+    <%  @karma=current_user.karma %>
+    <% if @karma > 0 %>
+      <span class="badge badge-success">
+    <% elsif @karma < 0 %>
+      <span class="badge badge-important">
     <% else %>
-    <li><%= link_to "Sign up",  create_account_path %></li> <li><a href="/sign_in">Sign in</a></li>
+       <span class="badge">
+
     <% end %>
+    <%= @karma %>
+    </span>
+    <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Personnal</li>
+    <li><%= link_to "Show profile",  show_profile_path(current_user), :role=>"menuitem" %></li>
+    <li><%= link_to "Edit account",  edit_user_registration_path(current_user), :role=>"menuitem" %></li>
+    <li><%= link_to "Manage my addresses",  address_index_path, :role=>"menuitem" %></li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Services</li>
+    <li><%= link_to "Add a service",  new_service_path, :role=>"menuitem" %></li>
+    <li><%= link_to "See my services",  my_services_path(current_user), :role=>"menuitem" %></li>
+    <li><%= link_to "See the services I follow",  following_services_path, :role=>"menuitem" %></li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Organisation</li>
+    <%if current_user.own_organisations.size !=0 || current_user.own_organisations.nil? %>
+    <li><%= link_to "Manage my organisations",  manage_organisation_path, :role=>"menuitem" %></li>
+    <li><%= link_to "New Manage my organisations",  organisation_manage_organisations_path, :role=>"menuitem" %></li>
+    <% end %>
+    <li><%= link_to "Create an organisation",  new_organisation_path, :role=>"menuitem" %></li>
+    <li><%= link_to "Join an organisation",  join_organisation_path, :role=>"menuitem" %></li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Group</li>
+    <%if true %>
+    <li><%= link_to "Manage my groups",  group_index_path, :role=>"menuitem" %></li>
+    <% end %>
+    <% if !current_user.nil? %>
+    <li><%= link_to "Create a group",  new_group_path, :role=>"menuitem" %></li>
+    <% end %>
+    <li><%= link_to "Join an group",  group_index_path, :role=>"menuitem" %></li>
+    <li class="divider"></li>
+    <li><%= link_to "Sign out",  destroy_user_session_path, :method => "delete", :role=>"menuitem" %></li>
+  </ul>
+</li>
+
+
+<% else %>
+  <li><%= link_to "Sign up", create_account_path %></li>
+  <li><%= link_to "Sign in", sign_in_path %></li> 
+
+<% end %>

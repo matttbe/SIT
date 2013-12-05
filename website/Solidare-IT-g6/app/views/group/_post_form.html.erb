@@ -1,6 +1,6 @@
 <%= form_for([@group, @group.group_posts.build]) do |f| %>
   <p>
-    <%= f.text_area :body %>
+    <%= f.text_area :body, :class=>"form-control" %>
   </p>
   <p>
     <%= f.submit "Add new post"%>

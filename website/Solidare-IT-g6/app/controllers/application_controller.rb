@@ -154,9 +154,15 @@ class ApplicationController < ActionController::Base
     cats
   end
 
+  def get_child_categories
+    cats = get_categories_from_node_id(params[:id], true)
+
+    render json: cats
+  end
+
   def get_categories_from_node_id(cat_id, withChild)
     cat = Category.find(cat_id)
-    get_categories_from_node(cat, withChild)
+    return get_categories_from_node(cat, withChild)
   end
 
   def get_all_categories_from_root(withChild)
