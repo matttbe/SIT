@@ -52,8 +52,7 @@ class GroupController < ApplicationController
   end
 
 
-  def destroy
-    #TODO verifier que l'utilisateur est admin du groupe    
+  def destroy    
     @group = Group.find(params[:id])
     @notifications = Notification.where("group_id = :group_id", :group_id => @group.id)
     @notifications.each do |notif|
@@ -73,7 +72,12 @@ class GroupController < ApplicationController
 	@to_destroy.each do |t_d|
 	  GroupUserRelation.destroy(t_d.id)
 	end
-	redirect_to edit_group_path(Group.find(params[:g_id]))
+	@user = User.find(params[:u_id])
+	if @user == current_user
+		redirect_to group_index_path
+	else
+		redirect_to edit_group_path(Group.find(params[:g_id]))
+	end
   end
 
   def add_user

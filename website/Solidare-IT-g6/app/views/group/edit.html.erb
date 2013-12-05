@@ -1,7 +1,6 @@
 <% if GroupUserRelation.where(:user_id => current_user.id, :group_id => @group.id, :role => 'Admin').empty?%>
 	Not allowed
-	<%= redirect_to group_path(@group) %>
-<% end %>
+<% else %>
 
 <h1>Manage group</h1>
 
@@ -58,3 +57,5 @@ Members
 
 
 <%= link_to 'Back', :back %>
+
+<% end %>
