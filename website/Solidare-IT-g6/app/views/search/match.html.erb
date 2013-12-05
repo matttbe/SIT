@@ -33,7 +33,7 @@
            <li class="nav-header">Categories</li>
            <% if (!@categories.nil?&&@categories.size>0) %>
            <% @categories.each do |category|
-             if category.first>-1
+             if category.first > -1
               @category=Category.find(category.first)
               @param="&category="+@category.id.to_s
               @link=generateLink(@search,@param)

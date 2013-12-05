@@ -27,6 +27,7 @@ ActiveAdmin.register Service, :as => "Managed service" , namespace: :organisatio
       f.input :description, :input_html=> {:class => "autogrow"}
       f.input :date_start, :as => :datepicker
       f.input :date_end, :as => :datepicker
+      f.input :is_demand, :as => :radio, :label=>"is it a demand ?"
     end
     f.inputs "Category" do
       f.collection_select :category_id, Category.all, :id, :title
@@ -43,6 +44,12 @@ ActiveAdmin.register Service, :as => "Managed service" , namespace: :organisatio
       end
     end
     f.actions
+  end
+
+  controller do
+    def permitted_params
+      params.permit(:managedservice => [:category_id,:title,:description, :date_start, :date_end,:is_demand, :photo, :creator_id])
+    end
   end
 
 end
