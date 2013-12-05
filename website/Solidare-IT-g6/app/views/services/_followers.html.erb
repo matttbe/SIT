@@ -1,16 +1,16 @@
 
 <h4>Followers</h4>
-<% if @followers_list.nil? %>
-	<h6><span class="label label-danger">No followers</span></h6>
-<% elsif @followers_list.size == 0 %>
-	<h6><span class="label label-danger">No followers</span></h6>
-<%else%>
-	<% @users.each do |user| %>
-		<% @followers_list.each do |follower| %>
-			<% if user.id == follower.user_id %>
-				<% @user_full_name = " "+user.firstname+" "+user.name %>
-				<%= link_to @user_full_name,  show_profile_path(user) %><br />
+<% if ! @followers_list.nil? %>
+	<% if @followers_list.size == 0 %>
+		No Followers
+	<%else%>
+		<% @users.each do |user| %>
+			<% @followers_list.each do |follower| %>
+				<% if user.id == follower.user_id %>
+					<% @user_full_name = " "+user.firstname+" "+user.name %>
+					<%= link_to @user_full_name,  show_profile_path(user) %><br />
+				<%end%>
 			<%end%>
 		<%end%>
-	<%end%>
-<%end%> 
+	<%end%> 
+<%end%>

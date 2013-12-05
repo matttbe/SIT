@@ -36,16 +36,6 @@ Feature: Add, edit and destroy a Service
       Then I should see a missing Title message
       And I see the add service button
 
-    Scenario: Validated user create a service with no description
-      And I am logged in
-      When I click on the Add a service link
-      And I want to create a demand-service
-      And I fill the service form
-      And I fill blank the service_description fill in the service form
-      And I click on the Create service button
-      Then I should see a missing Description message
-      And I see the add service button
-
     Scenario: Validated user create a service with a date end before date start
       And I am logged in
       When I click on the Add a service link

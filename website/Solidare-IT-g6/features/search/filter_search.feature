@@ -7,7 +7,7 @@ Feature: Search with filter
       And The database contains services
 
     Scenario: Filter with active show anything
-      When I return to the site
+      When I go back to the search page
       And I do a search of IA words in Demand
       And I click on the Search button
       And I click on the Show only active service link
