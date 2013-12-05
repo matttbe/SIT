@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  #TODO cleaner ceci
+  
   def create_badge_notif(badge, user)
     @badge = Badges.find(badge)
     @notification = nil
@@ -32,10 +32,10 @@ class ApplicationController < ActionController::Base
     end
     @notification.notified_user = user
     @notification.notification_type = "BADGE_"+@badge.name
-    @notification.creator_id = current_user.id 
+    @notification.creator_id = user.id 
     @notification.seen = false
     @notification.save
-    #TODO send email
+    Notifier.new_badge(user, @badge, "New Badge").deliver
   end
   
   def create_group_notif(group, type)
