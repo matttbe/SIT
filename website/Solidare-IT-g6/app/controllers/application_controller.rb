@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
     end
     @notification.notified_user = user
     @notification.notification_type = "BADGE_"+@badge.name
+    @notification.creator_id = current_user.id 
     @notification.seen = false
     @notification.save
     #TODO send email
@@ -50,15 +51,13 @@ class ApplicationController < ActionController::Base
             @notification = notif
           else
             @notification = Notification.new
-            @notification.notified_user = user.id
-            @notification.group = group
           end 
         end
       else
       @notification = Notification.new
+      end      
       @notification.notified_user = user.id
       @notification.group = group
-      end      
       @notification.notification_type = type
       @notification.creator_id = current_user.id 
       @notification.seen = false
@@ -77,16 +76,14 @@ class ApplicationController < ActionController::Base
         if (type == 'FOLLOW' and notif.notification_type == 'UNFOLLOW') or (type == 'UNFOLLOW' and notif.notification_type == 'FOLLOW') or (notif.notification_type == type) 
           @notification = notif
         else
-          @notification = Notification.new
-          @notification.notified_user = user_notified_id
-          @notification.service = service          
+          @notification = Notification.new         
         end
       end
     else
       @notification = Notification.new
-      @notification.notified_user = user_notified_id
-      @notification.service = service
     end
+    @notification.notified_user = user_notified_id
+    @notification.service = service 
     @notification.notification_type = type
     @notification.creator_id = current_user.id 
     @notification.seen = false
