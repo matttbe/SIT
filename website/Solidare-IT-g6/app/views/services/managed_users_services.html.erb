@@ -1,0 +1,37 @@
+<h3>Services of <%= managed_user.firstname +' '+managed_user.name%></h3>
+<br /><br />
+
+<% if (@services.nil? ||@services.length==0) && (@pending_services.nil? ||@pending_services.length==0) && (@accepted_services.nil? ||@accepted_services.length==0) %>
+  <p>	
+	You've no services.
+  </p>
+<% end%>
+
+<% @services.each do |service|  
+	if service.quick_match
+    	next
+	end%>
+  	<%= render 'show',:service=> service %>
+	<p>
+		<%= render 'accepted_by', :service => service%>
+	</p>
+<% end %>
+
+<% if !@accepted_services.blank?%>
+  <hr></hr>
+  Accepted Services :
+  <br /><br />
+  <% @accepted_services.each do |service| %>
+	<%= render 'show',:service=> service %>
+  <%end %>
+<%end%>
+
+<% if !@pending_services.blank?%>
+  <hr></hr>
+  Pending Services :
+  <br /><br />
+  <% @pending_services.each do |service| %>
+    <%= render 'show',:service=> service %>
+  <% end %>
+<%end %>
+

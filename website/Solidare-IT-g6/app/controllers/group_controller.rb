@@ -5,7 +5,7 @@ class GroupController < ApplicationController
   end
 
   def show
-	@group = Group.find(params[:id])
+	 @group = Group.find(params[:id])
   end
 
  # GET /user/groups
@@ -40,6 +40,7 @@ class GroupController < ApplicationController
 	@basic_users = User.joins(:group_user_relations).where(group_user_relations: {group_id: params[:id],role:"basic"})
   end
 
+
   def update
     @group = Group.find(params[:id])
  
@@ -52,9 +53,13 @@ class GroupController < ApplicationController
 
 
   def destroy
+    #TODO verifier que l'utilisateur est admin du groupe    
     @group = Group.find(params[:id])
+    @notifications = Notification.where("group_id = :group_id", :group_id => @group.id)
+    @notifications.each do |notif|
+      notif.destroy
+    end
     @group.destroy
- 
     redirect_to group_index_path
   end
 
@@ -73,7 +78,7 @@ class GroupController < ApplicationController
 
   def add_user
 
-  end
+  end  
 
   private
     def group_params

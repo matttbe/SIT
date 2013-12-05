@@ -1,5 +1,3 @@
-<h3>My services</h3>
-<br /><br />
 
 <% if (@services.nil? ||@services.length==0) && (@pending_services.nil? ||@pending_services.length==0) && (@accepted_services.nil? ||@accepted_services.length==0) %>
   <p>	
@@ -17,27 +15,20 @@
 	</p>
 <% end %>
 
-
-
 <% if !@accepted_services.blank?%>
   <hr></hr>
   Accepted Services :
   <br /><br />
-<%end %>
-<% @accepted_services.each do |service| %>
+  <% @accepted_services.each do |service| %>
 	<%= render 'show',:service=> service %>
+  <%end %>
 <%end%>
 
 <% if !@pending_services.blank?%>
   <hr></hr>
   Pending Services :
   <br /><br />
+  <% @pending_services.each do |service| %>
+    <%= render 'show',:service=> service %>
+  <% end %>
 <%end %>
-<% @pending_services.each do |service| %>
-	<% chosen = User.joins(:accept_services).where(accept_services: {service_id: service.id, is_chosen_customer: true})
-	if chosen.blank?%>
-		<%= render 'show',:service=> service %>
-	<% end %>
-<%end%>
-
-<% %>

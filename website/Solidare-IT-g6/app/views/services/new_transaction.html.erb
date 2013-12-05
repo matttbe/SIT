@@ -1,6 +1,27 @@
+
 <%=bootstrap_form_for(@transaction,method: 'post', :url=>create_transaction_path(@service)) do |f| %>
 
-    <%= f.number_field :feedback_evaluation %>
+
+    <%= f.text_field :feedback_evaluation %>
+    <div id="slider"></div>
     <%= f.text_area :feedback_comments %>
       <%= f.submit "Give your feedback",:class =>"btn btn-primary"  %>
+
+      <script>
+  $(function() {
+    $( "#slider" ).slider(
+    	{
+    		value:0,
+      		min: -5,
+      		max: 5,
+      		step: 1,
+      		slide: function( event, ui ) {
+        		$( "#transaction_feedback_evaluation").val(ui.value );
+      		}
+    	});
+    $( "#transaction_feedback_evaluation" ).attr('readonly', true);
+    $( "#transaction_feedback_evaluation" ).val($( "#slider" ).slider( "value" ) );
+  });
+  </script>
 <% end %>
+

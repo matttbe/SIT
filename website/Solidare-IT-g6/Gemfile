@@ -1,9 +1,9 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.1'
+gem 'rails', '4.0.2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -41,10 +41,10 @@ gem 'therubyracer'
 gem "less-rails"
 gem 'twitter-bootstrap-rails'
 gem 'date_validator'
-gem 'bootstrap_forms', github: 'gagalago/bootstrap_forms'
+gem 'bootstrap_forms', git: 'https://github.com/gagalago/bootstrap_forms.git'
 
 # admin interface: github: compatible with RoR 4.0
-gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'activeadmin', git: 'https://github.com/gregbell/active_admin.git'
 
 # manage rights
 gem 'cancan'
@@ -64,6 +64,16 @@ gem 'geokit-rails'
 # coveralls: https://coveralls.io/r/matttbe/SIT
 gem 'coveralls', require: false
 
+#infinite scroll
+gem 'will_paginate', '~> 3.0'
+
+#Some UI Components
+gem "jquery-ui-rails"
+
+gem 'bootstrap-datepicker-rails'
+
+#merit
+gem 'merit'
 ####### Group #######
 
 # tests

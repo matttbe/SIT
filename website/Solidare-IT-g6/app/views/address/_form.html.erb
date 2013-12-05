@@ -1,10 +1,14 @@
-<% if type=="new"
+<% if type=="new" || type == "wrong zip new"
     @action="create"
-   else
+   else type == "edit"
     @action="update"
 end%>
 <%=bootstrap_form_for(@address ,:url => {:action => @action, :id => @address.id}) do |f| %>  
-
+    
+    <% if type == "wrong zip new" || type == "wrong zip edit" %>
+        <font size="4" color="red">The address you gave seems to be incorrect</font>
+    <% end %>
+    
     <%= f.text_field :street %>
     <%= f.text_field :number %>
     <%= f.text_field :postal_code %>
@@ -14,8 +18,8 @@ end%>
     <option value="<%= country.first%>" <% if @address.country == country.first%>selected <% end %>  ><%=country.first%></option>
     <% end %>
     </select>
-
-    <% if type=="new"%>
+    
+    <% if type=="new" || type == "wrong zip new"%>
       <%= f.submit "Add address",:class =>"btn btn-primary"  %>
     <% else %>
       <%= f.submit "Edit address",:class =>"btn btn-primary"  %>

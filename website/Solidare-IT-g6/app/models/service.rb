@@ -1,5 +1,6 @@
 class Service < ActiveRecord::Base
 
+  self.per_page = 2 #10 service per page for infinite scroll
   has_attached_file :photo,
     :storage => :dropbox,
     :dropbox_credentials => DROPBOX_CREDENTIALS,

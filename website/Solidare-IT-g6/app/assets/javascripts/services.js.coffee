@@ -21,3 +21,8 @@ $(document).on "ready page:change", ->
 		grid()
 	$('#list').click ->
 		list()
+
+	$('a.load-more-services').on 'inview', (e, visible) ->
+    	return unless visible
+    	
+    	$.getScript $(this).attr('href')

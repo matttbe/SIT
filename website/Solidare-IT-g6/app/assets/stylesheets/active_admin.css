@@ -178,7 +178,7 @@ body.active_admin .bottom {
   margin-bottom: 0;
   padding-bottom: 0; }
 body.active_admin #header {
-  background: #6a7176;
+  background: #ffffff; /*#6a7176;*/
   background: -webkit-gradient(linear, left top, left bottom, from(#6a7176), to(#4d5256));
   background: -moz-linear-gradient(-90deg, #6a7176, #4d5256);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#6a7176', endColorstr='#4d5256');

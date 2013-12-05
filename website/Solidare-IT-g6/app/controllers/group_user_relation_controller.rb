@@ -4,14 +4,19 @@ class GroupUserRelationController < ApplicationController
   		@relation = GroupUserRelation.new(user_id:params[:idUser] , group_id:params[:idGroup], role:params[:role])
   		respond_to do |format|
   			if @relation.save
-				format.json { render json: @relation}
+  			  #TODO include user
+  			  
+      format.html { redirect_to show_group(@relation.group.id), notice: "Welcome in the group"}
+				#format.json { render json: @relation.user}
 			else
-				format.json { render json: {:error => "error"}}
+			    format.html { redirect_to group_index_path(@relation.group.id), notice: "an error occure"}
+				#format.json { render json: {:error => "error"}}
 			end
 	     end
 	 else
 		respond_to do |format|
-		  format.json { render json: {:error => "Already in group"}}
+		    format.html { redirect_to group_index_path, notice: "You are already in the group"}
+		 # format.json { render json: {:error => "Already in group"}}
 		end
 	 end
   end

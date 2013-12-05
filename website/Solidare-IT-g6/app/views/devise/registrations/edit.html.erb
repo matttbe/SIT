@@ -7,7 +7,7 @@
     <%= f.text_field :name , :autofocus => true %>
     <%= f.text_field :firstname %>
     <%= f.file_field :avatar %>
-    <%= f.datetime_select :birthdate %>
+    <%=f.date_select :birthdate%>
     <%= f.email_field :email %>
     <%= f.check_box :mail_notif, :label=>"Receive mails when you have a notification" %>
 

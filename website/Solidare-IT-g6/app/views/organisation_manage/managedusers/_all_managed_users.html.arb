@@ -1,0 +1,21 @@
+
+
+columns do
+    column do
+        panel "Coworker info" do
+                table_for User.joins(:coworker).where("coworkers.user_id=:id",:id=>current_user.id).each do |customer|
+                        column("Name")   {|customer| customer.all_name}
+                        column("Email")  {|customer| customer.email}
+                        column()         {|customer| button_to "Remove", remove_coworker_organisation_manage_coworker_path(customer), :method=>:delete}
+
+                 end
+        end
+    end
+end
+columns do
+    column do
+        panel "Users managed" do
+            
+        end
+    end
+end

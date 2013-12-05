@@ -1,5 +1,5 @@
 <% @service=service%>
-
+<%= image_tag service.photo.url(:thumb) %>
 <p>
   <strong>Title:</strong>
   <% if @service.matching_service.nil? %>
@@ -20,14 +20,13 @@
     <br />
   <%else%>
     Your feedback :
-    <%=  render 'show_feedback', :transaction=>@service.matching_service.transaction%>
+    <%=  render 'services/show_feedback', :transaction=>@service.matching_service.transaction%>
   <%end%>
 <%end%>
 <p>
   <strong>Created by:</strong>
-  <%  #TODO add a link to the user profile ? %>
   <%if !@service.user.nil? %>
-    <%=@service.user.all_name %>
+    <%= link_to @service.user.all_name, show_profile_path(@service.user) %>
   <% end %>
 </p>
 
@@ -56,5 +55,5 @@
 <%end%>
 <% if user_signed_in?%>
     <% @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)%>
-	<%= render 'follow', :service=>@service, :followers =>@followers%>
+	<%= render 'services/follow', :service=>@service, :followers =>@followers%>
 <%end%>

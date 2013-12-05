@@ -1,20 +1,17 @@
 def create_service
-  @serviceC = {:id=>1, :title=>"Livre",:description => "vente livre congolexicomatisation", :date_start => 'Mon, 28 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id => 0, :is_demand=>true, :quick_match=>false,:category_id=>-1}
+  @serviceC = {:title=>"Livre",:description => "vente livre congolexicomatisation", :date_start => 'Mon, 28 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id => 0, :is_demand=>true, :quick_match=>false,:category_id=>-1}
 end
 
 def new_service_offer
-  @serviceNew = {:id=>2, :title=>"Livre Réseau",:description => "Livre obo", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>false,:quick_match=>false,:category_id=>-1}
+  @serviceNew = {:title=>"Livre Réseau",:description => "Livre obo", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>false,:quick_match=>false,:category_id=>-1}
 end
 
 def new_service
-  @serviceNew = {:id=>3, :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>true, :quick_match=>false,:category_id=>-1}
+	  @serviceNew = {:title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>true, :quick_match=>false,:category_id=>-1}
 end
 
 
-
 def choose_myself_for_service
-	print(@user.id)
-	print(@service.id)
 	@acceptService = AcceptService.where("user_id=:u_id AND service_id=:s_id",:u_id=>@user.id,:s_id=>@service.id).first
 	@acceptService.is_chosen_customer = true
 	@acceptSerice.save
@@ -34,9 +31,9 @@ end
 def add_service
   find_user
   create_service
-  @dl=Service.where("id=:id",:id=>@serviceC[:id]).first
+  @dl = Service.where("title LIKE :title", :title => @serviceC[:title]).first
   @dl.destroy unless @dl.nil?
-  @serviceC[:creator_id]=@user.id
+  @serviceC[:creator_id] = @user.id
   @service = Service.create!(@serviceC)
 end
 
@@ -45,7 +42,6 @@ def add_not_my_service
    new_service
    @serviceNew[:creator_id]=@admin.id
    @service = Service.create!(@serviceNew)
-  
 end
 
 def fill_form
@@ -66,8 +62,7 @@ end
 ### GIVEN ###
 Given /^The database contains services$/ do
   create_user
-  clear_DB
-  print("clear")
+  #clear_DB
   add_service
   add_not_my_service
 end
@@ -139,6 +134,14 @@ When(/^I fill a new title for my service$/) do
   fill_in "service_title", :with => "new title"
 end
 
+When(/^I fill a new date for my service$/) do
+  select(2012, :from=> "service_date_start_1i")
+  select('December', :from=>  "service_date_start_2i")
+  select(10, :from=>  "service_date_start_3i")
+  select(17, :from=>  "service_date_start_4i")
+  select(27, :from=>  "service_date_start_5i")
+end
+
 When(/^I give a feedback$/) do 
   fill_in "transaction_feedback_evaluation", :with => "5"
   fill_in "transaction_feedback_comments", :with => "ok missieur"
@@ -170,7 +173,7 @@ Then(/^I should see a date problem message$/) do
 end
 
 Then(/^I should see my services$/) do
-   assert page.has_content?(@serviceC[:title])
+   assert page.has_content?(@serviceC[:description])
 end
 
 Then(/^I should see no services$/) do
@@ -191,7 +194,7 @@ Then(/^I should see my service with new title$/) do
 end
 
 Then(/^I should not see my service$/) do
-   assert !page.has_content?(@serviceC[:title])
+   assert !page.has_content?(@serviceC[:description])
 end
 
 Then(/^I should see services$/) do

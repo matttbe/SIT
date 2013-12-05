@@ -8,7 +8,6 @@ class OrganisationsController < InheritedResources::Base
     else
       dont_see
     end
-
   end
   
   def show
@@ -16,6 +15,60 @@ class OrganisationsController < InheritedResources::Base
     if @can
       @organisation = Organisation.find(params[:id])
     end
+  end
+  
+  # GET /manage_organisations
+  def manage
+    @organisations = Organisation.where("creator_id=:id", :id=>current_user.id)
+  end
+  
+  # GET /mainmenu_organisations/:id
+  def show_main_panel
+       if !user_signed_in?
+            dont_see
+       else
+           @organisations = Organisation.joins(:coworkers).where("organisations.id=:org_id and coworkers.user_id=:user_id", :org_id=>params[:id], :user_id=>current_user.id)
+           if @organisations.length == 0
+                dont_see
+           elsif !@organisations.first.validated?
+                dont_see
+           else
+                @organisation = @organisations.first
+           end
+           
+       end       
+  end
+  
+  # GET /create_managed_user/:org_id
+  def new_managed
+     if !user_signed_in?
+        dont_see        
+     else
+        @organisation = Organisation.find(params[:org_id])
+        @user = User.new
+        @user.managed_org_id = params[:org_id]
+     end   
+     
+  end
+
+
+  
+  # POST /create_managed_user_filled
+  # POST /create_managed_user_filled.json
+  def create_managed
+      @user = User.new(new_managed_params)
+      @user.password = @user.name+@user.firstname+@user.name
+      o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+      string = (0...8).map{ o[rand(o.length)] }.join
+      @user.email= @user.name + @user.firstname + string + '@solidateit.com'
+      @user.inscription_ok=true
+      respond_to do |format|
+        if @user.save
+          format.html { redirect_to mainmenu_organisations_path(@user.managed_org_id), notice: 'Managed user was successfully created.' }
+        else
+          format.html { redirect_to mainmenu_organisations_path(@user.managed_org_id), alert: @user.name }
+        end
+      end
   end
   
   # GET /join_organisations
@@ -27,11 +80,13 @@ class OrganisationsController < InheritedResources::Base
     end
   end
   
-  # GET /manage_organisation
-  def manage
-    @organisations = Organisation.all
+    
+  # GET /choose_organisations
+  def choose
+    @organisations = current_user.organisations.all
   end
     
+  
   
   # GET /join_organisation/:id
   def join_action
@@ -42,7 +97,7 @@ class OrganisationsController < InheritedResources::Base
     @organisation.coworkers << @coworker
     respond_to do |format|
         if @organisation.save
-            format.html { redirect_to @organisation, notice: 'You\'ve been added to coworkers from ' +@organisation.name+'. Wait to be accepted'}
+            format.html { redirect_to @organisation, notice: 'You\'ve been added to coworkers list from ' +@organisation.name+'. Wait to be accepted'}
         else
             show_error(format,'new',@coworker)
         end
@@ -71,8 +126,6 @@ class OrganisationsController < InheritedResources::Base
       end
   end
   
-  
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_organisation
@@ -83,5 +136,8 @@ class OrganisationsController < InheritedResources::Base
     def organisation_params
       params.require(:organisation).permit(:name)
     end
-
+    
+    def new_managed_params
+      params.require(:user).permit(:name,:firstname,:birthdate,:managed_org_id)
+    end
 end

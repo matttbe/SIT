@@ -1,0 +1,15 @@
+
+
+columns do
+    column do
+        panel "Coworker info" do
+                table_for User.joins(:coworker).where("coworkers.user_id=:id", :id=>current_user.id).each,sortable: true do |user|
+
+                    column("Name", sortable: :name)   {|user| user.all_name}
+                    column("Organisation", sortable: :organisation)  {|user| user.coworker.organisation.name}
+                    column("Karma", sortable: :karma)  {|user| user.karma}
+                    column()  {|user| button_to "Delete",  organisation_manage_manageduser_path(user), :method=>:delete}
+                  end
+        end
+    end
+end

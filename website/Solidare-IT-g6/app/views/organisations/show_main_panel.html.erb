@@ -1,0 +1,39 @@
+<p>
+  <strong>Name:</strong><%= @organisation.name %>
+</p>
+<p>
+<% if @organisation.managed_user.nil? ||@organisation.managed_user.length==0 %>
+	No user managed by your organisation
+<%else%>
+	
+		  <table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>First name</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @organisation.managed_user.each do |managed|%>
+
+      <tr>
+        <td><%= managed.name %></td>
+        <td><%= managed.firstname %></td>
+        <td><%= managed.id%></td>
+        <td><%= link_to 'Create service', new_service_managed_path(managed), :serv_id=>managed.id, :class=>"btn btn-primary"%></td>
+        <td><%= link_to 'Manage services', managed_users_services_path(managed), :serv_id=>managed.id, :class=>"btn btn-primary"%></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<%end%>
+</p>
+<p>
+<%= link_to 'Create new managed', new_managed_path(@organisation) %> |
+</p>
+
+<%= link_to 'Edit', edit_organisation_path(@organisation) %> |
+<%= link_to 'Back', organisations_path %>

@@ -1,0 +1,57 @@
+<% @organisation=organisation%>
+
+<p>
+  <strong>Name:</strong>
+  <%= @organisation.name %>
+
+</p>
+<p>
+  <strong>Created by:</strong>
+  <%  #TODO add a link to the user profile ? %>
+  <%if !@organisation.creator.nil? %>
+    <%=@organisation.creator.all_name %>
+  <% end %>
+</p>
+
+<div class="row">
+      <div class="span9">
+
+        <% if @services.size ==0 %>
+          No result
+        <% else %>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Date start</th>
+              <th>Date end</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @services.each do |service| %>
+              <tr>
+                <td><%= organisation.name %></td>
+                <td><%= service.description %></td>
+                <td><%= service.date_start.to_date().to_formatted_s(:rfc822) %></td>
+                <td><%= service.date_end.to_date().to_formatted_s(:rfc822) %></td>
+                <td><%= link_to 'Show', service %></td>
+                <td><% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= link_to 'Accept', accept_service_path(service) %><%end%></td>
+                <td><% if !current_user.nil?&&service.creator_id==current_user.id %><%= link_to 'Edit', edit_service_path(service) %><%end%></td>
+                <td><% if !current_user.nil?&&service.creator_id==current_user.id %><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %><%end%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% end %>
+        <br>
+      </div>
+    </div>
+
+

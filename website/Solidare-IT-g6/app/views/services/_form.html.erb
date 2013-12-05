@@ -3,11 +3,13 @@
   <%=f.radio_buttons :is_demand, { "Demand" => true, "Offer" => false }, :label => "What do you want to offer ?"%>
 
     <%= f.text_field :title %>
-    <%= f.collection_select :category_id, Category.all, :id, :title %>
+    <%= f.collection_select :category_id, get_all_root_categories, :id, :title %>
     <%= f.text_area :description %>
     <%= f.file_field :photo %>
     <%= f.datetime_select :date_start, :default => 1.hours.from_now %>
     <%= f.datetime_select :date_end, :default => 1.days.from_now %>
+
+    <div style="display:none"><%= f.text_field :creator_id,  content:@service.creator_id %></div>
     <% if type=="new"%>
       <%= f.submit "Create service",:class =>"btn btn-primary"  %>
     <% else %>

@@ -4,7 +4,7 @@ class ServicesController < ApplicationController
   
   helper_method :get_accepters
 
-  #GET /user/following_services
+  #GET /following_services
   def following_services
     if user_signed_in?
       @following = Follower.where("user_id = :user_id", :user_id => current_user.id)      
@@ -34,7 +34,7 @@ class ServicesController < ApplicationController
       notify_owner(@service, 'ACCEPT')
       notify(@service, 'ACCEPT')
       respond_to do |format|
-        format.html { redirect_to my_services_path, notice: 'you have accepted a service' }
+        format.html { redirect_to service_path, :method => :get, notice: 'you have accepted a service' }
 	  end
     #else
      # end
@@ -72,6 +72,8 @@ class ServicesController < ApplicationController
   def index
     respond_to do |format|
         format.html { redirect_to match_path }
+        format.json { redirect_to match_path }
+        format.js {redirect_to match_path(params[:page])}
       end
   end
 
@@ -82,14 +84,22 @@ class ServicesController < ApplicationController
     if @can
     @service = Service.find(params[:id])
    #NETTOYER ca pour faire une seule fois la requete followers
-    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id) 
+
+    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)
+    @users = User.all 
     end
   end
 
   # GET /services/new
+  #  /users_managed/:serv_id/services/new
   def new
     if user_signed_in?
       @service = Service.new
+      if params[:serv_id]== nil 
+            @service.creator_id=current_user.id
+      else
+            @service.creator_id = params[:serv_id]
+      end
     else
       dont_see
     end
@@ -106,7 +116,7 @@ class ServicesController < ApplicationController
   # POST /services.json
   def create
       @service = Service.new(service_params)
-      @service.creator_id=current_user.id
+
 
       respond_to do |format|
         if @service.save
@@ -116,6 +126,7 @@ class ServicesController < ApplicationController
           show_error(format,'new',@service)
         end
       end
+
   end
 
   # PATCH/PUT /services/1
@@ -142,6 +153,16 @@ class ServicesController < ApplicationController
     if !(@service.creator_id==current_user.id)
       dont_see
     else
+      @notifications = Notification.where("service_id = :service_id", :service_id => @service.id)
+      @notifications.each do |notif|
+        notif.destroy
+      end
+      
+      @followers = Follower.where("service_id = :service_id", :service_id => @service.id)
+      @followers.each do |follower|
+        follower.destroy
+      end
+      
       @service.destroy
       respond_to do |format|
         format.html { redirect_to services_url }
@@ -167,18 +188,19 @@ class ServicesController < ApplicationController
     #TODO update karma
     respond_to do |format|
        if @transaction.save && @user.save
-         format.html { redirect_to my_services_path, notice: 'thanks for your feedback !' }
-         format.json { head :no_content }
+           format.html { redirect_to my_services_path(@user), notice: 'thanks for your feedback !' }
+           format.json { head :no_content }
        else
-         show_error(format,'my_services',@transaction)#TODO doesn't work
+         #TODO have a red error message
+         format.html { redirect_to my_services_path(@user), notice: 'An error occur while saving feedback!' }
        end
      end
   end
   
   def follow   
     if user_signed_in?
-      @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
-      if @followers.size == 0
+      @followers = Follower.where(:service_id => @service.id).where(:user_id => current_user.id)
+      if @followers.empty?
         notify_owner(@service, 'FOLLOW')
         @follower = Follower.new
         @follower.service = @service
@@ -187,12 +209,10 @@ class ServicesController < ApplicationController
           if @follower.save
             format.html{redirect_to request.referer, notice: 'You follow the service'}
           else
-            show_error(format, 'show', @follower)
+            show_error(format, 'services/show', @follower)
           end
         end
-     else
-       show_error(format, 'show', @follower)
-     end
+      end
     else
       dont_see
     end
@@ -250,7 +270,7 @@ class ServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:title,:description, :date_start, :date_end,:is_demand, :photo)
+      params.require(:service).permit(:category_id,:title,:description, :date_start, :date_end,:is_demand, :photo, :creator_id)
     end
 
     def transaction_params

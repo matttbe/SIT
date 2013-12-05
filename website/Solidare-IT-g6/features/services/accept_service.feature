@@ -14,12 +14,14 @@ Feature: Accept a Service
       And I am logged in
       When I visit the page of one service
       And I click on the Accept link
+	  And I click on the See my services link
       Then I should see the service in my services espace 
 
     Scenario: Validated user accept a not own service
       And I am logged in
       When I visit the page of one service
       And I click on the Accept link
+	  And I click on the See my services link
       Then I should see the service in my services espace 
 
     Scenario: Validated user can not accept a not own service that have already accepted

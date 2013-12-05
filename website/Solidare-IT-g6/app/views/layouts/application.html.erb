@@ -5,6 +5,8 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
   <script>
       $(document).ready(function(){
           $("#show_option").click(function(){
@@ -37,6 +39,14 @@
               <li><a href="/admin">Admin</a></li>
           <% end %>
 
+          <% if !current_user.nil? && current_user.organisations.length!=0 %>
+              <% if current_user.organisations.length == 1%>
+                   <li><a href="<%=mainmenu_organisations_path(current_user.organisations.first.id)%>"> Organisations </a></li>
+              <% else %>
+                   <li><a href="<%=organisation_choose_path%>"> Organisations </a></li>
+              <% end %>
+          <%end%>
+
           <% if location==group_index_path %>
                                                           <li class="active">
                                                       <% else %>
@@ -54,7 +64,7 @@
     <div class="container">
     <div style="text-align: center;"><img src="/images/logo.png" alt ="logo" align="center"></img></div>
     <h1>Solidare-it</h1>
-    <p>Un site solidaire!</p>
+    <p>A solidare website !</p>
 
     <%= render 'search/form' %>
   </div>
