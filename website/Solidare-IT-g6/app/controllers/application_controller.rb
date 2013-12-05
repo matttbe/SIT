@@ -4,6 +4,18 @@ class ApplicationController < ActionController::Base
 
   def can_manage_orga
   end
+
+  def give_badge_transaction(transaction)
+    @user=User.find(transaction.user_id)
+    case
+    when @user.karma>0
+      @user.add_badge(2)
+    when @user.karma>5
+      @user.add_badge(3)
+    when @user.karma>10
+      @user.add_badge(4)
+    end
+  end
   
   def create_group_notif(group, type)
     group.users.each do |user|
@@ -189,6 +201,10 @@ class ApplicationController < ActionController::Base
         sign_out @u
         redirect_to root_path, alert: "A admin must first accept you.  Be patient !"
     end
+  end
+
+  def add_unique_badge(user,id)
+    
   end
 
   def authenticate_active_admin_user!
