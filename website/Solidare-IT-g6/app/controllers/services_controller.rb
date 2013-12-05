@@ -184,7 +184,12 @@ class ServicesController < ApplicationController
   #PUT /transaction/:id
   def create_transaction
     @transaction=Transaction.new(transaction_params)
-    @transaction.user_id=@service.creator_id
+    if @service.creator_id==current_user
+      @transaction.user_id=@service.matching_service.creator_id
+    else
+      @transaction.user_id=@service.creator_id
+    end
+    
     @transaction.service_id=@service.id
     @user=User.find(@transaction.user_id)
     @user.karma=@user.karma+@transaction.feedback_evaluation
