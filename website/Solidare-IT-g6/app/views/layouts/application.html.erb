@@ -52,6 +52,9 @@
           <% end %>
 
           <!--Organisations button-->
+          <%unless current_user.nil?%>
+          <% logger.debug current_user.organisations.length%>
+          <%end%>
           <% if !current_user.nil? && current_user.organisations.length!=0 %>
               <% if current_user.organisations.length == 1%>
                    <li><a href="<%=mainmenu_organisations_path(current_user.organisations.first.id)%>"> Organisations </a></li>
@@ -76,7 +79,7 @@
       </div>
     </nav>
 
-      <% unless location == '/'%>
+      <% unless location == '/' and current_user.nil?%>
       <div class="container">
         <div style="text-align: center;"><img src="/images/logo.png" alt ="logo" align="center"></img></div>
               <h1>Solidare-it</h1>
