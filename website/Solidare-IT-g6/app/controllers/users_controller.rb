@@ -1,12 +1,29 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :my_services , :update, :destroy]
 
+   # GET /user/:user_id/services
+  def my_services
+    if user_signed_in?
+      @services = current_user.own_services.order(:is_demand)
+    else
+      dont_see
+    end
+  end
   
+  def show
+    protect_param_integer
+    if @can
+     @user = User.find(params[:user_id])
+     @services = Service.where("creator_id = :user_id", :user_id => @user.id)
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      #COMMENT CREATING ERROR
+      @user = User.find(params[:user_id])  
+      @following = Follower.where("user_id = :user_id", :user_id => current_user.id)   
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -44,6 +44,7 @@ end
 ### GIVEN ###
 Given /^The database contains services$/ do
   create_user
+  #clear_DB
   add_service
   add_not_my_service
 end

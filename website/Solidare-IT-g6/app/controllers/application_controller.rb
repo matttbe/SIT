@@ -8,7 +8,11 @@ class ApplicationController < ActionController::Base
     @notification = nil
     if @notifications_list.size > 0
       @notifications_list.each do |notif|
-        if notif.notification_type == type 
+        if type == 'FOLLOW' and notif.notification_type == 'UNFOLLOW'
+          @notification = notif
+        elsif type == 'UNFOLLOW' and notif.notification_type == 'FOLLOW'
+          @notification = notif
+        elsif notif.notification_type == type 
           @notification = notif
         else
           @notification = Notification.new
@@ -78,25 +82,32 @@ class ApplicationController < ActionController::Base
     return link
   end
 
-  def getAllCategoriesChilds(category)
+  def get_categories_from_node(category, withChild)
     cats = Array.new
     category.childs.each do |child|
       cats << child
-      childs = getAllCategoriesChilds(child)
-      if not childs.empty?
-        cats << childs
+      if withChild
+        childs = get_categories_from_node(child, withChild)
+        if not childs.empty?
+          cats << childs
+        end
       end
     end
     cats
   end
 
-  def getAllCategoriesRootOrChilds(withChild)
+  def get_categories_from_node_id(cat_id, withChild)
+    cat = Category.find(cat_id)
+    get_categories_from_node(cat, withChild)
+  end
+
+  def get_all_categories_from_root(withChild)
     cats = Array.new
     Category.all.each do |cat|
-      if cat.parent.nil?
+      if cat.parent_cat.nil?
         cats << cat
         if withChild
-          childs = getAllCategoriesChilds(cat)
+          childs = get_categories_from_node(cat, withChild)
           if not childs.empty?
             cats << childs
           end
@@ -106,15 +117,15 @@ class ApplicationController < ActionController::Base
     cats
   end
 
-  def getAllCategories
-    getAllCategoriesRootOrChilds(true)
+  def get_all_categories
+    get_all_categories_from_root(true)
   end
 
-  def getAllRootCategories
-    getAllCategoriesRootOrChilds(false)
+  def get_all_root_categories
+    get_all_categories_from_root(false)
   end
 
-  helper_method :generateLink, :getAllCategories, :getAllCategoriesChilds, :getAllRootCategories
+  helper_method :generateLink, :get_all_categories, :get_all_root_categories, :get_categories_from_node, :get_categories_from_node_id
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

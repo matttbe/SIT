@@ -2,27 +2,13 @@ class ServicesController < ApplicationController
   before_action :set_service, only: [:edit, :update, :destroy, :accept_service, :follow, :unfollow]
   before_action :set_good_service, only: [:create_transaction, :new_transaction]
 
-  #GET /user/following_services
+  #GET /following_services
   def following_services
     if user_signed_in?
       @following = Follower.where("user_id = :user_id", :user_id => current_user.id)      
     end
   end
 
-  # GET /user/services
-  # GET /users_managed/:serv_id/managed_services/
-  def my_services
-    if user_signed_in?
-        if params[:serv_id] == nil
-            @services = current_user.own_services.order(:is_demand)
-        else 
-            @managed_user = User.find(params[:serv_id])
-            @services = @managed_user.own_services.order(:is_demand)
-        end
-    else
-      dont_see
-    end
-  end
 
   # GET /services/:id/accept
   def accept_service
@@ -32,7 +18,7 @@ class ServicesController < ApplicationController
       create_quick_service
       @service.matching_service=@serviceQ
       respond_to do |format|
-        format.html { redirect_to my_services_path, notice: 'you have accepted a service' }
+        format.html { redirect_to my_services_path(current_user), notice: 'you have accepted a service' }
       end
     else
       #TODO
@@ -56,7 +42,8 @@ class ServicesController < ApplicationController
     if @can
     @service = Service.find(params[:id])
    #NETTOYER ca pour faire une seule fois la requete followers
-    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)  
+    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)
+    @users = User.all 
     end
   end
 
@@ -158,18 +145,19 @@ class ServicesController < ApplicationController
     #TODO update karma
     respond_to do |format|
        if @transaction.save && @user.save
-         format.html { redirect_to my_services_path, notice: 'thanks for your feedback !' }
-         format.json { head :no_content }
+           format.html { redirect_to my_services_path(@user), notice: 'thanks for your feedback !' }
+           format.json { head :no_content }
        else
-         show_error(format,'my_services',@transaction)
+         #TODO have a red error message
+         format.html { redirect_to my_services_path(@user), notice: 'An error occur while saving feedback!' }
        end
      end
   end
   
   def follow   
     if user_signed_in?
-      @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => @service.id, :user_id => current_user.id)
-      if @followers.size == 0
+      @followers = Follower.where(:service_id => @service.id).where(:user_id => current_user.id)
+      if @followers.empty?
         notify_owner(@service, 'FOLLOW')
         @follower = Follower.new
         @follower.service = @service
@@ -178,12 +166,10 @@ class ServicesController < ApplicationController
           if @follower.save
             format.html{redirect_to request.referer, notice: 'You follow the service'}
           else
-            show_error(format, 'show', @follower)
+            show_error(format, 'services/show', @follower)
           end
         end
-     else
-       show_error(format, 'show', @follower)
-     end
+      end
     else
       dont_see
     end

@@ -28,7 +28,7 @@
     <li class="divider"></li>
     <li class="dropdown-header">Services</li>
     <li><%= link_to "Add a service",  new_service_path, :role=>"menuitem" %></li>
-    <li><%= link_to "See my services",  my_services_path, :role=>"menuitem" %></li>
+    <li><%= link_to "See my services",  my_services_path(current_user), :role=>"menuitem" %></li>
     <li><%= link_to "See the services I follow",  following_services_path, :role=>"menuitem" %></li>
     <li class="divider"></li>
     <li class="dropdown-header">Organisation</li>
@@ -59,12 +59,3 @@
   <li><%= link_to "Sign in", sign_in_path %></li> 
 
 <% end %>
-
-
-
-
-
-
-
-
-

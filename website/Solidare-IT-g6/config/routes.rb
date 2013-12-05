@@ -1,9 +1,10 @@
 SolidareItG6::Application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
   resources :group do
-	resources :group_posts do
-	  resources :group_post_comments	
-	end
+  	resources :group_posts do
+  	  resources :group_post_comments	
+  	end
   end
   
   resources :organisations
@@ -25,9 +26,15 @@ SolidareItG6::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'index#home'
 
+  #group routing
+  get '/group/:id' => 'group#show', :as => 'show_group' 
+
+  #users routing
+  get '/user/:user_id' => 'users#show', :as => "show_profile"  
+  get '/following/services' => 'services#following_services', :as=>"following_services"
+
   #services routing
-  get '/user/services' => 'services#my_services', :as =>"my_services"
-  get '/user/following_services' => 'services#following_services', :as=>"following_services"
+  get '/user/:user_id/services/' => 'users#my_services', :as =>"my_services"
   get '/services/:id/accept' => 'services#accept_service', :as =>"accept_service"
   get '/users_managed/:serv_id/services/new' =>'services#new', :as =>"new_service_managed"
   get '/users_managed/:serv_id/managed_services/' => 'services#my_services', :as =>"managed_users_services"
@@ -64,7 +71,12 @@ SolidareItG6::Application.routes.draw do
   
   #address routing
   resources :address
-
+  get '/org_adresses/:org_id/new' => 'address#new', :as => "new_address_org"
+  get '/org_adresses/:org_id/main' => 'address#main', :as =>"main_address_org"
+  post '/org_adresses/:org_id/create'=> 'address#create', :as=>'create_address_org'
+  get '/managed_adresses/:man_id/new' => 'address#new', :as => "new_address_man"
+  get '/managed_adresses/:man_id/main' => 'address#main', :as =>"main_address_man"
+  post '/managed_adresses/:man_id/create'=> 'address#create', :as=>'create_address_man'
   #post '/adresses' => 'adresses#create', :as=>"addresses_create_path"
   get '/adresses/:id/main' =>'address#main', :as=> "main_address"
 
@@ -75,5 +87,8 @@ SolidareItG6::Application.routes.draw do
   
   #notification routing
   get '/notifications' => 'notifications#show', :as => "show"
+
+  #orga admin
+  match 'organisation_manage/:id_orga/managed_users/:id_coworker/new'=> 'organisation_manage/managedusers#new', via: :get, :as=>'new_managed_user_for_coworker'
   
 end
