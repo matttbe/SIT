@@ -17,7 +17,7 @@ SolidareItG6::Application.routes.draw do
 
   # devise_for :admin_users, ActiveAdmin::Devise.config ## => we took info from Devise
   ActiveAdmin.routes(self)
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => 'users/registrations'}
   #ActiveAdmin.routes(self)
 
   # The priority is based upon order of creation: first created -> highest priority.
