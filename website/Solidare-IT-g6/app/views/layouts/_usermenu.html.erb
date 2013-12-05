@@ -2,25 +2,24 @@
 
 <li><%= link_to show_notifications_path(current_user), :title => "Notifications" do %>
     Notifications
-	<span class="badge"><%= current_user.notifications_number %></span>
-<% end %></li>
+    <span class="badge"><%= current_user.notifications_number %></span>
+  <% end %>
+</li>
 <li class="divider-vertical"></li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
     <%= image_tag current_user.avatar.url(:thumb) %>
-    <%=  current_user.all_name %>
-    <%  @karma=current_user.karma %>
+    <%= current_user.all_name %>
+    <% @karma = current_user.karma %>
     <% if @karma > 0 %>
       <span class="badge badge-success">
     <% elsif @karma < 0 %>
       <span class="badge badge-important">
     <% else %>
        <span class="badge">
-
     <% end %>
     <%= @karma %>
     </span>
-    <b class="caret"></b>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Personnal</li>
@@ -57,6 +56,14 @@
 
 <% else %>
   <li><%= link_to "Sign up", create_account_path %></li>
-  <li><%= link_to "Sign in", sign_in_path %></li> 
+  <li class="divider-vertical"></li>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in</a>
+    <ul class="dropdown-menu" role="menu">
+      <div id="login-menu">
+        <%= render "devise/sessions/new" %>
+      </div>
+    </ul>
+  </li>
 
 <% end %>
