@@ -1,17 +1,17 @@
 <% location= request.env['PATH_INFO'] %>
 <div class="full-width-header" id="sticker"> 
   <div class="row">
-            <div class="col-md-8 col-md-offset-1">
-              <h3 >Search Result</h3> 
-            </div>
-  <div class="col-md-2">
-  <% if !current_user.nil?%>
-    <%= link_to 'New Service', new_service_path, :class=>"btn btn-primary" %>
-  <% end %>
+    <div class="col-md-8 col-md-offset-1">
+      <h3 >Search Result</h3> 
+    </div>
+    <div class="col-md-2">
+      <% if !current_user.nil?%>
+        <%= link_to 'New Service', new_service_path, :class=>"btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-  
+  <div class="container">
   <div class="row service-list">
     <div class="col-md-3">
       <div id="sticker-filter">
@@ -81,6 +81,7 @@
           <% end %>
         </div>
       </div>
+    </div>
   
 
 
