@@ -10,14 +10,14 @@ def add_follower
     @visitor[:email] = $i.to_s + @visitor[:email]
     @visitor[:firstname] = $i.to_s
 
-    @user = User.create!(@visitor)
+    user = User.create!(@visitor)
 
-    f = Follower.where(:service_id => @service.id).where(:user_id => @user.id).first
+    f = Follower.where(:service_id => @service.id).where(:user_id => user.id).first
     f.destroy unless f.nil?
 
     @follow = Follower.new
     @follow[:service_id] = @service.id
-    @follow[:user_id] = @user.id
+    @follow[:user_id] = user.id
     $i += 1
     @follow.save
   end
@@ -27,29 +27,37 @@ def add_follower
   visit @link
 end
 
+def i_follow 
+   @admin=User.where(:email => "maitre@dieu.ciel").first
+   @service = Service.where("creator_id=:id",:id=>@admin.id).first
+   print('############### ')
+   print(@service.id)
+   print(' ###############')
+   find_user
+   @follow = Follower.new
+   @follow[:service_id]=@service.id
+   @follow[:user_id]=@user.id
+   @follow.save  
+end
+
+### GIVEN ###
+
+Given /^I follow a service$/ do
+  i_follow
+end
+
 ### WHEN ###
 
 When /^I visit the page of the services followed$/ do
-   visit 'following/services'
+   visit '/following/services'
 end
 
 When /^Some users follow my service$/ do
   add_follower
 end
 
-When /^I follow a service$/ do
-   @admin=User.where(:email => "maitre@dieu.ciel").first
-   @service = Service.where("creator_id=:id",:id=>@admin.id).first
-   @user = find_user
-   @follow = Follower.new
-   @follow[:service_id]=@service.id
-   @follow[:user_id]=@user.id
-   @follow.save
-
-end
-
 When /^The service is finished$/ do
-    
+  # ????
 end
 
 
@@ -80,5 +88,12 @@ Then(/^I should see an accept link$/) do
 end
 
 Then(/^I can not see the service anymore$/) do
-  
+  # ????
+end
+
+Then(/^I can see the profiles of my followers$/) do
+  find_user
+  @service = Service.where("creator_id=:id",:id=>@user.id).first
+  @follower = Follower.where(:service_id => @service.id).first
+  visit '/user/'+@follower.user_id.to_s
 end

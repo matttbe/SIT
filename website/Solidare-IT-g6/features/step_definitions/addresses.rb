@@ -43,7 +43,6 @@ When(/^I click on the edit link of the first address in the list$/) do
   #@addr = Address.all.first
   puts @address.id
   visit '/address/'+@address.id.to_s+'/edit'  
-  show_page
 end
 ### THEN ###
 Then /^I can not see the manage my adresses link$/ do

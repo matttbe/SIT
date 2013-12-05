@@ -226,6 +226,11 @@ When /^I visit a not own address$/ do
   visit @route
 end
 
+When /^I visit my profil$/ do
+  @user = find_user
+  visit 'user/'+@user.id.to_s
+end
+
 ### THEN ###
 Then /^I see a return message on sign in page$/ do
   assert page.has_content?("You need to sign in or sign up before continuing.")
@@ -250,4 +255,10 @@ end
 Then /^I should see my name$/ do
   create_user
   assert page.has_content?(@user[:name])
+end
+
+Then /^I can see all of my personnal informations$/ do
+  assert page.has_content?("My coordinate")
+  assert page.has_content?("My Services")
+  assert page.has_content?("My Groups")
 end
