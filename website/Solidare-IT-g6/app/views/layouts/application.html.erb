@@ -96,8 +96,9 @@
             <div class="carousel-caption">
                            <h1>Welcome to Solidare-It website</h1>
               <p class="lead">Share services easily with people in the need </p>
-              <%= link_to 'Sign up now',create_account_path , :class=>"btn btn-primary btn-lg" %>
-            
+              <% if current_user.nil? %>
+                <%= link_to 'Sign up now', create_account_path , :class=>"btn btn-primary btn-lg" %>
+              <% end %>
             </div>
           
         </div>
