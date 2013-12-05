@@ -29,9 +29,9 @@
                 <%if !service.address.nil?%> <p class="service-desc"><%= service.address.country %></p><% end %>
                 </p>
 
-                <a class="pull-right" href="#">
-                  <h7><%= (service.date_end - service.date_start).to_formatted_s(:rfc822) %> left</h7>
-                </a>
+                  <% sec = (service.date_end - DateTime.now) %>
+
+                  <h7 class="pull-right timeleft"><%= (sec / 86400).round %> days <%= ((sec % 86400) / 3600).round %> hours <%= ((((sec % 86400) / 3600) % 3600) / 60).round %> min <%= (sec%60).round %> s. left</h7>
 
               </div>
 </div>
