@@ -73,10 +73,17 @@ class GroupController < ApplicationController
 	  GroupUserRelation.destroy(t_d.id)
 	end
 	@user = User.find(params[:u_id])
-	if @user == current_user
+	
+	@group = Group.find(params[:g_id])
+	if @group.secret && GroupUserRelation.where(group_id: params[:g_id]).blank?#no more user on group	
+		@group.destroy
 		redirect_to group_index_path
 	else
-		redirect_to edit_group_path(Group.find(params[:g_id]))
+		if @user == current_user
+			redirect_to group_index_path
+		else
+			redirect_to edit_group_path(Group.find(params[:g_id]))
+		end
 	end
   end
 
