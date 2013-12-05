@@ -1,38 +1,49 @@
-<div class="container">
+
+
 <%if current_user.nil? %>
     <%@best_karma = User.order(:karma).last%>
 
      <hr class="featurette-divider">
 
-    <% if not @best_karma.nil? %>
-      <div class="featurette">
-        <span class="featurette-image pull-right"><span class="glyphicon glyphicon-star" style="font-size:75px;"></span> </span>
-        <h2 class="featurette-heading">Our Best User <span class="muted"> </span></h2>
-        <p class="lead">Regarding his karma, <%=@best_karma.firstname+' '+@best_karma.name%> is the best user of our website. Congratulations !</p>
-      </div>
-    <% end %>
-
-      <hr class="featurette-divider">
-
-      <div class="featurette">
-        <img class="featurette-image pull-left" src="">
-        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="muted">See for yourself.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    <div class="row">
+      <div class="col-md-4">
+        <% if not @best_karma.nil? %>
+          <div class="featurette">
+            <span class="featurette-image pull-right"><span class="glyphicon glyphicon-star" style="font-size:75px;"></span> </span>
+            <h2 class="featurette-heading">Our Best User <span class="muted"> </span></h2>
+            <p class="lead">Regarding his karma, <%=@best_karma.firstname+' '+@best_karma.name%> is the best user of our website. Congratulations !</p>
+          </div>
+        <% end %>
       </div>
 
-      <hr class="featurette-divider">
-
-      <div class="featurette">
-        <img class="featurette-image pull-right" src="">
-        <h2 class="featurette-heading">And lastly, this one. <span class="muted">Checkmate.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      <div class="col-md-4">
+        <div class="featurette">
+          <img class="featurette-image pull-left" src="">
+          <h2 class="featurette-heading">Oh yeah, it's that good. <span class="muted">See for yourself.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
       </div>
 
-      <hr class="featurette-divider">
+      <div class="col-md-4">
+        <div class="featurette">
+          <img class="featurette-image pull-right" src="">
+          <h2 class="featurette-heading">And lastly, this one. <span class="muted">Checkmate.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+      </div>
+
+    </div>
+
 
 <%else%>
 
-<% @closest_services = Service.where(:quick_match=>false).joins(:address).sort_by{|r| r.distance(current_user.main_address.latitude,current_user.main_address.longitude)}.reverse %>
+<div class="container">
+
+<% if current_user.main_address.nil? %>
+  <% @closest_services = Service.where(:quick_match=>false) %>
+<% else %>
+  <% @closest_services = Service.where(:quick_match=>false).joins(:address).sort_by{|r| r.distance(current_user.main_address.latitude,current_user.main_address.longitude)}.reverse %>
+<% end %>
 
     <% @all = Service.where(:quick_match=>false) %>
     <% random = Random.rand(@all.size) %>
