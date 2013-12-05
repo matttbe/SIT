@@ -88,7 +88,14 @@ SolidareItG6::Application.routes.draw do
   #notification routing
   get '/notifications' => 'notifications#show', :as => "show"
 
+
   #orga admin
   match 'organisation_manage/:id_orga/managed_users/:id_coworker/new'=> 'organisation_manage/managedusers#new', via: :get, :as=>'new_managed_user_for_coworker'
-  
+
+  #categories routing 
+  get 'child_categories/:id' => 'application#get_child_categories'
+
+  #orga admin
+  match 'organisation_manage/managedservices/:id_managed/new'=> 'organisation_manage/managedservices#new', via: :get, :as=>'new_service_for_managed_user'
+
 end
