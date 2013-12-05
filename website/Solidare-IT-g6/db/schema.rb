@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20131205123600) do
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "role"
   end
 
   add_index "group_user_relations", ["group_id"], name: "index_group_user_relations_on_group_id"

@@ -40,6 +40,6 @@ Feature: User
       Given I exist as a non validated user
         And I am not logged in
       When I sign in with valid credentials
-      Then I see a A admin must first accept you.  Be patient ! message
+      Then I see a An admin must first accept you. Please be patient! message
       When I return to the site
       Then I should be signed out

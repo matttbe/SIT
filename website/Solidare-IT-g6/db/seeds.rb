@@ -67,7 +67,7 @@ else
   o3 = Organisation.create! :name => "Les savant de la rive ouest", :creator_id => u2.id
 
   #coworker
-  co1=Coworker.create! :organisation_id=>o1.id, :user_id=>u2.id
+  co1 = Coworker.create! :organisation_id => o1.id, :user_id => u2.id
 
   # links between classes
   u1.add_role :moderator, c22
