@@ -6,5 +6,4 @@ end
 ##WHEN##
 When(/^I fill the group form$/) do
   fill_in "group[name]", :with => "One direction forever"
-  show_page
 end

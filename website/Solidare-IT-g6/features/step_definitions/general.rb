@@ -21,7 +21,6 @@ Then(/^I should see a missing (.*) message$/)do |blank|
 end
 
 Then(/^I see a (.*) message$/)do |message|
-	show_page
   assert page.has_content?(message)
 end
 

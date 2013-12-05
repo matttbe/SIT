@@ -10,7 +10,6 @@ Feature: Add, edit and destroy a Group
       When I return to the site
       Then I see the create a group button
 
-    @wip
     Scenario: Validated user create a group
       And I am logged in
       When I return to the site
