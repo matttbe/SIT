@@ -32,6 +32,9 @@
 
 <% @closest_services = Service.where(:quick_match=>false).joins(:address).sort_by{|r| r.distance(current_user.main_address.latitude,current_user.main_address.longitude)}.reverse %>
 
+    <% @all = Service.where(:quick_match=>false) %>
+    <% random = Random.rand(@all.size) %>
+    <%= button_to 'Random service !', service_path(@all[random]), :class=>"btn btn-primary", :method => :get  %>
 
     <h4><span class="label label-default">Services close to you :</span></h4>
 
