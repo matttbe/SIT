@@ -8,10 +8,14 @@
                 </a>
                 <h3><%= service.title %></h3>
                 <div class="service-action">
+<<<<<<< HEAD
                   <%= button_to 'Show', service, :class=>"btn btn-info", :method => :get  %>
 
+=======
+>>>>>>> d8d51d4fc8d2d4da445462d11262b2f0ba958e19
                   <% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= button_to 'Accept', accept_service_path(service), :class=>"btn btn-success", :method => :get %><%end%>
-                  <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Edit', edit_service_path(service), :class=>"btn btn-warning", :method => :get %><%end%>
+                  <%= button_to 'Show', service, :class=>"btn btn-default", :method => :get  %>
+                  <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Edit', edit_service_path(service), :class=>"btn btn-default", :method => :get %><%end%>
                   <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Destroy', service, method: :delete, :class=>"btn btn-danger"%><%end%>
                   <% if user_signed_in? %>
                     <% @followers = Follower.where(:service_id => service.id).where(:user_id => current_user.id) %>
