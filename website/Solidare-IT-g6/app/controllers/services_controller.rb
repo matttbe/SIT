@@ -191,7 +191,7 @@ class ServicesController < ApplicationController
     #if @service.creator_id==current_user.id
     #  @transaction.user_id=@service.matching_service.creator_id
     #else
-    #  @transaction.user_id=@service.creator_id
+    @transaction.user_id=@service.creator_id
     #end
     
     @transaction.service_id=@service.id
