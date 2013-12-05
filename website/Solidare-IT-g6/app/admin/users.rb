@@ -33,7 +33,7 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
       
     end
     f.inputs "Organisation" do
-      if defined?(params[:id_orga])
+      if params.has_key?(:id_orga)
         f.collection_select :managed_org_id, Organisation.where("creator_id=:id",:id=>current_user.id).where("id=:id",:id=>params[:id_orga]), :id, :name
       else
         f.collection_select :managed_org_id, Organisation.where("creator_id=:id",:id=>current_user.id), :id, :name
@@ -41,7 +41,7 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
     end
 
     f.inputs "Coworker" do
-       if defined?(params[:id_coworker])
+       if params.has_key?(:id_coworker)
         @co=Coworker.where("id=:id",:id=>params[:id_coworker]).first
         f.collection_select :coworker_id, User.where(:id=>@co.user_id), :id, :all_name
        else
@@ -83,6 +83,7 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
       string = (0...8).map{ o[rand(o.length)] }.join
       @user.email= @user.name + @user.firstname + string + '@solidateit.com'
       @user.inscription_ok=true
+      @user.managed_by_organisation=true
       if @user.save
         respond_to do |format|
           format.html { redirect_to organisation_manage_coworker_path(@user.coworker_id), notice: 'You have successfully created a new managed user.' }

@@ -27,6 +27,7 @@ ActiveAdmin.register Service, :as => "Managed service" , namespace: :organisatio
       f.input :description, :input_html=> {:class => "autogrow"}
       f.input :date_start, :as => :datepicker
       f.input :date_end, :as => :datepicker
+      f.input :is_demand, :as => :radio, :label=>"is it a demand ?"
     end
     f.inputs "Category" do
       f.collection_select :category_id, Category.all, :id, :title
@@ -35,14 +36,20 @@ ActiveAdmin.register Service, :as => "Managed service" , namespace: :organisatio
       f.input :photo, :as=>:file, :hint=> f.template.image_tag(f.object.photo.url(:thumb))
     end
     f.inputs "Managed user" do
-      if defined?(params[:id_managed])
-        f.collection_select :managed_org_id, Organisation.where("creator_id=:id",:id=>current_user.id).where("id=:id",:id=>params[:id_orga]), :id, :name
+      if params.has_key?(:id_managed)
+        f.collection_select :creator_id, User.where("id=:id",:id=>params[:id_managed]), :id, :all_name
       else
-        @co=User.joins(:coworkers).includes(:organisations).where("organisations.creator_id=:id", :id=> current_user.id)
+        @co=User.joins(:coworker).where("coworkers.user_id=:id", :id=>current_user.id)
         f.collection_select :creator_id, @co, :id, :all_name
       end
     end
     f.actions
+  end
+
+  controller do
+    def permitted_params
+      params.permit(:managedservice => [:category_id,:title,:description, :date_start, :date_end,:is_demand, :photo, :creator_id])
+    end
   end
 
 end

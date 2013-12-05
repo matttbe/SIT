@@ -95,5 +95,7 @@ SolidareItG6::Application.routes.draw do
   #categories routing 
   get 'child_categories/:id' => 'application#get_child_categories'
 
-  
+  #orga admin
+  match 'organisation_manage/managedservices/:id_managed/new'=> 'organisation_manage/managedservices#new', via: :get, :as=>'new_service_for_managed_user'
+
 end
