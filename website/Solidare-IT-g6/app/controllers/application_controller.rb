@@ -35,14 +35,14 @@ class ApplicationController < ActionController::Base
       @notification = Notification.new
       @notification.notified_user = user.id
       @notification.group = group
+      end      
+      @notification.notification_type = type
+      @notification.creator_id = current_user.id 
+      @notification.seen = false
+      Notifier.send_notif(user,@notification, "Group Notification").deliver
+      if ! @notification.save
+          show_error(format,'new',@notification)
       end
-    end
-    @notification.notification_type = type
-    @notification.creator_id = current_user.id 
-    @notification.seen = false
-    Notifier.send_notif(user,@notification, "Group Notification").deliver
-    if ! @notification.save
-        show_error(format,'new',@notification)
     end
   end
   
