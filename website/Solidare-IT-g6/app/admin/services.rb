@@ -47,9 +47,31 @@ ActiveAdmin.register Service, :as => "Managed service" , namespace: :organisatio
   end
 
   controller do
+    def create
+      @service = Service.new(service_params)
+      @organisation=User.find(service_params[:creator_id]).coworker.organisation
+      @service.org_id=@organisation.id
+      @service.save
+      #respond_to do |format|
+      #  format.html{ redirect_to request.referer}
+      #end
+    end
+
+    def service_params
+      params.require(:managedservice).permit(:category_id,:title,:description, :date_start, :date_end,:is_demand, :photo, :creator_id)
+    end
+    
     def permitted_params
       params.permit(:managedservice => [:category_id,:title,:description, :date_start, :date_end,:is_demand, :photo, :creator_id])
     end
   end
 
+end
+
+ActiveAdmin.register_page "Managed Services", namespace: :organisation_manage  do
+  menu false
+
+  content do
+    render :partial =>'all_managed_services.html.arb'
+  end
 end

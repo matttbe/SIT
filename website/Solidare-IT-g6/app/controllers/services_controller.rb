@@ -34,12 +34,13 @@ class ServicesController < ApplicationController
       notify_owner(@service, 'ACCEPT')
       notify(@service, 'ACCEPT')
       respond_to do |format|
-        format.html { redirect_to service_path, :method => :get, notice: 'you have accepted a service' }
-	  end
-    #else
-     # end
-      #TODO
-    end  
+        expire_fragment(@service)
+        format.html { redirect_to my_services_path(current_user), notice: 'you have accepted a service' }
+      end
+    else
+      #TODO verify this generated error
+      show_error(format,'services/show',@service)
+    end
   end
 
   def choose
@@ -138,6 +139,7 @@ class ServicesController < ApplicationController
       notify(@service, 'EDIT')
       respond_to do |format|
         if @service.update(service_params)
+          expire_fragment(@service)
           format.html { redirect_to @service, notice: 'Service was successfully updated.' }
           format.json { head :no_content }
         else
@@ -164,6 +166,7 @@ class ServicesController < ApplicationController
       end
       
       @service.destroy
+      expire_fragment(@service)
       respond_to do |format|
         format.html { redirect_to services_url }
         format.json { head :no_content }
@@ -188,6 +191,7 @@ class ServicesController < ApplicationController
     #TODO update karma
     respond_to do |format|
        if @transaction.save && @user.save
+           expire_fragment(@service)
            give_badge_transaction(@transaction)
            format.html { redirect_to my_services_path(@user), notice: 'thanks for your feedback !' }
            format.json { head :no_content }
