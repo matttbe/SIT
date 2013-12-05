@@ -1,0 +1,61 @@
+<% if GroupUserRelation.where(:user_id => current_user.id, :group_id => @group.id, :role => 'Admin').empty?%>
+	Not allowed
+<% else %>
+
+<h1>Manage group</h1>
+
+<%= form_for :group, url: e_group_path ,:html => { :multipart => true  } do |f| %>
+  <p>
+    <%= f.label :Name %>
+	<%= f.text_field :name %>
+  </p>
+ 
+  <p>
+    <%= f.label :Description %>
+    <%= f.text_area :description%>
+  </p>
+
+  <%= f.file_field :photo %>
+  <p>
+	Private ?
+	<%= f.check_box :private %>
+	If checked, people will be able to reach the group and see who's in it, but not to see the post and post themselves.
+  </P>
+  <p>
+	Secret ?
+	<%= f.check_box :secret %>
+	If checked, the group will be secret and reachable only for members.
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<%if !@basic_users.nil? && !@basic_users.empty?%>
+
+<p>
+Members
+</p>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+	<th></th>
+	<th></th>
+  </tr>
+ 
+<% @basic_users.each do |user|%>
+  <tr>
+    <td><%= user.all_name %></td>
+	<td><%=  %>
+    <td><%= link_to 'Delete User', group_delete_user_path(@group,user), :method => :post, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+<% end %>
+
+
+<%= link_to 'Back', :back %>
+
+<% end %>

@@ -31,7 +31,7 @@
 	          		<%end%>
 	          	<%end%>
 	          	<% if !@member%>
-		          	<span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user,:class=>"btn btn-success "}%></span>
+		          	<span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user, :role => 'basic', :class=>"btn btn-success "}%></span>
 	          	<%end%>
           	<% end %></td>
       </tr>

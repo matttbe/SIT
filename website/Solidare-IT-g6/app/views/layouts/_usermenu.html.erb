@@ -17,6 +17,7 @@
       <span class="badge badge-important">
     <% else %>
        <span class="badge">
+
     <% end %>
     <%= @karma %>
     </span>
@@ -39,7 +40,6 @@
     <% end %>
     <li><%= link_to "Create an organisation",  new_organisation_path, :role=>"menuitem" %></li>
     <li><%= link_to "Join an organisation",  join_organisation_path, :role=>"menuitem" %></li>
-
     <li class="divider"></li>
     <li class="dropdown-header">Group</li>
     <%if true %>

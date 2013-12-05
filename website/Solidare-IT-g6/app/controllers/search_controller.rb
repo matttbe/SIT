@@ -21,6 +21,7 @@ class SearchController < ApplicationController
       @services = Service.paginate(:page => params[:page]) #TODO : What do we do if none of the checkboxes are checked ?
     end
 
+
     #includes category infos
     @services=@services.includes(:category).references(:category)
     if (! params[:q].nil? and ! params[:q].empty? and !@services.nil?)

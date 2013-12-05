@@ -1,9 +1,10 @@
-
-
 <div class="service-box col-md-12">
   <div class="well well-large service">
+
                 <a class="pull-left" href="#">
-                  <%= image_tag service.photo.url(:thumb) %>
+                  <% cache(service) do %>
+                    <%= image_tag service.photo.url(:thumb) %>
+                  <% end %>
                 </a>
                 <h3><%= service.title %></h3>
                 <div class="service-action">
@@ -25,4 +26,3 @@
                 </p>
               </div>
 </div>
-

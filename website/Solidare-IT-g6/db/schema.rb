@@ -13,6 +13,14 @@
 
 ActiveRecord::Schema.define(version: 20131205123600) do
 
+  create_table "accept_services", force: true do |t|
+    t.integer  "service_id"
+    t.integer  "user_id"
+    t.boolean  "is_chosen_customer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
     t.text     "body"
@@ -122,6 +130,7 @@ ActiveRecord::Schema.define(version: 20131205123600) do
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "role"
   end
 
   add_index "group_user_relations", ["group_id"], name: "index_group_user_relations_on_group_id"
