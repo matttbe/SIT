@@ -22,11 +22,7 @@
       <div class="service-action">
 
         <% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= button_to 'Accept', accept_service_path(service), :class=>"btn btn-success", :method => :get %><%end%>
-<<<<<<< HEAD
-        <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Edit', edit_service_path(service), :class=>"btn btn-warning", :method => :get %><%end%>
-=======
         <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Edit', edit_service_path(service), :class=>"btn btn-default", :method => :get %><%end%>
->>>>>>> d8d51d4fc8d2d4da445462d11262b2f0ba958e19
         <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Destroy', service, method: :delete, :class=>"btn btn-danger"%><%end%>
         <% if user_signed_in?%>
         <% @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => service.id, :user_id => current_user.id)%>
@@ -35,12 +31,7 @@
         <%end%>
       </div>
 
-
-<<<<<<< HEAD
-    <%= button_to 'Back', '/search', :class=>"btn btn-back"  %>
-=======
     <%= button_to 'Back', '/search', :class=>"btn btn-default"  %>
->>>>>>> d8d51d4fc8d2d4da445462d11262b2f0ba958e19
 
   </p>
   <% if !current_user.nil?&&!@service.matching_service.nil?&&(@service.creator_id==current_user.id||@service.matching_service.creator_id=current_user.id)&&(@service.transaction.nil?||@service.matching_service.transaction.nil?)&&(@service.creator_id==current_user.id&&!User.joins(:accept_services).where(accept_services: {service_id: service.id, is_chosen_customer: true}).blank?) %>
