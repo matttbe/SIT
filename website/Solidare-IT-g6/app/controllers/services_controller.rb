@@ -183,16 +183,8 @@ class ServicesController < ApplicationController
   
   #PUT /transaction/:id
   def create_transaction
-    logger.info("+++++++++++++++++++++++++++++++++++++")
-    logger.info(@service.creator_id)
-    logger.info(@service.id)
-    logger.info(@service.creator_id)
     @transaction=Transaction.new(transaction_params)
-    #if @service.creator_id==current_user.id
-    #  @transaction.user_id=@service.matching_service.creator_id
-    #else
     @transaction.user_id=@service.creator_id
-    #end
     
     @transaction.service_id=@service.id
     @user=User.find(@transaction.user_id)
