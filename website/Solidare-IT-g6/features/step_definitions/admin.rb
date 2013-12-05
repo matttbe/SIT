@@ -32,3 +32,7 @@ Then /^I din't see it again on the dashboard$/ do
   @u = User.where(:email => "eddy@savoir.congo").first
   assert !page.has_content?(@u.email)
 end
+
+Then /^I see an error message because I'm not authorized to do that$/ do
+  assert page.has_content?("You are not authorized to perform this action.")
+end

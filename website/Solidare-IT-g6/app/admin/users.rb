@@ -10,6 +10,7 @@ ActiveAdmin.register User, :as => "Users" do
     if !user.nil?
     user.id_ok=true
     user.save
+    user.add_badge(1)
     Notifier.admin_validated(user).deliver
     end
     respond_to do |format|

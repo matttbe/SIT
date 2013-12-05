@@ -36,8 +36,9 @@ SolidareItG6::Application.routes.draw do
   #services routing
   get '/user/:user_id/services/' => 'users#my_services', :as =>"my_services"
   get '/services/:id/accept' => 'services#accept_service', :as =>"accept_service"
+  post '/services/:s_id/choose/:u_id' => 'services#choose', :as =>"choose"
   get '/users_managed/:serv_id/services/new' =>'services#new', :as =>"new_service_managed"
-  get '/users_managed/:serv_id/managed_services/' => 'services#my_services', :as =>"managed_users_services"
+  get '/users_managed/:user_id/managed_services/' => 'users#my_services', :as =>"managed_users_services"
 
   #search routing
   get '/search/(:page)' => 'search#match', :as=>"match"
@@ -47,6 +48,11 @@ SolidareItG6::Application.routes.draw do
   get '/transaction/:id' => 'services#new_transaction', :as=>"add_transaction"
   post '/transaction/:id' => 'services#create_transaction', :as=>"create_transaction"
   
+  #group routing
+  get '/user/groups' => 'group#my_groups', :as => "my_groups"  
+  post '/user/group/:id/edit' => 'group#update', :as => "e_group"
+  post '/group/:g_id/user/:u_id/delete' => 'group#delete_user', :as=> "group_delete_user"
+
   #organisation routing
   get '/manage_organisations' => 'organisations#manage', :as=>"manage_organisation"
   get '/join_organisations' => 'organisations#join_organisation', :as=>"join_organisation"

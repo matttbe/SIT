@@ -7,7 +7,25 @@ def new_service_offer
 end
 
 def new_service
-  @serviceNew = {:title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>true, :quick_match=>false,:category_id=>-1}
+	  @serviceNew = {:title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>true, :quick_match=>false,:category_id=>-1}
+end
+
+
+def choose_myself_for_service
+	@acceptService = AcceptService.where("user_id=:u_id AND service_id=:s_id",:u_id=>@user.id,:s_id=>@service.id).first
+	@acceptService.is_chosen_customer = true
+	@acceptSerice.save
+end
+
+def clear_DB
+	$i = 1
+	$num = 5
+
+	while $i < $num  do
+		@service=Service.where("id=:id",:id=>$i).first
+		@service.destroy unless @service.nil?
+       		$i+=1
+	end
 end
 
 def add_service
@@ -130,6 +148,10 @@ When(/^I give a feedback$/) do
   click_button "Give your feedback"
 end
 
+When(/^I am the chosen customer for one service$/) do
+	choose_myself_for_service
+end
+
 
 ### THEN ###
 
@@ -181,7 +203,7 @@ end
 
 Then(/^I should see the accept link$/) do
    assert page.has_content?(@serviceC[:title])
-   assert page.has_content?("Accept")
+   assert page.has_button?("Accept")
 end
 
 Then(/^I should not see the accept link$/) do

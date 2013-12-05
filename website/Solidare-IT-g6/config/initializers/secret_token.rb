@@ -10,3 +10,4 @@ require 'securerandom'
 # You can use `rake secret` to generate a secure secret key.
 
 SolidareItG6::Application.config.secret_token = ENV['SECRET_TOKEN']
+SolidareItG6::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']

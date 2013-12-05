@@ -26,3 +26,6 @@
 	end%>
 <h4>The services <%= @follow%></h4>
 <%= render 'services/following_services', :following => @following %>
+
+<h4><%= @tag%> Badges</h4>
+<%= render 'badge/own_badges', :badges=>@user.badges %>

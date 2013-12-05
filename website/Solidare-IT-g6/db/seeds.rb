@@ -28,6 +28,11 @@ else
   a2 = User.create! :email =>"maitre@dieu.ciel", :password=>'password', :password_confirmation=>'password', :name =>"Dieu", :firstname => "Maitre", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 0, :id_ok => true,:avatar=>File.open("../../img/dieu.jpg")
   a2.add_role :superadmin
 
+  #badge
+  u2.add_badge(1)
+  a1.add_badge(1)
+  a2.add_badge(1)
+
   # categories
   c1   = Category.create! :title => 'Clothes', :text => 'All clothes'
   c11  = Category.create! :title => 'Pullovers', :text => 'All pullover', :parent_cat => c1
@@ -54,7 +59,7 @@ else
   s3 = Service.create! :title=>"Livre Réseau",:description => "vente livre réseau", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2015 15:00:00 UTC +00:00', :creator_id => a1.id, :is_demand=>false, :quick_match=>false, :category_id =>c222.id, :address_id=>ad3.id
 
   #group
-  g1 = Group.create! :name=>"Les mamadous du microcredit", :description => "Trololol"
+  g1 = Group.create! :name=>"Les mamadous du microcredit", :description => "Trololol", :secret=> false, :private => false
 
   # Organisation
   o1 = Organisation.create! :name => "Les savant de la rive nord", :creator_id => u2.id
@@ -62,7 +67,7 @@ else
   o3 = Organisation.create! :name => "Les savant de la rive ouest", :creator_id => u2.id
 
   #coworker
-  co1=Coworker.create! :organisation_id=>o1.id, :user_id=>u2.id
+  co1 = Coworker.create! :organisation_id => o1.id, :user_id => u2.id
 
   # links between classes
   u1.add_role :moderator, c22

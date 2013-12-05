@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_merit
+
   rolify
   before_save :default_values
 
@@ -26,6 +28,8 @@ class User < ActiveRecord::Base
   has_many :coworkers
   has_many :organisations,:foreign_key => 'org_id', through: :coworkers
   has_many :own_services, :class_name => 'Service', :foreign_key => 'creator_id'  
+  has_many :accept_services, :class_name => 'AcceptService', :foreign_key => 'user_id'  
+
   has_many :followers
   has_many :services, through: :followers  
   

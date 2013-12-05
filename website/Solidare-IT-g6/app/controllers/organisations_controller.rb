@@ -24,10 +24,11 @@ class OrganisationsController < InheritedResources::Base
   
   # GET /mainmenu_organisations/:id
   def show_main_panel
-       if !user_signed_in?
+       unless user_signed_in?
             dont_see
        else
            @organisations = Organisation.joins(:coworkers).where("organisations.id=:org_id and coworkers.user_id=:user_id", :org_id=>params[:id], :user_id=>current_user.id)
+           logger.debug @organisations.length
            if @organisations.length == 0
                 dont_see
            elsif !@organisations.first.validated?

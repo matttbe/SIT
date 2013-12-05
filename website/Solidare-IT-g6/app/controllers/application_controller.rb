@@ -2,17 +2,53 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :can_log_in
 
+  def give_badge_transaction(transaction)
+    @user=User.find(transaction.user_id)
+    case
+    when @user.karma>0
+      @user.add_badge(2) unless User.find(@user.id).badges.any?{|badge| badge.id=2}
+    when @user.karma>5
+      @user.add_badge(3) unless User.find(@user.id).badges.any?{|badge| badge.id=3}
+    when @user.karma>10
+      @user.add_badge(4) unless User.find(@user.id).badges.any?{|badge| badge.id=4}
+    end
+  end
+  
+  def create_group_notif(group, type)
+    group.users.each do |user|
+      @notifications_list = Notification.where("group_id = :group_id AND notified_user = :user_id", :group_id => group, :user_id => user)
+      @notification = nil
+      if @notifications_list.size > 0
+        @notifications_list.each do |notif|
+          if notif.notification_type == type
+            @notification = notif
+          else
+            @notification = Notification.new
+            @notification.notified_user = user.id
+            @notification.group = group
+          end 
+        end
+      else
+      @notification = Notification.new
+      @notification.notified_user = user.id
+      @notification.group = group
+      end      
+      @notification.notification_type = type
+      @notification.creator_id = current_user.id 
+      @notification.seen = false
+      Notifier.send_notif(user,@notification, "Group Notification").deliver
+      if ! @notification.save
+          show_error(format,'new',@notification)
+      end
+    end
+  end
   
   def create_notification(service, type, user_notified_id)
     @notifications_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => service.id, :user_id => user_notified_id)
     @notification = nil
     if @notifications_list.size > 0
       @notifications_list.each do |notif|
-        if type == 'FOLLOW' and notif.notification_type == 'UNFOLLOW'
-          @notification = notif
-        elsif type == 'UNFOLLOW' and notif.notification_type == 'FOLLOW'
-          @notification = notif
-        elsif notif.notification_type == type 
+        if (type == 'FOLLOW' and notif.notification_type == 'UNFOLLOW') or (type == 'UNFOLLOW' and notif.notification_type == 'FOLLOW') or (notif.notification_type == type) 
           @notification = notif
         else
           @notification = Notification.new
@@ -28,6 +64,8 @@ class ApplicationController < ActionController::Base
     @notification.notification_type = type
     @notification.creator_id = current_user.id 
     @notification.seen = false
+    @user = User.where(:id => user_notified_id).first
+    Notifier.send_notif(@user, @notification, "Service Notification").deliver
     if ! @notification.save
         show_error(format,'new',@notification)
     end
@@ -47,7 +85,7 @@ class ApplicationController < ActionController::Base
   
   def dont_see
     respond_to do |format|
-          format.html { redirect_to "/sign_in", alert: 'You need to sign in or sign up before continuing.' }
+      format.html { redirect_to "/sign_in", alert: 'You need to sign in or sign up before continuing.' }
     end
   end
 
@@ -137,6 +175,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  # for ActiveAdmin & Canca
+  def access_denied(exception)
+    redirect_to root_path, :alert => exception.message
+  end
+
   protected
 
   def configure_permitted_parameters
@@ -165,15 +208,11 @@ class ApplicationController < ActionController::Base
 
     if @redirect&&!@u.nil? &&!@u.id_ok
         sign_out @u
-        redirect_to root_path, alert: "A admin must first accept you.  Be patient !"
+        redirect_to root_path, alert: "An admin must first accept you. Please be patient!"
     end
   end
 
-  def authenticate_active_admin_user!
-    authenticate_user!
-    unless current_user.has_role? "superadmin"
-      flash[:alert] = "Unauthorized Access!"
-      redirect_to root_path
-    end
+  def add_unique_badge(user,id)
+    
   end
 end

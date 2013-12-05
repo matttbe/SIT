@@ -11,7 +11,7 @@ Feature: Admin backoffice
     Given I exist as a user
     And I am not logged in
     When I go to admin page
-    Then I see a return message on sign in page
+    Then I see an error message because I'm not authorized to do that
 
   Scenario: If I am not signed in, I not see the admin link
     Given I exist as a user

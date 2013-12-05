@@ -19,7 +19,7 @@
       <%if !service.address.nil?%> <p class="service-desc"><%= service.address.country %></p><% end %>
     </p>
 
-    <%= render 'followers', :followers_list=>@followers_list%>
+    <%= render 'services/followers', :followers_list=>@followers_list%>
 
     <br /><br />
 
@@ -40,7 +40,8 @@
     <%= button_to 'Back', '/search', :class=>"btn btn-back"  %>
 
   </p>
-  <% if !current_user.nil?&&!@service.matching_service.nil?&&(@service.creator_id==current_user.id||@service.matching_service.creator_id=current_user.id)&&(@service.transaction.nil?||@service.matching_service.transaction.nil?) %>
+  <% if !current_user.nil?&&!@service.matching_service.nil?&&(@service.creator_id==current_user.id||@service.matching_service.creator_id=current_user.id)&&(@service.transaction.nil?||@service.matching_service.transaction.nil?)&&(@service.creator_id==current_user.id&&!User.joins(:accept_services).where(accept_services: {service_id: service.id, is_chosen_customer: true}).blank?) %>
+
   <% if !(!@service.matching_service.nil?&&!@service.matching_service.transaction.nil?)&&(@service.matching_service.quick_match&&@service.transaction.nil?) %>
   <div class="alert alert-notice">
     How was your experience ?

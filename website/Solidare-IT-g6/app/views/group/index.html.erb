@@ -23,9 +23,17 @@
         <td><h6><%= group.name %></h6></td>
         <td><h8><%= group.description %></h8></td>
         <td><%= link_to 'Show details', group, :class=>"btn btn-info"%></td>
-        <%if !current_user.nil? %>
-          <td><span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user, :format => "json"}, remote:true, :class=>"btn btn-success "%></span></td>
-          <% end %>
+        <td><%if !current_user.nil? %>
+        		<% @member = false%>
+	        	<% current_user.groups.each do |group_user|%>
+	          		<%if group.id == group_user.id %>
+	          			<%@member = true%>
+	          		<%end%>
+	          	<%end%>
+	          	<% if !@member%>
+		          	<span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user, :role => 'basic', :class=>"btn btn-success "}%></span>
+	          	<%end%>
+          	<% end %></td>
       </tr>
   <% end %>
   <% end %>
