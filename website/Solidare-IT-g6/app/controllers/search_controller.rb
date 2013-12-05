@@ -1,5 +1,10 @@
 class SearchController < ApplicationController
 
+  #GET /search/save
+  def save
+
+  end
+
 
   # GET /search
   def match
