@@ -1,11 +1,15 @@
+<div class="container">
 <p>
-  <strong>Name:</strong><%= @organisation.name %>
+  <h4><strong><div class="label label-primary"> Name : </div></strong> <div class="form-control huge"><%= @organisation.name %></div></h4>
+  <h5><strong><div class="label label-primary"> Number of coworkers : </div></strong> <div class="form-control huge"><%= @organisation.coworkers.length %></div></h5>
+  <h5><strong><div class="label label-primary"> Number of managed users : </div></strong> <div class="form-control huge"><%= @organisation.managed_user.length %></div></h5>
 </p>
 <p>
 <% if @organisation.managed_user.nil? ||@organisation.managed_user.length==0 %>
-	No user managed by your organisation
+	<button class="btn btn-danger">No user managed by your organisation</button>
 <%else%>
-	
+	 <div class="panel-heading"><h6>Groups</h6></div>
+
 		  <table class="table table-striped">
   <thead>
   <tr>
@@ -29,11 +33,10 @@
   <% end %>
   </tbody>
 </table>
+</div>
 <%end%>
 </p>
-<p>
-<%= link_to 'Create new managed', new_managed_path(@organisation) %> |
-</p>
-
-<%= link_to 'Edit', edit_organisation_path(@organisation) %> |
-<%= link_to 'Back', organisations_path %>
+<%= link_to 'Create new managed', new_managed_path(@organisation), :class=>"btn btn-success" %> |
+<%= link_to 'Edit', edit_organisation_path(@organisation), :class=>"btn btn-warning" %> |
+<%= link_to 'Back', organisations_path, :class=>"btn btn-back" %>
+</div>
