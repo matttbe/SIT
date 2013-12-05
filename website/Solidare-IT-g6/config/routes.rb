@@ -1,5 +1,6 @@
 SolidareItG6::Application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
   resources :group do
   	resources :group_posts do
   	  resources :group_post_comments	

@@ -1,8 +1,7 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:edit, :update, :destroy, :accept_service, :follow, :unfollow]
   before_action :set_good_service, only: [:create_transaction, :new_transaction]
-  
-  
+
   #GET /following_services
   def following_services
     if user_signed_in?

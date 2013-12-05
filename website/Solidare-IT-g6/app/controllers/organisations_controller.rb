@@ -16,7 +16,7 @@ class OrganisationsController < InheritedResources::Base
       @organisation = Organisation.find(params[:id])
     end
   end
-
+  
   # GET /manage_organisations
   def manage
     @organisations = Organisation.where("creator_id=:id", :id=>current_user.id)

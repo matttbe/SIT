@@ -15,5 +15,17 @@ ActiveAdmin.register Service, :as => "Service" do
 end
 
 ActiveAdmin.register Service, :as => "Managed service" , namespace: :organisation_manage  do
+  form do |f|
+    #f.inputs "User" do
+    #  f.input :name
+    #  f.input :firstname
+
+    #end
+    f.inputs "Service" do
+      f.input :title
+      f.input :description, :input_html=> {:class => "autogrow"}
+      f.input :date_start, :as => :datepicker
+    end
+  end
 
 end
