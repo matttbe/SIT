@@ -1,0 +1,4 @@
+<%=bootstrap_form_for(@organisation,:html => { :multipart => true  }) do |f| %>
+  <%= f.collection_select :id, @organisations,:id, :name %>    
+  <%= f.submit "action",:class =>"btn btn-primary"  %>
+<%end%>
