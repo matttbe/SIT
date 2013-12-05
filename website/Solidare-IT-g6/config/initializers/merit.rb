@@ -15,7 +15,14 @@ end
 
 Merit::Badge.create!({
   :id=>1,
-  :name=>'just-registered'
+  :name=>'just-registered',
+  description : "A admin has validated your ID"
+  })
+
+Merit::Badge.create!({
+  :id=>2,
+  :name=>'just-registered',
+  description : "A admin has validated your ID"
   })
 
 # Create application badges (uses https://github.com/norman/ambry)
