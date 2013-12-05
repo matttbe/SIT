@@ -1,29 +1,40 @@
 <div class="container">
-  <h1>Listing organisations</h1>
 
-<table>
+  <h3><span class="label label-default">Listing organisations</span></h3>
+
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><h6>Organisations</h6></div>
+
+  <!-- Table -->
+  <table class="table">
   <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+  <tr>
+    <th><h6><span class="label label-info">Organisation Name</span></h6></th>
+    <th><h6><span class="label label-info">People involved</span></h6></th>
+    <th></th>
+    <th></th>
+  </tr>
   </thead>
 
   <tbody>
     <% @organisations.each do |organisation| %>
       <tr>
         <td><%= organisation.name %></td>
-        <td><%= link_to 'Show', organisation %></td>
-        <td><%= link_to 'Edit', edit_organisation_path(organisation) %></td>
-        <td><%= link_to 'Destroy', organisation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= organisation.coworkers.length+organisation.managed_user.length%></td>
+        <td><%= link_to 'Show', organisation, :class=>"btn btn-info" %></td>
+        <td><%= link_to 'Join', join_action_path(organisation.id), :class=>"btn btn-success" %></td>
+
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+  </table>
+</div>
 
-<%= link_to 'New Organisation', new_organisation_path %>
+
+
+
+<%= link_to 'New Organisation', new_organisation_path, :class=>"btn btn-primary"  %>
 </div>

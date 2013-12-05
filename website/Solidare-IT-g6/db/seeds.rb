@@ -68,6 +68,8 @@ else
 
   #coworker
   co1 = Coworker.create! :organisation_id => o1.id, :user_id => u2.id
+  co2 = Coworker.create! :organisation_id => o2.id, :user_id => u1.id
+  co3 = Coworker.create! :organisation_id => o3.id, :user_id => u2.id 
 
   # links between classes
   u1.add_role :moderator, c22

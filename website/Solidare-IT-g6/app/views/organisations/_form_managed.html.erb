@@ -4,7 +4,14 @@
 
     <%= f.text_field :name , :autofocus => true, :class=>"form-control" %>
     <%= f.text_field :firstname, :class=>"form-control" %>
-    <%= f.date_select(:birthdate, :start_year => Time.now.year - 100, :end_year => Time.now.year) %>
+        Birthdate <br />
+    <input id="user_birthdate" name="user[birthdate]" type="text" data-behaviour='datepicker'  >
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+        $('[data-behaviour~=datepicker]').datepicker();
+        })
+    </script>
 <div style="display:none"><%= f.text_field :managed_org_id,  content:@user.managed_org_id %></div>
   <div><%= f.submit "Register" %></div>
 <% end %>
