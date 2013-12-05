@@ -13,7 +13,7 @@ Then(/^show me the page$/)do
 end
 
 Then(/^I should be on root page$/)do
-    assert page.has_content?("Trollol")
+    assert page.has_content?("Welcome")
 end
 
 Then(/^I should see a missing (.*) message$/)do |blank|

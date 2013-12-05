@@ -181,12 +181,12 @@ Then(/^I should see no services$/) do
 end
 
 Then(/^I should see edit and destroy link$/) do
-   assert page.has_content?("Edit")
-   assert page.has_content?("Destroy")
+   assert page.has_button?("Edit")
+   assert page.has_button?("Destroy")
 end
 
 Then(/^I should not see edit and destroy link$/) do
-   assert !page.has_content?("Edit | Destroy")
+   assert !page.has_button?("Edit | Destroy")
 end
 
 Then(/^I should see my service with new title$/) do

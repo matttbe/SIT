@@ -1,7 +1,6 @@
 <% @service=service%>
 <div class="container">
   <div class="well well-large service">
-
     <a class="pull-right" href="#">
       <%= image_tag service.photo.url(:medium) %>
     </a>
@@ -9,11 +8,8 @@
     <strong>Created by:</strong>
     <%  #TODO add a link to the user profile ? %>
     <%if !@service.user.nil? %>
-    <%= @service.user.all_name %>
+      <%= @service.user.all_name %>
     <% end %>
-
-    <p></p>
-
     <p class="service-desc"><%= service.description %></p>
     <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> to <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
       <%if !service.address.nil?%> <p class="service-desc"><%= service.address.country %></p><% end %>
@@ -23,7 +19,6 @@
 
     <br /><br />
 
-    <a class="pull-right" href="#">
       <div class="service-action">
 
         <% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= button_to 'Accept', accept_service_path(service), :class=>"btn btn-success", :method => :get %><%end%>
@@ -35,7 +30,7 @@
         <%= render 'services/follow', :service=>@service, :followers => @followers %>
         <%end%>
       </div>
-    </a>
+
 
     <%= button_to 'Back', '/search', :class=>"btn btn-back"  %>
 
@@ -50,57 +45,57 @@
     <%else%>
     Your feedback :
     <%=  render 'show_feedback', :transaction=>@service.matching_service.transaction%>
-  <%end%>
-<%end%>
-<p>
+    <%end%>
+    <%end%>
+    <p>
 
-</div>
-
-
-<% @like_services = Service.includes(:category).references(:category).where(:quick_match=>false).where('(services.title LIKE (:titles) or services.description LIKE (:titles) or categories.title LIKE (:titles) or categories.text LIKE (:titles)) and services.id NOT IN (:id)', :titles => "%" + @service.title + "%", :id => @service.id) %>
-
-
-<h4><span class="label label-default">Other services that might interest you :</span></h4>
-
-<% i = 0 %>
-
-<div class="row">
-  <div class="col-md-4">
-    <div class="well well-large service">
-      <% if !@like_services[i].nil? %>
-        <h4> <%= @like_services[i].title %> </h4>
-        <%= image_tag @like_services[i].photo.url(:thumb) %>
-        <p>
-          <h7> <%= @like_services[i].description %> </h7>
-        </p>
-        <%= button_to 'Show', service_path(@like_services[0]), :class=>"btn btn-info", :method => :get  %>
-      <%end%>
     </div>
-    <% i = i + 1 %>
-  </div>
-  <div class="col-md-4">
-    <div class="well well-large service">
-      <% if !@like_services[i].nil? %>
-        <h4> <%= @like_services[i].title %> </h4>
-        <%= image_tag @like_services[i].photo.url(:thumb) %>
-        <p>
-          <h7> <%= @like_services[i].description %> </h7>
-        </p>
-        <%= button_to 'Show', service_path(@like_services[i]), :class=>"btn btn-info", :method => :get  %>
-      <%end%>
+
+
+    <% @like_services = Service.includes(:category).references(:category).where(:quick_match=>false).where('(services.title LIKE (:titles) or services.description LIKE (:titles) or categories.title LIKE (:titles) or categories.text LIKE (:titles)) and services.id NOT IN (:id)', :titles => "%" + @service.title + "%", :id => @service.id) %>
+
+
+    <h4><span class="label label-default">Other services that might interest you :</span></h4>
+
+    <% i = 0 %>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="well well-large service">
+          <% if !@like_services[i].nil? %>
+          <h4> <%= @like_services[i].title %> </h4>
+          <%= image_tag @like_services[i].photo.url(:thumb) %>
+          <p>
+            <h7> <%= @like_services[i].description %> </h7>
+          </p>
+          <%= button_to 'Show', service_path(@like_services[0]), :class=>"btn btn-info", :method => :get  %>
+          <%end%>
+        </div>
+        <% i = i + 1 %>
+      </div>
+      <div class="col-md-4">
+        <div class="well well-large service">
+          <% if !@like_services[i].nil? %>
+          <h4> <%= @like_services[i].title %> </h4>
+          <%= image_tag @like_services[i].photo.url(:thumb) %>
+          <p>
+            <h7> <%= @like_services[i].description %> </h7>
+          </p>
+          <%= button_to 'Show', service_path(@like_services[i]), :class=>"btn btn-info", :method => :get  %>
+          <%end%>
+        </div>
+        <% i = i + 1 %>
+      </div>
+      <div class="col-md-4">
+        <div class="well well-large service">
+          <% if !@like_services[i].nil? %>
+          <h4> <%= @like_services[i].title %> </h4>
+          <%= image_tag @like_services[i].photo.url(:thumb) %>
+          <p>
+            <h7> <%= @like_services[i].description %> </h7>
+          </p>
+          <%= button_to 'Show', service_path(@like_services[i]), :class=>"btn btn-info", :method => :get  %>
+          <%end%>
+        </div>
+      </div>
     </div>
-    <% i = i + 1 %>
-  </div>
-  <div class="col-md-4">
-    <div class="well well-large service">
-      <% if !@like_services[i].nil? %>
-        <h4> <%= @like_services[i].title %> </h4>
-        <%= image_tag @like_services[i].photo.url(:thumb) %>
-        <p>
-          <h7> <%= @like_services[i].description %> </h7>
-        </p>
-        <%= button_to 'Show', service_path(@like_services[i]), :class=>"btn btn-info", :method => :get  %>
-      <%end%>
-    </div>
-  </div>
-</div>

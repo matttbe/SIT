@@ -10,7 +10,7 @@ Feature: Add, edit and destroy a Group
       When I return to the site
       Then I see the create a group button
 
-    Scenario: Validated user create a organisation
+    Scenario: Validated user create a group
       And I am logged in
       When I return to the site
       And I click on the Create a group link
