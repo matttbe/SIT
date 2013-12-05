@@ -51,7 +51,7 @@
 <% if !current_user.nil?&&@service.creator_id==current_user.id %>
 	<%= link_to 'Edit', edit_service_path(@service) %> |
 	<%= link_to 'Destroy', service_path(@service), :method=>'delete' %> |
-<% elsif !current_user.nil?&&@service.matching_service.nil?%>
+<% elsif !current_user.nil?&&User.joins(:accept_services).where(accept_services: {service_id: service.id, user_id: current_user.id}).blank?%>
 	<%= link_to 'Accept', accept_service_path(@service) %> |
 <%end%>
 <% if user_signed_in?%>

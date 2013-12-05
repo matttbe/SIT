@@ -10,8 +10,14 @@ def new_service
   @serviceNew = {:id=>3, :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>true, :quick_match=>false,:category_id=>-1}
 end
 
-def accept_service
-  @serviceAccept = {:id=>4, :title=>"Livre IA",:description => "vente livre IA", :date_start => 'thu, 29 oct 2014 15:00:00 UTC +00:00', :date_end => 'Mon, 4 nov 2014 15:00:00 UTC +00:00', :creator_id =>0, :is_demand=>false, :quick_match=>true,:category_id=>-1}
+
+
+def choose_myself_for_service
+	print(@user.id)
+	print(@service.id)
+	@acceptService = AcceptService.where("user_id=:u_id AND service_id=:s_id",:u_id=>@user.id,:s_id=>@service.id).first
+	@acceptService.is_chosen_customer = true
+	@acceptSerice.save
 end
 
 def clear_DB
@@ -137,6 +143,10 @@ When(/^I give a feedback$/) do
   fill_in "transaction_feedback_evaluation", :with => "5"
   fill_in "transaction_feedback_comments", :with => "ok missieur"
   click_button "Give your feedback"
+end
+
+When(/^I am the chosen customer for one service$/) do
+	choose_myself_for_service
 end
 
 

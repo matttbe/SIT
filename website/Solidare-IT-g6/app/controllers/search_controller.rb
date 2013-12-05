@@ -17,7 +17,7 @@ class SearchController < ApplicationController
       end
       
       if(! params[:offer_cbox].nil? and ! params[:demand_cbox].nil?) # Both checkboxes are checked
-        @services = Service.where(:quick_match=>false).where(:matching_service_id=>nil)
+        @services = Service.where(:quick_match=>false)
       elsif(! params[:offer_cbox].nil?)
         @services = Service.where('is_demand = :is_demand', :is_demand => false).where(:quick_match=>false).where(:matching_service_id=>nil)
       elsif(! params[:demand_cbox].nil?)
