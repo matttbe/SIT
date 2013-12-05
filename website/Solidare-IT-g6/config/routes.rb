@@ -1,5 +1,6 @@
 SolidareItG6::Application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
   resources :group do
   	resources :group_posts do
   	  resources :group_post_comments	
@@ -70,7 +71,12 @@ SolidareItG6::Application.routes.draw do
   
   #address routing
   resources :address
-
+  get '/org_adresses/:org_id/new' => 'address#new', :as => "new_address_org"
+  get '/org_adresses/:org_id/main' => 'address#main', :as =>"main_address_org"
+  post '/org_adresses/:org_id/create'=> 'address#create', :as=>'create_address_org'
+  get '/managed_adresses/:man_id/new' => 'address#new', :as => "new_address_man"
+  get '/managed_adresses/:man_id/main' => 'address#main', :as =>"main_address_man"
+  post '/managed_adresses/:man_id/create'=> 'address#create', :as=>'create_address_man'
   #post '/adresses' => 'adresses#create', :as=>"addresses_create_path"
   get '/adresses/:id/main' =>'address#main', :as=> "main_address"
 
@@ -84,5 +90,8 @@ SolidareItG6::Application.routes.draw do
 
   #orga admin
   match 'organisation_manage/:id_orga/managed_users/:id_coworker/new'=> 'organisation_manage/managedusers#new', via: :get, :as=>'new_managed_user_for_coworker'
-  
+
+  #orga admin
+  match 'organisation_manage/managedservices/:id_managed/new'=> 'organisation_manage/managedservices#new', via: :get, :as=>'new_service_for_managed_user'
+
 end

@@ -18,9 +18,17 @@
         <td><%= group.name %></td>
         <td><%= group.description %></td>
         <td><%= link_to 'Show', group%></td>
-        <%if !current_user.nil? %>
-          <td><span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user, :format => "json"}, remote:true%></span></td>
-          <% end %>
+        <td><%if !current_user.nil? %>
+        		<% @member = false%>
+	        	<% current_user.groups.each do |group_user|%>
+	          		<%if group.id == group_user.id %>
+	          			<%@member = true%>
+	          		<%end%>
+	          	<%end%>
+	          	<% if !@member%>
+		          	<span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => group, :idUser => current_user}%></span>
+	          	<%end%>
+          	<% end %></td>
       </tr>
 	<% end %>
   <% end %>

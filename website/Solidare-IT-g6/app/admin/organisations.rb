@@ -37,6 +37,7 @@ end
 
 ActiveAdmin.register Organisation, :as => "Organisation", namespace: :organisation_manage  do
   config.clear_action_items!
+  menu false
   actions :index
   
   index do

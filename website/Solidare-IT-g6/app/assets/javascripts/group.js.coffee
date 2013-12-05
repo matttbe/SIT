@@ -11,6 +11,6 @@ $(document).on "ready page:change", ->
     if response.error
     	$("#join").append response.error
     else
-   		$("#join").append "<p>USER ADDED</p>")
+   		$("#join").append response.firstname+" "+response.name)
   $("#join").on "ajax:error", (e, xhr, status, error) ->
       $("#join").append "<p>ERROR</p>"

@@ -44,6 +44,7 @@ end
 ### GIVEN ###
 Given /^The database contains services$/ do
   create_user
+  #clear_DB
   add_service
   add_not_my_service
 end
@@ -102,7 +103,6 @@ end
 
 When(/^I visit the page of one service$/) do 
   @link="/services/"+@service.id.to_s
-  puts @link
   visit @link
 end
 

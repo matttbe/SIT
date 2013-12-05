@@ -4,13 +4,54 @@ class ApplicationController < ActionController::Base
 
   def can_manage_orga
   end
+
+  def give_badge_transaction(transaction)
+    @user=User.find(transaction.user_id)
+    case
+    when @user.karma>0
+      @user.add_badge(2)
+    when @user.karma>5
+      @user.add_badge(3)
+    when @user.karma>10
+      @user.add_badge(4)
+    end
+  end
+  
+  def create_group_notif(group, type)
+    group.users.each do |user|
+      @notifications_list = Notification.where("group_id = :group_id AND notified_user = :user_id", :group_id => group, :user_id => user)
+      @notification = nil
+      if @notifications_list.size > 0
+        @notifications_list.each do |notif|
+          if notif.notification_type == type
+            @notification = notif
+          else
+            @notification = Notification.new
+            @notification.notified_user = user.id
+            @notification.group = group
+          end 
+        end
+      else
+      @notification = Notification.new
+      @notification.notified_user = user.id
+      @notification.group = group
+      end      
+      @notification.notification_type = type
+      @notification.creator_id = current_user.id 
+      @notification.seen = false
+      Notifier.send_notif(user,@notification, "Group Notification").deliver
+      if ! @notification.save
+          show_error(format,'new',@notification)
+      end
+    end
+  end
   
   def create_notification(service, type, user_notified_id)
     @notifications_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => service.id, :user_id => user_notified_id)
     @notification = nil
     if @notifications_list.size > 0
       @notifications_list.each do |notif|
-        if notif.notification_type == type 
+        if (type == 'FOLLOW' and notif.notification_type == 'UNFOLLOW') or (type == 'UNFOLLOW' and notif.notification_type == 'FOLLOW') or (notif.notification_type == type) 
           @notification = notif
         else
           @notification = Notification.new
@@ -26,6 +67,8 @@ class ApplicationController < ActionController::Base
     @notification.notification_type = type
     @notification.creator_id = current_user.id 
     @notification.seen = false
+    @user = User.where(:id => user_notified_id).first
+    Notifier.send_notif(@user, @notification, "Service Notification").deliver
     if ! @notification.save
         show_error(format,'new',@notification)
     end
@@ -80,25 +123,32 @@ class ApplicationController < ActionController::Base
     return link
   end
 
-  def getAllCategoriesChilds(category)
+  def get_categories_from_node(category, withChild)
     cats = Array.new
     category.childs.each do |child|
       cats << child
-      childs = getAllCategoriesChilds(child)
-      if not childs.empty?
-        cats << childs
+      if withChild
+        childs = get_categories_from_node(child, withChild)
+        if not childs.empty?
+          cats << childs
+        end
       end
     end
     cats
   end
 
-  def getAllCategoriesRootOrChilds(withChild)
+  def get_categories_from_node_id(cat_id, withChild)
+    cat = Category.find(cat_id)
+    get_categories_from_node(cat, withChild)
+  end
+
+  def get_all_categories_from_root(withChild)
     cats = Array.new
     Category.all.each do |cat|
-      if cat.parent.nil?
+      if cat.parent_cat.nil?
         cats << cat
         if withChild
-          childs = getAllCategoriesChilds(cat)
+          childs = get_categories_from_node(cat, withChild)
           if not childs.empty?
             cats << childs
           end
@@ -108,15 +158,15 @@ class ApplicationController < ActionController::Base
     cats
   end
 
-  def getAllCategories
-    getAllCategoriesRootOrChilds(true)
+  def get_all_categories
+    get_all_categories_from_root(true)
   end
 
-  def getAllRootCategories
-    getAllCategoriesRootOrChilds(false)
+  def get_all_root_categories
+    get_all_categories_from_root(false)
   end
 
-  helper_method :generateLink, :getAllCategories, :getAllCategoriesChilds, :getAllRootCategories
+  helper_method :generateLink, :get_all_categories, :get_all_root_categories, :get_categories_from_node, :get_categories_from_node_id
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -152,6 +202,10 @@ class ApplicationController < ActionController::Base
         sign_out @u
         redirect_to root_path, alert: "A admin must first accept you.  Be patient !"
     end
+  end
+
+  def add_unique_badge(user,id)
+    
   end
 
   def authenticate_active_admin_user!

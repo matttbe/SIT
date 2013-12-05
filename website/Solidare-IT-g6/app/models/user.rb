@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_merit
+
   rolify
   before_save :default_values
 
@@ -37,9 +39,11 @@ class User < ActiveRecord::Base
 
   has_many :group_user_relations
   has_many :groups, :through => :group_user_relations
+
+  belongs_to :coworker
   
   def check_managed?
-    self.managed_org_id==-1
+    self.managed_org_id == 0
   end
 
   

@@ -1,0 +1,5 @@
+<% badges.each do |badge| %>
+
+<%= image_tag("badges/"+badge.id.to_s+".png", :alt=>badge.description)  %>
+
+<% end %>

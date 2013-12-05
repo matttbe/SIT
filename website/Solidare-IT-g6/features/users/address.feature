@@ -52,7 +52,5 @@ Feature: Addresses of user
       And I click on the edit link of the first address in the list
       And I fill the address form
       And I click on the Edit address button
-      Then show me the page
       And I see a Address was successfully updated. message
       And I see my address
-
