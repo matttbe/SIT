@@ -41,6 +41,7 @@ $(document).on("ready page:change", function(){
                'arrow-border'  : '.arrow-border',
                'close'         : '.close'
               });
+  $('.carousel').carousel();
 
 });
 

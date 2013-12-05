@@ -1,4 +1,4 @@
-<%= bootstrap_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+<div class="container"><%= bootstrap_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <%= f.email_field :email, :autofocus => true, :class=>"form-control" %>
   <%= f.password_field :password , :class=>"form-control"%>
   <% if devise_mapping.rememberable? -%>
@@ -7,3 +7,4 @@
 
   <div><%= f.submit "Sign in" %></div>
 <% end %>
+</div>

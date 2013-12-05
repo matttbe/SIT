@@ -1,4 +1,4 @@
-<%=@organisations.size%>
+<div class="container"><%=@organisations.size%>
 <p>
     <% @organisations.each do |organisation|%>
           <strong>Name:</strong>
@@ -11,3 +11,4 @@
 
 
 <%= link_to 'Back', organisations_path %>
+</div>

@@ -1,7 +1,8 @@
 <%if user_signed_in? %>
 
-<li><%= link_to "Notifications",  notifications_path %></li>
+
 <li><%= link_to notifications_path, :title => "Notifications" do %>
+    Notifications
 	<span class="badge"><%= current_user.notifications_number %></span>
 <% end %></li>
 <li class="divider-vertical"></li>
