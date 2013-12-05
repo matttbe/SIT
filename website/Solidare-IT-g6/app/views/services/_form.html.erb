@@ -1,6 +1,6 @@
 <%=bootstrap_form_for(@service,:html => { :multipart => true  }) do |f| %>
 
-  <%=f.radio_buttons :is_demand, { "Demand" => true, "Offer" => false }, :label => "what do you want to propose ?"%>
+  <%=f.radio_buttons :is_demand, { "Demand" => true, "Offer" => false }, :label => "What do you want to offer ?"%>
 
     <%= f.text_field :title %>
     <%= f.collection_select :category_id, Category.all, :id, :title %>
