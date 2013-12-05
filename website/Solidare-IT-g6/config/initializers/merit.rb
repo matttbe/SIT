@@ -55,6 +55,11 @@ Merit::Badge.create!({
   :description => "You are using IE6"
   })
 
+Merit::Badge.create!({
+  :id=>8,
+  :name=>'best-karma',
+  :description => "You have the biggest karma.  Gandhi is in you !"
+  })
 # Create application badges (uses https://github.com/norman/ambry)
 #Merit::Badge.create!({
 #   id: 1,

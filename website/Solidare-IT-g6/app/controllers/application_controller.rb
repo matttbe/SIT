@@ -16,6 +16,12 @@ class ApplicationController < ActionController::Base
     when @user.karma>50
       @user.add_badge(6) unless User.find(@user.id).badges.any?{|badge| badge.id=6}
     end
+    @u=User.order(:karma).last
+    if @user.karma>@.karma
+      @user.add_badge(8)
+      @u.remove_badge(8)
+    end
+
   end
   
   
