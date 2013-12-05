@@ -4,7 +4,7 @@ class UsersController < ApplicationController
    # GET /user/:user_id/services
   def my_services
     if user_signed_in?
-      @services = current_user.own_services.order(:is_demand)
+      @services = User.find(params[:user_id]).own_services.order(:is_demand)
     else
       dont_see
     end

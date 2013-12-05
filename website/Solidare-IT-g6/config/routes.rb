@@ -37,7 +37,7 @@ SolidareItG6::Application.routes.draw do
   get '/user/:user_id/services/' => 'users#my_services', :as =>"my_services"
   get '/services/:id/accept' => 'services#accept_service', :as =>"accept_service"
   get '/users_managed/:serv_id/services/new' =>'services#new', :as =>"new_service_managed"
-  get '/users_managed/:serv_id/managed_services/' => 'services#my_services', :as =>"managed_users_services"
+  get '/users_managed/:user_id/managed_services/' => 'users#my_services', :as =>"managed_users_services"
 
   #search routing
   get '/search/(:page)' => 'search#match', :as=>"match"
