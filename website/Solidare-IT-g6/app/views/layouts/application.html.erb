@@ -76,7 +76,7 @@
       </div>
     </nav>
 
-      <% unless location == '/'%>
+      <% unless location == '/' and current_user.nil?%>
       <div class="container">
         <div style="text-align: center;"><img src="/images/logo.png" alt ="logo" align="center"></img></div>
               <h1>Solidare-it</h1>
