@@ -90,7 +90,7 @@ end
 
 Then(/^I can see the profiles of my followers$/) do
   find_user
-  @service = Service.where("creator_id=:id",:id=>@user.id).first
+  @service = Service.where(:creator_id => @user.id).first
   @follower = Follower.where(:service_id => @service.id).first
-  visit '/user/'+@follower.user_id.to_s
+  visit '/user/' + @follower.user_id.to_s
 end
