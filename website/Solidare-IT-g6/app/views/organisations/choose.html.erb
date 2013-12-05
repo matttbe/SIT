@@ -1,15 +1,6 @@
+<div class="container">
+<%render 'form_choose'%>
 
-<p>
-<div class="form-group">
-      <label for="orgChooseList">Where are you working now ?</label>
-      <select id="orgChooseList" class="form-control">
-          <% @organisations.each do |organisation|%>
-          
-                  <option> <%= organisation.name %></option>
-            <%end %>
-      </select>
-</p>
+<%= link_to 'Back', organisations_path , :class=>"btn btn-info" %>
 </div>
 
-
-<%= link_to 'Back', organisations_path, , :class=>"btn btn-info %>

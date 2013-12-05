@@ -12,6 +12,7 @@
       <strong><%=group_post.user.all_name %>	</strong>
 	<% end %>
     <%= group_post.body %>
+	<%= link_to 'Delete', group_group_post_path(@group,group_post),method: :delete, data: { confirm: 'Are you sure?' }%>
   </p>
 	
 	<% group_post.group_post_comments.each do |group_post_comment| %>
