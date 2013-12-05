@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205123600) do
+ActiveRecord::Schema.define(version: 20131205191031) do
 
   create_table "accept_services", force: true do |t|
     t.integer  "service_id"
@@ -172,6 +172,7 @@ ActiveRecord::Schema.define(version: 20131205123600) do
     t.boolean  "seen"
     t.integer  "creator_id"
     t.integer  "group_id"
+    t.integer  "badge"
   end
 
   create_table "organisations", force: true do |t|
@@ -258,8 +259,8 @@ ActiveRecord::Schema.define(version: 20131205123600) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.boolean  "mail_notif",              default: false
     t.boolean  "managed_by_organisation", default: false
+    t.boolean  "mail_notif",              default: false
     t.integer  "coworker_id",             default: 0
     t.integer  "sash_id"
     t.integer  "level",                   default: 0

@@ -10,10 +10,11 @@
 			<%end%>
 			<% case notif.notification_type %>
 			<%when 'POST'%>
-				<%= link_to @creator_fullname, show_profile_path(notif.creator_id) %> posted in "<%= notif.group.name %>"
+				<%= link_to @creator_fullname, show_profile_path(notif.creator_id) %> posted in "<%= link_to notif.group.name, show_group_path(notif.group) %>"<br />
 			<%else%>
 				NO MESSAGE FOR THIS TYPE OF NOTIFICATION
 			<%end%>
+			
 		<%else%>	
 			<% @users.each do |user| %>
 				<%if user.id == notif.service.creator_id %>
@@ -24,17 +25,15 @@
 				<%end%>
 			<%end%>
 			
-			<% @service_string = "The service \"" + notif.service.title + "\""%>
-			
 			<% case notif.notification_type %>
 			<%when 'EDIT'%>
-				<%= @service_string %> of <%= @service_creator.firstname %> <%= @service_creator.name %> was eddited<br />
+				The <%= link_to "service", service_path(notif.service)%> "<%=notif.service.title%>" of <%= @service_creator.firstname %> <%= @service_creator.name %> was eddited<br />
 			<%when 'ACCEPT'%>
-				<%= @service_string %> was accepted by <%= @creator_fullname%> <br />
+				The <%= link_to "service", service_path(notif.service)%> "<%=notif.service.title%>"  was accepted by <%= @creator_fullname%> <br />
 			<%when 'FOLLOW'%>
-				<%= @service_string %> was followed by <%= @creator_fullname%> <br />
+				The <%= link_to "service", service_path(notif.service)%> "<%=notif.service.title%>"  was followed by <%= @creator_fullname%> <br />
 			<%when 'UNFOLLOW'%>
-				<%= @service_string %> was unfollowed by <%= @creator_fullname%> <br />
+				The <%= link_to "service", service_path(notif.service)%> "<%=notif.service.title%>"  was unfollowed by <%= @creator_fullname%> <br />
 			<%else%>
 				NO MESSAGE FOR THIS TYPE OF NOTIFICATION
 			<%end %>
