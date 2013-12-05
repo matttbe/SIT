@@ -58,7 +58,8 @@ class GroupController < ApplicationController
     @notifications.each do |notif|
       notif.destroy
     end
-    @group.destroy
+	
+	@group.destroy
     redirect_to group_index_path
   end
 
