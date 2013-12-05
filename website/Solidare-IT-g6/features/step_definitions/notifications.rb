@@ -60,11 +60,11 @@ def user_accept
   #find_admin_user
   sign_in
   visit '/services/'+@service.id.to_s
-  click_link "Accept"
+  click_button "Accept"
   visit '/users/sign_out'
   @visitor = nil
   create_visitor
-  sign_in   
+  sign_in
 end
 
 ### GIVEN ###
