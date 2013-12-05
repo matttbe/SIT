@@ -90,5 +90,8 @@ SolidareItG6::Application.routes.draw do
 
   #orga admin
   match 'organisation_manage/:id_orga/managed_users/:id_coworker/new'=> 'organisation_manage/managedusers#new', via: :get, :as=>'new_managed_user_for_coworker'
-  
+
+  #orga admin
+  match 'organisation_manage/managedservices/:id_managed/new'=> 'organisation_manage/managedservices#new', via: :get, :as=>'new_service_for_managed_user'
+
 end

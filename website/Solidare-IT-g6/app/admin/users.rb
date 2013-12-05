@@ -33,7 +33,7 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
       
     end
     f.inputs "Organisation" do
-      if defined?(params[:id_orga])
+      if params.has_key?(:id_orga)
         f.collection_select :managed_org_id, Organisation.where("creator_id=:id",:id=>current_user.id).where("id=:id",:id=>params[:id_orga]), :id, :name
       else
         f.collection_select :managed_org_id, Organisation.where("creator_id=:id",:id=>current_user.id), :id, :name
@@ -41,7 +41,7 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
     end
 
     f.inputs "Coworker" do
-       if defined?(params[:id_coworker])
+       if params.has_key?(:id_coworker)
         @co=Coworker.where("id=:id",:id=>params[:id_coworker]).first
         f.collection_select :coworker_id, User.where(:id=>@co.user_id), :id, :all_name
        else
