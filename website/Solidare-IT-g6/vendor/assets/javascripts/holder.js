@@ -70,7 +70,7 @@ function draw(ctx, dimensions, template, ratio) {
 	//Resetting font size if necessary
 	ctx.font = "bold " + (text_height * ratio) + "px "+font;
 	ctx.fillText(text, (width / 2), (height / 2), width);
-	return canvas.toDataURL("images/left.png");
+	return canvas.toDataURL("image/png");
 }
 
 function render(mode, el, holder, src) {
@@ -201,8 +201,8 @@ function parse_flags(flags, options) {
 if (!canvas.getContext) {
 	fallback = true;
 } else {
-	if (canvas.toDataURL("images/left.png")
-		.indexOf("data:images/left.png") < 0) {
+	if (canvas.toDataURL("image/png")
+		.indexOf("data:image/png") < 0) {
 		//Android doesn't support data URI
 		fallback = true;
 	} else {
