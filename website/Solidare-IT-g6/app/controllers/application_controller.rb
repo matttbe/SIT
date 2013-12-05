@@ -67,7 +67,8 @@ class ApplicationController < ActionController::Base
     @notification.notification_type = type
     @notification.creator_id = current_user.id 
     @notification.seen = false
-    Notifier.send_notif(user,@notification, "Service Notification").deliver
+    @user = User.where(:id => user_notified_id).first
+    Notifier.send_notif(@user, @notification, "Service Notification").deliver
     if ! @notification.save
         show_error(format,'new',@notification)
     end
