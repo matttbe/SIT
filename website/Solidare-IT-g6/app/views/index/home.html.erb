@@ -30,5 +30,53 @@
 
 <%else%>
 
+<% @closest_services = Service.where(:quick_match=>false).joins(:address).sort_by{|r| r.distance(current_user.main_address.latitude,current_user.main_address.longitude)}.reverse %>
+
+
+    <h4><span class="label label-default">Services close to you :</span></h4>
+
+    <% i = 0 %>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="well well-large service">
+          <% if !@closest_services[i].nil? %>
+          <h4> <%= @closest_services[i].title %> </h4>
+          <%= image_tag @closest_services[i].photo.url(:thumb) %>
+          <p>
+            <h7> <%= @closest_services[i].description %> </h7>
+          </p>
+          <%= button_to 'Show', service_path(@closest_services[0]), :class=>"btn btn-info", :method => :get  %>
+          <%end%>
+        </div>
+        <% i = i + 1 %>
+      </div>
+      <div class="col-md-4">
+        <div class="well well-large service">
+          <% if !@closest_services[i].nil? %>
+          <h4> <%= @closest_services[i].title %> </h4>
+          <%= image_tag @closest_services[i].photo.url(:thumb) %>
+          <p>
+            <h7> <%= @closest_services[i].description %> </h7>
+          </p>
+          <%= button_to 'Show', service_path(@closest_services[i]), :class=>"btn btn-info", :method => :get  %>
+          <%end%>
+        </div>
+        <% i = i + 1 %>
+      </div>
+      <div class="col-md-4">
+        <div class="well well-large service">
+          <% if !@closest_services[i].nil? %>
+          <h4> <%= @closest_services[i].title %> </h4>
+          <%= image_tag @closest_services[i].photo.url(:thumb) %>
+          <p>
+            <h7> <%= @closest_services[i].description %> </h7>
+          </p>
+          <%= button_to 'Show', service_path(@closest_services[i]), :class=>"btn btn-info", :method => :get  %>
+          <%end%>
+        </div>
+      </div>
+    </div>
+
 <%end%>
 </div>
