@@ -31,6 +31,8 @@ $(document).on "ready page:change", ->
     	$.getScript $(this).attr('href')
     $('#async-search').submit (event) ->
     	$('.services').empty()
+    	$('.services').html("<img id='loader' src='/assets/ajax-loader.gif' alt='loading...' />");
+    	
     append = (e) ->
     	path = "/child_categories/#{e.target.value}"
     	$.getJSON path, (json) ->

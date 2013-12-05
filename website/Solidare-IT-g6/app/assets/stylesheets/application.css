@@ -30,7 +30,9 @@ body {
 .sticker-active .full-width-header {
 	width: 100%
 }
-
+.full-width-header .search-query {
+	margin-top: 30px;
+}
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url('../assets/glyphicons-halflings-regular.eot');
