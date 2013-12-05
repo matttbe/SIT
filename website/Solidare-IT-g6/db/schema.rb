@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205225323) do
+
+ActiveRecord::Schema.define(version: 20131205225557) do
 
   create_table "accept_services", force: true do |t|
     t.integer  "service_id"
@@ -76,6 +77,19 @@ ActiveRecord::Schema.define(version: 20131205225323) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "validated",       default: false
+  end
+
+  create_table "favorite_searches", force: true do |t|
+    t.integer  "user_id",           default: 0
+    t.string   "q",                 default: ""
+    t.boolean  "is_demand",         default: false
+    t.boolean  "is_active",         default: false
+    t.boolean  "is_karma",          default: false
+    t.boolean  "is_order_end",      default: false
+    t.integer  "category_id",       default: 1
+    t.boolean  "is_order_distance", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "followers", force: true do |t|
@@ -260,8 +274,8 @@ ActiveRecord::Schema.define(version: 20131205225323) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.boolean  "managed_by_organisation", default: false
     t.boolean  "mail_notif",              default: false
+    t.boolean  "managed_by_organisation", default: false
     t.integer  "coworker_id",             default: 0
     t.integer  "sash_id"
     t.integer  "level",                   default: 0
