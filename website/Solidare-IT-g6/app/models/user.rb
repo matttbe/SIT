@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_merit
+
   rolify
   before_save :default_values
 

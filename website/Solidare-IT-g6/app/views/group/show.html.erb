@@ -18,14 +18,27 @@
 	<% end %>
 <% end %>
 
-
-<h2>Users</h2>
-	<% @group.users.each do |user| %>
-		<p><%= user.name %></p>
-	<% end %>
-<p>
-<%= link_to 'Delete group', group_path(@group),
-                    method: :delete, data: { confirm: 'Are you sure?' } %>
+<% if ! current_user.nil?%>
+	<h2>Users</h2>
+		<% @group.users.each do |user| %>
+			<%= link_to ""+user.firstname+" "+user.name, show_profile_path(user) %><br />
+		<% end %>
+	<p>
+	<% @member = false %>		
+	<% current_user.groups.each do |group| %>
+		<br />
+		<% if group.id == @group.id %>
+			<% @member = true %>
+			<!-- TODO update le lien leave -->
+			<%= link_to 'Delete group', group_path(@group), method: :delete, data: { confirm: 'Are you sure?' } %>
+		<%end%>
+	<%end%>
+	
+	<% if ! @member %>
+		<br />
+		<span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => @group, :idUser => current_user}%></span>
+	<%end%>
+<%end%>
 
 </p>
 
