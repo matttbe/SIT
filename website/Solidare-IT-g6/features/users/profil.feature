@@ -14,4 +14,4 @@ Feature: All about profiles
 	  And I am logged in
 	  And The database contains my services
 	  When Some users follow my service
-	  Then I can see the profiles of my followers
+	  Then I can see the profiles of my followers  
