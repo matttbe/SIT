@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205191031) do
+ActiveRecord::Schema.define(version: 20131205225323) do
 
   create_table "accept_services", force: true do |t|
     t.integer  "service_id"
@@ -226,6 +226,7 @@ ActiveRecord::Schema.define(version: 20131205191031) do
     t.integer  "user_id",             default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "poster_id"
   end
 
   create_table "users", force: true do |t|

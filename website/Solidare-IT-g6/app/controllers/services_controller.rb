@@ -186,6 +186,7 @@ class ServicesController < ApplicationController
     @transaction=Transaction.new(transaction_params)
     @transaction.user_id=@service.creator_id
     @transaction.service_id=@service.id
+	@transaction.poster_id=current_user.id
     @user=User.find(@transaction.user_id)
     @user.karma=@user.karma+@transaction.feedback_evaluation
     #TODO update karma
