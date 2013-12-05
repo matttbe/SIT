@@ -6,9 +6,7 @@ class ApplicationController < ActionController::Base
   end
   
   def create_group_notif(group, type)
-    logger.debug("+++++++++++++++ CREATE NOTIF +++++++++++++++++++++++++++++")
     group.users.each do |user|
-      logger.debug("+++++++++++++++ A USER +++++++++++++++++++++++++++++")
       @notifications_list = Notification.where("group_id = :group_id AND notified_user = :user_id", :group_id => group, :user_id => user)
       @notification = nil
       if @notifications_list.size > 0
@@ -30,6 +28,7 @@ class ApplicationController < ActionController::Base
     @notification.notification_type = type
     @notification.creator_id = current_user.id 
     @notification.seen = false
+    Notifier.send_notif(user,@notification, "Group Notification").deliver
     if ! @notification.save
         show_error(format,'new',@notification)
     end
@@ -56,6 +55,7 @@ class ApplicationController < ActionController::Base
     @notification.notification_type = type
     @notification.creator_id = current_user.id 
     @notification.seen = false
+    Notifier.send_notif(user,@notification, "Service Notification").deliver
     if ! @notification.save
         show_error(format,'new',@notification)
     end
