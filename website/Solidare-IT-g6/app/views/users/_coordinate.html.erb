@@ -5,3 +5,6 @@ Birthday : <%= @user.birthdate %><br />
 Languages : <%= @user.language %><br />
 Karma : <%= @user.karma %><br />
 Presentation : <%= @user.presentation %><br />
+<%if @user.managed_org_id > 0%>
+	This profile is managed by an organisation
+<%end%>

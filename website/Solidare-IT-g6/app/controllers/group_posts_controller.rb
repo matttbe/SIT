@@ -14,8 +14,11 @@ class GroupPostsController < ApplicationController
   def destroy
 	@group_post = GroupPost.find(params[:id])
 	@group_post.destroy
-
+	@comments = GroupPostComment.where(group_post_id: params[:id])
+	@comments.each do |comment|
+		comment.destroy
 	redirect_to group_path(params[:group_id])
+	end
   end
 
 end

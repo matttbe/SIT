@@ -5,6 +5,7 @@
       <%= text_field_tag(:q, "",:class=>"search-query form-control", :placeholder=>"Search") %>
       <%= submit_tag("Search", :class=>"btn btn-primary") %>
       </div>
+
       <div id="typesCheckboxes" >
         
         <label class="checkbox" for="offer_cbox">
@@ -15,7 +16,7 @@
           <input type="checkbox" value="" name="demand_cbox" id="demand_cbox" data-toggle="checkbox">
           Demands
         </label>
-        </div>
+      </div>
 
       <p id="show_option">More options</p>
       <div id="more" style="">
@@ -26,6 +27,11 @@
     </div>
 
 <% end %>
+
+ <% @all = Service.where(:quick_match=>false) %>
+ <% random = Random.rand(@all.size) %>
+ <%= button_to 'Random service !', service_path(@all[random]), :class=>"btn btn-primary", :method => :get  %>
+
 <script>
     $(document).ready(function(){
         $("#more").toggle();

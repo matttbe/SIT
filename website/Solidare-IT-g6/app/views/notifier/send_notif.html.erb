@@ -531,13 +531,23 @@
 <!-- TITRE -->
 <h3 style="margin: 0;padding: 0;display: block;font-family: Helvetica;font-size: 18px;font-style: normal;font-weight: bold;line-height: 125%;letter-spacing: -.5px;text-align: left;color: #606060 !important;">You received a notification </h3>
 <!-- CONTENU DU MAIL -->
-
-<!-- TODO quand la branch sera merge parce que ca ne fonctionne point pour le moment-->
-<% if @notification.service.nil? %>
-	
-<%else%>
-	
-<%end%>
+<% if !@notification.service.nil? %>
+	<!-- NOTIFICATION SERVICE-->
+	<%case @notification.notification_type %>
+	<%when 'EDDIT'%>
+	<%when 'FOLLOW'%>
+	FOLLOW NOTIF
+	<%when 'UNFOLLOW'%>
+	<%when 'ACCEPT'%>
+	<%else %>
+	<%end%>
+<% elsif !@notification.group.nil? %>
+	<!-- NOTIFICATION GROUP-->
+	some text
+<% else %>
+	<!-- NOTIFICATION BADGE-->
+	some text
+<%end %>
 <!-- FIN -->
                         </td>
                     </tr>

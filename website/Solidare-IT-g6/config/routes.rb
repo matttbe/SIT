@@ -94,7 +94,8 @@ SolidareItG6::Application.routes.draw do
   get '/service/:id/unfollow/:follower_id' => 'services#unfollow', :as=>"unfollow" 
   
   #notification routing
-  get '/notifications' => 'notifications#show', :as => "show"
+  get '/notifications' => 'notifications#show', :as => "show_notifications"
+
 
 
   #orga admin

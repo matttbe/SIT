@@ -59,7 +59,7 @@ class ServicesController < ApplicationController
 	@chosen_service.save
 
 	@service = Service.find(params[:s_id])
-    create_quick_service
+    create_quick_service(@chosen_service.user_id)
     @service.matching_service=@serviceQ
 	@service.save!
 
@@ -185,6 +185,7 @@ class ServicesController < ApplicationController
   def create_transaction
     @transaction=Transaction.new(transaction_params)
     @transaction.user_id=@service.creator_id
+    
     @transaction.service_id=@service.id
 	@transaction.poster_id=current_user.id
     @user=User.find(@transaction.user_id)
@@ -260,14 +261,14 @@ class ServicesController < ApplicationController
       end
     end
 
-    def create_quick_service
+    def create_quick_service(user_id)
       @serviceQ=Service.new
       #TODO si on renseigne pas tous les champs, la vérif du modèle va gueuler.  Que faire ?  le boolean quick_match sert-il alors ?
       @serviceQ.title=@service.title
       @serviceQ.description=@service.description
       @serviceQ.date_start=@service.date_start
       @serviceQ.date_end=@service.date_end
-      @serviceQ.creator_id=current_user.id
+      @serviceQ.creator_id=user_id
       @serviceQ.quick_match=true
       @serviceQ.matching_service=@service
       @serviceQ.is_demand=@service.is_demand==true
