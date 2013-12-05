@@ -1,5 +1,5 @@
 class GroupController < ApplicationController
-  before_action :is_logged_in, only: [:new,:create, :member?, :update, :destroy]
+  before_action :is_logged_in, only: [:new,:create, :update, :destroy]
 
   def new
   end
@@ -20,9 +20,13 @@ class GroupController < ApplicationController
   end
 
   def destroy
+    #TODO verifier que l'utilisateur est admin du groupe    
     @group = Group.find(params[:id])
+    @notifications = Notification.where("group_id = :group_id", :group_id => @group.id)
+    @notifications.each do |notif|
+      notif.destroy
+    end
     @group.destroy
- 
     redirect_to group_index_path
   end
 
@@ -34,17 +38,6 @@ class GroupController < ApplicationController
   def add_user
 
   end  
-  
-  def member?
-    logger.debug("+++++++++++ I TAKE THIS METHOD ++++++++++++++")
-    @group = Group.find(params[:id])
-    @group.users.each do |member|
-      if member.id == current_user.id
-        return true
-      end
-    end
-    return false
-  end
 
   private
     def group_params
