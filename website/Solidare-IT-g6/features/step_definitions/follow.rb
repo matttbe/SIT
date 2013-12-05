@@ -81,7 +81,7 @@ Then(/^I can see the followers of my service$/) do
 end
 
 Then(/^I should see an accept link$/) do
-  assert page.has_link?("Accept")
+  assert page.has_button?("Accept")
 end
 
 Then(/^I can not see the service anymore$/) do
