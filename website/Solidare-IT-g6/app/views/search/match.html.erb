@@ -1,8 +1,20 @@
 <% location= request.env['PATH_INFO'] %>
-<div class="container-fluid">
-  <h3>Search Result</h3>
-  <div class="row-fluid">
-    <div class="span3">
+<div class="full-width-header" id="sticker"> 
+  <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+              <h3 >Search Result</h3> 
+            </div>
+  <div class="col-md-2">
+  <% if !current_user.nil?%>
+    <%= link_to 'New Service', new_service_path, :class=>"btn btn-primary" %>
+  <% end %>
+</div>
+</div>
+</div>
+  
+  <div class="row service-list">
+    <div class="col-md-3">
+      <div id="sticker-filter">
       <div class="well sidebar-nav">
         <ul class="nav nav-list">
           <li class="nav-header">Sort</li>
@@ -32,37 +44,30 @@
            <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only service proposed by good karma</a></li>
            <li class="nav-header">Categories</li>
            <% if (!@categories.nil?&&@categories.size>0) %>
-           <% @categories.each do |category|
-             if category.first > -1
-              @category=Category.find(category.first)
-              @param="&category="+@category.id.to_s
-              @link=generateLink(@search,@param)
-              @active=!@link.include?(@param)
-              %>
+           <% @categories.each do |category| %>
+             <% if category.first > -1 %>
+               <% @category=Category.find(category.first)
+                @param="&category="+@category.id.to_s
+                @link=generateLink(@search,@param)
+                @active=!@link.include?(@param) %>
+
               <li <% if @active%> class="active"<% end%>><a href="<%= @link %>"><%=@category.title%> <span class="badge"><%=category.second.size%></span></a></li>
               <% end %>
-              <% end %>
-              <% end %>
+            <% end %>
+            <% end %>
             </ul>
           </div>
         </div>
-        <div class="span9 service-cont">
-          <div class="row-fluid">
-            <div class="span2">
-              <% if !current_user.nil?%>
-              <%= link_to 'New Service', new_service_path, :class=>"btn btn-primary" %>
-              <% end %>
-            </div>
-
-            <div class="btn-toolbar span2 offset8">
+        </div>
+        <div class="col-md-9 service-cont">
+          <div class="row">
+            <div class="btn-toolbar col-md-2 col-md-offset-10">
               <div class="btn-group">
-                <a class="btn" id="list" ><i class="icon-list"></i></a>
+                <a class="btn" id="list" ><i class="glyphicon glyphicon-list"></i></a>
                 <a class="btn" id="grid" ><i class="icon-grid"></i></a>
               </div>
             </div>
           </div>
-
-
 
           <% if @services.size ==0 %>
           No results
@@ -76,5 +81,6 @@
           <% end %>
         </div>
       </div>
+  
 
 
