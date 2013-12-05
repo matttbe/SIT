@@ -24,6 +24,8 @@ class AddressController < ApplicationController
       end
     end
     
+    #GET 
+
     def create
       @address = Address.new(address_params)
       if params[:org_id] == nil
@@ -35,7 +37,6 @@ class AddressController < ApplicationController
       else
         @address.orga_id = params[:org_id]
       end
-
       coordinates = Geokit::Geocoders::Google3Geocoder.geocode(@address.street + ", " + @address.number.to_s + ", " + @address.country)
       @address.latitude = coordinates.lat
       @address.longitude = coordinates.lng

@@ -1,8 +1,7 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:edit, :update, :destroy, :accept_service, :follow, :unfollow]
   before_action :set_good_service, only: [:create_transaction, :new_transaction]
-  
-  
+
   #GET /following_services
   def following_services
     if user_signed_in?
@@ -230,7 +229,7 @@ class ServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:title,:description, :date_start, :date_end,:is_demand, :photo, :creator_id)
+      params.require(:service).permit(:category_id,:title,:description, :date_start, :date_end,:is_demand, :photo, :creator_id)
     end
 
     def transaction_params

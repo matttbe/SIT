@@ -54,4 +54,3 @@ Feature: Addresses of user
       And I click on the Edit address button
       And I see a Address was successfully updated. message
       And I see my address
-

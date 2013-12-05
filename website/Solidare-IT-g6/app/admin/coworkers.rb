@@ -44,6 +44,10 @@ ActiveAdmin.register Coworker, :as => "Coworkers", namespace: :organisation_mana
           end
   end
 
+  sidebar "Actions", :only=>:show do
+    button_to "Add a managed user", new_managed_user_for_coworker_path(coworkers.organisation.id,coworkers.id), :method=> :get
+  end
+
 
   member_action :organisation do
     @organisation = Organisation.find(params[:id])
