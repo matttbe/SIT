@@ -19,8 +19,7 @@ body {
 }
 
 .full-width-header {
-	margin-left: -150px;
-	margin-right: -150px;
+	width: 100%;
 	margin-bottom: 30px;
 	padding: 10px 30px 10px 30px;
 	background-color: #777777;
