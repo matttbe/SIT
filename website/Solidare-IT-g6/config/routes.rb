@@ -1,5 +1,6 @@
 SolidareItG6::Application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
   resources :group do
   	resources :group_posts do
   	  resources :group_post_comments	
@@ -16,7 +17,7 @@ SolidareItG6::Application.routes.draw do
 
   # devise_for :admin_users, ActiveAdmin::Devise.config ## => we took info from Devise
   ActiveAdmin.routes(self)
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => 'users/registrations'}
   #ActiveAdmin.routes(self)
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -89,5 +90,8 @@ SolidareItG6::Application.routes.draw do
 
   #orga admin
   match 'organisation_manage/:id_orga/managed_users/:id_coworker/new'=> 'organisation_manage/managedusers#new', via: :get, :as=>'new_managed_user_for_coworker'
-  
+
+  #orga admin
+  match 'organisation_manage/managedservices/:id_managed/new'=> 'organisation_manage/managedservices#new', via: :get, :as=>'new_service_for_managed_user'
+
 end

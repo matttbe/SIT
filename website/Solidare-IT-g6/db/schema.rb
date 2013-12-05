@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204201929) do
+ActiveRecord::Schema.define(version: 20131205123600) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -30,23 +30,34 @@ ActiveRecord::Schema.define(version: 20131204201929) do
 
   create_table "addresses", force: true do |t|
     t.string   "street"
-    t.integer  "number"
-    t.integer  "postal_code"
+    t.integer  "number",      default: 0
+    t.integer  "postal_code", default: 0
     t.string   "city"
     t.string   "country"
-    t.integer  "user_id"
-    t.integer  "orga_id"
+    t.integer  "user_id",     default: 0
+    t.integer  "orga_id",     default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "principal",   default: false
-    t.float    "latitude"
-    t.float    "longitude"
+    t.integer  "latitude",    default: 0
+    t.integer  "longitude",   default: 0
   end
+
+  create_table "badges_sashes", force: true do |t|
+    t.integer  "badge_id"
+    t.integer  "sash_id"
+    t.boolean  "notified_user", default: false
+    t.datetime "created_at"
+  end
+
+  add_index "badges_sashes", ["badge_id", "sash_id"], name: "index_badges_sashes_on_badge_id_and_sash_id"
+  add_index "badges_sashes", ["badge_id"], name: "index_badges_sashes_on_badge_id"
+  add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id"
 
   create_table "categories", force: true do |t|
     t.string   "title"
     t.text     "text"
-    t.integer  "parent"
+    t.integer  "parent",     default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -111,6 +122,38 @@ ActiveRecord::Schema.define(version: 20131204201929) do
     t.datetime "photo_updated_at"
   end
 
+  create_table "merit_actions", force: true do |t|
+    t.integer  "user_id"
+    t.string   "action_method"
+    t.integer  "action_value"
+    t.boolean  "had_errors",    default: false
+    t.string   "target_model"
+    t.integer  "target_id"
+    t.boolean  "processed",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "merit_activity_logs", force: true do |t|
+    t.integer  "action_id"
+    t.string   "related_change_type"
+    t.integer  "related_change_id"
+    t.string   "description"
+    t.datetime "created_at"
+  end
+
+  create_table "merit_score_points", force: true do |t|
+    t.integer  "score_id"
+    t.integer  "num_points", default: 0
+    t.string   "log"
+    t.datetime "created_at"
+  end
+
+  create_table "merit_scores", force: true do |t|
+    t.integer "sash_id"
+    t.string  "category", default: "default"
+  end
+
   create_table "notifications", force: true do |t|
     t.integer  "notified_user"
     t.string   "notification_type"
@@ -141,6 +184,11 @@ ActiveRecord::Schema.define(version: 20131204201929) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], name: "index_roles_on_name"
 
+  create_table "sashes", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "services", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -152,21 +200,20 @@ ActiveRecord::Schema.define(version: 20131204201929) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_demand",           default: false
-    t.integer  "org_id"
-    t.integer  "cat_id",              default: 1
-    t.integer  "category_id"
+    t.integer  "org_id",              default: 0
+    t.integer  "category_id",         default: 1
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.integer  "address_id"
+    t.integer  "address_id",          default: 0
   end
 
   create_table "transactions", force: true do |t|
     t.text     "feedback_comments"
     t.integer  "feedback_evaluation"
-    t.integer  "service_id"
-    t.integer  "user_id"
+    t.integer  "service_id",          default: 0
+    t.integer  "user_id",             default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -176,10 +223,10 @@ ActiveRecord::Schema.define(version: 20131204201929) do
     t.string   "firstname"
     t.datetime "birthdate"
     t.string   "email"
-    t.integer  "karma"
+    t.integer  "karma",                   default: 0
     t.boolean  "id_ok",                   default: false
     t.text     "presentation"
-    t.boolean  "inscription_ok"
+    t.boolean  "inscription_ok",          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "encrypted_password",      default: "",    null: false
@@ -196,15 +243,17 @@ ActiveRecord::Schema.define(version: 20131204201929) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.string   "language",                default: "en"
-    t.integer  "coworker_org_id",         default: -1
-    t.integer  "managed_org_id",          default: -1
+    t.integer  "coworker_org_id",         default: 0
+    t.integer  "managed_org_id",          default: 0
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.boolean  "managed_by_organisation", default: false
     t.boolean  "mail_notif",              default: false
-    t.integer  "coworker_id",             default: -1
+    t.integer  "coworker_id",             default: 0
+    t.integer  "sash_id"
+    t.integer  "level",                   default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
