@@ -16,13 +16,25 @@ end
 Merit::Badge.create!({
   :id=>1,
   :name=>'just-registered',
-  description : "A admin has validated your ID"
+  :description => "A admin has validated your ID"
   })
 
 Merit::Badge.create!({
   :id=>2,
-  :name=>'just-registered',
-  description : "A admin has validated your ID"
+  :name=>'1-karma',
+  :description => "Your karma is greater than 0"
+  })
+
+Merit::Badge.create!({
+  :id=>3,
+  :name=>'5-karma',
+  :description => "Your karma is greater than 5"
+  })
+
+Merit::Badge.create!({
+  :id=>4,
+  :name=>'10-karma',
+  :description => "Your karma is greater than 10"
   })
 
 # Create application badges (uses https://github.com/norman/ambry)

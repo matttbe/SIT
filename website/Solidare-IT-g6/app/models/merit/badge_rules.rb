@@ -23,7 +23,11 @@ module Merit
     def initialize
       # If it creates user, grant badge
       # Should be "current_user" after registration for badge to be granted.
-      grant_on 'registration#create', :badge => 'just-registered', :model_name =>'User'
+      #grant_on 'registration#create', :badge => 'just-registered', :model_name =>'User'
+
+      #grant_on 'services#create_transaction', :badge => '5-karma', to: :user do |service|
+      #    current_user.karma>0
+      #end
 
       # If it has 10 comments, grant commenter-10 badge
       # grant_on 'comments#create', :badge => 'commenter', :level => 10 do |comment|
