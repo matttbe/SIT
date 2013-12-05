@@ -28,6 +28,11 @@ else
   a2 = User.create! :email =>"maitre@dieu.ciel", :password=>'password', :password_confirmation=>'password', :name =>"Dieu", :firstname => "Maitre", :birthdate => 'TMon, 18 Jun 1990 15:00:00 UTC +00:00', :karma => 0, :id_ok => true,:avatar=>File.open("../../img/dieu.jpg")
   a2.add_role :superadmin
 
+  #badge
+  u2.add_badge(1)
+  a1.add_badge(1)
+  a2.add_badge(1)
+
   # categories
   c1   = Category.create! :title => 'Clothes', :text => 'All clothes'
   c11  = Category.create! :title => 'Pullovers', :text => 'All pullover', :parent_cat => c1

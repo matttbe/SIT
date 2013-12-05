@@ -37,14 +37,14 @@ Feature: All about following
 
 	Scenario: Validated user can unfollow a service from his following service page
       And I am logged in
-	  When I follow a service
-	  And I visit the page of the services followed
+	  And I follow a service
+	  When I visit the page of the services followed
 	  Then I should see a unfollow link
 	  And I should see an accept link
 	  And I can not see the follow link
 	  
 	Scenario: Validated user who follows a finished service should not see this service anymore
 	  And I log in
-	  When I follow a service
-	  And The service is finished
+	  And I follow a service
+	  When The service is finished
 	  Then I can not see the service anymore
