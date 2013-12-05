@@ -24,5 +24,10 @@
                 <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> to <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
                 <%if !service.address.nil?%> <p class="service-desc"><%= service.address.country %></p><% end %>
                 </p>
+
+                <a class="pull-right" href="#">
+                  <h7><%= (service.date_end - service.date_start).to_formatted_s(:rfc822) %> left</h7>
+                </a>
+
               </div>
 </div>
