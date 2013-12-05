@@ -98,14 +98,11 @@ class ApplicationController < ActionController::Base
     cats
   end
 
-<<<<<<< HEAD
-=======
   def get_categories_from_node_id(cat_id, withChild)
     cat = Category.find(cat_id)
     get_categories_from_node(cat, withChild)
   end
 
->>>>>>> 4d7bd4a2d2fa73283381bf97cb302b30f4d63bde
   def get_all_categories_from_root(withChild)
     cats = Array.new
     Category.all.each do |cat|
