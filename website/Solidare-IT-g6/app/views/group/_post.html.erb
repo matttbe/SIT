@@ -1,42 +1,61 @@
 <h2>Posts</h2>
-
 <% if @group.group_posts.empty?%>
-  <p>
-	No post :( Be the first !
-  </p>
+	<p>
+		No post :( Be the first !
+	</p>
 <% end %>
 
 <% @group.group_posts.order('updated_at DESC').each do |group_post| %>
-  <p>
-    <%if !group_post.user.nil? %>
-      <strong><%=group_post.user.all_name %>	</strong>
-	<% end %>
-    <%= group_post.body %>
-	<%= link_to 'Delete', group_group_post_path(@group,group_post),method: :delete, data: { confirm: 'Are you sure?' }%>
-  </p>
-	
-	<% group_post.group_post_comments.each do |group_post_comment| %>
-	  <p>
-	    <%if !group_post_comment.user.nil? %>
-          <%=group_post_comment.user.all_name %> :
-	    <% end %>
-        <%= group_post_comment.body %>
-	  </p>
-	<% end %>	
-	
-	<% if !(current_user.nil?)%>
-	<% if !(GroupUserRelation.where(user_id: current_user.id, group_id: @group.id).blank?) %>
-	  <%= form_for(GroupPostComment.new, :url=> group_group_post_group_post_comments_path(@group,group_post),:method=>'post') do |f| %>
-  	    <p>
-          <%= f.text_area :body %><%= f.submit "Comment"%>
-        </p>
-	  <% end %>
-	<% end %>
-	<% end %>
+	<div class="post well well-large">
+		<p>
+			<%if !group_post.user.nil? %>
+				<div class="row">
+					<div class="col-md-11">
+						<%= image_tag group_post.user.avatar.url(:medium) %>
+						<h4><%=link_to group_post.user.all_name, show_profile_path(group_post.user.id) %></h4>
+					</div>
+					<div class="col-md-1">
+						<%= link_to 'Delete', group_group_post_path(@group,group_post),method: :delete, data: { confirm: 'Are you sure?' }%>
+					</div>
+				</div>
+			<% end %>
+			<div class="post-body">
+				<%= group_post.body %>
+			</div>
+			
+		</p>
+		<div class="comment-body well">
+			<% group_post.group_post_comments.each do |group_post_comment| %>
+			<div class='comment'>
+				<p>
+					<%if !group_post_comment.user.nil? %>
+						<%=group_post_comment.user.all_name %> :
+					<% end %>
+					<%= group_post_comment.body %>
+				</p>
+			</div>
+			<% end %>	
+
+			<% if !(current_user.nil?)%>
+				<% if !(GroupUserRelation.where(user_id: current_user.id, group_id: @group.id).blank?) %>
+					<%= form_for(GroupPostComment.new, :url=> group_group_post_group_post_comments_path(@group,group_post),:method=>'post') do |f| %>
+						<div class="row">
+							<div class="col-md-3">
+								<%= f.text_field :body, :class=>"form-control input-sm"  %>
+							</div>
+							<div class="col-md-1">
+								<%= f.submit "Comment", :class=>"btn btn-default btn-sm"%>
+							</div>
+						</div>
+					<% end %>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
 <% end %>
 
 <%if !(current_user.nil?)%>
-<% if !(GroupUserRelation.where(user_id: current_user.id, group_id: @group.id).blank?) %>
-  <%= render 'post_form' %>
-<% end %>
+	<% if !(GroupUserRelation.where(user_id: current_user.id, group_id: @group.id).blank?) %>
+		<%= render 'post_form' %>
+	<% end %>
 <% end %>

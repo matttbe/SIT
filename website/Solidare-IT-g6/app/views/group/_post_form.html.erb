@@ -1,8 +1,8 @@
 <%= form_for([@group, @group.group_posts.build]) do |f| %>
   <p>
-    <%= f.text_area :body, :class=>"form-control" %>
+    <%= f.text_area :body, :class=>"form-control input-hg" %>
   </p>
   <p>
-    <%= f.submit "Add new post"%>
+    <%= f.submit "Add new post", :class=>'btn btn-default'%>
   </p>
 <% end %>

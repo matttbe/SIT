@@ -33,6 +33,14 @@ body {
 .full-width-header .search-query {
 	margin-top: 30px;
 }
+
+h2 {
+	width: 100%;
+	background-color: #E1E1E1;
+	padding: 25px;
+	color:#777777;
+	border-radius: 10px;
+}
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url('../assets/glyphicons-halflings-regular.eot');
