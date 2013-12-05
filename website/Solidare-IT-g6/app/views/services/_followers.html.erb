@@ -1,7 +1,9 @@
 
 <h4>Followers</h4>
-<% if @followers_list.size == 0 %>
-	No Followers
+<% if @followers_list.nil? %>
+	<h6><span class="label label-danger">No followers</span></h6>
+<% elsif @followers_list.size == 0 %>
+	<h6><span class="label label-danger">No followers</span></h6>
 <%else%>
 	<% @users.each do |user| %>
 		<% @followers_list.each do |follower| %>

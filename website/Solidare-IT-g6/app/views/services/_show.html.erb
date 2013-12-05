@@ -19,7 +19,7 @@
       <%if !service.address.nil?%> <p class="service-desc"><%= service.address.country %></p><% end %>
     </p>
 
-    <%= render 'followers', :followers_list=>@followers_list%>
+    <%= render 'services/followers', :followers_list=>@followers_list%>
 
     <br /><br />
 
