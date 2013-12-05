@@ -1,0 +1,14 @@
+
+columns do
+    column do
+        panel "Coworker info" do
+                table_for Service.joins(:organisation).where("organisations.creator_id=:id",:id=>current_user.id).each,sortable: true do |service|
+
+                    column("Name", sortable: :name)   {|service| service.user.all_name}
+                    column("Organisation", sortable: :organisation)  {|service| service.user.coworker.organisation.name}
+                    column("Title", sortable: :title)  {|service| service.title}
+                    column("Category", sortable: :category)  {|service| service.category.title}
+                 end
+        end
+    end
+end

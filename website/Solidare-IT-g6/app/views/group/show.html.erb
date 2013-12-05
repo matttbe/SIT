@@ -18,8 +18,6 @@
 	<% end %>
 <% end %>
 
-<h2>Users</h2>
-
 <p>
 <% if ! current_user.nil?%>
 	<h2>Users</h2>
@@ -32,20 +30,17 @@
 		<br />
 		<% if group.id == @group.id %>
 			<% @member = true %>
-			<!-- TODO update le lien leave -->
-			<%= link_to 'Delete group', group_path(@group), method: :delete, data: { confirm: 'Are you sure?' } %>
+			<p><%= link_to 'Leave Group', group_delete_user_path(@group,current_user), :method => :post, data: { confirm: 'Are you sure?' } %></p>		
+			<% if !(GroupUserRelation.where(user_id: current_user.id, group_id: @group.id).blank?)%>
+   				<p><%= link_to 'Delete group', group_path(@group),method: :delete, data: { confirm: 'Are you sure?' } %></p>
+			<% end %>
 		<%end%>
 	<%end%>
 	
 	<% if ! @member %>
 		<br />
-		<span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => @group, :idUser => current_user}%></span>
+		<span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => @group, :idUser => current_user, :role => 'basic'}%></span>
 	<%end%>
 <%end%>
-
-<% if !(GroupUserRelation.where(user_id: current_user.id, group_id: @group.id).blank?)%>
-   <%= link_to 'Delete group', group_path(@group),
-                    method: :delete, data: { confirm: 'Are you sure?' } %>
-<% end %>
 </p>
 
