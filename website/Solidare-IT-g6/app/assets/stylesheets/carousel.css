@@ -20,15 +20,6 @@
       border: 0;
       z-index: 10;
     }
-
-    .left .carousel-control:hover,
-    .left .carousel-control:focus,
-    .left .carousel-control:active,
-    {
-      background-color: transparent;
-
-    }
-
     .carousel .item {
       height: 600px;
     }
