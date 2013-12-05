@@ -103,7 +103,7 @@ def sign_up
 end
 
 def sign_in
-  visit '/users/sign_in'
+  visit '/'
   fill_in "user_email", :with => @visitor[:email]
   fill_in "user_password", :with => @visitor[:password]
   click_button "Sign in"

@@ -4,11 +4,13 @@
 
      <hr class="featurette-divider">
 
+    <% if not @best_karma.nil? %>
       <div class="featurette">
         <span class="featurette-image pull-right"><span class="glyphicon glyphicon-star" style="font-size:75px;"></span> </span>
         <h2 class="featurette-heading">Our Best User <span class="muted"> </span></h2>
         <p class="lead">Regarding his karma, <%=@best_karma.firstname+' '+@best_karma.name%> is the best user of our website. Congratulations !</p>
       </div>
+    <% end %>
 
       <hr class="featurette-divider">
 

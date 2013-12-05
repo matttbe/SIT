@@ -1,3 +1,7 @@
+def current_path
+  URI.parse(current_url).path
+end
+
 When(/^I click on the (.*) button$/)do |button|
   click_button button
 end
@@ -7,13 +11,16 @@ When(/^I click on the (.*) link$/)do |link|
 end
 
 
-
 Then(/^show me the page$/)do
   save_and_open_page
 end
 
 Then(/^I should be on root page$/)do
-    assert page.has_content?("Welcome")
+  current_path == '/'
+end
+
+Then(/^I should be on the url (.+?)$/)do |url|
+  current_path == url
 end
 
 Then(/^I should see a missing (.*) message$/)do |blank|
