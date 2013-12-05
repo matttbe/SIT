@@ -15,6 +15,7 @@ ActiveAdmin.register Service, :as => "Service" do
 end
 
 ActiveAdmin.register Service, :as => "Managed service" , namespace: :organisation_manage  do
+  menu false
   form do |f|
     #f.inputs "User" do
     #  f.input :name
@@ -25,7 +26,23 @@ ActiveAdmin.register Service, :as => "Managed service" , namespace: :organisatio
       f.input :title
       f.input :description, :input_html=> {:class => "autogrow"}
       f.input :date_start, :as => :datepicker
+      f.input :date_end, :as => :datepicker
     end
+    f.inputs "Category" do
+      f.collection_select :category_id, Category.all, :id, :title
+    end
+    f.inputs "Pictures" do
+      f.input :photo, :as=>:file, :hint=> f.template.image_tag(f.object.photo.url(:thumb))
+    end
+    f.inputs "Managed user" do
+      if defined?(params[:id_managed])
+        f.collection_select :managed_org_id, Organisation.where("creator_id=:id",:id=>current_user.id).where("id=:id",:id=>params[:id_orga]), :id, :name
+      else
+        @co=User.joins(:coworkers).includes(:organisations).where("organisations.creator_id=:id", :id=> current_user.id)
+        f.collection_select :creator_id, @co, :id, :all_name
+      end
+    end
+    f.actions
   end
 
 end
