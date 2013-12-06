@@ -22,16 +22,21 @@ ActiveAdmin.register_page "Dashboard" do
                 status_tag("no ID", :error)
               end
             }
-            column("Name")   {|customer| customer.all_name}
+            column("Name")   {|customer| link_to customer.all_name, admin_user_path(customer)}
             column("Email")  {|customer| customer.email}
-            column("")       {|customer| link_to "Validate", valid_user_admin_user_path(customer)}
+            column("")       {|customer| button_to "Validate", valid_user_admin_user_path(customer), :method=>:get}
           end
         end
       end
 
       column do
-        panel "Report problem (ta mère ? :p)" do
-          para "to do"
+        panel "Best users" do
+          table_for User.order(:karma).limit(10).reverse.each do |customer|
+            
+            column("Name")   {|customer| link_to customer.all_name, admin_user_path(customer)}
+            column("Email")  {|customer| customer.email}
+            column("Karma")  {|customer| customer.karma}
+          end
         end
       end
     end
@@ -42,7 +47,7 @@ ActiveAdmin.register_page "Dashboard" do
         panel "Organisation to confirm" do
           table_for Organisation.where(:validated => false).limit(10).each do |customer|
             column("Name")   {|customer| customer.name}
-            column("")       {|customer| link_to "Validate", valid_organisation_admin_organisation_path(customer)}
+            column("")       {|customer| button_to "Validate", valid_organisation_admin_organisation_path(customer), :method=>:get}
           end
         end
       end

@@ -1,4 +1,5 @@
 ActiveAdmin.register Service, :as => "Service" do
+  menu false
 
   index do
     selectable_column
