@@ -8,7 +8,7 @@
     <strong>Created by:</strong>
     <%  #TODO add a link to the user profile ? %>
     <%if !@service.user.nil? %>
-      <%= @service.user.all_name %>
+    <%= @service.user.all_name %>
     <% end %>
     <p class="service-desc"><%= service.description %></p>
     <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> to <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
@@ -19,17 +19,17 @@
 
     <br /><br />
 
-      <div class="service-action">
+    <div class="service-action">
 
-        <% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= button_to 'Accept', accept_service_path(service), :class=>"btn btn-success", :method => :get %><%end%>
-        <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Edit', edit_service_path(service), :class=>"btn btn-default", :method => :get %><%end%>
-        <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Destroy', service, method: :delete, :class=>"btn btn-danger"%><%end%>
-        <% if user_signed_in?%>
-        <% @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => service.id, :user_id => current_user.id)%>
-        <% @service = service %>
-        <%= render 'services/follow', :service=>@service, :followers => @followers %>
-        <%end%>
-      </div>
+      <% if !current_user.nil?&&service.matching_service.nil? && service.creator_id!=current_user.id%><%= button_to 'Accept', accept_service_path(service), :class=>"btn btn-success", :method => :get %><%end%>
+      <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Edit', edit_service_path(service), :class=>"btn btn-default", :method => :get %><%end%>
+      <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Destroy', service, method: :delete, :class=>"btn btn-danger"%><%end%>
+      <% if user_signed_in?%>
+      <% @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => service.id, :user_id => current_user.id)%>
+      <% @service = service %>
+      <%= render 'services/follow', :service=>@service, :followers => @followers %>
+      <%end%>
+    </div>
 
     <%= button_to 'Back', '/search', :class=>"btn btn-default"  %>
 
@@ -51,50 +51,5 @@
     </div>
 
 
-    <% @like_services = Service.includes(:category).references(:category).where(:quick_match=>false).where('(services.title LIKE (:titles) or services.description LIKE (:titles) or categories.title LIKE (:titles) or categories.text LIKE (:titles)) and services.id NOT IN (:id)', :titles => "%" + @service.title + "%", :id => @service.id) %>
 
-
-    <h4><span class="label label-default">Other services that might interest you :</span></h4>
-
-    <% i = 0 %>
-
-    <div class="row">
-      <div class="col-md-4">
-        <div class="well well-large service">
-          <% if !@like_services[i].nil? %>
-          <h4> <%= @like_services[i].title %> </h4>
-          <%= image_tag @like_services[i].photo.url(:thumb) %>
-          <p>
-            <h7> <%= @like_services[i].description %> </h7>
-          </p>
-          <%= button_to 'Show', service_path(@like_services[0]), :class=>"btn btn-info", :method => :get  %>
-          <%end%>
-        </div>
-        <% i = i + 1 %>
-      </div>
-      <div class="col-md-4">
-        <div class="well well-large service">
-          <% if !@like_services[i].nil? %>
-          <h4> <%= @like_services[i].title %> </h4>
-          <%= image_tag @like_services[i].photo.url(:thumb) %>
-          <p>
-            <h7> <%= @like_services[i].description %> </h7>
-          </p>
-          <%= button_to 'Show', service_path(@like_services[i]), :class=>"btn btn-info", :method => :get  %>
-          <%end%>
-        </div>
-        <% i = i + 1 %>
-      </div>
-      <div class="col-md-4">
-        <div class="well well-large service">
-          <% if !@like_services[i].nil? %>
-          <h4> <%= @like_services[i].title %> </h4>
-          <%= image_tag @like_services[i].photo.url(:thumb) %>
-          <p>
-            <h7> <%= @like_services[i].description %> </h7>
-          </p>
-          <%= button_to 'Show', service_path(@like_services[i]), :class=>"btn btn-info", :method => :get  %>
-          <%end%>
-        </div>
-      </div>
-    </div>
+</div>
