@@ -22,16 +22,16 @@ class GroupController < ApplicationController
 
 	respond_to do |format|
   	  if @group.save
-	    @relation = GroupUserRelation.new(:user_id => current_user.id, :group_id => @group.id, :role => 'Admin')
-	    if @relation.save
-		  format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        @relation = GroupUserRelation.new(:user_id => current_user.id, :group_id => @group.id, :role => 'Admin')
+        if @relation.save
+          format.html { redirect_to @group, notice: 'Group was successfully created.' }
           format.json { render action: 'show', status: :created, location: @group }
-		else
-		  show_error(format,'new',@relation)
-		end
-	  else
-		show_error(format,'new',@group)
-	  end
+        else
+          show_error(format,'new',@relation)
+        end
+      else
+        show_error(format,'new',@group)
+      end
     end
   end
   

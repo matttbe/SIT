@@ -45,6 +45,33 @@ class SearchController < ApplicationController
 
   # GET /search
   def match
+    @type=''
+    if params[:type]=="organisation"
+      @type="orga"
+      search_organisation
+    elsif params[:type]=="service"
+      @type="service"
+      search_service
+    end
+    respond_to do |format|
+        format.html
+        format.js
+    end
+  end
+
+
+
+  private
+  def search_organisation
+    @search = "/search?"
+    @organisations=Organisation.all
+    if (! params[:q].nil?)
+      @search += "q=" + params[:q] + "&"
+      @organisations=@organisations.where("name LIKE (:titles)", :titles => "%" + params[:q] + "%")
+    end
+  end
+  
+  def search_service
     # if (params.length <= 2) # no arg
     @search = "/search?"
     if (! params[:q].nil?)
@@ -113,10 +140,7 @@ class SearchController < ApplicationController
     @search = @search + "&commit=Search"
     @services.reverse!
     @categories = @services.group_by &:category_id
-    respond_to do |format|
-        format.html 
-        format.js 
-    end
+    
   end
 
 end

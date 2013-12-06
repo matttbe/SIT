@@ -52,7 +52,7 @@ Feature: Add, edit and destroy a Group
       And I am logged in
       When I visit the page of a group
       Then I should see a join button
-    @wip  
+
     Scenario: Validated user can join a group from the global page of groups
       And the database contains groups
       And I am logged in

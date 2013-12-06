@@ -58,9 +58,9 @@ class ApplicationController < ActionController::Base
         if notif.notification_type == "BADGE_"+@badge.name
           @notification = notif
         else
-          @notification = Notification.new          
+          @notification = Notification.new
         end
-      end      
+      end
     else
       @notification = Notification.new
     end
@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
           end
         else
         @notification = Notification.new
-        end      
+        end
         if user.managed_org_id > 0
           @notification.notified_user = user.coworker_org_id
         else
@@ -114,7 +114,7 @@ class ApplicationController < ActionController::Base
         if (type == 'FOLLOW' and notif.notification_type == 'UNFOLLOW') or (type == 'UNFOLLOW' and notif.notification_type == 'FOLLOW') or (notif.notification_type == type) 
           @notification = notif
         else
-          @notification = Notification.new         
+          @notification = Notification.new
         end
       end
     else
@@ -123,7 +123,7 @@ class ApplicationController < ActionController::Base
     if @user.managed_org_id > 0
       @notification.notified_user = @user.coworker_org_id
     else
-      @notification.notified_user = @user
+      @notification.notified_user = @user.id
     end
     @notification.service = service 
     @notification.notification_type = type

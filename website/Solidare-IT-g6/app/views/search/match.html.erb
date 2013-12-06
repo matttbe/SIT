@@ -22,77 +22,13 @@
     </div>
   </div>
 </div>
-  <div class="container">
-  <div class="row service-list">
-    <div class="col-md-3">
-      <div id="sticker-filter">
-      <div class="well sidebar-nav">
-        <ul class="nav nav-list">
-          <li class="nav-header">Sort</li>
-          <% @param="&q_order_end=on"
-          @link=generateLink(@search,@param)
-          @active=!@link.include?(@param)
-          %>
-          <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Time : ending soonest</a></li>
-          <% 
-          if user_signed_in?&&current_user.addresses.size>0
-           @param="&q_order_distance=on"
-           @link=generateLink(@search,@param)
-           @active=!@link.include?(@param)
-           %>
-           <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Distance : shortest first</a></li>
-           <% end %>
-           <li class="nav-header">Filter</li>
-           <% @param="&filter=active"
-           @link=generateLink(@search,@param)
-           @active=!@link.include?(@param)
-           %>
-           <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only active service</a></li>
-           <% @param="&filter=karma"
-           @link=generateLink(@search,@param)
-           @active=!@link.include?(@param)
-           %>
-           <li <% if @active%> class="active"<% end%>><a href="<%= @link %>">Show only service proposed by good karma</a></li>
-           <li class="nav-header">Categories</li>
-           <% if (!@categories.nil?&&@categories.size>0) %>
-           <% @categories.each do |category| %>
-             <% if category.first > -1 %>
-               <% @category=Category.find(category.first)
-                @param="&category="+@category.id.to_s
-                @link=generateLink(@search,@param)
-                @active=!@link.include?(@param) %>
+  
+        <% if @type=="service"%>
+          <%= render 'match_services' %>
+        <% elsif @type=="orga" %>
+          <%= render 'match_organisations' %>
+        <% end %>
 
-              <li <% if @active%> class="active"<% end%>><a href="<%= @link %>"><%=@category.title%> <span class="badge"><%=category.second.size%></span></a></li>
-              <% end %>
-            <% end %>
-            <% end %>
-            </ul>
-          </div>
-        </div>
-        </div>
-        <div class="col-md-9 service-cont">
-          <div class="row">
-            <div class="btn-toolbar col-md-2 col-md-offset-10">
-              <div class="btn-group">
-                <a class="btn" id="list" ><i class="glyphicon glyphicon-list"></i></a>
-                <a class="btn" id="grid" ><i class="icon-grid"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <% if @services.nil? or @services.size == 0 %>
-          No results
-          <% else %>
-            <div class="services">
-              <%= render :partial => 'services', :locals => { :services => @services } %>
-            </div>
-            <% if @services.method_defined? :next_page and @services.next_page %>
-              <%= link_to 'Load More Services', services_path(:page => @services.next_page), :class => 'load-more-services', :remote => true %>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
   
 
 
