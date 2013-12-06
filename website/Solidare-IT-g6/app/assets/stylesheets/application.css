@@ -20,7 +20,6 @@
  *
  *= require_self
  *= require bootstrap
- *= require bootstrap-theme
  *= require flat-ui
  *= require scaffolds
  *= require header
