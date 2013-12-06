@@ -2,6 +2,7 @@ class GroupController < ApplicationController
   before_action :is_logged_in, only: [:new,:create, :update, :destroy]
 
   def new
+	@group = Group.new
   end
 
   def show
