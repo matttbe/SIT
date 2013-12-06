@@ -1,10 +1,10 @@
-Firstname : <%= @user.firstname%><br />
-Name : <%= @user.name %><br />
-Email : <%= @user.email %><br />
-Birthday : <%= @user.birthdate %><br />
-Languages : <%= @user.language %><br />
-Karma : <%= @user.karma %><br />
-Presentation : <%= @user.presentation %><br />
+<strong>Firstname</strong> : <%= @user.firstname%><br />
+<strong>Name</strong> : <%= @user.name %><br />
+<strong>Email</strong> : <%= @user.email %><br />
+<strong>Birthday</strong> : <%= @user.birthdate %><br />
+<strong>Languages</strong> : <%= @user.language %><br />
+<strong>Karma </strong>: <%= @user.karma %><br />
+<strong>Presentation </strong>: <%= @user.presentation %><br />
 <%if @user.managed_org_id > 0%>
 	This profile is managed by an organisation
 <%end%>

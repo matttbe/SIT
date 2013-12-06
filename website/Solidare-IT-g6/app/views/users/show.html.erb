@@ -1,22 +1,22 @@
-
+<h1 class="full-width-header"> <%= image_tag @user.avatar.url(:thumb) %>     <%=@user.firstname%> <%= @user.name %> </h1>
 <%	@tag = nil
 	if @user == current_user
 		@tag = 'My'
 	else
 		@tag = 'His'
 	end%>
-<h3><%=@user.firstname%> <%= @user.name %></h3>
 
-<%= image_tag @user.avatar.url(:thumb) %>
+<div class="container">
+
 
 <% if ! current_user.nil? %>
-	<h4><%= @tag%> coordinate</h4>
+	<h2 ><%= @tag%> personal informations</h2>
 	<%= render 'coordinate', :user => @user %>
 	
-	<h4><%= @tag%> Services</h4>
+	<h2><%= @tag%> Services</h2>
 	<%= render 'my_services', :services => @services %>
 	
-	<h4><%= @tag%> Groups</h4>
+	<h2><%= @tag%> Groups</h2>
 	<%= render 'my_groups', :user => @user %>
 	
 	<%	@follow = nil
@@ -25,13 +25,13 @@
 		else
 			@follow = 'he follows'
 		end%>
-	<h4>The services <%= @follow%></h4>
+	<h2>The services <%= @follow%></h2>
 	<%= render 'services/following_services', :following => @following %>
 	
-	<h4><%= @tag%> Badges</h4>
+	<h2><%= @tag%> Badges</h2>
 	<%= render 'badge/own_badges', :badges=>@user.badges %>
 
-<h4><%= @tag%> Feedback</h4>
+<h2><%= @tag%> Feedback</h2>
 <% @transactions = Transaction.where(user_id: @user.id).limit(5)
 	@transactions.each do |transaction|
 
@@ -45,3 +45,4 @@
  </P>
 <%end%>
 <%end%>
+</div>

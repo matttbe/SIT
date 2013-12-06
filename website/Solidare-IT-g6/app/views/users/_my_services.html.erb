@@ -9,7 +9,7 @@
 	if service.quick_match
     	next
 	end%>
-  	<%= render 'show',:service=> service %>
+  	<%= render '/services/show',:service=> service %>
 	<p>
 		<%= render 'accepted_by', :service => service%>
 	</p>
