@@ -52,6 +52,7 @@ SolidareItG6::Application.routes.draw do
   get '/user/groups' => 'group#my_groups', :as => "my_groups"  
   post '/user/group/:id/edit' => 'group#update', :as => "e_group"
   post '/group/:g_id/user/:u_id/delete' => 'group#delete_user', :as=> "group_delete_user"
+  post '/group/:g_id/service/:s_id/share' => 'group#share', :as => "share_group_service"
 
   #organisation routing
   get '/manage_organisations' => 'organisations#manage', :as=>"manage_organisation"

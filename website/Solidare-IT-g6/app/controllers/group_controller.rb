@@ -34,6 +34,16 @@ class GroupController < ApplicationController
 	  end
     end
   end
+  
+  def share
+	@group_post = GroupPost.new()
+	@service = Service.find(params[:s_id])
+	@group_post.group_id=params[:g_id]
+	@group_post.user_id=current_user.id
+	@group_post.body = "I shared the service "+@service.title+" with you "+" go check it there :"+"^"+@service.id.to_s+"^"
+	@group_post.save
+	redirect_to root_path
+  end
 
   def edit
 	@group = Group.find(params[:id])

@@ -12,6 +12,23 @@
   	<%= render 'show',:service=> service %>
 	<p>
 		<%= render 'accepted_by', :service => service%>
+	<% @my_group =  @groups = Group.joins(:group_user_relations).where(group_user_relations: {user_id: current_user.id})
+
+if !@my_group.blank?%>
+
+<li class="divider-vertical"></li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Share
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <% @my_group.each do |group| %>
+      <li><%= link_to group.name, share_group_service_path(group,service), :role=>"menuitem", :method => :post,  data: { confirm: 'Share this service to this group ?' }%></li>
+    <%end%>
+
+  </ul>
+</li>
+<%end%>
 	</p>
 <% end %>
 

@@ -20,7 +20,13 @@
 				</div>
 			<% end %>
 			<div class="post-body">
-				<%= group_post.body %>
+				<% if group_post.body.split('^').size > 1 %>
+					<%@s_with_link = Service.find(group_post.body.split('^')[1]) %>
+					<%= group_post.body.split('^')[0]%>
+				    <%= link_to @s_with_link.title, service_path(@s_with_link), :method => :get %>
+				<%else%>
+				  <%= group_post.body %>
+				<% end %>
 			</div>
 			
 		</p>
