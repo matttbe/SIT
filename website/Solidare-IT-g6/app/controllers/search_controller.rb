@@ -53,10 +53,8 @@ class SearchController < ApplicationController
     if (! params[:type_q].nil?)
       @search += "type_q=" + params["type_q"]
     end
-    @services = Service.where(:quick_match => false).paginate(:page => params[:page])
-    if(! params[:offer_cbox].nil? and ! params[:demand_cbox].nil?) # Both checkboxes are checked
-      #.where(:matching_service_id => 0)
-    elsif(! params[:offer_cbox].nil?)
+    @services = Service.where(:quick_match => false).where('matching_service_id=0').paginate(:page => params[:page])
+    if(! params[:offer_cbox].nil?)
       @services = Service.where('is_demand = :is_demand', :is_demand => false)
     elsif(! params[:demand_cbox].nil?)
       @services = Service.where('is_demand = :is_demand', :is_demand => true)
