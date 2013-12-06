@@ -110,8 +110,8 @@ class SearchController < ApplicationController
     #includes category infos
     @services = @services.includes(:category).references(:category)
     if (! params[:q].nil? and ! params[:q].empty? and !@services.nil?)
-        @services = @services.where(:quick_match=>false).where('(services.title LIKE (:titles) or services.description LIKE (:titles) or categories.title LIKE (:titles) or categories.text LIKE (:titles))',
-                 :titles => "%" + params[:q] + "%")
+        @services = @services.where(:quick_match=>false).where('(lower(services.title) LIKE (:titles) or lower(services.description) LIKE (:titles) or lower(categories.title) LIKE (:titles) or lower(categories.text) LIKE (:titles))',
+                 :titles => "%" + params[:q].downcase + "%")
     end
 
     if (!params[:filter].nil?)
