@@ -80,7 +80,10 @@ Then(/^I should see a unfollow link$/) do
 end
 
 Then(/^I can not see the follow link$/) do
-  assert !page.has_link?("Follow")
+  if @link == nil
+    @link="/services/"+@service.id.to_s
+  end
+  assert !page.has_link?("Follow", :href => @link+"/follow")
 end
 
 Then(/^I can see the followers of my service$/) do
