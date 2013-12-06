@@ -52,11 +52,6 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
 
-      column do
-        panel "Report problem (irly ? :p)" do
-          para "to do"
-        end
-      end
     end
 
   # Here is an example of a simple dashboard with columns and panels.
