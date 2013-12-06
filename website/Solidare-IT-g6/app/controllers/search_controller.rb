@@ -53,19 +53,17 @@ class SearchController < ApplicationController
     if (! params[:type_q].nil?)
       @search += "type_q=" + params["type_q"]
     end
+    @services = Service.where(:quick_match => false).paginate(:page => params[:page])
     if(! params[:offer_cbox].nil? and ! params[:demand_cbox].nil?) # Both checkboxes are checked
-      @services = Service.where(:quick_match => false).paginate(:page => params[:page])#.where(:matching_service_id => 0)
+      #.where(:matching_service_id => 0)
     elsif(! params[:offer_cbox].nil?)
-      @services = Service.where('is_demand = :is_demand', :is_demand => false).where(:quick_match => false).paginate(:page => params[:page])#.where(:matching_service_id => 0)
+      @services = Service.where('is_demand = :is_demand', :is_demand => false)
     elsif(! params[:demand_cbox].nil?)
-      @services = Service.where('is_demand = :is_demand', :is_demand => true).where(:quick_match => false).paginate(:page => params[:page])#.where(:matching_service_id => 0)
-    else
-      @services = Service.paginate(:page => params[:page]) #TODO : What do we do if none of the checkboxes are checked ?
+      @services = Service.where('is_demand = :is_demand', :is_demand => true)
     end
 
-
     #includes category infos
-    @services=@services.includes(:category).references(:category)
+    @services = @services.includes(:category).references(:category)
     if (! params[:q].nil? and ! params[:q].empty? and !@services.nil?)
         @services = @services.where(:quick_match=>false).where('(services.title LIKE (:titles) or services.description LIKE (:titles) or categories.title LIKE (:titles) or categories.text LIKE (:titles))',
                  :titles => "%" + params[:q] + "%")
@@ -83,9 +81,9 @@ class SearchController < ApplicationController
       end
 
       #PAGINATE BEFORE ORDERING BECAUSE ORDERING CONVERT SERVICE TO ARRAY
-      if (defined? params[:page])
-        @services = @services.paginate(:page => params[:page])
-      end
+      #if (defined? params[:page])
+      #  @services = @services.paginate(:page => params[:page])
+      #end
 
       #loooooooooooooool
       #if (! params[:q_order_end].nil?)
