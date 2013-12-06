@@ -2,7 +2,9 @@ def add_follower
   $i = 0
   $num = 5
 
-  creator = User.where(:email => "eddy.malou@savoir.congo").first
+  #creator = User.where(:email => "eddy.malou@savoir.congo").first
+  #@service = Service.where("creator_id=:id",:id=>creator.id).first
+  creator = find_user
   @service = Service.where("creator_id=:id",:id=>creator.id).first
 
   while $i < $num do
