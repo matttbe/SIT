@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
     :dropbox_credentials => DROPBOX_CREDENTIALS,
     :styles => { :medium => "300x300>", :thumb => "32x32>" },
     :default_url => "/images/user.png",
-    :path => ":style/user/:id_:filename"
+    :path => ":style/user/:all_name:id_:filename"
 
   validates :name, :presence => true
   validates :firstname, :presence => true
