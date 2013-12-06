@@ -17,5 +17,3 @@ Feature: Add, edit and destroy a Organisation
       And I fill the organisation form
       And I click on the Create Organisation button
       Then I see a Organisation was successfully created. message
-
-    
