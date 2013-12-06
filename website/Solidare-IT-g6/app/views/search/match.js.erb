@@ -1,4 +1,4 @@
-$('.services').append('<%= escape_javascript(render :partial => 'services', :locals => { :services => @services } )%>');
+$('#results').replaceWith('<%= escape_javascript(render :partial => 'match_services', :locals => { :services => @services } )%>');
 $('#loader').remove();
 $('a.load-more-services').attr('href', '<%=services_path(:page => @services.next_page)%>');
 if ($('a.load-more-services').length<=0) {

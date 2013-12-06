@@ -53,7 +53,7 @@
 
 
 <% if current_user.main_address.nil? %>
-  <% @closest_services = Service.where(:quick_match=>false) %>
+  <% @closest_services = Service.where(:quick_match=>false).where("services.address_id >0") %>
 <% else %>
   <% @closest_services = Service.where(:quick_match=>false).joins(:address).where("services.address_id >0").sort_by{|r| r.distance(current_user.main_address.latitude,current_user.main_address.longitude)}.reverse %>
 <% end %>

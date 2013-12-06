@@ -22,7 +22,7 @@
     </div>
   </div>
 </div>
-  
+    <div id="results">
         <% if @type=="service"%>
           <%= render 'match_services' %>
         <% elsif @type=="orga" %>
@@ -30,7 +30,7 @@
         <% elsif @type=="group" %>
           <%= render 'match_groups' %>
         <% end %>
-
+</div>
   
 
 
