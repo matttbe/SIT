@@ -64,10 +64,10 @@ class SearchController < ApplicationController
   private
   def search_organisation
     @search = "/search?"
-    @organisation=Organisation.all
+    @organisations=Organisation.all
     if (! params[:q].nil?)
       @search += "q=" + params[:q] + "&"
-      @organisation=@organisation.where(:name=>params[:q])
+      @organisations=@organisations.where("name LIKE (:titles)", :titles => "%" + params[:q] + "%")
     end
   end
   

@@ -22,38 +22,13 @@
     </div>
   </div>
 </div>
-  <div class="container">
-  <div class="row service-list">
-    <div class="col-md-3">
-      <div id="sticker-filter">
-      <div class="well sidebar-nav">
-        <%= render 'match_services' %>
-          </div>
-        </div>
-        </div>
-        <div class="col-md-9 service-cont">
-          <div class="row">
-            <div class="btn-toolbar col-md-2 col-md-offset-10">
-              <div class="btn-group">
-                <a class="btn" id="list" ><i class="glyphicon glyphicon-list"></i></a>
-                <a class="btn" id="grid" ><i class="icon-grid"></i></a>
-              </div>
-            </div>
-          </div>
+  
+        <% if @type=="service"%>
+          <%= render 'match_services' %>
+        <% elsif @type=="orga" %>
+          <%= render 'match_organisations' %>
+        <% end %>
 
-          <% if @services.nil? or @services.size == 0 %>
-          No results
-          <% else %>
-            <div class="services">
-              <%= render :partial => 'services', :locals => { :services => @services } %>
-            </div>
-            <% if @services.method_defined? :next_page and @services.next_page %>
-              <%= link_to 'Load More Services', services_path(:page => @services.next_page), :class => 'load-more-services', :remote => true %>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
   
 
 
