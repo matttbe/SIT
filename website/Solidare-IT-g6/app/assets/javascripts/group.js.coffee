@@ -14,3 +14,4 @@ $(document).on "ready page:change", ->
 			$("#join").append response.firstname+" "+response.name)
 	$("#join").on "ajax:error", (e, xhr, status, error) ->
 		$("#join").append "<p>ERROR</p>"
+	$(':checkbox').checkbox();
