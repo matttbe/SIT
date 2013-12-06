@@ -1,5 +1,5 @@
 <% @service=service%>
-<div class="container">
+
   <div class="well well-large service">
     <a class="pull-right" href="#">
       <%= image_tag service.photo.url(:medium) %>
@@ -11,7 +11,7 @@
     <% end %>
     <p class="service-desc"><%= service.description %></p>
     <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> to <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
-      <%if !service.address.nil?%> <p class="service-desc"><%= service.address.country %></p><% end %>
+      <%if !service.address.nil?%> <p class="service-desc"><%= render 'address/address', :address=>service.address %></p><% end %>
     </p>
 
     <%= render 'services/followers', :followers_list=>@followers_list%>
@@ -53,6 +53,24 @@
 
     </div>
 
+	<% if !current_user.nil?%>
+	<% @my_group =  @groups = Group.joins(:group_user_relations).where(group_user_relations: {user_id: current_user.id})
+	if !@my_group.blank?%>
+	  <ul class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Share
+        </a>
+  	    <ul class="dropdown-menu" role="menu">
+          <% @my_group.each do |group| %>
+            <li><%= link_to group.name, share_group_service_path(group,service), :role=>"menuitem", :method => :post,  
+													data: { confirm: 'Share this service to this group ?' }%></li>
+          <%end%>
+
+  	    </ul>
+	  </ul>
+	<%end%>
+	<%end%>
 
 
-</div>
+
+
