@@ -114,7 +114,7 @@ Given /^The DB have a lot of users$/ do
   create_all_users
 end
 Given /^I am not logged in$/ do
-  visit '/users/sign_out' #TODO sign out if I am NOT logged in ?
+  visit '/users/sign_out'
 end
 
 Given /^I log in$/ do
@@ -156,7 +156,6 @@ end
 
 ### WHEN ###
 When /^I sign in with valid credentials for admin user$/ do
-  #createadmin_user
   sign_in
 end
 When /^I sign in with valid credentials$/ do

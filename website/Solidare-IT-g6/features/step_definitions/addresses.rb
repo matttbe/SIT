@@ -39,8 +39,6 @@ When(/^I fill a wrong postal code$/) do
 end
 
 When(/^I click on the edit link of the first address in the list$/) do
-  #@addr=Address.where("user_id = :user_id", :user_id=>find_user).first
-  #@addr = Address.all.first
   visit '/address/'+@address.id.to_s+'/edit'  
 end
 ### THEN ###
