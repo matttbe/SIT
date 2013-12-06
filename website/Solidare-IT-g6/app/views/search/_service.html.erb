@@ -26,7 +26,7 @@
 
                   <% sec = (service.date_end - DateTime.now) %>
 
-                  <h7 class="pull-right timeleft"><%= (sec / 86400).round %> days <%= ((sec % 86400) / 3600).round %> hours <%= ((((sec % 86400) / 3600) % 3600) / 60).round %> min <%= (sec%60).round %> s. left</h7>
+                  <span class="pull-right timeleft"><%= (sec / 86400).round %> days <%= ((sec % 86400) / 3600).round %> hours <%= ((((sec % 86400) / 3600) % 3600) / 60).round %> min <%= (sec%60).round %> s. left</span>
 
               </div>
 </div>
