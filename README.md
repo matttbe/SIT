@@ -1,6 +1,19 @@
 SIT
 ===
 
+Solidare-IT Project for SINF2255 course at Université Catholique de Louvain.
+Group 6
+Students involved:
+Matthieu Baerts
+Benoit Baufays
+Julien Colmonts
+Benjamin Frantzen
+Pierre-Yves Légéna
+Ludovic Vannoorenberghe
+Vincent Van Ouytsel
+Alex Vermeylen
+
+
 Before testing :
 ----------------
 
@@ -14,7 +27,8 @@ To access the code of our application, go to https://github.com/matttbe/SIT and 
 Go to the '/path/to/SIT/website/Solidare-IT-g6/' folder. Then, if it's the first time you want to run the application, run the 'bundle install', 'rake db:create:all' and 'rake db:migrate' commands. Then you have to lauch the server with the 'rails server' command.
 
 Then, to complete the set up, create a '.env' file at the root of this folder. Put theses lines in it :
-'    DROPBOX_APP_KEY=3anr6vr0s3wekck
+
+'DROPBOX_APP_KEY=3anr6vr0s3wekck
 DROPBOX_APP_SECRET=oyxf3qg6fvfcdnb
 DROPBOX_ACCESS_TOKEN=05whntv1vfb7ktx2
 DROPBOX_ACCESS_TOKEN_SECRET=6vd9xadsiahxzr4
