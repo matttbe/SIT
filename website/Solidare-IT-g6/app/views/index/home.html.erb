@@ -10,7 +10,7 @@
         <% if not @best_karma.nil? %>
           <div class="featurette">
             <h2 class="featurette-heading">Our Best User <span class="muted"> </span></h2>
-            <p class="lead">Regarding his karma, <%=@best_karma.firstname+' '+@best_karma.name%> is the best user of our website. Congratulations !</p>
+            <p class="lead" style="font-size: 22px;">Regarding his karma, <%=@best_karma.firstname+' '+@best_karma.name%> is the best user of our website. Congratulations !</p>
           </div>
         <% end %>
       </div>
@@ -19,7 +19,7 @@
         <div class="featurette">
           <img class="featurette-image pull-left" src="">
           <h2 class="featurette-heading">The Solidare-it Philosophy</h2>
-          <p class="lead">Solidare-it website allows you to help people in need or be helped if you need anything. It's simple ! 
+          <p class="lead" style="font-size: 22px;">Solidare-it website allows you to help people in need or be helped if you need anything. It's simple ! 
           Just sign up. After that, you will be able to post a demand or an offer. Then, just wait until another user answer. 
           At this time, you have to accept one of the user that accepted your service. And, that's all ! Wonderful, isn't it ? </p>
         </div>
@@ -30,9 +30,9 @@
           <img class="featurette-image pull-right" src="">
           <h2 class="featurette-heading">What other users say</h2>
           <% if !Transaction.where("feedback_evaluation IN (:eval)", :eval => 3).first.nil? %>
-            <p class="lead"><%= Transaction.where("feedback_evaluation IN (:eval)", :eval => 3).first.feedback_comments %></p>
+            <p class="lead" style="font-size: 22px;"><%= Transaction.where("feedback_evaluation IN (:eval)", :eval => 3).first.feedback_comments %></p>
           <% else %>
-            <p class="lead">Perfect transaction. You really helps me with these clothes. Thank you !</p>
+            <p class="lead" style="font-size: 22px;">Perfect transaction. You really helps me with these clothes. Thank you !</p>
           <% end %>
         </div>
       </div>
