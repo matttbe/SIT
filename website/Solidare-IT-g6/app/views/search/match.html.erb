@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-1 col-md-offset-1">
       <% if !current_user.nil?%>
-        <%= link_to 'Save this search', new_service_path, :class=>"btn btn-primary" %>
+        <%= link_to 'Save this search', '/save'+@search, :class=>"btn btn-primary" %>
       <% end %>
     </div>
     <div class="col-md-1 col-md-offset-1">
