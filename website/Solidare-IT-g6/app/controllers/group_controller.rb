@@ -11,7 +11,7 @@ class GroupController < ApplicationController
  # GET /user/groups
   def my_groups
     if user_signed_in?
-      @groups = Group.joins(:group_user_relations).where(group_user_relations: {user_id: current_user.id})
+      @groups = Group.joins(:group_user_relations).where(group_user_relations: {user_id: params[:user_id]})
     else
       dont_see
     end

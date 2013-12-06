@@ -34,7 +34,7 @@
     <li class="divider"></li>
     <li class="dropdown-header">Group</li>
     <%if true %>
-    <li><%= link_to "Manage my groups",  group_index_path, :role=>"menuitem" %></li>
+    <li><%= link_to "Manage my groups",  my_groups_path(current_user), :role=>"menuitem" %></li>
     <% end %>
     <% if !current_user.nil? %>
     <li><%= link_to "Create a group",  new_group_path, :role=>"menuitem" %></li>
