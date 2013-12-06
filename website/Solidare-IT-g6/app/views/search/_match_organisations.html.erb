@@ -1,20 +1,8 @@
-<div class="col-md-9 service-cont">
-          <div class="row">
-            <div class="btn-toolbar col-md-2 col-md-offset-10">
-              <div class="btn-group">
-                <a class="btn" id="list" ><i class="glyphicon glyphicon-list"></i></a>
-                <a class="btn" id="grid" ><i class="icon-grid"></i></a>
-              </div>
-            </div>
-          </div>
+<% organisations.each_with_index do |organisation| %>
 
-          <% if @organisations.nil? or @organisations.size == 0 %>
-          No results
-          <% else %>
-            <div class="organisations">
-              <%@organisations.each do |orga|%>
-                <%= orga.name %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
+  <div class="row service-parent">
+    <% @organisation = organisation %>
+    <%= render 'organisation', :organisation => @organisation %>
+
+  </div>
+<% end %>
