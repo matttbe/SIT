@@ -85,6 +85,7 @@ end
 
 When /^I visit the notifications page$/ do   
   visit '/notifications'
+  show_page
 end
 
 When /^The service is updated$/ do 
@@ -112,3 +113,8 @@ end
 Then(/^I should see a unfollow notification$/) do
   assert page.has_content?("was unfollowed")  
 end
+
+Then(/^I should see a post notification$/) do
+  assert page.has_content?("posted in")  
+end
+

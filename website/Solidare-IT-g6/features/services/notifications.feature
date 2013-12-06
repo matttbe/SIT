@@ -35,3 +35,11 @@ Feature: All about notifications
     And a user click on the accept button of one of my service
     When I visit the notifications page
     Then I should see a accept notification
+
+  Scenario: Validated user receives a notification when someone post a message on his group
+    And the database contains groups
+  	And I am logged in
+  	And I am a member of a group  	  
+  	When someone post a message on the group
+  	And I visit the notifications page
+  	Then I should see a post notification
