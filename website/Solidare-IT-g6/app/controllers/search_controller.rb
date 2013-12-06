@@ -100,11 +100,11 @@ class SearchController < ApplicationController
     if (! params[:type_q].nil?)
       @search += "type_q=" + params["type_q"]
     end
-    @services = Service.where(:quick_match => false).where('matching_service_id=0').paginate(:page => params[:page])
+    @services = Service.where(:quick_match => false).where(:matching_service_id => 0)
     if(! params[:offer_cbox].nil?)
-      @services = Service.where('is_demand = :is_demand', :is_demand => false).paginate(:page => params[:page])
+      @services = @services.where(:is_demand => false)
     elsif(! params[:demand_cbox].nil?)
-      @services = Service.where('is_demand = :is_demand', :is_demand => true).paginate(:page => params[:page])
+      @services = @services.where(:is_demand => true)
     end
 
     #includes category infos
@@ -124,11 +124,6 @@ class SearchController < ApplicationController
       if (@filter == "karma")
         @services = @services.joins(:user).where('users.karma>=0')
       end
-
-      #PAGINATE BEFORE ORDERING BECAUSE ORDERING CONVERT SERVICE TO ARRAY
-      #if (defined? params[:page])
-      #  @services = @services.paginate(:page => params[:page])
-      #end
 
       #loooooooooooooool
       #if (! params[:q_order_end].nil?)
@@ -155,6 +150,10 @@ class SearchController < ApplicationController
       @services = @services.joins(:address).sort_by{|r| r.distance(current_user.main_address.latitude,current_user.main_address.longitude)}.reverse
       #@services=@services.sort_by_distance_from(['50.70566' ,'4.74843'])
       @search = @search + "&q_order_distance=on"
+    end
+
+    if (defined? params[:page])
+      @services = @services.paginate(:page => params[:page])
     end
 
     @search = @search + "&commit=Search"
