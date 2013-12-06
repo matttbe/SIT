@@ -1,20 +1,15 @@
-<div class="col-md-9 service-cont">
-          <div class="row">
-            <div class="btn-toolbar col-md-2 col-md-offset-10">
-              <div class="btn-group">
-                <a class="btn" id="list" ><i class="glyphicon glyphicon-list"></i></a>
-                <a class="btn" id="grid" ><i class="icon-grid"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <% if @groups.nil? or @groups.size == 0 %>
+<% if @groups.nil? or @groups.size == 0 %>
+  <div class="container">
           No results
-          <% else %>
-            <div class="groups">
-              <%@groups.each do |group|%>
-                <%= group.name %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
+  </div>
+<% else %>
+
+  <% @groups.each_with_index do |group| %>
+
+    <div class="row service-parent">
+      <% @group = group %>
+      <%= render 'group', :group => @group %>
+
+    </div>
+  <% end %>
+<% end %>

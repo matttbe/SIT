@@ -1,8 +1,15 @@
-<% @organisations.each_with_index do |organisation| %>
-
-  <div class="row service-parent">
-    <% @organisation = organisation %>
-    <%= render 'organisation', :organisation => @organisation %>
-
+<% if @organisations.nil? or @organisations.size == 0 %>
+  <div class="container">
+          No results
   </div>
+<% else %>
+
+  <% @organisations.each_with_index do |organisation| %>
+
+    <div class="row service-parent">
+      <% @organisation = organisation %>
+      <%= render 'organisation', :organisation => @organisation %>
+
+    </div>
+  <% end %>
 <% end %>
