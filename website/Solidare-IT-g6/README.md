@@ -105,7 +105,7 @@ A skeleton is available in the `.env.example` file.
 Test the website :
 ------------------
 
-After that, just open a browser (not IE, a real one) and visit the http://localhost:3000/ URL.
+After that, just open a browser (not IE, a real one) and visit the [http://localhost:3000/] URL.
 Then you can see the website as a non-registered user or login with `root@localhost.local` with the password `password`
 
 License
