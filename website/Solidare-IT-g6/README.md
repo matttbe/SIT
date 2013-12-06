@@ -26,7 +26,7 @@ Status
 Installation
 ============
 
-As we use RoR as framework for the solidare-it website implementation, you must have Ruby 2.0 and Rails 4.0 installed on your computer.
+As we use Ruby on Rails as framework for the Solidare-IT website implementation, you must have Ruby (2.0) and Rails (4.0) installed on your computer.
 
 Ruby and dependences: Instruction for Ubuntu
 --------------------------------------------
@@ -43,7 +43,7 @@ Now install Ruby 2.0
 sudo apt-get install -y ruby2.0 ruby2.0-dev ruby2.0-doc
 ````
 
-If these packages are not available, add this ppa:
+If these packages are not available, add this PPA:
 
 ````
 sudo add-apt-repository ppa:brightbox/ruby-ng-experimental
@@ -97,15 +97,15 @@ Environment file
 ----------------
 
 You need to configure some key by creating `.env` file.
-A squeletton is available in the `.env.example` file.
+A skeleton is available in the `.env.example` file.
 
 * Create `.env` file
-* Modify `config/database.yml` (for postgresql, check `config/database.yml.postgresql`)
+* Modify `config/database.yml` (for PostgreSQL, check `config/database.yml.postgresql`)
 
 Test the website :
 ------------------
 
-After that, just open a browser (not IE, a real one) and visit the 'http://localhost:3000/' URL.
+After that, just open a browser (not IE, a real one) and visit the http://localhost:3000/ URL.
 Then you can see the website as a non-registered user or login with `root@localhost.local` with the password `password`
 
 License
