@@ -49,12 +49,12 @@ class SearchController < ApplicationController
     if params[:type]=="organisation"
       @type="orga"
       search_organisation
-    elsif params[:type]=="service"
-      @type="service"
-      search_service
     elsif params[:type]=="group"
       @type="group"
       search_group
+    else
+      @type="service"
+      search_service
     end
     respond_to do |format|
         format.html
