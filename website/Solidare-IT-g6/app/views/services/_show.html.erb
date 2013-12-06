@@ -11,7 +11,7 @@
     <% end %>
     <p class="service-desc"><%= service.description %></p>
     <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> to <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
-      <%if !service.address.nil?%> <p class="service-desc"><%= service.address.country %></p><% end %>
+      <%if !service.address.nil?%> <p class="service-desc"><%= render 'address/address', :address=>service.address %></p><% end %>
     </p>
 
     <%= render 'services/followers', :followers_list=>@followers_list%>
