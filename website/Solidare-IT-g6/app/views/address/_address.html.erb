@@ -2,7 +2,7 @@
 <%if defined?(address)&&!address.nil?
     @address=address
   end%>
-<span>  <h2>
+<span>  <div class='well'>
 <p>
   <%= @address.street %>
   , &nbsp
@@ -19,10 +19,6 @@
   <%=@address.country %>
 </p>
 
-<p>
-  <%=@address.latitude %>
-  ; &nbsp
-  <%=@address.longitude %>
-</p>
-</h2>
+
+</div>
 </span>
