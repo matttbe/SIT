@@ -23,11 +23,11 @@
                 <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> to <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
                 <%if !service.address.nil?%> <p class="service-desc"><%= service.address.country %></p><% end %>
                 </p>
-			
     			<%= render 'services/share', :service => service %>
-			
-			<% sec = (service.date_end - DateTime.now) %>
-                  <h7 class="pull-right timeleft"><%= (sec / 86400).round %> days <%= ((sec % 86400) / 3600).round %> hours <%= ((((sec % 86400) / 3600) % 3600) / 60).round %> min <%= (sec%60).round %> s. left</h7>
+
+                  <% sec = (service.date_end - DateTime.now) %>
+
+                  <span class="pull-right timeleft"><%= (sec / 86400).round %> days <%= ((sec % 86400) / 3600).round %> hours <%= ((((sec % 86400) / 3600) % 3600) / 60).round %> min <%= (sec%60).round %> s. left</span>
 
               </div>
 </div>

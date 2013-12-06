@@ -26,6 +26,7 @@
 //= require flatui-checkbox
 //= require flatui-radio
 //= require popbox
+//=require underscore
 
 
 
@@ -37,5 +38,12 @@ $(document).on("ready page:change", function(){
              
   $('.carousel').carousel();
 
+
+
+
+
+
 });
+
+
 

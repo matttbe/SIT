@@ -73,6 +73,11 @@ gem 'bootstrap-datepicker-rails'
 
 #merit
 gem 'merit'
+
+#maps
+gem 'gmaps4rails'
+gem 'underscore-rails'
+
 ####### Group #######
 
 # tests
