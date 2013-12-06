@@ -27,6 +27,7 @@ class GroupController < ApplicationController
 
 	respond_to do |format|
   	  if @group.save
+		#creator is set as admin
         @relation = GroupUserRelation.new(:user_id => current_user.id, :group_id => @group.id, :role => 'Admin')
         if @relation.save
           format.html { redirect_to @group, notice: 'Group was successfully created.' }
