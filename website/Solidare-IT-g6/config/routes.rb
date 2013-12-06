@@ -43,6 +43,7 @@ SolidareItG6::Application.routes.draw do
   #search routing
   get '/search/(:page)' => 'search#match', :as=>"match"
   post '/search' => 'search#match'
+  get '/save/:info' => 'search#save', :as=>"save_match"
 
   #transaction routing
   get '/transaction/:id' => 'services#new_transaction', :as=>"add_transaction"
@@ -60,6 +61,8 @@ SolidareItG6::Application.routes.draw do
   get '/organisation_manage/:id/coworkers/' =>'organisation_manage/coworkers#index_organisation', :as=>'manage_coworkers'
   get '/mainmenu_organisations/:id' =>'organisations#show_main_panel', :as=>'mainmenu_organisations'
   get '/choose_organisations' =>'organisations#choose', :as=>'organisation_choose'
+  post '/chosen_org' => 'organisations#chosen_org', :as=>'chosen_org'
+  get '/waitforvalidation/' => 'organisations#waitforvalidation', :as=>'waitforvalidation'
   
   #managed user routing
   get '/create_managed_user/:org_id' =>'organisations#new_managed', :as=>'new_managed'
@@ -92,7 +95,8 @@ SolidareItG6::Application.routes.draw do
   get '/service/:id/unfollow/:follower_id' => 'services#unfollow', :as=>"unfollow" 
   
   #notification routing
-  get '/notifications' => 'notifications#show', :as => "show"
+  get '/notifications' => 'notifications#show', :as => "show_notifications"
+
 
 
   #orga admin

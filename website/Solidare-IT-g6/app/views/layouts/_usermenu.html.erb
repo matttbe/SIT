@@ -1,30 +1,29 @@
 <%if user_signed_in? %>
 
-
-<li><%= link_to notifications_path, :title => "Notifications" do %>
+<li><%= link_to show_notifications_path(current_user), :title => "Notifications" do %>
     Notifications
-	<span class="badge"><%= current_user.notifications_number %></span>
-<% end %></li>
+    <span class="badge"><%= current_user.notifications_number %></span>
+  <% end %>
+</li>
 <li class="divider-vertical"></li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
     <%= image_tag current_user.avatar.url(:thumb) %>
-    <%=  current_user.all_name %>
-    <%  @karma=current_user.karma %>
+    <%= current_user.all_name %>
+    <% @karma = current_user.karma %>
     <% if @karma > 0 %>
       <span class="badge badge-success">
     <% elsif @karma < 0 %>
       <span class="badge badge-important">
     <% else %>
        <span class="badge">
-
     <% end %>
     <%= @karma %>
     </span>
-    <b class="caret"></b>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Personnal</li>
+    <li><%= link_to "Show profile",  show_profile_path(current_user), :role=>"menuitem" %></li>
     <li><%= link_to "Edit account",  edit_user_registration_path(current_user), :role=>"menuitem" %></li>
     <li><%= link_to "Manage my addresses",  address_index_path, :role=>"menuitem" %></li>
     <li class="divider"></li>
@@ -32,14 +31,6 @@
     <li><%= link_to "Add a service",  new_service_path, :role=>"menuitem" %></li>
     <li><%= link_to "See my services",  my_services_path(current_user), :role=>"menuitem" %></li>
     <li><%= link_to "See the services I follow",  following_services_path, :role=>"menuitem" %></li>
-    <li class="divider"></li>
-    <li class="dropdown-header">Organisation</li>
-    <%if current_user.own_organisations.size !=0 || current_user.own_organisations.nil? %>
-    <li><%= link_to "Manage my organisations",  manage_organisation_path, :role=>"menuitem" %></li>
-    <li><%= link_to "New Manage my organisations",  organisation_manage_organisations_path, :role=>"menuitem" %></li>
-    <% end %>
-    <li><%= link_to "Create an organisation",  new_organisation_path, :role=>"menuitem" %></li>
-    <li><%= link_to "Join an organisation",  join_organisation_path, :role=>"menuitem" %></li>
     <li class="divider"></li>
     <li class="dropdown-header">Group</li>
     <%if true %>
@@ -54,9 +45,21 @@
   </ul>
 </li>
 
-
 <% else %>
-  <li><%= link_to "Sign up", create_account_path %></li>
-  <li><%= link_to "Sign in", sign_in_path %></li> 
+
+  <% if request.original_fullpath == create_account_path %>
+    <li><%= link_to "Sign in", sign_in_path %></li>
+  <% else %>
+    <li><%= link_to "Sign up", create_account_path %></li>
+    <li class="divider-vertical"></li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in</a>
+      <ul class="dropdown-menu" role="menu">
+        <div id="login-menu">
+          <%= render "devise/sessions/new" %>
+        </div>
+      </ul>
+    </li>
+  <% end %>
 
 <% end %>

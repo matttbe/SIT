@@ -1,10 +1,8 @@
-<div class="container"><p>
-  <strong>Name:</strong>
-  <%= @group.name %>
-</p>
- 
-<p>
-  <strong>Description:</strong>
+<div class="full-width-header"><h1><%= @group.name %></h1></div>
+<div class="container">
+  
+<p class="lead">
+
   <%= @group.description %>
 </p>
 
@@ -30,9 +28,9 @@
 		<br />
 		<% if group.id == @group.id %>
 			<% @member = true %>
-			<p><%= link_to 'Leave Group', group_delete_user_path(@group,current_user), :method => :post, data: { confirm: 'Are you sure?' } %></p>		
+			<span><%= link_to 'Leave Group', group_delete_user_path(@group,current_user), :method => :post, data: { confirm: 'Are you sure?' } , :class=>"btn btn-default"%></span>		
 			<% if !(GroupUserRelation.where(user_id: current_user.id, group_id: @group.id).blank?)%>
-   				<p><%= link_to 'Delete group', group_path(@group),method: :delete, data: { confirm: 'Are you sure?' } %></p>
+   				<span><%= link_to 'Delete group', group_path(@group),method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %></span>
 			<% end %>
 		<%end%>
 	<%end%>

@@ -4,13 +4,18 @@
     <div class="col-md-3 col-md-offset-1">
       <h3 >Search Result</h3> 
     </div>
-    <div class="col-md-5 sticky-search">
+    <div class="col-md-3 sticky-search">
       <%= form_tag(search_path, method: "get", :class=>"form-search", :role=>"search", :remote => true, :id => "async-search") do %>
         <%= text_field_tag(:q, "",:class=>"search-query form-control", :placeholder=>"Search", :id=>"s") %>
        <%= submit_tag("search", :class=>"btn btn-primary") %>
       <% end %>
     </div>
-    <div class="col-md-2 col-md-offset-1">
+    <div class="col-md-1 col-md-offset-1">
+      <% if !current_user.nil?%>
+        <%= link_to 'Save this search', '/save'+@search, :class=>"btn btn-primary" %>
+      <% end %>
+    </div>
+    <div class="col-md-1 col-md-offset-1">
       <% if !current_user.nil?%>
         <%= link_to 'New Service', new_service_path, :class=>"btn btn-primary" %>
       <% end %>

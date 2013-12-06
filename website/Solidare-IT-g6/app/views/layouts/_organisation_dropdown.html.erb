@@ -1,0 +1,36 @@
+<%if user_signed_in? %>
+
+<li class="divider-vertical"></li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Organisation
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Not in an organisation yet ?</li>
+    <li><%= link_to "Create an organisation",  new_organisation_path, :role=>"menuitem" %></li>
+    <li><%= link_to "Join an organisation",  join_organisation_path, :role=>"menuitem" %></li>
+    <li class="divider"></li>
+    <%unless current_user.organisations.nil? %>
+    <li class="dropdown-header">Go to dashboard</li>
+    <% current_user.organisations.each do |organisation| %>
+      <li><%= link_to organisation.name, organisation_path(organisation), :role=>"menuitem"%></li>
+    <%end%>
+    <%end%>
+
+  </ul>
+</li>
+
+
+<% else %>
+  <li><%= link_to "Sign up", create_account_path %></li>
+  <li class="divider-vertical"></li>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in</a>
+    <ul class="dropdown-menu" role="menu">
+      <div id="login-menu">
+        <%= render "devise/sessions/new" %>
+      </div>
+    </ul>
+  </li>
+
+<% end %>

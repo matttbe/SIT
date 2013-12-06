@@ -103,7 +103,7 @@ def sign_up
 end
 
 def sign_in
-  visit '/users/sign_in'
+  visit '/'
   fill_in "user_email", :with => @visitor[:email]
   fill_in "user_password", :with => @visitor[:password]
   click_button "Sign in"
@@ -265,7 +265,9 @@ Then /^I should see my name$/ do
 end
 
 Then /^I can see all of my personnal informations$/ do
-  assert page.has_content?("My coordinate")
   assert page.has_content?("My Services")
   assert page.has_content?("My Groups")
+  assert page.has_content?("The services I follow")
+  assert page.has_content?("My Badges")
+  assert page.has_content?("My Feedback")
 end

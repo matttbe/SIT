@@ -1,22 +1,100 @@
- <div class="container marketing">
-     <div class="row">
-        <div class="span4">
-          <span class="glyphicon glyphicon-user" style="font-size:48px;"></span>
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
-          <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
-        </div><!-- /.span4 -->
-        <div class="span4">
-         <span class="glyphicon glyphicon-user" style="font-size:48px;"></span>
-          <h2>Heading</h2>
-          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
-        </div><!-- /.span4 -->
-        <div class="span4">
-         <span class="glyphicon glyphicon-user" style="font-size:48px;"></span>
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-primary " href="#">View details &raquo;</a></p>
-        </div><!-- /.span4 -->
-      </div><!-- /.row -->
-</div><!-- /.container marketing -->
+
+
+<%if current_user.nil? %>
+    <%@best_karma = User.order(:karma).last%>
+
+     <hr class="featurette-divider">
+
+    <div class="row">
+      <div class="col-md-4">
+        <% if not @best_karma.nil? %>
+          <div class="featurette">
+            <span class="featurette-image pull-right"><span class="glyphicon glyphicon-star" style="font-size:75px;"></span> </span>
+            <h2 class="featurette-heading">Our Best User <span class="muted"> </span></h2>
+            <p class="lead">Regarding his karma, <%=@best_karma.firstname+' '+@best_karma.name%> is the best user of our website. Congratulations !</p>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="col-md-4">
+        <div class="featurette">
+          <img class="featurette-image pull-left" src="">
+          <h2 class="featurette-heading">Oh yeah, it's that good. <span class="muted">See for yourself.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="featurette">
+          <img class="featurette-image pull-right" src="">
+          <h2 class="featurette-heading">And lastly, this one. <span class="muted">Checkmate.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+      </div>
+
+    </div>
+
+
+<%else%>
+
+<div class="container">
+
+<% if current_user.main_address.nil? %>
+  <% @closest_services = Service.where(:quick_match=>false) %>
+<% else %>
+  <% @closest_services = Service.where(:quick_match=>false).joins(:address).sort_by{|r| r.distance(current_user.main_address.latitude,current_user.main_address.longitude)}.reverse %>
+<% end %>
+
+    <% serv_count = Service.where(:quick_match => false).count %>
+    <% if serv_count > 0 %>
+      <% serv = Service.where(:quick_match => false).offset(Random.rand(serv_count)).first %>
+      <%= button_to 'Random service !', service_path(serv), :class=>"btn btn-primary", :method => :get  %>
+    <% end %>
+
+    <h4><span class="label label-default">Services close to you :</span></h4>
+
+    <% i = 0 %>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="well well-large service">
+          <% if !@closest_services[i].nil? %>
+          <h4> <%= @closest_services[i].title %> </h4>
+          <%= image_tag @closest_services[i].photo.url(:thumb) %>
+          <p>
+            <h7> <%= @closest_services[i].description %> </h7>
+          </p>
+          <%= button_to 'Show', service_path(@closest_services[0]), :class=>"btn btn-info", :method => :get  %>
+          <%end%>
+        </div>
+        <% i = i + 1 %>
+      </div>
+      <div class="col-md-4">
+        <div class="well well-large service">
+          <% if !@closest_services[i].nil? %>
+          <h4> <%= @closest_services[i].title %> </h4>
+          <%= image_tag @closest_services[i].photo.url(:thumb) %>
+          <p>
+            <h7> <%= @closest_services[i].description %> </h7>
+          </p>
+          <%= button_to 'Show', service_path(@closest_services[i]), :class=>"btn btn-info", :method => :get  %>
+          <%end%>
+        </div>
+        <% i = i + 1 %>
+      </div>
+      <div class="col-md-4">
+        <div class="well well-large service">
+          <% if !@closest_services[i].nil? %>
+          <h4> <%= @closest_services[i].title %> </h4>
+          <%= image_tag @closest_services[i].photo.url(:thumb) %>
+          <p>
+            <h7> <%= @closest_services[i].description %> </h7>
+          </p>
+          <%= button_to 'Show', service_path(@closest_services[i]), :class=>"btn btn-info", :method => :get  %>
+          <%end%>
+        </div>
+      </div>
+    </div>
+
+<%end%>
+</div>

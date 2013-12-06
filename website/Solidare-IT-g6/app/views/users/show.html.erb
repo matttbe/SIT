@@ -1,31 +1,48 @@
-
+<h1 class="full-width-header"> <%= image_tag @user.avatar.url(:thumb) %>     <%=@user.firstname%> <%= @user.name %> </h1>
 <%	@tag = nil
 	if @user == current_user
 		@tag = 'My'
 	else
 		@tag = 'His'
 	end%>
-<h3><%=@user.firstname%> <%= @user.name %></h3>
 
-<%= image_tag @user.avatar.url(:thumb) %>
+<div class="container">
 
-<h4><%= @tag%> coordinate</h4>
-<%= render 'coordinate', :user => @user %>
 
-<h4><%= @tag%> Services</h4>
-<%= render 'my_services', :services => @services %>
+<% if ! current_user.nil? %>
+	<h2 ><%= @tag%> personal informations</h2>
+	<%= render 'coordinate', :user => @user %>
+	
+	<h2><%= @tag%> Services</h2>
+	<%= render 'my_services', :services => @services %>
+	
+	<h2><%= @tag%> Groups</h2>
+	<%= render 'my_groups', :user => @user %>
+	
+	<%	@follow = nil
+		if @user == current_user
+			@follow = 'I follow'
+		else
+			@follow = 'he follows'
+		end%>
+	<h2>The services <%= @follow%></h2>
+	<%= render 'services/following_services', :following => @following %>
+	
+	<h2><%= @tag%> Badges</h2>
+	<%= render 'badge/own_badges', :badges=>@user.badges %>
 
-<h4><%= @tag%> Groups</h4>
-<%= render 'my_groups', :user => @user %>
+<h2><%= @tag%> Feedback</h2>
+<% @transactions = Transaction.where(user_id: @user.id).limit(5)
+	@transactions.each do |transaction|
 
-<%	@follow = nil
-	if @user == current_user
-		@follow = 'I follow'
-	else
-		@follow = 'he follows'
-	end%>
-<h4>The services <%= @follow%></h4>
-<%= render 'services/following_services', :following => @following %>
-
-<h4><%= @tag%> Badges</h4>
-<%= render 'badge/own_badges', :badges=>@user.badges %>
+	@feedbacker = User.find(transaction.poster_id)
+	@serv = Service.find(transaction.service_id) %>
+  <p>
+    For service <%= link_to @serv.title, service_path(@serv)%>
+    received <%= transaction.feedback_evaluation %> 
+    with comment <%= transaction.feedback_comments%>
+	by <%= link_to @feedbacker.all_name, show_profile_path(@feedbacker)  %>
+ </P>
+<%end%>
+<%end%>
+</div>

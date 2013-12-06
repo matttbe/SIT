@@ -18,6 +18,8 @@ class Notifier < ActionMailer::Base
   end
   
   def new_badge(user, badge, subject)
+    @user=user
+    @badge=badge
     mail to: user.email, :subject=>subject
   end
 end

@@ -4,22 +4,33 @@ class ApplicationController < ActionController::Base
 
   def give_badge_transaction(transaction)
     @user=User.find(transaction.user_id)
-    case
-    when @user.karma>0
-      @user.add_badge(2) unless User.find(@user.id).badges.any?{|badge| badge.id=2}
-    when @user.karma>5
-      @user.add_badge(3) unless User.find(@user.id).badges.any?{|badge| badge.id=3}
-    when @user.karma>10
-      @user.add_badge(4) unless User.find(@user.id).badges.any?{|badge| badge.id=4}
+    @u=User.order(:karma).last
+    if @user.karma>@u.karma
+      add_unique_badge(@user,8)
+      @u.remove_badge(8)
     end
+    case
+      when @user.karma>0
+        add_unique_badge(@user,2)#@user.add_badge(2) unless User.find(@user.id).badges.any?{|badge| badge.id=2}
+      when @user.karma>5
+        add_unique_badge(@user,3)#@user.add_badge(3) unless User.find(@user.id).badges.any?{|badge| badge.id=3}
+      when @user.karma>10
+        add_unique_badge(@user,4)#@user.add_badge(4) unless User.find(@user.id).badges.any?{|badge| badge.id=4}
+      when @user.karma>25
+        add_unique_badge(@user,5)#@user.add_badge(5) unless User.find(@user.id).badges.any?{|badge| badge.id=5}
+      when @user.karma>50
+        add_unique_badge(@user,6)#@user.add_badge(6) unless User.find(@user.id).badges.any?{|badge| badge.id=6}
+    end
+    
+
   end
   
   
   def create_badge_notif(badge, user)
-    @badge = Badges.find(badge)
+    @badge = Merit::Badge.find(badge)
     @notification = nil
-    @notifications_list = Notification.where("badge_id = :badge_id AND notified_user = :user_id", :badge_id =>badge, :user_id => user)
-    if @notifications_list > 0
+    @notifications_list = Notification.where("badge = :badge_id AND notified_user = :user_id", :badge_id =>badge, :user_id => user)
+    if @notifications_list.size > 0
       @notifications_list.each do |notif|
         if notif.notification_type == "BADGE_"+@badge.name
           @notification = notif
@@ -233,6 +244,11 @@ class ApplicationController < ActionController::Base
   end
 
   def add_unique_badge(user,id)
+    @do= User.find(user.id).badges.any?{|badge| badge.id=id}
+    if @do
+      @user.add_badge(id)
+      create_badge_notif(id, user)
+    end
     
   end
 end

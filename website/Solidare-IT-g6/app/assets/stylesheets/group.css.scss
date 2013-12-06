@@ -1,3 +1,30 @@
 // Place all the styles related to the group controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.post-body {
+	font-size: 14px;
+	padding-left:20px;
+}
+
+.comment-body {
+	padding-left: 45px;
+}
+
+.comment {
+	margin: 2px 0px 5px 0px;
+	padding:15px;
+	box-shadow: inset 1px 1px 5px 0px #cfcfcf;
+	border-radius: 10px;
+}
+
+.post img {
+	margin-top:15px;
+	margin-right: 10px;
+	float: left;
+}
+
+.post-body {
+	margin-top: 30px;
+}
