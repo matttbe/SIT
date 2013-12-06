@@ -25,6 +25,11 @@ class ApplicationController < ActionController::Base
 
   end
   
+  def notif_email(user, notification, object)
+    if user.mail_notif      
+      Notifier.send_notif(user, notification, object).deliver
+    end
+  end
   
   def create_badge_notif(badge, user)
     @badge = Merit::Badge.find(badge)
@@ -46,7 +51,7 @@ class ApplicationController < ActionController::Base
     @notification.creator_id = user.id 
     @notification.seen = false
     @notification.save
-    Notifier.send_notif(user, @notification, "New Badge").deliver
+    notif_email(user, @notification, "New Badge")
   end
   
   def create_group_notif(group, type)
@@ -74,7 +79,7 @@ class ApplicationController < ActionController::Base
         @notification.notification_type = type
         @notification.creator_id = current_user.id 
         @notification.seen = false
-        Notifier.send_notif(user,@notification, "Group Notification").deliver
+        notif_email(user,@notification, "Group Notification")
         if ! @notification.save
             show_error(format,'new',@notification)
         end
@@ -106,7 +111,7 @@ class ApplicationController < ActionController::Base
     @notification.notification_type = type
     @notification.creator_id = current_user.id 
     @notification.seen = false
-    Notifier.send_notif(@user, @notification, "Service Notification").deliver
+    notif_email(@user, @notification, "Service Notification")
     if ! @notification.save
         show_error(format,'new',@notification)
     end
