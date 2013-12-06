@@ -20,7 +20,13 @@
 //= require bootstrap-select
 //= require bootstrap-switch
 //= require bootstrap-typeahead
-//= require_tree .
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.es
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.nl
+//= require_directory .
+// TODO: disable gmaps when not used
+//= require_directory ./gmaps
 //= require less-1.5.0.min.js
 //= require holder.js
 //= require flatui-checkbox
