@@ -42,6 +42,33 @@
               <% end %>
             <% end %>
             <% end %>
+
+			<% if !current_user.nil?
+				@favSearch = FavoriteSearch.where(:user_id => current_user.id) 
+				if !@favSearch.blank? %>
+			        <li class="nav-header">Favorite searches</li>
+					<%@favSearch.each do |fav|%>
+					  <% params = {:q => fav.q, }
+						if !fav.is_demand?
+							params.merge(:demand_cbox => true)
+						end
+						if fav.is_active?
+							params.merge(:filter => "active")
+						elif fav.is_kama?
+							params.merge(:filter => "karma")
+						end
+						if fav.is_order_end?
+							params.merge(:q_order_end => true)
+						end
+						if fav.is_order_distance?
+							params.merge(:q_order_distance => true)
+						end
+						params.merge(:category => fav.category_id)%>
+					  <li><%= link_to fav.q, search_path(params) %></li>
+				<% end
+				end 
+			 end %>
+
             </ul>
                   </div>
         </div>
