@@ -25,7 +25,6 @@
 //= require holder.js
 //= require flatui-checkbox
 //= require flatui-radio
-//= require popbox
 //=require underscore
 
 
