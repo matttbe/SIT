@@ -1,7 +1,7 @@
 
 <% if (@services.nil? ||@services.length==0) && (@pending_services.nil? ||@pending_services.length==0) && (@accepted_services.nil? ||@accepted_services.length==0) %>
   <p>	
-	You've no services.
+	You haven't submit services.
   </p>
 <% end%>
 
@@ -9,7 +9,7 @@
 	if service.quick_match
     	next
 	end%>
-  	<%= render 'show',:service=> service %>
+  	<%= render '/services/show',:service=> service %>
 	<p>
 		<%= render 'accepted_by', :service => service%>
 	<% @my_group =  @groups = Group.joins(:group_user_relations).where(group_user_relations: {user_id: current_user.id})

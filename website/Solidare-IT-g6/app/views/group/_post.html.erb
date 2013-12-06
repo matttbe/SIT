@@ -35,7 +35,7 @@
 			<div class='comment'>
 				<p>
 					<%if !group_post_comment.user.nil? %>
-						<%=group_post_comment.user.all_name %> :
+						<strong><%=link_to group_post.user.all_name, show_profile_path(group_post.user.id) %></strong>:
 					<% end %>
 					<%= group_post_comment.body %>
 				</p>

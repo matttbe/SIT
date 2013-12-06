@@ -112,3 +112,8 @@ end
 Then(/^I should see a unfollow notification$/) do
   assert page.has_content?("was unfollowed")  
 end
+
+Then(/^I should see a post notification$/) do
+  assert page.has_content?("posted in")  
+end
+

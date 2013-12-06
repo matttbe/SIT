@@ -1,5 +1,47 @@
 class SearchController < ApplicationController
 
+  #GET /search/save
+  def save
+    @search = "/search?"
+    @fav=FavoriteSearch.new
+    @fav.user_id=current_user.id
+    
+    if (! params[:q].nil?)
+      @fav.q=params[:q]
+      @search += "q=" + params[:q] + "&"
+    end
+    @fav.is_demand=! params[:demand_cbox].nil?
+
+    if (!params[:filter].nil?)
+      @filter=params[:filter]
+      @fav.is_active=@filter == "active"
+      @fav.is_karma=@filter == "karma"
+      @search = @search + "&filter=" + @filter
+    end
+
+    if(!params[:category].nil?)
+      @fav.category_id= params[:category]
+      @search = @search + "&category=" + params[:category]
+    end
+
+    if (! params[:q_order_end].nil?)
+      @fav.is_order_end=true
+      @search = @search + "&q_order_end=on"
+    end
+
+    if (! params[:q_order_distance].nil? && current_user.addresses.size > 0)
+      @fav.is_order_distance=true
+      @search = @search + "&q_order_distance=on"
+    end
+
+    @search = @search + "&commit=Search"
+    @fav.save
+    respond_to do |format|
+        format.html {redirect_to @search, :notice => "You have saved this research "}
+      end
+
+  end
+
 
   # GET /search
   def match
@@ -45,10 +87,11 @@ class SearchController < ApplicationController
         @services = @services.paginate(:page => params[:page])
       end
 
-      if (! params[:q_order_end].nil?)
-        @services = @services.order(date_end: :asc)
-        @search = @search + "&q_order_end=on"
-      end
+      #loooooooooooooool
+      #if (! params[:q_order_end].nil?)
+      #  @services = @services.order(date_end: :asc)
+      #  @search = @search + "&q_order_end=on"
+      #end
       @search = @search + "&filter=" + @filter
     end
 
@@ -77,7 +120,7 @@ class SearchController < ApplicationController
     respond_to do |format|
         format.html 
         format.js 
-      end
+    end
   end
 
 end

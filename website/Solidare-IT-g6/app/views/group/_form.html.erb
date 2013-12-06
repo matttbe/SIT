@@ -1,11 +1,9 @@
-<%= form_for :group, url: group_index_path ,:html => { :multipart => true  } do |f| %>
+<%= bootstrap_form_for :group, url: group_index_path ,:html => { :multipart => true  } do |f| %>
   <div>
-    <%= f.label :Name, :class=>"label label-default" %>
     <%= f.text_field :name, :class => "form-control" %>
   </div>
  
   <div>
-    <%= f.label :Description , :class=>"label label-default"%>
     <%= f.text_area :description, :class => "form-control"%>
   </div>
 
@@ -18,6 +16,7 @@
   </div>
 
   <div>
+
     <%= f.check_box :secret, :label=>"Secret ?" %>
     If checked, the group will be secret and reachable only for members.
   </div>

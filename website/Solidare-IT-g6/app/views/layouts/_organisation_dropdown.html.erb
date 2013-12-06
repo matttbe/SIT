@@ -1,3 +1,4 @@
+
 <%if user_signed_in? %>
 
 <li class="divider-vertical"></li>
@@ -13,7 +14,7 @@
     <%unless current_user.organisations.nil? %>
     <li class="dropdown-header">Go to dashboard</li>
     <% current_user.organisations.each do |organisation| %>
-      <li><%= link_to organisation.name, organisation_path(organisation), :role=>"menuitem"%></li>
+      <li><%= link_to organisation.name, mainmenu_organisations_path(organisation), :role=>"menuitem"%></li>
     <%end%>
     <%end%>
 

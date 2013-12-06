@@ -535,18 +535,29 @@
 	<!-- NOTIFICATION SERVICE-->
 	<%case @notification.notification_type %>
 	<%when 'EDDIT'%>
+	Someone eddited your service "<%= @notification.service.title %>"
 	<%when 'FOLLOW'%>
-	FOLLOW NOTIF
-	<%when 'UNFOLLOW'%>
+	Someone follows your service "<%= @notification.service.title %>"
+	<%when 'UNFOLLOW'%>	
+	Someone unfollows your service "<%= @notification.service.title %>"
 	<%when 'ACCEPT'%>
+	Someone accepted your service "<%= @notification.service.title %>"
 	<%else %>
+	You've recevied an notification on a service
 	<%end%>
 <% elsif !@notification.group.nil? %>
 	<!-- NOTIFICATION GROUP-->
-	some text
+	<%case @notification.notification_type %>
+	<%when 'POST'%>
+	Someone post on <%= @notification.group.name %> group
+	<%when 'JOIN'%>
+	Someone join the <%= @notification.group.name %> group
+	<%else%>
+	You received a notification on a group
+	<%end%>
 <% else %>
 	<!-- NOTIFICATION BADGE-->
-	some text
+	You win a badge
 <%end %>
 <!-- FIN -->
                         </td>

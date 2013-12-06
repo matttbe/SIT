@@ -1,7 +1,6 @@
 
 <%if @notifications.size > 0 %>
-	<% @notifications.each do |notif| %>
-	<% @notifications.order(:seen).each do |notif| %>
+	<% @notifications.order(:seen).reverse.each do |notif| %>
 		<% if !notif.group.nil? %>
 			<% @users.each do |user| %>
 				<% if user.id == notif.creator_id %>
@@ -12,6 +11,8 @@
 			<% case notif.notification_type %>
 			<%when 'POST'%>
 				<%= link_to @creator_fullname, show_profile_path(notif.creator_id) %> posted in "<%= link_to notif.group.name, show_group_path(notif.group) %>"<br />
+			<%when 'JOIN'%>
+				<%= link_to @creator_fullname, show_profile_path(notif.creator_id) %> join the group "<%= link_to notif.group.name, show_group_path(notif.group) %>"<br />
 			<%else%>
 				NO MESSAGE FOR THIS TYPE OF NOTIFICATION
 			<%end%>
@@ -28,7 +29,8 @@
 			
 			<% case notif.notification_type %>
 			<%when 'EDIT'%>
-				The <%= link_to "service", service_path(notif.service)%> "<%=notif.service.title%>" of <%= @service_creator.firstname %> <%= @service_creator.name %> was eddited<br />
+				<% @service_creator_fullname = ""+@service_creator.firstname+" "+@service_creator.name %>
+				The <%= link_to "service", service_path(notif.service)%> "<%=notif.service.title%>" of <%= link_to @service_creator_fullname, show_profile_path(@service_creator) %> was eddited<br />
 			<%when 'ACCEPT'%>
 				The <%= link_to "service", service_path(notif.service)%> "<%=notif.service.title%>"  was accepted by <%= link_to @creator_fullname, show_profile_path(@creator)%> <br />
 			<%when 'FOLLOW'%>
@@ -44,7 +46,6 @@
 			NOTIFICATION TYPE UNKNOWN
 		<%end%>
 	<%end%>
-	<%end%>
 <%else%>
-	You've no notifications
+	You didn't received notifications
 <%end%>
