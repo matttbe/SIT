@@ -45,6 +45,7 @@ SolidareItG6::Application.routes.draw do
   get '/search/(:page)' => 'search#match', :as=>"match"
   post '/search' => 'search#match'
   get '/save/:info' => 'search#save', :as=>"save_match"
+  post '/delete/:id' => 'search#delete', :as=>"delete_match"
 
   #transaction routing
   get '/transaction/:id' => 'services#new_transaction', :as=>"add_transaction"

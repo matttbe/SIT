@@ -64,7 +64,8 @@
 							params.merge(:q_order_distance => true)
 						end
 						params.merge(:category => fav.category_id)%>
-					  <li><%= link_to fav.q, search_path(params) %></li>
+					  <p><%= link_to fav.q, search_path(params) %>
+						<span class="badge"><%= link_to 'x', delete_match_path(fav), :method => :post%></span></p>
 				<% end
 				end 
 			 end %>

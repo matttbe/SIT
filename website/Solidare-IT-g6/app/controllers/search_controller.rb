@@ -41,6 +41,14 @@ class SearchController < ApplicationController
       end
 
   end
+  
+  def delete
+	@fav = FavoriteSearch.find(params[:id])
+	@fav.destroy
+	respond_to do |format|
+        format.html {redirect_to search_path, :notice => "You have deleted this research "}
+      end
+  end
 
 
   # GET /search
