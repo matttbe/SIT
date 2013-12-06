@@ -9,5 +9,5 @@ Feature: Service aprt in the admin section
       And I exist as an admin user
       And I am not logged in
       When I sign in with valid credentials for admin user
-      And I click on the Services link
+      And I click on the Search a service link
       Then I should see services
