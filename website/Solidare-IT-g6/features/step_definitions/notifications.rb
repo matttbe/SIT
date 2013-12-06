@@ -70,13 +70,9 @@ def user_spam
   create_admin_user
   sign_in
   visit '/services/'+@service.id.to_s
-  show_page
   click_link "Follow"
-  show_page
   click_link "Unfollow"
-  show_page
   click_link "Follow"
-  show_page
   visit '/users/sign_out'
   @visitor = nil
   create_visitor
@@ -105,7 +101,6 @@ end
 
 When /^I visit the notifications page$/ do   
   visit '/notifications'
-  show_page
 end
 
 When /^The service is updated$/ do 
