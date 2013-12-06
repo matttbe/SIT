@@ -4,7 +4,7 @@ SIT
 Before testing :
 ----------------
 
-As we use RoR as framework for the solidare-it website implementation, you must Ruby 2.0 (ruby2.0 and ruby2.0-dev) and Rails 4.0.2 installed on your computer. To install Rails, run the 'gem install rails' command. For the development version, we use sqlite3 for the database, but note that if you want to have the website in production version, we planned to use PostgreSQL.
+As we use RoR as framework for the solidare-it website implementation, you must have Ruby 2.0 (ruby2.0 and ruby2.0-dev) and Rails 4.0.2 installed on your computer. To install Rails, run the 'gem install rails' command. For the development version, we use sqlite3 for the database, but note that if you want to have the website in production version, we planned to use PostgreSQL.
 
 Test the website :
 ------------------
