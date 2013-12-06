@@ -46,10 +46,11 @@ class ApplicationController < ActionController::Base
     @notification.creator_id = user.id 
     @notification.seen = false
     @notification.save
-    Notifier.new_badge(user, @badge, "New Badge").deliver
+    Notifier.send_notif(user, @notification, "New Badge").deliver
   end
   
   def create_group_notif(group, type)
+    logger.debug("++++++++++++   CREATE GROUP NOTIF +++++++++++")
     group.users.each do |user|
       @notifications_list = Notification.where("group_id = :group_id AND notified_user = :user_id", :group_id => group, :user_id => user)
       @notification = nil
@@ -69,6 +70,7 @@ class ApplicationController < ActionController::Base
       @notification.notification_type = type
       @notification.creator_id = current_user.id 
       @notification.seen = false
+      logger.debug("+++++++++++ SENDING EMAIL ++++++++++++")
       Notifier.send_notif(user,@notification, "Group Notification").deliver
       if ! @notification.save
           show_error(format,'new',@notification)
