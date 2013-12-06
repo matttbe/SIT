@@ -5,6 +5,13 @@
 	</p>
 <% end %>
 
+<%if !(current_user.nil?)%>
+	<% if !(GroupUserRelation.where(user_id: current_user.id, group_id: @group.id).blank?) %>
+		<%= render 'post_form' %>
+	<% end %>
+<% end %>
+
+
 <% @group.group_posts.order('updated_at DESC').each do |group_post| %>
 	<div class="post well well-large">
 		<p>
@@ -59,10 +66,4 @@
 			<% end %>
 		</div>
 	</div>
-<% end %>
-
-<%if !(current_user.nil?)%>
-	<% if !(GroupUserRelation.where(user_id: current_user.id, group_id: @group.id).blank?) %>
-		<%= render 'post_form' %>
-	<% end %>
 <% end %>
