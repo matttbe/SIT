@@ -85,7 +85,6 @@ end
 
 When /^I visit the notifications page$/ do   
   visit '/notifications'
-  show_page
 end
 
 When /^The service is updated$/ do 

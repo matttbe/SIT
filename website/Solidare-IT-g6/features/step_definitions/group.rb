@@ -56,7 +56,6 @@ end
 When(/^I visit the page of a group$/) do
   @link="/group/"+@group.id.to_s
   visit @link
-  #show_page
 end
 
 When(/^I visit the page of my group$/) do
