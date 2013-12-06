@@ -98,15 +98,15 @@ end
 ### THEN ###
 
 Then(/^I should see a update notification$/) do
-  assert page.has_content?("was eddited")  
+  assert page.has_content?("was eddited")
 end
 
 Then(/^I should see a accept notification$/) do
-   assert page.has_content?("was accepted") 
+  assert page.has_content?("was accepted")
 end
 
 Then(/^I should see a follow notification$/) do
-  assert page.has_content?("was followed")  
+  assert page.has_content?("was followed")
 end
 
 Then(/^I should see a unfollow notification$/) do
