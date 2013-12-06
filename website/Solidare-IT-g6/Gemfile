@@ -41,6 +41,7 @@ gem 'therubyracer'
 gem "less-rails"
 gem 'date_validator'
 gem 'bootstrap_forms', git: 'https://github.com/gagalago/bootstrap_forms'
+gem 'bootstrap-datepicker-rails'
 
 # admin interface: github: compatible with RoR 4.0
 gem 'activeadmin', git: 'https://github.com/gregbell/active_admin.git'
@@ -69,10 +70,11 @@ gem 'will_paginate', '~> 3.0'
 #Some UI Components
 gem "jquery-ui-rails"
 
-gem 'bootstrap-datepicker-rails'
-
 #merit
 gem 'merit'
+
+#load '.env' file
+gem 'dotenv-rails'
 
 #maps
 gem 'gmaps4rails'
@@ -95,7 +97,6 @@ end
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
-  gem 'dotenv-rails', :groups => [:development, :test]
 end
 
 # production
