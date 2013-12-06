@@ -156,6 +156,7 @@ end
 ### THEN ###
 
 Then(/^I see a service$/) do
+  show_page
   assert page.has_content?(@serviceC[:title])
 end
 

@@ -11,7 +11,7 @@
       <% end %>
     </div>
     <div class="col-md-2 ">
-      <% if !current_user.nil?%>
+      <% if !current_user.nil? and !@search.nil? %>
         <%= link_to 'Save this search', '/save'+@search, :class=>"btn btn-primary" %>
       <% end %>
     </div>
