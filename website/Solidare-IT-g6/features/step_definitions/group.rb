@@ -34,6 +34,20 @@ def add_group
   @group = Group.create!(@groupX)
 end
 
+def someone_join
+  visit '/users/sign_out'
+  @visitor = nil
+  create_admin_user
+  #find_admin_user
+  sign_in
+  visit '/group/'+@group.id.to_s
+  click_link "Join"
+  visit '/users/sign_out'
+  @visitor = nil
+  create_visitor
+  sign_in   
+end
+
 ## GIVEN ##
 Given (/^I am a member of a group$/) do
   i_am_member
@@ -66,10 +80,13 @@ When(/^I visit the page of my group$/) do
 end
       
 When(/^I check groups$/) do
-
   @link="/group/"
   visit @link
-end      
+end     
+
+When(/^someone join the group$/) do
+  someone_join
+end 
 ## THEN ##
 
 Then(/^I see the create a group button$/) do

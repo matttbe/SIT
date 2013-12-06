@@ -117,3 +117,7 @@ Then(/^I should see a post notification$/) do
   assert page.has_content?("posted in")  
 end
 
+Then(/^I should see a join notification$/) do
+  assert page.has_content?("join the group")  
+end
+

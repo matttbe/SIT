@@ -43,3 +43,11 @@ Feature: All about notifications
   	When someone post a message on the group
   	And I visit the notifications page
   	Then I should see a post notification
+	
+  Scenario: Validated user receives a notification when someone join his group
+    And the database contains groups
+  	And I am logged in
+  	And I am a member of a group  	  
+  	When someone join the group
+  	And I visit the notifications page
+  	Then I should see a join notification

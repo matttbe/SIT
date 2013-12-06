@@ -37,6 +37,13 @@ def i_follow
    @follow.save  
 end
 
+def profil_followers
+  find_user
+  @service = Service.where(:creator_id => @user.id).first
+  @follower = Follower.where(:service_id => @service.id).first
+  visit '/user/' + @follower.user_id.to_s  
+end
+
 ### GIVEN ###
 
 Given /^I follow a service$/ do
@@ -89,8 +96,5 @@ Then(/^I can not see the service anymore$/) do
 end
 
 Then(/^I can see the profiles of my followers$/) do
-  find_user
-  @service = Service.where(:creator_id => @user.id).first
-  @follower = Follower.where(:service_id => @service.id).first
-  visit '/user/' + @follower.user_id.to_s
+  profil_followers
 end
