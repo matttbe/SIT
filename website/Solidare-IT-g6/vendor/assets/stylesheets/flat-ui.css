@@ -2352,7 +2352,7 @@ fieldset[disabled] .form-control + .input-icon,
   border-radius: 0;
 }
 .open > .dropdown-menu {
-  margin-top: 18px !important;
+  margin-top: 2px;
   opacity: 1;
   visibility: visible;
 }
