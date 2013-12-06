@@ -37,7 +37,7 @@ if !@my_group.blank?%>
   Accepted Services :
   <br /><br />
   <% @accepted_services.each do |service| %>
-	<%= render 'show',:service=> service %>
+	<%= render '/services/show',:service=> service %>
   <%end %>
 <%end%>
 
@@ -46,6 +46,6 @@ if !@my_group.blank?%>
   Pending Services :
   <br /><br />
   <% @pending_services.each do |service| %>
-    <%= render 'show',:service=> service %>
+    <%= render '/services/show',:service=> service %>
   <% end %>
 <%end %>
