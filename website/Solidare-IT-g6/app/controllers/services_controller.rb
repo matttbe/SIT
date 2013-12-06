@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-  before_action :set_service, only: [:edit, :update, :destroy, :accept_service, :follow, :unfollow]
+  before_action :set_service, only: [:edit, :update, :destroy, :share, :accept_service, :follow, :unfollow]
   before_action :set_good_service, only: [:create_transaction, :new_transaction]
   
   helper_method :get_accepters
@@ -235,6 +235,10 @@ class ServicesController < ApplicationController
         show_error(format, 'show', @follower)
       end
     end
+  end
+  
+  def share
+    
   end
 
 

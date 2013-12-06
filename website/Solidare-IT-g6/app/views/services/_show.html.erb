@@ -6,9 +6,8 @@
     </a>
     <h3><%= service.title %></h3>
     <strong>Created by:</strong>
-    <%  #TODO add a link to the user profile ? %>
     <%if !@service.user.nil? %>
-    <%= @service.user.all_name %>
+   	 <%= link_to @service.user.all_name, show_profile_path(@service.user) %>
     <% end %>
     <p class="service-desc"><%= service.description %></p>
     <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> to <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
