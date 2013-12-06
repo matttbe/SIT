@@ -63,6 +63,7 @@
       @hash = Gmaps4rails.build_markers(@closest_services) do |closest_service, marker|
         marker.lat closest_service.address.latitude
         marker.lng closest_service.address.longitude
+        marker.infowindow render 'services/show', :service=>closest_service
       end
       
       %>
