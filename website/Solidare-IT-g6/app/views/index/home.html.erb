@@ -6,10 +6,10 @@
      <hr class="featurette-divider">
 
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3 col-md-offset-1">
         <% if not @best_karma.nil? %>
           <div class="featurette">
-            <span class="featurette-image pull-right"><span class="glyphicon glyphicon-star" style="font-size:75px;"></span> </span>
+            <span class="featurette-image pull-left"><span class="glyphicon glyphicon-star" style="font-size:75px;"></span> </span>
             <h2 class="featurette-heading">Our Best User <span class="muted"> </span></h2>
             <p class="lead">Regarding his karma, <%=@best_karma.firstname+' '+@best_karma.name%> is the best user of our website. Congratulations !</p>
           </div>
@@ -24,12 +24,19 @@
         </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="featurette">
           <img class="featurette-image pull-right" src="">
-          <h2 class="featurette-heading">And lastly, this one. <span class="muted">Checkmate.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">What other users says !</h2>
+          <% if !Transaction.where("feedback_evaluation IN (:eval)", :eval => 3).first.nil? %>
+            <p class="lead"><%= Transaction.where("feedback_evaluation IN (:eval)", :eval => 3).first.feedback_comments %></p>
+          <% else %>
+            <p class="lead">Perfect transaction. You really helps me with these clothes. Thank you !</p>
+          <% end %>
         </div>
+      </div>
+
+      <div class="col-md-1">
       </div>
 
     </div>
