@@ -64,7 +64,7 @@ class ServicesController < ApplicationController
 	@service.save!
 
 	respond_to do |format|
-        format.html { redirect_to my_services_path, notice: 'User chosen !' }
+        format.html { redirect_to my_services_path(params[:u_id]), notice: 'User chosen !' }
 	end
   end
 
