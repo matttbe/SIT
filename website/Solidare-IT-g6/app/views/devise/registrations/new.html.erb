@@ -3,10 +3,10 @@
 
     <%= f.text_field :name , :autofocus => true, :class => "form-control" %>
     <%= f.text_field :firstname , :class => "form-control"%>
-    <%= f.text_field :birthdate, :id => "user_birthdate", :value => Date.new(Date.today.cwyear - 30), :class => "datepicker" %>
+    <%= f.text_field :birthdate, :id => "user_birthdate", :value => '01/01/' + (Date.today.cwyear - 30).to_s, :class => "datepicker" %>
     <script type="text/javascript">
       $(document).ready(function(){
-        $('.datepicker').datepicker({format: 'yyyy-mm-dd', startView: 2});
+        $('.datepicker').datepicker({format: 'dd/mm/yyyy'});
       })
     </script>
     <%= f.email_field :email, :class => "form-control"%>
