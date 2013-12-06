@@ -19,9 +19,13 @@
                   <%end%>
                 </div>
                 
-                <p class="service-desc"><%= service.description %></p>
-                <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> to <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
-                <%if !service.address.nil?%> <p class="service-desc"><%= service.address.country %></p><% end %>
+                <p class="service-desc"> <strong>Description : </strong><%= service.description %></p>
+                <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> <strong>to</strong> <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
+                <%if !service.address.nil?%> 
+                  <p class="service-desc"><%= service.address.street %>, <%= service.address.number %> <br/>
+                  <%= service.address.postal_code %> <%= service.address.city %> <br/>
+                  <%= service.address.country %></p>
+                <% end %>
                 </p>
     			<%= render 'services/share', :service => service %>
 
