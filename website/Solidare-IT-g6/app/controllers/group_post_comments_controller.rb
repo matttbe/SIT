@@ -5,7 +5,7 @@ class GroupPostCommentsController < ApplicationController
     @group_post_comment = @group_post.group_post_comments.create(params[:group_post_comment].permit(:body))
   	@group_post_comment.user_id=current_user.id
   	@group_post_comment.save
-  	@group_post.touch
+  	@group_post.touch#when comment, update the date to get a correct ordering
     
     
   	@group = Group.find(GroupPost.find(params[:group_post_id]).group_id)

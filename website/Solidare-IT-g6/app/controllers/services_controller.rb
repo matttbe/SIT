@@ -23,8 +23,7 @@ class ServicesController < ApplicationController
   end
 
   # GET /services/:id/accept
-  def accept_service
-	#TODO check doublon (not supposed to happen technically => button not shown if already accepted) 
+  def accept_service 
 	@accept_service = AcceptService.new()
 	@accept_service.service_id = @service.id
 	@accept_service.user_id = current_user.id
@@ -43,6 +42,7 @@ class ServicesController < ApplicationController
   end
 
   def choose
+	#choose a customer among the accepters
 	@chosen_service = AcceptService.where(user_id: params[:u_id],service_id: params[:s_id]).first
 
 	@chosen_service.is_chosen_customer = true
@@ -74,9 +74,8 @@ class ServicesController < ApplicationController
     protect_param_integer
     if @can
     @service = Service.find(params[:id])
-   #NETTOYER ca pour faire une seule fois la requete followers
 
-    @followers_list = Follower.where("service_id = :service_id", :service_id => @service.id)
+    @followers_list = Follower.where("service_id = :service_id", :service_id => params[:id])
     @users = User.all 
     end
   end
@@ -180,7 +179,6 @@ class ServicesController < ApplicationController
 	@transaction.poster_id=current_user.id
     @user=User.find(@transaction.user_id)
     @user.karma=@user.karma+@transaction.feedback_evaluation
-    #TODO update karma
     respond_to do |format|
        if @transaction.save && @user.save
            expire_fragment(@service)
@@ -188,7 +186,6 @@ class ServicesController < ApplicationController
            format.html { redirect_to my_services_path(@user), notice: 'thanks for your feedback !' }
            format.json { head :no_content }
        else
-         #TODO have a red error message
          format.html { redirect_to my_services_path(@user), notice: 'An error occur while saving feedback!' }
        end
      end
@@ -257,7 +254,7 @@ class ServicesController < ApplicationController
 
     def create_quick_service(user_id)
       @serviceQ=Service.new
-      #TODO si on renseigne pas tous les champs, la vérif du modèle va gueuler.  Que faire ?  le boolean quick_match sert-il alors ?
+      # si on renseigne pas tous les champs, la vérif du modèle va gueuler. 
       @serviceQ.title=@service.title
       @serviceQ.description=@service.description
       @serviceQ.date_start=@service.date_start

@@ -92,13 +92,13 @@ class GroupController < ApplicationController
 	@user = User.find(params[:u_id])
 	
 	@group = Group.find(params[:g_id])
-	if @group.secret && GroupUserRelation.where(group_id: params[:g_id]).blank?#no more user on group	
+	if @group.secret && GroupUserRelation.where(group_id: params[:g_id]).blank?#no more user on group, delete it if secret (not reachable)	
 		@group.destroy
 		redirect_to group_index_path
 	else
-		if @user == current_user
+		if @user == current_user#user left the group
 			redirect_to group_index_path
-		else
+		else#admin removed a user
 			redirect_to edit_group_path(Group.find(params[:g_id]))
 		end
 	end

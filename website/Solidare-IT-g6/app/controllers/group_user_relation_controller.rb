@@ -5,10 +5,9 @@ class GroupUserRelationController < ApplicationController
       create_group_notif(Group.find(params[:idGroup]), "JOIN")  
   		respond_to do |format|
   			if @relation.save
-  			  #TODO include user	
           		format.html { redirect_to show_group_path(@relation.group), notice: "Welcome in the group"}
 			else
-			    format.html { redirect_to group_index_path(), notice: "an error occure"}
+			    format.html { redirect_to group_index_path(), notice: "an error occured"}
 			end
 	     end
 	 else
