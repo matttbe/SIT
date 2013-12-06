@@ -10,7 +10,7 @@
    	 <%= link_to @service.user.all_name, show_profile_path(@service.user) %>
     <% end %>
     <p class="service-desc"><%= service.description %></p>
-    <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> to <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
+    <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> <strong>to</strong> <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
       <%if !service.address.nil?%> <p class="service-desc"><%= render 'address/address', :address=>service.address %></p><% end %>
     </p>
 
