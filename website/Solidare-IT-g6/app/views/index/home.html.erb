@@ -66,6 +66,13 @@
         end
       
       %>
+
+      <% if serv_count > 0 %>
+      <% serv = Service.where(:quick_match => false).offset(Random.rand(serv_count)).first %>
+      <%= button_to 'Random service !', service_path(serv), :class=>"btn btn-primary", :method => :get  %>
+    <% end %>
+
+    
     <script>
       $(document).ready(function(){
           handler = Gmaps.build('Google');
@@ -79,10 +86,7 @@
            
   </script>
  
-    <% if serv_count > 0 %>
-      <% serv = Service.where(:quick_match => false).offset(Random.rand(serv_count)).first %>
-      <%= button_to 'Random service !', service_path(serv), :class=>"btn btn-primary", :method => :get  %>
-    <% end %>
+    
 
     <h4><span class="label label-default">Services close to you :</span></h4>
 
@@ -90,42 +94,42 @@
 
     <div class="row">
       <div class="col-md-4">
-        <div class="well well-large service">
-          <% if !@closest_services[i].nil? %>
-          <h4> <%= @closest_services[i].title %> </h4>
-          <%= image_tag @closest_services[i].photo.url(:thumb) %>
-          <p>
-            <h7> <%= @closest_services[i].description %> </h7>
-          </p>
-          <%= button_to 'Show', service_path(@closest_services[0]), :class=>"btn btn-info", :method => :get  %>
-          <%end%>
-        </div>
+        <% if !@closest_services[i].nil? %>
+          <div class="well well-large service">
+            <h4> <%= @closest_services[i].title %> </h4>
+            <%= image_tag @closest_services[i].photo.url(:thumb) %>
+            <p>
+              <h7> <%= @closest_services[i].description %> </h7>
+            </p>
+            <%= button_to 'Show', service_path(@closest_services[0]), :class=>"btn btn-info", :method => :get  %>
+          </div>
+        <%end%>
         <% i = i + 1 %>
       </div>
       <div class="col-md-4">
-        <div class="well well-large service">
-          <% if !@closest_services[i].nil? %>
-          <h4> <%= @closest_services[i].title %> </h4>
-          <%= image_tag @closest_services[i].photo.url(:thumb) %>
-          <p>
-            <h7> <%= @closest_services[i].description %> </h7>
-          </p>
-          <%= button_to 'Show', service_path(@closest_services[i]), :class=>"btn btn-info", :method => :get  %>
-          <%end%>
-        </div>
+        <% if !@closest_services[i].nil? %>
+          <div class="well well-large service">
+            <h4> <%= @closest_services[i].title %> </h4>
+            <%= image_tag @closest_services[i].photo.url(:thumb) %>
+            <p>
+              <h7> <%= @closest_services[i].description %> </h7>
+            </p>
+            <%= button_to 'Show', service_path(@closest_services[i]), :class=>"btn btn-info", :method => :get  %>
+          </div>
+        <%end%>
         <% i = i + 1 %>
       </div>
       <div class="col-md-4">
-        <div class="well well-large service">
-          <% if !@closest_services[i].nil? %>
-          <h4> <%= @closest_services[i].title %> </h4>
-          <%= image_tag @closest_services[i].photo.url(:thumb) %>
-          <p>
-            <h7> <%= @closest_services[i].description %> </h7>
-          </p>
-          <%= button_to 'Show', service_path(@closest_services[i]), :class=>"btn btn-info", :method => :get  %>
-          <%end%>
-        </div>
+        <% if !@closest_services[i].nil? %>
+          <div class="well well-large service">
+            <h4> <%= @closest_services[i].title %> </h4>
+            <%= image_tag @closest_services[i].photo.url(:thumb) %>
+            <p>
+              <h7> <%= @closest_services[i].description %> </h7>
+            </p>
+            <%= button_to 'Show', service_path(@closest_services[i]), :class=>"btn btn-info", :method => :get  %>
+          </div>
+        <%end%>
       </div>
     </div>
 
