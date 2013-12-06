@@ -1,6 +1,8 @@
+
 <%if defined?(address)&&!address.nil?
     @address=address
   end%>
+<span>  <h2>
 <p>
   <%= @address.street %>
   , &nbsp
@@ -22,3 +24,5 @@
   ; &nbsp
   <%=@address.longitude %>
 </p>
+</h2>
+</span>

@@ -5,12 +5,12 @@
   <tbody>
     <% @addresses.each do |address| %>
       <tr <% if address.principal %> class="success"<%  end %>>
-        <td><% if address.principal %> <i class="icon-home"></i><%  end %> </td>
+        <td><% if address.principal? %> <span class="glyphicon glyphicon-home"></span><%  end %> </td>
         <td> <%= render 'address', :address=>address %> </td>
         <td>
-            <% if !current_user.nil?&&address.user_id==current_user.id %><%= link_to 'Edit', edit_address_path(address) %><%end%>
-            <% if !current_user.nil?&&address.user_id==current_user.id %><%= link_to 'Destroy', address, method: :delete, data: { confirm: 'Are you sure?' } %><%end%>
-            <% if !address.principal %><%= link_to 'Put this as my main address', main_address_path(address) %><% end %>
+            <% if !current_user.nil?&&address.user_id==current_user.id %><%= link_to 'Edit', edit_address_path(address), :class=>"btn btn-warning" %><%end%>
+            <% if !current_user.nil?&&address.user_id==current_user.id %><%= link_to 'Destroy', address, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %><%end%>
+            <% if !address.principal %><%= link_to 'Put this as my main address', main_address_path(address), :class=>"btn btn-primary" %><% end %>
         </td>
       </tr>
     <% end %>
@@ -18,6 +18,6 @@
 </table>
 
 <% if !current_user.nil?%>
-    <%= link_to 'New address', new_address_path %>
+    <%= link_to 'New address', new_address_path, :class=>"btn btn-success" %>
 <%end%>
 </div>
