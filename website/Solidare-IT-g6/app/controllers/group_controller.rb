@@ -11,7 +11,11 @@ class GroupController < ApplicationController
  # GET /user/groups
   def my_groups
     if user_signed_in?
-      @groups = Group.joins(:group_user_relations).where(group_user_relations: {user_id: params[:user_id]})
+	  if User.find(params[:user_id])==current_user
+      	@groups = Group.joins(:group_user_relations).where(group_user_relations: {user_id: params[:user_id]})
+	  else
+        redirect_to group_index_path, notice: 'You don\'t have permission to manage other\'s group bad boy ;)'
+	  end
     else
       dont_see
     end
