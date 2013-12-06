@@ -9,7 +9,7 @@ As we use RoR as framework for the solidare-it website implementation, you must 
 Test the website :
 ------------------
 
-**TODO : ACCES AU GÎTE OU ARCHIVE **
+To access the code of our application, go to https://github.com/matttbe/SIT and clone the git repository.
 
 Go to the '/path/to/SIT/website/Solidare-IT-g6/' folder. Then, if it's the first time you want to run the application, run the 'bundle install', 'rake db:create:all' and 'rake db:migrate' commands. Then you have to lauch the server with the 'rails server' command.
 
