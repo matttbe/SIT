@@ -38,22 +38,12 @@ class ServicesController < ApplicationController
         format.html { redirect_to my_services_path(current_user), notice: 'you have accepted a service' }
       end
     else
-      #TODO verify this generated error
       show_error(format,'services/show',@service)
     end
   end
 
   def choose
 	@chosen_service = AcceptService.where(user_id: params[:u_id],service_id: params[:s_id]).first
-
-	#remove old accepted customer (not used anymore since we can only chose once ! But we leave it for robustness, shouldn't have any effect though)
-	#olds = AcceptService.where(service_id: @chosen_service.service_id, is_chosen_customer: true)
-	#olds.each do |old|
-	#	if not old.id == @chosen_service.id
-	#		old.is_chosen_customer = false
-	#		old.save
-	#	end
-	#end 
 
 	@chosen_service.is_chosen_customer = true
 	@chosen_service.save
