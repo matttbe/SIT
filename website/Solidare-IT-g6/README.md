@@ -1,3 +1,6 @@
+Solidare-IT
+===========
+
 Solidare-IT Project for SINF2255 course at Université Catholique de Louvain.
 
 Group 6
@@ -14,6 +17,7 @@ Students involved
 * Vincent Van Ouytsel
 * Alex Vermeylen
 
+
 Status
 ======
 
@@ -22,6 +26,7 @@ Status
 [![Code Climate](https://codeclimate.com/github/matttbe/SIT.png)](https://codeclimate.com/github/matttbe/SIT)
 [![Coverage Status](https://coveralls.io/repos/matttbe/SIT/badge.png)](https://coveralls.io/r/matttbe/SIT)
 [![Stories in Ready](https://badge.waffle.io/matttbe/SIT.png?label=ready)](http://waffle.io/matttbe/SIT)
+
 
 Installation
 ============
@@ -74,7 +79,7 @@ sudo gem install rdoc
 sudo gem install rails
 ````
 
-Now you can install other 'gems' with this command:
+Now you can install other 'gems' with this command (from the directory of the website):
 
 ````
 bundle install
@@ -102,11 +107,18 @@ A skeleton is available in the `.env.example` file.
 * Create `.env` file
 * Modify `config/database.yml` (for PostgreSQL, check `config/database.yml.postgresql`)
 
-Test the website :
-------------------
+Test the website:
+-----------------
 
 After that, just open a browser (not IE, a real one) and visit the [http://localhost:3000/] URL.
-Then you can see the website as a non-registered user or login with `root@localhost.local` with the password `password`
+Then you can see the website as a non-registered user. You can sign-in with the user `root@localhost.local` and its password `password`.
+
+Launch test cases:
+------------------
+
+We use `cucumber` to test our website. There are several tests and all of them are automatically tested on [Travis](https://travis-ci.org/matttbe/SIT).
+If you want to launch the tests on your computer, simply launch this command from the root directory of the website: `cucumber`
+
 
 License
 =======
