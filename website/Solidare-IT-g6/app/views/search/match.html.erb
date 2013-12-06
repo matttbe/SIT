@@ -80,7 +80,7 @@
             </div>
           </div>
 
-          <% if @services.size ==0 %>
+          <% if @services.nil? or @services.size == 0 %>
           No results
           <% else %>
             <div class="services">
