@@ -53,6 +53,7 @@
 
     </div>
 
+	<% if !current_user.nil?%>
 	<% @my_group =  @groups = Group.joins(:group_user_relations).where(group_user_relations: {user_id: current_user.id})
 	if !@my_group.blank?%>
 	  <ul class="dropdown">
@@ -67,6 +68,7 @@
 
   	    </ul>
 	  </ul>
+	<%end%>
 	<%end%>
 
 
