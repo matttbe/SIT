@@ -1,6 +1,6 @@
 <% @like_services = Service.includes(:category).references(:category).where(:quick_match=>false).where('(services.title LIKE (:titles) or services.description LIKE (:titles) or categories.title LIKE (:titles) or categories.text LIKE (:titles)) and services.id NOT IN (:id)', :titles => "%" + @service.title + "%", :id => @service.id) %>
 
-
+<div class="container">
     <h4><span class="label label-default">Other services that might interest you :</span></h4>
 
     <% i = 0 %>
@@ -44,3 +44,4 @@
           <%end%>
         </div>
       </div>
+</div>

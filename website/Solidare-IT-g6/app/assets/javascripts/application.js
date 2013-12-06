@@ -34,13 +34,7 @@ $(document).on("ready page:change", function(){
 	$("#more").toggle();
 	});
 	$(':checkbox').checkbox();
-             $(':popbox').popbox({
-               'open'          : '.open',
-               'box'           : '.box',
-               'arrow'         : '.arrow',
-               'arrow-border'  : '.arrow-border',
-               'close'         : '.close'
-              });
+             
   $('.carousel').carousel();
 
 });
