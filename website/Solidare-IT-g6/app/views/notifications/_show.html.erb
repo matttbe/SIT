@@ -1,6 +1,6 @@
 
 <%if @notifications.size > 0 %>
-	<% @notifications.order(:seen).each do |notif| %>
+	<% @notifications.order(:seen).reverse.each do |notif| %>
 		<% if !notif.group.nil? %>
 			<% @users.each do |user| %>
 				<% if user.id == notif.creator_id %>
