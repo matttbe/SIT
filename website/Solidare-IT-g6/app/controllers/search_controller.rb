@@ -52,6 +52,9 @@ class SearchController < ApplicationController
     elsif params[:type]=="service"
       @type="service"
       search_service
+    elsif params[:type]=="group"
+      @type="group"
+      search_group
     end
     respond_to do |format|
         format.html
@@ -68,6 +71,15 @@ class SearchController < ApplicationController
     if (! params[:q].nil?)
       @search += "q=" + params[:q] + "&"
       @organisations=@organisations.where("name LIKE (:titles)", :titles => "%" + params[:q] + "%")
+    end
+  end
+
+  def search_group
+    @search = "/search?"
+    @groups=Group.all
+    if (! params[:q].nil?)
+      @search += "q=" + params[:q] + "&"
+      @groups=@groups.where("name LIKE (:titles) or description LIKE (:titles)", :titles => "%" + params[:q] + "%")
     end
   end
   
