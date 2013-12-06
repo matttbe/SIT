@@ -80,15 +80,14 @@ SolidareItG6::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               'example.com',
-    :user_name => "solidare.it.6@gmail.com",
-    #TODO protect this
-    :password => 'iloveponcin',
-    authentication:       'plain',
-    enable_starttls_auto: true  }
+    address:               "#{ENV['SIT_MAIL_ADDRESS']}",
+    port:                  "#{ENV['SIT_MAIL_PORT']}".to_i,
+    domain:                "#{ENV['SIT_DOMAIN']}",
+    :user_name         =>  "#{ENV['SIT_MAIL_USER']}",
+    :password          =>  "#{ENV['SIT_MAIL_PASSWORD']}",
+    authentication:        "#{ENV['SIT_MAIL_AUTH']}",
+    enable_starttls_auto: ("#{ENV['SIT_MAIL_TLS']}" == 'true') }
 
-  #todo change with the good address
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  config.action_mailer.default_url_options = { :host => "#{ENV['SIT_DOMAIN']}" + ':' + "#{ENV['SIT_PORT']}" }
 end
