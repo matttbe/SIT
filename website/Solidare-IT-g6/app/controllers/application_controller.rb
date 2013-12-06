@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
   end
   
   def create_group_notif(group, type)
-    group.users.each do |user|
+    group.users.each do |user|      
       if user.id != current_user.id
         @notifications_list = Notification.where("group_id = :group_id AND notified_user = :user_id", :group_id => group, :user_id => user)
         @notification = nil
@@ -65,7 +65,11 @@ class ApplicationController < ActionController::Base
         else
         @notification = Notification.new
         end      
-        @notification.notified_user = user.id
+        if user.managed_org_id > 0
+          @notification.notified_user = user.coworker_org_id
+        else
+          @notification.notified_user = user.id
+        end
         @notification.group = group
         @notification.notification_type = type
         @notification.creator_id = current_user.id 
@@ -80,6 +84,7 @@ class ApplicationController < ActionController::Base
   
   def create_notification(service, type, user_notified_id)
     @notifications_list = Notification.where("service_id = :service_id AND notified_user = :user_id", :service_id => service.id, :user_id => user_notified_id)
+    @user = User.where(:id => user_notified_id).first
     @notification = nil
     if @notifications_list.size > 0
       @notifications_list.each do |notif|
@@ -92,12 +97,15 @@ class ApplicationController < ActionController::Base
     else
       @notification = Notification.new
     end
-    @notification.notified_user = user_notified_id
+    if @user.managed_org_id > 0
+      @notification.notified_user = @user.coworker_org_id
+    else
+      @notification.notified_user = @user
+    end
     @notification.service = service 
     @notification.notification_type = type
     @notification.creator_id = current_user.id 
     @notification.seen = false
-    @user = User.where(:id => user_notified_id).first
     Notifier.send_notif(@user, @notification, "Service Notification").deliver
     if ! @notification.save
         show_error(format,'new',@notification)
