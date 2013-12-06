@@ -1,8 +1,7 @@
-<% services.each_with_index do |service| %>
 
-	<div class="row service-parent">
-		<% @service = service %>
-		<%= render 'service', :service => @service %>
-
-	</div>
-<% end %>
+	<% services.each_with_index do |service| %>
+		<div class="row service-parent">
+			<% @service = service %>
+			<%= render 'service', :service => @service %>
+		</div>
+	<% end %>
