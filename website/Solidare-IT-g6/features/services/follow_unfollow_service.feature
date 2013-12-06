@@ -42,9 +42,11 @@ Feature: All about following
 	  Then I should see a unfollow link
 	  And I should see an accept link
 	  And I can not see the follow link
-	  
-	Scenario: Validated user who follows a finished service should not see this service anymore
-	  And I log in
-	  And I follow a service
-	  When The service is finished
-	  Then I can not see the service anymore
+ 
+   	Scenario: Validated user receives a notification when a service he follows is destroyed.
+      And The database contains services
+      And I follow a service
+      When the service I follow is destroyed
+      And I visit the page of the services followed
+      Then I should not see the service anymore
+      

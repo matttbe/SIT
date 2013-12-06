@@ -20,7 +20,6 @@ end
 
 def user_follow
   @service = Service.where(:creator_id=>@user.id).first
-  #visit '/users/sign_out'
   @visitor = nil
   create_admin_user
   sign_in
@@ -34,7 +33,6 @@ end
 
 def user_unfollow
   @service = Service.where(:creator_id=>@user.id).first
-  #visit '/users/sign_out'
   @visitor = nil
   create_admin_user
   @follow = Follower.new
@@ -65,7 +63,6 @@ end
 
 def user_spam
   @service = Service.where(:creator_id=>@user.id).first
-  #visit '/users/sign_out'
   @visitor = nil
   create_admin_user
   sign_in

@@ -5,19 +5,16 @@ Feature: All about sharing
 	  Given The DB have a lot of users
 	  And The database contains services
 
-	@wip
+	
 	Scenario: Validated user can share a service from the services list
+      And The database contains services
       And I am logged in
-	  When I go to the services list
+	  When I click on the Search button
 	  Then I should see a share link
 	
-	@wip 
 	Scenario: Validated user can share a service from its page
+	  And The database contains services
 	  And I am logged in
 	  When I visit the page of one service
 	  Then I should see a share link
 	
-	@wip  
-	Scenario: Validated user can see share links in the bottom of the home page
-	  When I log in
-	  Then I should see a share link

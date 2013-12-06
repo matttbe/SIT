@@ -4,6 +4,3 @@ Feature: All about transactions
     Background:
       Given The DB have a lot of users
       And The database contains services
-
-
-

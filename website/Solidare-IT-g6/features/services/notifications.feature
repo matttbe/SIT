@@ -57,4 +57,3 @@ Feature: All about notifications
     And the same user click on the follow or unfollow button of one of my service more than once
     When I visit the notifications page
     Then I should see only one follow notification
-
