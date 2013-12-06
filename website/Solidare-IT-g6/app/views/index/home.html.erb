@@ -9,7 +9,6 @@
       <div class="col-md-3 col-md-offset-1">
         <% if not @best_karma.nil? %>
           <div class="featurette">
-            <span class="featurette-image pull-left"><span class="glyphicon glyphicon-star" style="font-size:75px;"></span> </span>
             <h2 class="featurette-heading">Our Best User <span class="muted"> </span></h2>
             <p class="lead">Regarding his karma, <%=@best_karma.firstname+' '+@best_karma.name%> is the best user of our website. Congratulations !</p>
           </div>
@@ -19,15 +18,17 @@
       <div class="col-md-4">
         <div class="featurette">
           <img class="featurette-image pull-left" src="">
-          <h2 class="featurette-heading">Oh yeah, it's that good. <span class="muted">See for yourself.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">The Solidare-it Philosophy</h2>
+          <p class="lead">Solidare-it website allows you to help people in need or be helped if you need anything. It's simple ! 
+          Just sing up. After that, you will be able to post a demand or an offer. Then, just wait until another user answer. 
+          At this time, you have to accept one of the user that accepted your service. And, that's all ! Wonderful, isn't it ? </p>
         </div>
       </div>
 
       <div class="col-md-3">
         <div class="featurette">
           <img class="featurette-image pull-right" src="">
-          <h2 class="featurette-heading">What other users says !</h2>
+          <h2 class="featurette-heading">What other users say</h2>
           <% if !Transaction.where("feedback_evaluation IN (:eval)", :eval => 3).first.nil? %>
             <p class="lead"><%= Transaction.where("feedback_evaluation IN (:eval)", :eval => 3).first.feedback_comments %></p>
           <% else %>
