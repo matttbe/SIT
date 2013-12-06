@@ -64,7 +64,7 @@
           <% else %>
               <li>
           <% end %>
-          <a href="<%= services_path  %>">Services</a></li>
+          <%= render 'layouts/services_dropdown' %>
 
           <!--Admin button-->
           <% if !current_user.nil? && current_user.superadmin %>

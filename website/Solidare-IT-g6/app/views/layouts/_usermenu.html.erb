@@ -26,14 +26,6 @@
     <li><%= link_to "Show profile",  show_profile_path(current_user), :role=>"menuitem" %></li>
     <li><%= link_to "Edit account",  edit_user_registration_path(current_user), :role=>"menuitem" %></li>
     <li><%= link_to "Manage my addresses",  address_index_path, :role=>"menuitem" %></li>
-    <li class="divider"></li>
-    <li class="dropdown-header">Services</li>
-    <li><%= link_to "Add a service",  new_service_path, :role=>"menuitem" %></li>
-    <li><%= link_to "See my services",  my_services_path(current_user), :role=>"menuitem" %></li>
-    <li><%= link_to "See followed services",  following_services_path, :role=>"menuitem" %></li>
-    <%if !current_user.nil? && current_user.superadmin %>
-	<li><%= link_to "See historic",  historic_path, :role=>"menuitem" %></li>
-    <%end%>
 
     <li class="divider"></li>
     <li><%= link_to "Sign out",  destroy_user_session_path, :method => "delete", :role=>"menuitem" %></li>

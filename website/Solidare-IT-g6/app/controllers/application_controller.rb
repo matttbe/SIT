@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
     # store last url - this is needed for post-login redirect to whatever the user last visited.
     if (request.fullpath != "/users/sign_in" &&
         request.fullpath != "/users/sign_up" &&
+        request.fullpath != "/sign_in" &&
         request.fullpath != "/users" &&
         request.fullpath != "/create_account" &&
         request.fullpath != "/users/password" &&

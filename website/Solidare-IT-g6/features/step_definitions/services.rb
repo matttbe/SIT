@@ -75,7 +75,7 @@ end
 
 ### WHEN ###
 When /^I go to the services list$/ do
-  click_link "Services"
+  click_link "Search a service"
 end
 
 When(/^I go to the service_add page$/) do
@@ -120,6 +120,7 @@ When(/^I fill blank the (.*) fill in the service form$/) do |blank|
 end
 
 When(/^I visit the page of one service$/) do 
+  
   @link="/services/"+@service.id.to_s
   visit @link
 end

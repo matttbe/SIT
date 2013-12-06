@@ -6,8 +6,8 @@
     <%= f.check_box :remember_me %>
   <% end -%>
 
-  <div><%= f.submit "Sign in", :class=>"btn btn-primary btn-lg" %></div>
+  <div><%= f.submit "Sign in", :class=>"btn btn-primary btn-lg" %>
+  <%= render "devise/shared/links" %></div>
 <% end %>
 
-<%= render "devise/shared/links" %>
 </div>
