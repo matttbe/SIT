@@ -85,6 +85,10 @@ h2 {
 	z-index: 1000;
 }
 
+button.dropdown-toggle {
+	color: rgba(52, 73, 94, 0.74902);
+}
+
 footer {
 	margin-top: 30px;
 	height: 300px;
