@@ -1,6 +1,22 @@
 class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :can_log_in
+  after_filter :store_location
+
+  # https://github.com/plataformatec/devise/wiki/How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
+  def store_location
+    # store last url - this is needed for post-login redirect to whatever the user last visited.
+    if (request.fullpath != "/users/sign_in" &&
+        request.fullpath != "/users/sign_up" &&
+        request.fullpath != "/users/password" &&
+        !request.xhr?) # don't store ajax calls
+      session[:previous_url] = request.fullpath 
+    end
+  end
+  
+  def after_sign_in_path_for(resource)
+    session[:previous_url] || root_path
+  end
 
   def give_badge_transaction(transaction)
     @user=User.find(transaction.user_id)
