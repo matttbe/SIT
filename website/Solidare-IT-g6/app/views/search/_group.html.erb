@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="service-box col-md-12">
+    <div class="well well-large service" style="height:200px;">
+
+                <a class="pull-left" href="#">
+                  <% cache(group) do %>
+                    <%= image_tag group.photo.url(:thumb) %>
+                  <% end %>
+                </a>
+                <h4><%= group.name %></h4>
+
+                <div class="service-action">
+                  <%= button_to 'Show', group, :class=>"btn btn-default", :method => :get  %>
+                  <% @user_in_group = GroupUserRelation.where('group_id IN (:id) and user_id IN (:user_id)', :id => group.id, :user_id => current_user.id).first %>
+                  <% if !current_user.nil?&&!@user_in_group.nil?&&@user_in_group.role=="Admin" %><%= button_to 'Edit', edit_group_path(group), :class=>"btn btn-default", :method => :get %><%end%>
+                  <% if !current_user.nil?&&!@user_in_group.nil?&&@user_in_group.role=="Admin" %><%= button_to 'Destroy', group, method: :delete, :class=>"btn btn-danger"%><%end%>
+                  
+                </div>
+
+    </div>
+  </div>
+</div>

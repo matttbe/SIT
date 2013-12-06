@@ -37,7 +37,7 @@
 	
 	<% if ! @member %>
 		<br />
-		<span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => @group, :idUser => current_user, :role => 'basic'}%></span>
+		<span id="join"><%= link_to 'Join', {:controller => "group_user_relation", :action => "new", :idGroup => @group, :idUser => current_user, :role => 'basic'}, :class => "btn btn-primary"%></span>
 	<%end%>
 <%end%>
 </p>

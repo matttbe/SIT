@@ -51,3 +51,10 @@ Feature: All about notifications
   	When someone join the group
   	And I visit the notifications page
   	Then I should see a join notification
+  	
+  Scenario: A creator receive only one notification when the same user follow and unfollow the same service multiple times
+    And The database contains my services
+    And the same user click on the follow or unfollow button of one of my service more than once
+    When I visit the notifications page
+    Then I should see only one follow notification
+

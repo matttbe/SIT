@@ -4,10 +4,6 @@ end
 
 def i_am_member 
    find_user
-   #@group_member = GroupPost.new
-   #@group_member[:user_id] = @user.id
-   #@group_member[:group_id] = @group.id
-   #@group_member.save
    visit '/group/'+@group.id.to_s
    click_link "Join"
 end
@@ -16,7 +12,6 @@ def someone_post
   visit '/users/sign_out'
   @visitor = nil
   create_admin_user
-  #find_admin_user
   sign_in
   visit '/group/'+@group.id.to_s
   click_link "Join"
@@ -38,7 +33,6 @@ def someone_join
   visit '/users/sign_out'
   @visitor = nil
   create_admin_user
-  #find_admin_user
   sign_in
   visit '/group/'+@group.id.to_s
   click_link "Join"
@@ -49,6 +43,7 @@ def someone_join
 end
 
 ## GIVEN ##
+
 Given (/^I am a member of a group$/) do
   i_am_member
 end
@@ -73,7 +68,6 @@ When(/^I visit the page of a group$/) do
 end
 
 When(/^I visit the page of my group$/) do
-  #find_user
   @groupC = GroupPost.where(:user_id=>@user.id).first
   @link="/group/"+@groupC.group_id.to_s
   visit @link
@@ -87,6 +81,7 @@ end
 When(/^someone join the group$/) do
   someone_join
 end 
+
 ## THEN ##
 
 Then(/^I see the create a group button$/) do

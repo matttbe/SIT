@@ -19,11 +19,10 @@ def accept_serv
 end
 
 def user_follow
- @service = Service.where(:creator_id=>@user.id).first
+  @service = Service.where(:creator_id=>@user.id).first
   #visit '/users/sign_out'
   @visitor = nil
   create_admin_user
-  #find_admin_user
   sign_in
   visit '/services/'+@service.id.to_s
   click_link "Follow"
@@ -38,7 +37,6 @@ def user_unfollow
   #visit '/users/sign_out'
   @visitor = nil
   create_admin_user
-  #find_admin_user
   @follow = Follower.new
   @follow[:service_id] = @service.id
   @follow[:user_id] = @admin.id
@@ -53,11 +51,9 @@ def user_unfollow
 end
 
 def user_accept
- @service = Service.where(:creator_id=>@user.id).first
-  #visit '/users/sign_out'
+  @service = Service.where(:creator_id=>@user.id).first
   @visitor = nil
   create_admin_user
-  #find_admin_user
   sign_in
   visit '/services/'+@service.id.to_s
   click_button "Accept"
@@ -65,6 +61,22 @@ def user_accept
   @visitor = nil
   create_visitor
   sign_in
+end
+
+def user_spam
+  @service = Service.where(:creator_id=>@user.id).first
+  #visit '/users/sign_out'
+  @visitor = nil
+  create_admin_user
+  sign_in
+  visit '/services/'+@service.id.to_s
+  click_link "Follow"
+  click_link "Unfollow"
+  click_link "Follow"
+  visit '/users/sign_out'
+  @visitor = nil
+  create_visitor
+  sign_in 
 end
 
 ### GIVEN ###
@@ -79,6 +91,10 @@ end
 
 Given /^a user click on the accept button of one of my service$/ do
   user_accept
+end
+
+Given /^the same user click on the follow or unfollow button of one of my service more than once$/ do
+  user_spam
 end
 
 ### WHEN ###
@@ -121,3 +137,7 @@ Then(/^I should see a join notification$/) do
   assert page.has_content?("join the group")  
 end
 
+Then(/^I should see only one follow notification$/) do
+  assert page.has_content?("was followed")
+  assert !page.has_content?("was unfollowed")
+end
