@@ -74,13 +74,20 @@
 
       <% unless location == '/' and current_user.nil?%>
       <div class="container">
-        <div style="text-align: center;"><img src="/images/logo.png" alt ="logo" align="center"></img></div>
-              <h1>Solidare-it</h1>
-              <p>Un site solidaire!</p>
+
+        <div class="row" align="center">
+          <div class="col-md-3">
+             <img src="/images/logo.png" alt ="logo" align="center"></img></span>
+          </div>
+          <div class="col-md-3">
+              <span><h1>Solidare-it</h1>
+              <p>Un site solidaire!</p></span>
+          </div>
+        </div>
 
               <%= render 'search/form' %>
-            </div>
-        </div>
+      </div>
+        
       <% else %>
       <div>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
