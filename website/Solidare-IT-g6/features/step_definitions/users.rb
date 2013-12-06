@@ -238,6 +238,11 @@ When /^I visit my profil$/ do
   visit 'user/'+@user.id.to_s
 end
 
+When /^I visit the profil of a user$/ do
+  find_admin_user 
+  visit 'user/'+@admin.id.to_s
+end
+
 ### THEN ###
 Then /^I see a return message on sign in page$/ do
   assert page.has_content?("You need to sign in or sign up before continuing.")
@@ -270,4 +275,12 @@ Then /^I can see all of my personnal informations$/ do
   assert page.has_content?("The services I follow")
   assert page.has_content?("My Badges")
   assert page.has_content?("My Feedback")
+end
+
+Then /^I can not see his personal informations$/ do
+  assert !page.has_content?("His Services")
+  assert !page.has_content?("His Groups")
+  assert !page.has_content?("The services he follows")
+  assert !page.has_content?("His Badges")
+  assert !page.has_content?("His Feedback")
 end

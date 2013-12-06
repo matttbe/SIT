@@ -15,3 +15,9 @@ Feature: All about profiles
     And The database contains my services
     When Some users follow my service
     Then I can see the profiles of my followers
+  
+  Scenario: A visiter can not follow or unfollow a service
+    And I am not logged in
+    When I visit the profil of a user
+	Then I can not see his personal informations
+    
