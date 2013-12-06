@@ -39,6 +39,7 @@ SolidareItG6::Application.routes.draw do
   post '/services/:s_id/choose/:u_id' => 'services#choose', :as =>"choose"
   get '/users_managed/:serv_id/services/new' =>'services#new', :as =>"new_service_managed"
   get '/users_managed/:user_id/managed_services/' => 'users#my_services', :as =>"managed_users_services"
+  get 'historic' => 'services#historic', :as => "historic"
 
   #search routing
   get '/search/(:page)' => 'search#match', :as=>"match"
@@ -97,8 +98,6 @@ SolidareItG6::Application.routes.draw do
   
   #notification routing
   get '/notifications' => 'notifications#show', :as => "show_notifications"
-
-
 
   #orga admin
   match 'organisation_manage/:id_orga/managed_users/:id_coworker/new'=> 'organisation_manage/managedusers#new', via: :get, :as=>'new_managed_user_for_coworker'

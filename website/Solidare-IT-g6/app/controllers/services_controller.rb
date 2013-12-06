@@ -4,6 +4,13 @@ class ServicesController < ApplicationController
   
   helper_method :get_accepters
 
+  #Get /services/historic
+  def historic
+    if user_signed_in? && current_user.superadmin
+      @services = Service.where("date_end < :now", :now => DateTime.now)
+    end
+  end
+
   #GET /following_services
   def following_services
     if user_signed_in?

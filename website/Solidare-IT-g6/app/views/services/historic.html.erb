@@ -1,0 +1,35 @@
+<!-- List all terminated service for now-->
+<div class="container">
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><h6>Historic</h6></div>
+
+  <!-- Table -->
+  <table class="table">
+  <thead>
+  <tr>
+    <th><h6><span class="label label-info">Service Title</span></h6></th>
+    <th><h6><span class="label label-info">End Date</span></h6></th>
+    <th><h6><span class="label label-info">Creator</span></h6></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @services.each do |service| %>
+      <tr>
+        <td><h6><%= service.title %></h6></td>
+        <td><%= service.date_end %></td>
+        <td><% @user = User.where(:id => service.creator_id).first %>
+        	<%= @user.firstname+" "+@user.name %></td>
+        <td><%= button_to 'Show', service, :class=>"btn btn-default", :method => :get  %></td>
+        <td><% if !current_user.nil? and current_user.superadmin %><%= button_to 'Destroy', service, method: :delete, :class=>"btn btn-danger"%><%end%></td>
+      </tr>
+  <% end %>
+  </tbody>
+
+  </table>
+</div>
+
+</div>
