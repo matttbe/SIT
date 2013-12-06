@@ -7,41 +7,41 @@
 
     <div class="row">
       <div class="col-md-4">
-        <div class="well well-large service">
-          <% if !@like_services[i].nil? %>
+        <% if !@like_services[i].nil? %>
+          <div class="well well-large service">
           <h4> <%= @like_services[i].title %> </h4>
           <%= image_tag @like_services[i].photo.url(:thumb) %>
           <p>
             <h7> <%= @like_services[i].description %> </h7>
           </p>
           <%= button_to 'Show', service_path(@like_services[0]), :class=>"btn btn-info", :method => :get  %>
-          <%end%>
-        </div>
+          </div>
+        <%end%>
         <% i = i + 1 %>
       </div>
       <div class="col-md-4">
-        <div class="well well-large service">
-          <% if !@like_services[i].nil? %>
-          <h4> <%= @like_services[i].title %> </h4>
-          <%= image_tag @like_services[i].photo.url(:thumb) %>
-          <p>
-            <h7> <%= @like_services[i].description %> </h7>
-          </p>
-          <%= button_to 'Show', service_path(@like_services[i]), :class=>"btn btn-info", :method => :get  %>
-          <%end%>
-        </div>
+        <% if !@like_services[i].nil? %>
+          <div class="well well-large service">
+            <h4> <%= @like_services[i].title %> </h4>
+            <%= image_tag @like_services[i].photo.url(:thumb) %>
+            <p>
+              <h7> <%= @like_services[i].description %> </h7>
+            </p>
+            <%= button_to 'Show', service_path(@like_services[i]), :class=>"btn btn-info", :method => :get  %>
+          </div>
+        <%end%>
         <% i = i + 1 %>
       </div>
       <div class="col-md-4">
-        <div class="well well-large service">
-          <% if !@like_services[i].nil? %>
-          <h4> <%= @like_services[i].title %> </h4>
-          <%= image_tag @like_services[i].photo.url(:thumb) %>
-          <p>
-            <h7> <%= @like_services[i].description %> </h7>
-          </p>
-          <%= button_to 'Show', service_path(@like_services[i]), :class=>"btn btn-info", :method => :get  %>
-          <%end%>
-        </div>
+        <% if !@like_services[i].nil? %>
+          <div class="well well-large service">
+            <h4> <%= @like_services[i].title %> </h4>
+            <%= image_tag @like_services[i].photo.url(:thumb) %>
+            <p>
+              <h7> <%= @like_services[i].description %> </h7>
+            </p>
+            <%= button_to 'Show', service_path(@like_services[i]), :class=>"btn btn-info", :method => :get  %>
+          </div>
+        <%end%>
       </div>
 </div>
