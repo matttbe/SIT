@@ -58,7 +58,27 @@
   <% @closest_services = Service.where(:quick_match=>false).joins(:address).sort_by{|r| r.distance(current_user.main_address.latitude,current_user.main_address.longitude)}.reverse %>
 <% end %>
 
-    <% serv_count = Service.where(:quick_match => false).count %>
+    <% serv_count = Service.where(:quick_match => false).count
+
+      @hash = Gmaps4rails.build_markers(@closest_services) do |closest_service, marker|
+        marker.lat closest_service.address.latitude
+        marker.lng closest_service.address.longitude
+      end
+      
+      %>
+    <script>
+      $(document).ready(function(){
+          handler = Gmaps.build('Google');
+            handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+            markers=handler.addMarkers(<%=raw @hash.to_json %>);
+            handler.bounds.extendWith(markers);
+            handler.fitMapToBounds();
+            });
+            });
+            
+           
+  </script>
+ 
     <% if serv_count > 0 %>
       <% serv = Service.where(:quick_match => false).offset(Random.rand(serv_count)).first %>
       <%= button_to 'Random service !', service_path(serv), :class=>"btn btn-primary", :method => :get  %>
