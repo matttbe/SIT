@@ -21,7 +21,7 @@
     <%= @karma %>
     </span>
   </a>
-  <ul class="dropdown-menu" role="menu">
+  <ul class="dropdown-menu pull-right" role="menu">
     <li class="dropdown-header">Personnal</li>
     <li><%= link_to "Show profile",  show_profile_path(current_user), :role=>"menuitem" %></li>
     <li><%= link_to "Edit account",  edit_user_registration_path(current_user), :role=>"menuitem" %></li>
@@ -50,16 +50,19 @@
   <% if request.original_fullpath == create_account_path %>
     <li><%= link_to "Sign in", sign_in_path %></li>
   <% else %>
-    <li><%= link_to "Sign up", create_account_path %></li>
-    <li class="divider-vertical"></li>
+  <li><%= link_to "Sign up", create_account_path %></li>
+  <li class="divider-vertical"></li>
     <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in</a>
-      <ul class="dropdown-menu" role="menu">
+      <a href="#" class="dropdown-toggle " data-toggle="dropdown">Sign in</a>
+      <ul class="dropdown-menu pull-right" role="menu">
         <div id="login-menu">
+          
           <%= render "devise/sessions/new" %>
+          
         </div>
-      </ul>
-    </li>
+      </ul></li>
+    
+    
   <% end %>
 
 <% end %>
