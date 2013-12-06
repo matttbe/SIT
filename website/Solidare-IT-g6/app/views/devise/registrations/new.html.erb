@@ -15,7 +15,7 @@
     <%= f.email_field :email, :class => "form-control"%>
     <%= f.password_field :password ,:class => "form-control"%>
     <%= f.password_field :password_confirmation ,:class => "form-control"%>
-    <%= f.check_box :mail_notif %>
+    <%= f.check_box :mail_notif, :label => "Notified by email" %>
 
     <div><%= f.submit "Sign up" %>
     <%= render "devise/shared/links" %></div>
