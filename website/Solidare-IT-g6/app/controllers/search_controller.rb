@@ -102,9 +102,9 @@ class SearchController < ApplicationController
     end
     @services = Service.where(:quick_match => false).where('matching_service_id=0').paginate(:page => params[:page])
     if(! params[:offer_cbox].nil?)
-      @services = Service.where('is_demand = :is_demand', :is_demand => false)
+      @services = Service.where('is_demand = :is_demand', :is_demand => false).paginate(:page => params[:page])
     elsif(! params[:demand_cbox].nil?)
-      @services = Service.where('is_demand = :is_demand', :is_demand => true)
+      @services = Service.where('is_demand = :is_demand', :is_demand => true).paginate(:page => params[:page])
     end
 
     #includes category infos

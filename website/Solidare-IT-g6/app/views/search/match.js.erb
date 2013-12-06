@@ -1,9 +1,5 @@
-$('#results').replaceWith('<%= escape_javascript(render :partial => 'match_services', :locals => { :services => @services } )%>');
+$(".services ul").append('<%= escape_javascript(render :partial => 'services', :locals => { :services => @services } )%>');
+serviceList.update()
 $('#loader').remove();
 $('a.load-more-services').attr('href', '<%=services_path(:page => @services.next_page)%>');
-if ($('a.load-more-services').length<=0) {
-	$('.services').append('<%= link_to 'Load More Services', services_path(:page => @services.next_page), :class => 'load-more-services', :remote => true %>');
-}
-<% unless @services.next_page %>
-  $('a.load-more-services').remove();
-<% end %>
+<%= will_paginate @services %>

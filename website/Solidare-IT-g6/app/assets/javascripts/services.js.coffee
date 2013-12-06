@@ -51,4 +51,7 @@ $(document).on "ready page:change", ->
     		$(select).selectpicker({style: 'btn', menuStyle: 'dropdown'});
     $("#service_category_id").change (e) ->
     	append e
-    	
+    options = 
+        valueNames: [ 'service-title' ]
+
+    serviceList = new List('matching', options);

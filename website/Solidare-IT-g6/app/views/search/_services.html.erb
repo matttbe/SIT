@@ -1,7 +1,10 @@
 
 	<% services.each_with_index do |service| %>
+	<li>
+		<h3 class="service-title" style="display: none"><%= service.title %></h3>
 		<div class="row service-parent">
 			<% @service = service %>
 			<%= render 'service', :service => @service %>
 		</div>
+	</li>
 	<% end %>

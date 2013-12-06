@@ -1,4 +1,5 @@
 <% location= request.env['PATH_INFO'] %>
+<div id="matching">
 <div class="full-width-header" id="sticker"> 
   <div class="row">
     <div class="col-md-3 col-md-offset-1">
@@ -6,7 +7,7 @@
     </div>
     <div class="col-md-4 sticky-search">
       <%= form_tag(search_path, method: "get", :class=>"form-search", :role=>"search", :remote => true, :id => "async-search") do %>
-        <%= text_field_tag(:q, "",:class=>"search-query form-control", :placeholder=>"Search", :id=>"s") %>
+        <%= text_field_tag(:q, "",:class=>"search-query search form-control", :placeholder=>"Search", :id=>"s") %>
        <%= submit_tag("search", :class=>"btn btn-primary") %>
       <% end %>
     </div>
@@ -31,6 +32,4 @@
           <%= render 'match_groups' %>
         <% end %>
 </div>
-  
-
-
+</div>
