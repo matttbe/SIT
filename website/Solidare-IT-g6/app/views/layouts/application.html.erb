@@ -8,7 +8,7 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-
+    
     
   <script>
       $(document).ready(function(){
@@ -26,6 +26,7 @@
 </style>
 </head>
 <body>
+
     <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -40,7 +41,8 @@
 	if(!d.getElementById(id)){js=d.createElement(s);
 		js.id=id;js.src="//platform.twitter.com/widgets.js";
 		fjs.parentNode.insertBefore(js,fjs);
-	}}(document,"script","twitter-wjs");</script>  
+	}}(document,"script","twitter-wjs");</script>    
+  
   
   <div id="header" class="jumbotron">
   <% location= request.env['PATH_INFO'] %>

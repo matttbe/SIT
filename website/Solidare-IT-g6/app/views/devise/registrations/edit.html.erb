@@ -31,8 +31,5 @@
 <p><h3><span class="label label-default">Want to delete this account?</span> </h3>
   <%= button_to "Delete my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class=>"btn btn-danger btn-lg" %></p>   
 
-<% if false %>
- <%= render "users/authenticate"%></br>
-<% end %>
 <%= link_to "Back", :back, :class=>"btn btn-default" %>
 </div>
