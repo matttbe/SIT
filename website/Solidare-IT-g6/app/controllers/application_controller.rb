@@ -273,7 +273,7 @@ class ApplicationController < ActionController::Base
 
     if @redirect&&!@u.nil? &&!@u.id_ok
         sign_out @u
-        redirect_to root_path, alert: "An admin must first accept you. Please be patient!"
+        redirect_to root_path, alert: "You received an email from us. Please activate your account"
     end
   end
 
