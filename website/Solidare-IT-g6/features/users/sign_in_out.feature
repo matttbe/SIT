@@ -40,6 +40,6 @@ Feature: User
       Given I exist as a non validated user
         And I am not logged in
       When I sign in with valid credentials
-      Then I see a You received an email from us. Please activate your account message
+      Then I see a An administrator has to activate your new account, please be patient message
       When I return to the site
       Then I should be signed out

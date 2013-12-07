@@ -273,7 +273,8 @@ class ApplicationController < ActionController::Base
 
     if @redirect&&!@u.nil? &&!@u.id_ok
         sign_out @u
-        redirect_to root_path, alert: "You received an email from us. Please activate your account"
+        redirect_to root_path, alert: "An administrator has to activate your new account, please be patient."
+        # "You received an email from us. Please activate your account"
     end
   end
 

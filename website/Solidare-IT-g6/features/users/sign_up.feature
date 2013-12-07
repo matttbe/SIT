@@ -8,7 +8,7 @@ Feature: Sign up
 
     Scenario: User signs up with valid data
       When I sign up with valid user data
-      Then I see a You received an email from us. Please activate your account message
+      Then I see a An administrator has to activate your new account, please be patient message
       
     Scenario: User signs up with invalid email
       When I sign up with an invalid email
