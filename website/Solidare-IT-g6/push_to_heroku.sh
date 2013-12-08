@@ -23,14 +23,17 @@ echo "== Git: commit =="
 git commit -am "`date -R`"
 echo "== Git: Push =="
 git push --force heroku master
+git push --force heroku-ben master
 
 # DB
 echo "== Migrate DB =="
-heroku run rake db:migrate
+heroku run rake db:migrate --app sit-g6
+heroku run rake db:migrate --app solidare
 
 # Open
 echo "== Open website =="
-heroku open
+heroku open --app sit-g6
+heroku open --app solidare
 
 # stop
 echo "== Press Enter to end =="
