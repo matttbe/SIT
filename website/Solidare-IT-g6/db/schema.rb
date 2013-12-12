@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205225557) do
+ActiveRecord::Schema.define(version: 20131212153416) do
 
   create_table "accept_services", force: true do |t|
     t.integer  "service_id"
@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 20131205225557) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "principal",   default: false
-    t.integer  "latitude",    default: 0
-    t.integer  "longitude",   default: 0
+    t.float    "latitude",    default: 0.0
+    t.float    "longitude",   default: 0.0
   end
 
   create_table "badges_sashes", force: true do |t|
@@ -247,7 +247,7 @@ ActiveRecord::Schema.define(version: 20131205225557) do
     t.string   "firstname"
     t.datetime "birthdate"
     t.string   "email"
-    t.integer  "karma",                   default: 0
+    t.float    "karma",                   default: 0
     t.boolean  "id_ok",                   default: false
     t.text     "presentation"
     t.boolean  "inscription_ok",          default: false
