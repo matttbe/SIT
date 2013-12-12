@@ -47,9 +47,10 @@
 
 <div class="container">
 
-  
-    <div id="map"></div>
-  
+<div style='width: 800px; margin:0 auto;'>
+  <div id="map" style='width: 800px; height: 400px;'></div>
+  <br />
+</div>
 
 
 <% if current_user.main_address.nil? %>
@@ -67,12 +68,6 @@
       
       %>
 
-      <% if serv_count > 0 %>
-      <% serv = Service.where(:quick_match => false).offset(Random.rand(serv_count)).first %>
-      <%= button_to 'Random service !', service_path(serv), :class=>"btn btn-primary", :method => :get  %>
-    <% end %>
-
-    
     <script>
       $(document).ready(function(){
           handler = Gmaps.build('Google');
@@ -82,12 +77,14 @@
             handler.fitMapToBounds();
           });
       });
-            
-           
   </script>
- 
-    
 
+
+    <% if serv_count > 0 %>
+      <% serv = Service.where(:quick_match => false).offset(Random.rand(serv_count)).first %>
+      <%= button_to 'Random service !', service_path(serv), :class=>"btn btn-primary", :method => :get  %>
+    <% end %>
+    
     <h4><span class="label label-default">Services close to you :</span></h4>
 
     <% i = 0 %>
@@ -133,5 +130,5 @@
       </div>
     </div>
 
-<%end%>
 </div>
+<%end%>
