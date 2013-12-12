@@ -19,18 +19,20 @@ ActiveAdmin.register User, :as => "Users" do
   end
 
   index do
-    selectable_column
-    column("ID")   {|user|
-      if user.has_role? "superadmin"
-        status_tag(user.id, :green)
-      else
-        status_tag(user.id, :default)
-      end
-    }
-    column :name
-    column :firstname
-    column :birthdate
-    column :email
+    table_for User.order(:name).each do |user|
+      column("ID")   {|user|
+        if user.has_role? "superadmin"
+          status_tag(user.id, :green)
+        else
+          status_tag(user.id, :default)
+        end
+      }
+      column("Name")      {|user| user.name}
+      column("Firstname") {|user| user.firstname}
+      column("Birthdate") {|user| user.birthdate}
+      column("Email")     {|user| user.email}
+      column("Karma")     {|user| user.karma}
+    end
   end
 
 end
