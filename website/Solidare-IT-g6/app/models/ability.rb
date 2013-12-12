@@ -35,7 +35,9 @@ class Ability
       return
     end
     if user.has_role? :superadmin
+      can :read, :all
       can :manage, :all
+      can :destroy, :all
     else
       cannot :read, ActiveAdmin::Page, :name => "Dashboard"
 
