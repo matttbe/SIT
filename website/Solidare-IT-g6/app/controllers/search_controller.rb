@@ -125,7 +125,6 @@ class SearchController < ApplicationController
         @services = @services.joins(:user).where('users.karma>=0')
       end
 
-      #loooooooooooooool
       #if (! params[:q_order_end].nil?)
       #  @services = @services.order(date_end: :asc)
       #  @search = @search + "&q_order_end=on"
@@ -133,8 +132,8 @@ class SearchController < ApplicationController
       @search = @search + "&filter=" + @filter
     end
 
-    if(!params[:category].nil?)
-      @services = @services.where('category_id==:cato',:cato=>params[:category])
+    if(!params[:category].nil? and !params[:category].empty?)
+      @services = @services.where(:category_id => params[:category].to_i)
       @search = @search + "&category=" + params[:category]
     end
 
