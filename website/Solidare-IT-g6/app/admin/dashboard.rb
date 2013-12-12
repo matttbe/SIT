@@ -31,7 +31,7 @@ ActiveAdmin.register_page "Dashboard" do
 
       column do
         panel "Best users" do
-          table_for User.order(:karma).limit(10).reverse.each do |customer|
+          table_for User.order('karma DESC').limit(10).each do |customer|
             
             column("Name")   {|customer| link_to customer.all_name, admin_user_path(customer)}
             column("Email")  {|customer| customer.email}
