@@ -4,18 +4,19 @@
 <li class="divider-vertical"></li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-    Organisation
+    Organisations
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Not in an organisation yet ?</li>
     <li><%= link_to "Create an organisation",  new_organisation_path, :role=>"menuitem" %></li>
     <li><%= link_to "Join an organisation",  join_organisation_path, :role=>"menuitem" %></li>
-    <li class="divider"></li>
-    <%unless current_user.organisations.nil? %>
-    <li class="dropdown-header">Go to dashboard</li>
-    <% current_user.organisations.each do |organisation| %>
-      <li><%= link_to organisation.name, mainmenu_organisations_path(organisation), :role=>"menuitem"%></li>
-    <%end%>
+    <% orgas = current_user.organisations.all %>
+    <%unless orgas.empty? %>
+      <li class="divider"></li>
+      <li class="dropdown-header">Go to dashboard</li>
+      <% orgas.each do |organisation| %>
+        <li><%= link_to organisation.name, mainmenu_organisations_path(organisation), :role=>"menuitem"%></li>
+      <%end%>
     <%end%>
 
   </ul>
