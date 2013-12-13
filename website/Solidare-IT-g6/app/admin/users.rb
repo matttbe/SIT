@@ -98,7 +98,7 @@ ActiveAdmin.register User, :as => "Managed user" , namespace: :organisation_mana
       params.require(:manageduser).permit(:name,:firstname,:managed_org_id, :coworker_id)
     end
     def permitted_params
-      params.permit(:users => [:name, :firstname])
+      params.permit(:users => [:name, :firstname, :email, :karma, :birthdate, :email, :password, :password_confirmation, :superadmin])
     end
   end
 

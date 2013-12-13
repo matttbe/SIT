@@ -2,6 +2,11 @@ ActiveAdmin.register User do
 
   form do |f|
     f.inputs "User Details" do
+      f.input :name
+      f.input :firstname
+      f.input :email
+      f.input :karma
+      f.input :birthdate
       f.input :email
       f.input :password
       f.input :password_confirmation
@@ -27,5 +32,11 @@ ActiveAdmin.register User do
   }
   member_action :create, :method => :post, &create_or_edit
   member_action :update, :method => :put, &create_or_edit
+
+  controller do
+    def permitted_params
+      params.permit(:users => [:name, :firstname, :email, :karma, :birthdate, :email, :password, :password_confirmation, :superadmin])
+    end
+  end
 
 end

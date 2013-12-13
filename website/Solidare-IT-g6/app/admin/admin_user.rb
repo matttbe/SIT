@@ -15,15 +15,19 @@ ActiveAdmin.register User do
 
   form do |f|
     f.inputs "Admin Details" do
+      f.input :name
+      f.input :firstname
       f.input :email
       f.input :password
       f.input :password_confirmation
+      f.input :karma
+      f.input :birthdate
     end
     f.actions
   end
   controller do
     def permitted_params
-      params.permit admin_user: [:email, :password, :password_confirmation]
+      params.permit(:users => [:name, :firstname, :email, :karma, :birthdate, :email, :password, :password_confirmation, :superadmin])
     end
   end
 end
