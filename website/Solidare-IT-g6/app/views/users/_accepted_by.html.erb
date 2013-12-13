@@ -13,12 +13,15 @@ Accepted by :
                                                           data: { confirm: 'Do you want to choose this user for your service (you will not be able to change afterwards) ?' } %>
           <%end
      else
-           accepter=User.find(@service.matching_service.creator_id)
-           if accepter.id != @chosen.first.id %>
-                <%=accepter.all_name%>
-        <% else %>
-                    <span class="badge"> <%= accepter.all_name%> </span>
-        <% end
+        s = @service.matching_service
+        if ! s.nil?
+          accepter=User.find(s.creator_id)
+          if accepter.id != @chosen.first.id %>
+              <%=accepter.all_name%>
+          <% else %>
+                      <span class="badge"> <%= accepter.all_name%> </span>
+          <% end
+        end
      end
   end
 %>
