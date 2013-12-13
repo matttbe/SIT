@@ -66,11 +66,6 @@
           <% end %>
           <%= render 'layouts/services_dropdown' %>
 
-          <!--Admin button-->
-          <% if !current_user.nil? && current_user.superadmin %>
-              <li><a href="/admin">Admin</a></li>
-          <% end %>
-
           <!--Organisations button-->
           <%unless current_user.nil?%>
           <%= render 'layouts/organisation_dropdown' %>
@@ -83,6 +78,11 @@
             <li>
           <% end %>
           <%= render 'layouts/groupdropdown' %></li>
+
+          <!--Admin button-->
+          <% if !current_user.nil? && current_user.superadmin %>
+              <li><a href="/admin">Admin</a></li>
+          <% end %>
 
         </ul>
 
