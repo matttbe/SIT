@@ -37,7 +37,7 @@ class AddressController < ApplicationController
       else
         @address.orga_id = params[:org_id]
       end
-      coordinates = Geokit::Geocoders::Google3Geocoder.geocode(@address.street + ", " + @address.number.to_s + ", " + @address.country)
+      coordinates = Geokit::Geocoders::Google3Geocoder.geocode(@address.street + ", " + @address.number.to_s + ", " + @address.city + ", " + @address.country)
       @address.latitude = coordinates.lat
       @address.longitude = coordinates.lng
 
@@ -77,7 +77,7 @@ class AddressController < ApplicationController
         else
             respond_to do |format|
                 @tmp = Address.new(address_params)
-                coordinates = Geokit::Geocoders::Google3Geocoder.geocode(@tmp.street + ", " + @tmp.number.to_s + ", " + @tmp.country)
+                coordinates = Geokit::Geocoders::Google3Geocoder.geocode(@tmp.street + ", " + @tmp.number.to_s + ", " + @address.city + ", " + @tmp.country)
                 if coordinates.lat.nil?
                     format.html { render action: 'wrong_zip_edit' }
                 else
