@@ -21,15 +21,8 @@
 
           <tbody>
 
-            <% @organisations.each do |organisation| %>
-            <% check = true%>
-
-                 <% organisation.coworkers.each do |coworker| %>
-                     <%if coworker.user_id == current_user.id%>
-                        <% check = false %>
-                     <% end %>
-                <%end%>
-                <% if check and organisation.validated%>                
+            <% @organisations.all.each do |organisation| %>
+                <% if organisation.coworkers.where(:user_id => current_user.id).empty? and organisation.validated %>
                    <% count=count+1 %>
                    <tr>
                     <td><%= organisation.name %></td>
@@ -44,7 +37,7 @@
           
         </table>
         <% if count == 0%>
-             You're involved in all organisations :D
+             You're involved in all organisations!
         <%end%>
         <% end %>
         <br>
