@@ -4,8 +4,12 @@
 
     <%= f.text_field :name , :autofocus => true, :class=>"form-control" %>
     <%= f.text_field :firstname, :class=>"form-control" %>
-        Birthdate <br />
-    <input id="user_birthdate" name="user[birthdate]" type="text" data-behaviour='datepicker'  >
+    <%= f.text_field :birthdate, :id => "user_birthdate", :value => '01/01/' + (Date.today.cwyear - 30).to_s, :class => "datepicker" %>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.datepicker').datepicker({format: 'dd/mm/yyyy'});
+      })
+    </script>
 
     <script type="text/javascript">
         $(document).ready(function(){
