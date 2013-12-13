@@ -10,7 +10,7 @@
     <li class="dropdown-header">Not in an organisation yet ?</li>
     <li><%= link_to "Create an organisation",  new_organisation_path, :role=>"menuitem" %></li>
     <li><%= link_to "Join an organisation",  join_organisation_path, :role=>"menuitem" %></li>
-    <% orgas = current_user.organisations.all %>
+    <% orgas = current_user.organisations.all.uniq %>
     <%unless orgas.empty? %>
       <li class="divider"></li>
       <li class="dropdown-header">Go to dashboard</li>
