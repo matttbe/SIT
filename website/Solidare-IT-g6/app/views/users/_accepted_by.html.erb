@@ -2,27 +2,27 @@
 
 Accepted by :
 
-<% @accepters = User.joins(:accept_services).where(accept_services: {service_id: @service.id}) 
-   if @accepters.blank? %>
-   No one accepted your service yet :(
+<% @accepters = User.joins(:accept_services).where(accept_services: {service_id: @service.id})
+if @accepters.blank? %>
+  No one accepted your service yet!
 <% else
-     @chosen = User.joins(:accept_services).where(accept_services: {service_id: @service.id, is_chosen_customer: true})
-     if @chosen.blank?
-       @accepters.each do |accepter| %>
-                  <%= link_to accepter.all_name,  choose_path(:s_id => @service.id, :u_id => accepter.id), :method => :post,
-                                                          data: { confirm: 'Do you want to choose this user for your service (you will not be able to change afterwards) ?' } %>
-          <%end
-     else
-        s = @service.matching_service
-        if ! s.nil?
-          accepter=User.find(s.creator_id)
-          if accepter.id != @chosen.first.id %>
-              <%=accepter.all_name%>
-          <% else %>
-                      <span class="badge"> <%= accepter.all_name%> </span>
-          <% end
-        end
-     end
+  @chosen = User.joins(:accept_services).where(accept_services: {service_id: @service.id, is_chosen_customer: true})
+  if @chosen.blank?
+    @accepters.each do |accepter| %>
+      <%= link_to accepter.all_name,  choose_path(:s_id => @service.id, :u_id => accepter.id), :method => :post,
+        data: { confirm: 'Do you want to choose this user for your service (you will not be able to change afterwards)?' } %>
+    <%end
+  else
+    s = @service.matching_service
+    if ! s.nil?
+      accepter=User.find(s.creator_id)
+      if accepter.id != @chosen.first.id %>
+        <%=accepter.all_name%>
+      <% else %>
+        <span class="badge"> <%= accepter.all_name%> </span>
+      <% end
+    end
   end
+end
 %>
 
