@@ -17,13 +17,10 @@
 //= require turbolinks
 //= require jquery.inview.min.js
 //= require bootstrap
+//= require bootstrap-datepicker/core
 //= require bootstrap-select
 //= require bootstrap-switch
 //= require bootstrap-typeahead
-//= require bootstrap-datepicker/core
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.es
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.nl
 //= require_directory .
 // TODO: disable gmaps when not used
 //= require_directory ./gmaps
@@ -34,22 +31,10 @@
 //= require underscore
 //= require list
 
-
-
 $(document).on("ready page:change", function(){
-	$("#show_option").click(function(){
-	$("#more").toggle();
-	});
-	$(':checkbox').checkbox();
-             
+  $("#show_option").click(function(){
+    $("#more").toggle();
+  });
+  $(':checkbox').checkbox();
   $('.carousel').carousel();
-
-
-
-
-
-
 });
-
-
-
