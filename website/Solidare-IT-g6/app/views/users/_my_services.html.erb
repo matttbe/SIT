@@ -1,31 +1,31 @@
 
 <% if (@services.nil? ||@services.length==0) && (@pending_services.nil? ||@pending_services.length==0) && (@accepted_services.nil? ||@accepted_services.length==0) %>
-  <p>	
-	<span class="label label-default">You haven't submit any service</span>
+  <p>
+    <span class="label label-default">You haven't submit any service</span>
   </p>
 <% end%>
 
-<% @services.each do |service|  
-	if service.quick_match
-    	next
-	end%>
-  	<%= render '/services/show',:service=> service %>
-	<p>
-		<%= render 'accepted_by', :service => service%>
-	</p>
+<% @services.each do |service|
+  if service.quick_match
+    next
+  end%>
+  <%= render '/services/show',:service=> service %>
+  <p>
+    <%= render 'accepted_by', :service => service%>
+  </p>
 <% end %>
 
 <% if !@accepted_services.blank?%>
-  <hr></hr>
+  <hr />
   <span class="label label-success">Accepted Services :</span>
   <br /><br />
   <% @accepted_services.each do |service| %>
-	<%= render '/services/show',:service=> service %>
+  <%= render '/services/show',:service=> service %>
   <%end %>
 <%end%>
 
 <% if !@pending_services.blank?%>
-  <hr></hr>
+  <hr />
   <span class="label label-warning">Pending Services :</span>
   <br /><br />
   <% @pending_services.each do |service| %>

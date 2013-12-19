@@ -1,25 +1,27 @@
-<h4> Share it !</h4><div id="share">
-<div id="share-social">
-  <span class='st_facebook_large' displayText='Facebook'></span>
-  <span class='st_twitter_large' displayText='Tweet'></span>
-  <span class='st_linkedin_large' displayText='LinkedIn'></span>
-  <span class='st_googleplus_large' displayText='Google +'></span>
+<h4> Share it !</h4>
 
-<% if !current_user.nil?%>
-  <% @my_group =  @groups = Group.joins(:group_user_relations).where(group_user_relations: {user_id: current_user.id})
-  if !@my_group.blank?%>
-  <div class="dropdown" style="display: inline;">
-  <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Share<span class="caret"></span></button>
-  <span class="dropdown-arrow"></span>
-  <ul class="dropdown-menu">
-   <% @my_group.each do |group| %>
-            <li><%=raw link_to group.name, share_group_service_path(group,service), :role=>'menuitem', :method => :post,  
-                          data: { confirm: 'Share this service to this group ?' }%></li>
-          <%end%>
+<div id="share">
+  <div id="share-social">
+    <span class='st_facebook_large' displayText='Facebook'></span>
+    <span class='st_twitter_large' displayText='Tweet'></span>
+    <span class='st_linkedin_large' displayText='LinkedIn'></span>
+    <span class='st_googleplus_large' displayText='Google +'></span>
 
-  </ul>
-</div>
-</div>
-<%end%>
-<%end%>
+    <% if !current_user.nil?%>
+      <% @my_group =  @groups = Group.joins(:group_user_relations).where(group_user_relations: {user_id: current_user.id})
+      if !@my_group.blank?%>
+        <div class="dropdown" style="display: inline;">
+          <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Share<span class="caret"></span></button>
+          <span class="dropdown-arrow"></span>
+
+          <ul class="dropdown-menu">
+            <% @my_group.each do |group| %>
+              <li><%=raw link_to group.name, share_group_service_path(group,service), :role=>'menuitem', :method => :post,
+                     data: { confirm: 'Share this service to this group ?' }%></li>
+            <%end%>
+          </ul>
+        </div>
+      <%end%>
+    <%end%>
+  </div>
 </div>
