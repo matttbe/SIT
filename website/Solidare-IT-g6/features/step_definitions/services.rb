@@ -67,7 +67,7 @@ end
 
 ### WHEN ###
 When /^I go to the services list$/ do
-  click_link "Search a service"
+  click_link "Services"
 end
 
 When(/^I go to the service_add page$/) do
