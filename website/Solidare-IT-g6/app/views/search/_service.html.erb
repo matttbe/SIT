@@ -34,7 +34,29 @@
 
                   <% sec = (service.date_end - DateTime.now) %>
 
-                  <span class="pull-right timeleft"><%= (sec / 86400).round %> days <%= ((sec % 86400) / 3600).round %> hours <%= ((((sec % 86400) / 3600) % 3600) / 60).round %> min <%= (sec%60).round %> s. left</span>
+                  <span class="pull-right timeleft">
+                    <%= %>
+                    <% if sec > 31536000 %>
+                      <% years = (sec / 31536000).to_i %>
+                      <% sec -= years * 31536000 %>
+                      <% if years > 1 %>
+                        <%= years %> years
+                      <% else %>
+                        <%= years %> year
+                      <% end %>
+                    <% end %>
+                    <% days = (sec / 86400).to_i %>
+                    <% if days > 1 %>
+                      <%= days %> days
+                    <% elsif days == 1 %>
+                      1 day
+                    <% else %>
+                      <%= ((sec % 86400) / 3600).to_i %> hours
+                      <%= ((((sec % 86400) / 3600) % 3600) / 60).to_i %> min
+                      <%= (sec%60).to_i %> s.
+                    <% end %>
+                    left
+                  </span>
 
               </div>
 </div>
