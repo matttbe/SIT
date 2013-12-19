@@ -17,22 +17,25 @@
       </span>
       
     <%elsif ! notif.service.nil? %>
+
       <% if notif.notification_type == 'EDIT' %>
         <a href="<%= show_profile_path(service_creator.id) %>" class="avatar-box"><%= image_tag service_creator.avatar.url(:medium), :class=>"avatar" %></a>
+        <% creatorLink = link_to service_creator.all_name, show_profile_path(service_creator), :class=> "label label-primary" %>
       <% else %>
         <a href="<%= show_profile_path(user.id) %>" class="avatar-box"><%= image_tag user.avatar.url(:medium), :class=>"avatar" %></a>
+        <% creatorLink = link_to user.all_name, show_profile_path(user), :class=> "label label-primary"%>
       <% end %>
       <span class="notif">
         <% case notif.notification_type %>
         <%when 'EDIT'%>
           <% service_creator = User.find(notif.service.creator_id) %>
-          The service "<%= link_to notif.service.title, service_path(notif.service)%>" of <%= link_to service_creator.all_name, show_profile_path(service_creator) %> was eddited<br />
+          The service "<%= link_to notif.service.title, service_path(notif.service)%>" of <%=creatorLink%> was eddited<br />
         <%when 'ACCEPT'%>
-          The service "<%= link_to notif.service.title, service_path(notif.service)%>" was accepted by <%= link_to user.all_name, show_profile_path(user)%> <br />
+          The service "<%= link_to notif.service.title, service_path(notif.service)%>" was accepted by <%= creatorLink %> <br />
         <%when 'FOLLOW'%>
-          The service "<%= link_to notif.service.title, service_path(notif.service)%>" was followed by <%= link_to user.all_name, show_profile_path(user)%><br />
+          The service "<%= link_to notif.service.title, service_path(notif.service)%>" was followed by <%= creatorLink %><br />
         <%when 'UNFOLLOW'%>
-          The service "<%= link_to notif.service.title, service_path(notif.service)%>" was unfollowed by <%= link_to user.all_name, show_profile_path(user)%><br />
+          The service "<%= link_to notif.service.title, service_path(notif.service)%>" was unfollowed by <%= creatorLink %><br />
         <%else%>
           NO MESSAGE FOR THIS TYPE OF NOTIFICATION
         <%end %>
