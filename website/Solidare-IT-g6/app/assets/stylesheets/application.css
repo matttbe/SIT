@@ -104,6 +104,20 @@ button.dropdown-toggle {
 	height: 61px;
 }
 
+.avatar-box.medium  {
+	display: inline-block;
+	width: 90px;
+	height: 90px;
+	margin-right: 5px;
+}
+
+.up-side-down {
+	-webkit-transform:rotate(180deg);
+	-o-transform:rotate(180deg);
+	-ms-transform:rotate(180deg);
+	-moz-transform:rotate(180deg);
+}
+
 .avatar {
 	width: 100%;
 	height: 100%;
@@ -111,9 +125,9 @@ button.dropdown-toggle {
 	-moz-border-radius: 25px;
 	border-radius: 25px;
 	-moz-box-shadow: 1px 1px 5px 2px #c0c0c0;
--webkit-box-shadow: 1px 1px 5px 2px #c0c0c0;
--o-box-shadow: 1px 1px 5px 2px #c0c0c0;
-box-shadow: 1px 1px 5px 2px #c0c0c0;
+	-webkit-box-shadow: 1px 1px 5px 2px #c0c0c0;
+	-o-box-shadow: 1px 1px 5px 2px #c0c0c0;
+	box-shadow: 1px 1px 5px 2px #c0c0c0;
 }
 
 .navbar .nav > li.dropdown.open {

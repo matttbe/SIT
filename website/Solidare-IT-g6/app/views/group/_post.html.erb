@@ -18,8 +18,8 @@
 			<%if !group_post.user.nil? %>
 				<div class="row">
 					<div class="col-md-11">
-						<%= image_tag group_post.user.avatar.url(:medium) %>
-						<h4><%=link_to group_post.user.all_name, show_profile_path(group_post.user.id) %></h4>
+						 
+						<h4><a href="<%= show_profile_path(group_post.user.id) %>" class="avatar-box medium"><%= image_tag group_post.user.avatar.url(:medium), :class=>"avatar" %></a><%=link_to group_post.user.all_name, show_profile_path(group_post.user.id) %></h4>
 					</div>
 					<div class="col-md-1">
 						<%= link_to 'Delete', group_group_post_path(@group,group_post),method: :delete, data: { confirm: 'Are you sure?' }%>
