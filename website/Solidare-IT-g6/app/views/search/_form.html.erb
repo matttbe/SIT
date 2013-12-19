@@ -2,14 +2,15 @@
 <%= bootstrap_form_tag(search_path, method: "get", :class=>"form-search", :role=>"search") do %>
     <div class="container-full">
       <div class="btn-group search-box">
-      <%= text_field_tag(:q, "",:class=>"search-query form-control", :placeholder=>"Search") %>
+      <%= text_field_tag(:q, "",:class=>"search-query form-control", :placeholder=>"Search",  :onkeydown=>"if (event.keyCode == 13) { this.form.submit(); return false; }") %>
+
         <select name="type">
           <option value="service">Service</option>
           <option value="organisation">Organisation</option>
           <option value="group">Group</option>
           <option value="user">User</option>
         </select>
-        <%= submit_tag("Search", :class=>"btn btn-primary") %>
+        <%= submit_tag("Search", :class=>"btn btn-primary", :type=>"submit") %>
       </div>
 <div id="more" style="">
   <span id="hide-options" class="btn btn-primary dropdown-toggle" style="display: inline;">Hide<span class="caret up-side-down"></span></span>

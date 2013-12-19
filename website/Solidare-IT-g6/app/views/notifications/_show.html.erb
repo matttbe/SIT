@@ -1,58 +1,52 @@
 
-<%if @notifications.size > 0 %>
-	<% @notifications.order(:seen).reverse.each do |notif| %>
-	<div class="well well-lg">
-		<% if !notif.group.nil? %>
-			<% @users.each do |user| %>
-				<% if user.id == notif.creator_id %>
-					<% @creator = user %>				
-					<% @creator_fullname = " "+@creator.firstname+" "+@creator.name+" " %>
-				<%end%>
-			<%end%>
-			<a href="<%= show_profile_path(@creator.id) %>" class="avatar-box"><%= image_tag @creator.avatar.url(:medium), :class=>"avatar" %></a>
-			<span class="notif">
-			<% case notif.notification_type %>
-			<%when 'POST'%>
-				<%= link_to @creator_fullname, show_profile_path(notif.creator_id) %> posted in "<%= link_to notif.group.name, show_group_path(notif.group) %>"<br />
-			<%when 'JOIN'%>
-				<%= link_to @creator_fullname, show_profile_path(notif.creator_id) %> join the group "<%= link_to notif.group.name, show_group_path(notif.group) %>"<br />
-			<%else%>
-				NO MESSAGE FOR THIS TYPE OF NOTIFICATION
-			<%end%>
-			</span>
-			
-		<%elsif ! notif.service.nil? %>	
-			<% @users.each do |user| %>
-				<%if user.id == notif.service.creator_id %>
-					<% @service_creator = user %>
-				<% elsif user.id == notif.creator_id %>
-					<% @creator = user %>				
-					<% @creator_fullname = " "+@creator.firstname+" "+@creator.name+" " %>
-				<%end%>
-			<%end%>
-			  <a href="<%= show_profile_path(@creator.id) %>" class="avatar-box"><%= image_tag @creator.avatar.url(:medium), :class=>"avatar" %></a>
-			<span class="notif">
-				<% case notif.notification_type %>
-				<%when 'EDIT'%>
-					<% @service_creator_fullname = ""+@service_creator.firstname+" "+@service_creator.name %>
-					The service "<%= link_to notif.service.title, service_path(notif.service)%>" of <%= link_to @service_creator_fullname, show_profile_path(@service_creator) %> was eddited<br />
-				<%when 'ACCEPT'%>
-					The service "<%= link_to notif.service.title, service_path(notif.service)%>" was accepted by <%= link_to @creator_fullname, show_profile_path(@creator)%> <br />
-				<%when 'FOLLOW'%>
-					The service "<%= link_to notif.service.title, service_path(notif.service)%>" was followed by <%= link_to @creator_fullname, show_profile_path(@creator)%><br />
-				<%when 'UNFOLLOW'%>
-					The service "<%= link_to notif.service.title, service_path(notif.service)%>" was unfollowed by <%= link_to @creator_fullname, show_profile_path(@creator)%><br />
-				<%else%>
-					NO MESSAGE FOR THIS TYPE OF NOTIFICATION
-				<%end %>
-			</span>
-		<%elsif ! notif.badge.nil? %>
-			You win the <%= link_to notif.badge.name, show_profile_path(notif.creator.id) %><br />
-		<%else%>
-			NOTIFICATION TYPE UNKNOWN
-		<%end%>
-	</div>
-	<%end%>
+<%if ! @notifications.empty? %>
+  <% @notifications.order(:seen).reverse.each do |notif| %>
+  <div class="well well-lg">
+    <% user = User.find(notif.creator_id) %>
+    <% if !notif.group.nil? %>
+      <a href="<%= show_profile_path(user.id) %>" class="avatar-box"><%= image_tag user.avatar.url(:medium), :class=>"avatar" %></a>
+      <span class="notif">
+      <% case notif.notification_type %>
+      <%when 'POST'%>
+        <%= link_to user.all_name, show_profile_path(user.id) %> posted in "<%= link_to notif.group.name, show_group_path(notif.group) %>"<br />
+      <%when 'JOIN'%>
+        <%= link_to user.all_name, show_profile_path(notif.creator_id) %> join the group "<%= link_to notif.group.name, show_group_path(notif.group) %>"<br />
+      <%else%>
+        NO MESSAGE FOR THIS TYPE OF NOTIFICATION
+      <%end%>
+      </span>
+      
+    <%elsif ! notif.service.nil? %>
+
+      <% if notif.notification_type == 'EDIT' %>
+        <a href="<%= show_profile_path(service_creator.id) %>" class="avatar-box"><%= image_tag service_creator.avatar.url(:medium), :class=>"avatar" %></a>
+        <% creatorLink = link_to service_creator.all_name, show_profile_path(service_creator), :class=> "label label-primary" %>
+      <% else %>
+        <a href="<%= show_profile_path(user.id) %>" class="avatar-box"><%= image_tag user.avatar.url(:medium), :class=>"avatar" %></a>
+        <% creatorLink = link_to user.all_name, show_profile_path(user), :class=> "label label-primary"%>
+      <% end %>
+      <span class="notif">
+        <% case notif.notification_type %>
+        <%when 'EDIT'%>
+          <% service_creator = User.find(notif.service.creator_id) %>
+          The service "<%= link_to notif.service.title, service_path(notif.service)%>" of <%=creatorLink%> was eddited<br />
+        <%when 'ACCEPT'%>
+          The service "<%= link_to notif.service.title, service_path(notif.service)%>" was accepted by <%= creatorLink %> <br />
+        <%when 'FOLLOW'%>
+          The service "<%= link_to notif.service.title, service_path(notif.service)%>" was followed by <%= creatorLink %><br />
+        <%when 'UNFOLLOW'%>
+          The service "<%= link_to notif.service.title, service_path(notif.service)%>" was unfollowed by <%= creatorLink %><br />
+        <%else%>
+          NO MESSAGE FOR THIS TYPE OF NOTIFICATION
+        <%end %>
+      </span>
+    <%elsif ! notif.badge.nil? %>
+      You win the <%= link_to notif.badge.name, show_profile_path(notif.creator.id) %><br />
+    <%else%>
+      NOTIFICATION TYPE UNKNOWN
+    <%end%>
+  </div>
+  <%end%>
 <%else%>
-	You didn't received notifications
+  You didn't received notifications
 <%end%>
