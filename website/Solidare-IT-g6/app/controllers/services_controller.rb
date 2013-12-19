@@ -83,7 +83,7 @@ class ServicesController < ApplicationController
     @service = Service.find(params[:id])
 
     @followers_list = Follower.where("service_id = :service_id", :service_id => params[:id])
-    @users = User.all 
+    @users = User.all
     end
   end
 
