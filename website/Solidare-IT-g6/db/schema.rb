@@ -247,7 +247,7 @@ ActiveRecord::Schema.define(version: 20131212153416) do
     t.string   "firstname"
     t.datetime "birthdate"
     t.string   "email"
-    t.float    "karma",                   default: 0
+    t.float    "karma",                   default: 0.0
     t.boolean  "id_ok",                   default: false
     t.text     "presentation"
     t.boolean  "inscription_ok",          default: false
@@ -273,8 +273,8 @@ ActiveRecord::Schema.define(version: 20131212153416) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.boolean  "managed_by_organisation", default: false
     t.boolean  "mail_notif",              default: false
+    t.boolean  "managed_by_organisation", default: false
     t.integer  "coworker_id",             default: 0
     t.integer  "sash_id"
     t.integer  "level",                   default: 0

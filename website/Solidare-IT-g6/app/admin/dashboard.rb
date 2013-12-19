@@ -15,13 +15,13 @@ ActiveAdmin.register_page "Dashboard" do
       column do
         panel "Users to confirm" do
           table_for User.where(:id_ok => false).limit(10).each do |customer|
-            column("State")   {|customer|
-              if customer.id_ok
-                status_tag("With a ID", :warning)
-              else
-                status_tag("no ID", :error)
-              end
-            }
+            #column("State")   {|customer|
+            #  if customer.id_ok
+            #    status_tag("With a ID", :warning)
+            #  else
+            #    status_tag("no ID", :error)
+            #  end
+            #}
             column("Name")   {|customer| link_to customer.all_name, admin_user_path(customer)}
             column("Email")  {|customer| customer.email}
             column("")       {|customer| button_to "Validate", valid_user_admin_user_path(customer), :method=>:get}
