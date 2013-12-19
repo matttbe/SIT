@@ -1,9 +1,10 @@
 <h3 class="full-width-header">My following services</h3>
-<br /><br />
-
+<br />
+<div class="container">
 <% if @following.nil? ||@following.length==0 %>
 	You don't follow any services.
 <%else%>
-	You follow thoses services :
+	<span class="label label-primary">You follow thoses services :</span><br /><br />
 	<%= render 'following_services', :following => @following %>
 <%end%>
+</div>
