@@ -533,15 +533,23 @@
 <!-- CONTENU DU MAIL -->
 <% if !@notification.service.nil? %>
 	<!-- NOTIFICATION SERVICE-->
+	<% if ENV['SIT_PORT'] == '80'
+		@user_link = 'http://'+ENV['SIT_DOMAIN']+show_profile_path(@notification.creator_id)
+		@redirect_url  = 'http://'+ENV['SIT_DOMAIN']+service_path(@notification.service)
+	   else
+	   	@user_link = 'http://'+ENV['SIT_DOMAIN']+":"+ENV['SIT_PORT']+show_profile_path(@notification.creator_id)
+	   	@redirect_url  = 'http://'+ENV['SIT_DOMAIN']+":"+ENV['SIT_PORT']+service_path(@notification.service)
+	   end	
+	%>
 	<%case @notification.notification_type %>
 	<%when 'EDDIT'%>
-	<%= User.find(@notification.creator_id).all_name %> eddited your service "<%= @notification.service.title %>"
+	<%= link_to User.find(@notification.creator_id).all_name, @user_link %> eddited your service "<%= link_to @notification.service.title, @redirect_url%>"
 	<%when 'FOLLOW'%>
-	<%= User.find(@notification.creator_id).all_name %> follows your service "<%= @notification.service.title %>"
+	<%= link_to User.find(@notification.creator_id).all_name, @user_link %> follows your service "<%= link_to @notification.service.title, @redirect_url%>"
 	<%when 'UNFOLLOW'%>	
-	<%= User.find(@notification.creator_id).all_name %> unfollows your service "<%= @notification.service.title %>"
+	<%= link_to User.find(@notification.creator_id).all_name, @user_link %> unfollows your service "<%= link_to @notification.service.title, @redirect_url%>"
 	<%when 'ACCEPT'%>
-	<%= User.find(@notification.creator_id).all_name %> accepted your service "<%= @notification.service.title %>"
+	<%= link_to User.find(@notification.creator_id).all_name, @user_link %> accepted your service "<%= link_to @notification.service.title, @redirect_url%>"
 	<%else %>
 	You've recevied an notification on a service
 	<%end%>
