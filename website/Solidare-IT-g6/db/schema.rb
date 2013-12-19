@@ -273,8 +273,8 @@ ActiveRecord::Schema.define(version: 20131212153416) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.boolean  "mail_notif",              default: false
     t.boolean  "managed_by_organisation", default: false
+    t.boolean  "mail_notif",              default: false
     t.integer  "coworker_id",             default: 0
     t.integer  "sash_id"
     t.integer  "level",                   default: 0

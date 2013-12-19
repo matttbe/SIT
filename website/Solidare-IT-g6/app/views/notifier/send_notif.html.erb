@@ -535,13 +535,13 @@
 	<!-- NOTIFICATION SERVICE-->
 	<%case @notification.notification_type %>
 	<%when 'EDDIT'%>
-	Someone eddited your service "<%= @notification.service.title %>"
+	<%= User.find(@notification.creator_id).all_name %> eddited your service "<%= @notification.service.title %>"
 	<%when 'FOLLOW'%>
-	Someone follows your service "<%= @notification.service.title %>"
+	<%= User.find(@notification.creator_id).all_name %> follows your service "<%= @notification.service.title %>"
 	<%when 'UNFOLLOW'%>	
-	Someone unfollows your service "<%= @notification.service.title %>"
+	<%= User.find(@notification.creator_id).all_name %> unfollows your service "<%= @notification.service.title %>"
 	<%when 'ACCEPT'%>
-	Someone accepted your service "<%= @notification.service.title %>"
+	<%= User.find(@notification.creator_id).all_name %> accepted your service "<%= @notification.service.title %>"
 	<%else %>
 	You've recevied an notification on a service
 	<%end%>
@@ -549,9 +549,9 @@
 	<!-- NOTIFICATION GROUP-->
 	<%case @notification.notification_type %>
 	<%when 'POST'%>
-	Someone post on <%= @notification.group.name %> group
+	<%= User.find(@notification.creator_id).all_name %>  post on <%= @notification.group.name %> group
 	<%when 'JOIN'%>
-	Someone join the <%= @notification.group.name %> group
+	<%= User.find(@notification.creator_id).all_name %>  join the <%= @notification.group.name %> group
 	<%else%>
 	You received a notification on a group
 	<%end%>

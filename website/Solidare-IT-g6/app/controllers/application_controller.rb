@@ -144,10 +144,6 @@ class ApplicationController < ActionController::Base
       create_notification(service, type, follower.user_id)
     end
   end
-
-  def notify_owner(service, type)
-    create_notification(service, type, service.creator_id)
-  end
   
   
   def dont_see

@@ -28,7 +28,7 @@ class Service < ActiveRecord::Base
   has_many :users, through: :followers
 
   has_many :notifications
-  has_many :users, through: :notification
+  has_many :users, :class_name => 'User', through: :notification
   has_many :accept_services, :class_name => 'AcceptService', :foreign_key => 'service_id'
 
   def distance(latitude,longitude)

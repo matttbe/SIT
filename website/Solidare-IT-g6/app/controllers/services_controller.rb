@@ -37,7 +37,7 @@ class ServicesController < ApplicationController
 	@accept_service.is_chosen_customer = false
 	@accept_service.save
     if @service.matching_service.nil?
-      notify_owner(@service, 'ACCEPT')
+      create_notification(@service, 'ACCEPT', @service.creator_id)
       notify(@service, 'ACCEPT')
       respond_to do |format|
         expire_fragment(@service)
@@ -54,7 +54,7 @@ class ServicesController < ApplicationController
 
 	@chosen_service.is_chosen_customer = true
 	@chosen_service.save
-
+  
 	@service = Service.find(params[:s_id])
     create_quick_service(@chosen_service.user_id)
     @service.matching_service=@serviceQ
@@ -202,7 +202,7 @@ class ServicesController < ApplicationController
     if user_signed_in?
       @followers = Follower.where(:service_id => @service.id).where(:user_id => current_user.id)
       if @followers.empty?
-        notify_owner(@service, 'FOLLOW')
+        create_notification(@service, 'FOLLOW', @service.creator_id)
         @follower = Follower.new
         @follower.service = @service
         @follower.user = current_user
@@ -222,7 +222,7 @@ class ServicesController < ApplicationController
   def unfollow
     @follower = Follower.find(params[:follower_id])
     respond_to do |format|    
-    notify_owner(@service, 'UNFOLLOW')
+    create_notification(@service, 'UNFOLLOW', @service.creator_id)
       if @follower.destroy        
         format.html{redirect_to request.referer, notice: 'Service unfollow'}
       else

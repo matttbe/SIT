@@ -30,13 +30,13 @@
 			<% case notif.notification_type %>
 			<%when 'EDIT'%>
 				<% @service_creator_fullname = ""+@service_creator.firstname+" "+@service_creator.name %>
-				The <%= link_to "service", service_path(notif.service)%> "<%=notif.service.title%>" of <%= link_to @service_creator_fullname, show_profile_path(@service_creator) %> was eddited<br />
+				The service "<%= link_to notif.service.title, service_path(notif.service)%>" of <%= link_to @service_creator_fullname, show_profile_path(@service_creator) %> was eddited<br />
 			<%when 'ACCEPT'%>
-				The <%= link_to "service", service_path(notif.service)%> "<%=notif.service.title%>"  was accepted by <%= link_to @creator_fullname, show_profile_path(@creator)%> <br />
+				The service "<%= link_to notif.service.title, service_path(notif.service)%>" was accepted by <%= link_to @creator_fullname, show_profile_path(@creator)%> <br />
 			<%when 'FOLLOW'%>
-				The <%= link_to "service", service_path(notif.service)%> "<%=notif.service.title%>"  was followed by <%= link_to @creator_fullname, show_profile_path(@creator)%><br />
+				The service "<%= link_to notif.service.title, service_path(notif.service)%>" was followed by <%= link_to @creator_fullname, show_profile_path(@creator)%><br />
 			<%when 'UNFOLLOW'%>
-				The <%= link_to "service", service_path(notif.service)%> "<%=notif.service.title%>"  was unfollowed by <%= link_to @creator_fullname, show_profile_path(@creator)%><br />
+				The service "<%= link_to notif.service.title, service_path(notif.service)%>" was unfollowed by <%= link_to @creator_fullname, show_profile_path(@creator)%><br />
 			<%else%>
 				NO MESSAGE FOR THIS TYPE OF NOTIFICATION
 			<%end %>
