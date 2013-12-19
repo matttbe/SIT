@@ -7,7 +7,12 @@
     <%= f.text_field :birthdate, :id => "user_birthdate", :value => '01/01/' + (Date.today.cwyear - 30).to_s, :class => "datepicker" %>
     <script type="text/javascript">
       $(document).ready(function(){
-        $('.datepicker').datepicker({format: 'dd/mm/yyyy'});
+        $('.datepicker').datepicker({
+          format: 'dd/mm/yyyy',
+          startView: 2,
+          autoclose: true,
+          todayHighlight: true
+        });
       })
     </script>
 
@@ -16,7 +21,8 @@
         $('[data-behaviour~=datepicker]').datepicker();
         })
     </script>
+    <br />
 <div style="display:none"><%= f.text_field :managed_org_id,  content:@user.managed_org_id %></div>
-  <div><%= f.submit "Register" %></div>
+  <div><%= f.submit "Register" %> <%= link_to 'Back', mainmenu_organisations_path(:org_id), :class=>"btn btn-info" %></div>
 <% end %>
 
