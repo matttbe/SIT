@@ -1,5 +1,5 @@
 <h1 class="full-width-header">
-  <a href="<%= show_profile_path %>" class="avatar-box"><%= image_tag @user.avatar.url(:thumb), :class=>"avatar" %></a>
+  <a href="<%= show_profile_path %>" class="avatar-box"><%= image_tag @user.avatar.url(:medium), :class=>"avatar" %></a>
   <%= @user.firstname%> <%= @user.name %>
 </h1>
   <% @tag = nil
