@@ -3,7 +3,7 @@
   <span class='st_facebook_large' displayText='Facebook'></span>
   <span class='st_twitter_large' displayText='Tweet'></span>
   <span class='st_linkedin_large' displayText='LinkedIn'></span>
-  <span class='st_pinterest_large' displayText='Pinterest'></span>
+  <span class='st_googleplus_large' displayText='Google +'></span>
 </div>
 <% if !current_user.nil?%>
   <% @my_group =  @groups = Group.joins(:group_user_relations).where(group_user_relations: {user_id: current_user.id})

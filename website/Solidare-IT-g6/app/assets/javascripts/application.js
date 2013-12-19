@@ -32,6 +32,31 @@
 //= require list
 //= require buttons
 
+var ShareThisTurbolinks;
+
+ShareThisTurbolinks = {
+  load: function() {
+    window.switchTo5x = false;
+    return $.getScript('https://ws.sharethis.com/button/buttons.js', function() {
+      return window.stLight.options({
+        publisher: '26ba6107-3f26-45cf-9194-733aa618dbad', doNotHash: false, doNotCopy: false, hashAddressBar: false
+      });
+    });
+  },
+  reload: function() {
+    if (typeof stlib !== "undefined" && stlib !== null) {
+      stlib.cookie.deleteAllSTCookie();
+    }
+    $('[src*="sharethis.com"], [href*="sharethis.com"]').remove();
+    window.stLight = void 0;
+    return this.load();
+  },
+  restore: function() {
+    $('.stwrapper, #stOverlay').remove();
+    return this.reload();
+  }
+};
+
 $(document).on("ready page:load", function(){
 	$("#more").hide();
 	$("#q").focus(function(){
@@ -42,6 +67,11 @@ $(document).on("ready page:load", function(){
 	});
 	$(':checkbox').checkbox();
 	$('.carousel').carousel();
-  var switchTo5x=true;
-  stLight.options({publisher: "26ba6107-3f26-45cf-9194-733aa618dbad", doNotHash: false, doNotCopy: false, hashAddressBar: false});
-  });
+	ShareThisTurbolinks.reload();
+});
+
+
+$(document).on('page:restore', function() {
+  return ShareThisTurbolinks.restore();
+});
+

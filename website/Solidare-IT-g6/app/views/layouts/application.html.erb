@@ -18,7 +18,6 @@
 </style>
 </head>
 <body>
-    <div id="fb-root"></div>
   <div id="header" class="jumbotron">
   <% location= request.env['PATH_INFO'] %>
     <nav class="navbar navbar-default" role="navigation">
@@ -143,25 +142,12 @@
 
   <%= yield %>
 
-<!-- PARTAGE GOOGLE+ Placez cette ballise après la dernière balise Partager. -->
-<script type="text/javascript">
-  window.___gcfg = {lang: 'en-GB'};
-
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/platform.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
 
 <div>
 <footer>     
-	<div class="fb-follow" data-href="https://www.facebook.com/pages/Solidare-IT/469548126438387" data-width="350" data-height="20" data-colorscheme="light" data-layout="standard" data-show-faces="true"></div>
-	<a href="https://twitter.com/SolidareIT" class="twitter-follow-button" data-show-count="false" data-width="10" data-lang="en">Follow @SolidareIT</a>
-	<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-	<g:plusone></g:plusone>
-	<iframe src="http://ghbtns.com/github-btn.html?user=matttbe&repo=SIT&type=fork"
-	  allowtransparency="true" frameborder="0" scrolling="0" width="200" height="20"></iframe>	
+	<span class='st_fblike_hcount' displayText='Facebook Like'></span>
+<span class='st_twitterfollow_hcount' displayText='Twitter Follow'></span>
+<span class='st_plusone_hcount' displayText='Google +1'></span>
 	<p>Built by the 8 most awesome Computer Sciences students at Université Catholique de Louvain</p>
 </footer>
 </div>
