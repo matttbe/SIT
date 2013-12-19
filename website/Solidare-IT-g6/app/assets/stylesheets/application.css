@@ -132,7 +132,7 @@ button.dropdown-toggle {
 
 .navbar .nav > li.dropdown.open {
 	background-color: #AE5882;
-	color:#FFFFFF !important;
+	
 }
 .navbar .nav li.dropdown.open > a {
 	color:#FFFFFF !important;
