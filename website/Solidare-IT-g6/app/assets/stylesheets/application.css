@@ -98,6 +98,24 @@ button.dropdown-toggle {
 }
 
 
+.avatar-box  {
+	display: inline-block;
+	width: 61px;
+	height: 61px;
+}
+
+.avatar {
+	width: 100%;
+	height: 100%;
+	vertical-align: bottom;
+	-moz-border-radius: 25px;
+	border-radius: 25px;
+	-moz-box-shadow: 1px 1px 5px 2px #c0c0c0;
+-webkit-box-shadow: 1px 1px 5px 2px #c0c0c0;
+-o-box-shadow: 1px 1px 5px 2px #c0c0c0;
+box-shadow: 1px 1px 5px 2px #c0c0c0;
+}
+
 footer {
 	margin-top: 30px;
 	height: 300px;
