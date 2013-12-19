@@ -9,6 +9,6 @@
   <% @followers_list.each do |follower| %>
     <% user = follower.user %>
     <% user_full_name = " " + user.firstname + " " + user.name %>
-    <%= link_to user_full_name, show_profile_path(user) %><br />
+    <%= link_to user_full_name, show_profile_path(user), :class => "label label-primary" %><br />
   <%end%>
 <%end%>
