@@ -1,9 +1,13 @@
+<div class="container">
+<div style='width: 600px; margin:0 auto; margin-top:20px; padding:10px;'>
 <% users.each_with_index do |user| %>
 	<li>
 		<h3 class="user-name" style="display: none"><%= user.all_name %></h3>
-		<div class="row service-parent">
+		<div class="row user-parent">
 			<% @user = user %>
 			<%= render 'users/user', :user => @user %>
 		</div>
 	</li>
 <% end %>
+</div>
+</div>

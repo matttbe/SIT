@@ -2,8 +2,10 @@
 <% if @users.nil? or @users.empty? %>
   No results
 <% else %>
+  <div class="users">
   <ul class="list">
     <%= render :partial => 'users/users', :locals => { :users => @users } %>
   </ul>
+  </div>
   <%= will_paginate @users%>
 <% end %>
