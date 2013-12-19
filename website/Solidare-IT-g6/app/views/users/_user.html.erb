@@ -1,4 +1,4 @@
 
 <a href="<%= show_profile_path(@user.id) %>" class="avatar-box"><%= image_tag @user.avatar.url(:medium), :class=>"avatar" %></a>
 <%= link_to @user.all_name, show_profile_path(@user), :class=>"label label-primary" %> <br />
-Number of services : <%= Service.where(:creator_id=>@user.id).size %> - Completed services : <%= Transaction.where(:user_id => @user.id).size %> - Karma <%= @user.karma%>
+Number of services : <%= Service.where(:creator_id=>@user.id).size %> - Completed services : <%= Transaction.where(:user_id => @user.id).size %> - Karma <%= @user.karma.prettify%>
