@@ -105,7 +105,9 @@
           </div>
         </div>
 
-              <%= render 'search/form' %>
+      <% unless location == '/create_account' or location == '/sign_in' %>
+        <%= render 'search/form' %>
+      <% end %>
       </div>
         
       <% else %>
