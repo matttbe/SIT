@@ -98,7 +98,7 @@
             <p>
               <h7> <%= @closest_services[i].description %> </h7>
             </p>
-            <%= button_to 'Show', service_path(@closest_services[0]), :class=>"btn btn-info", :method => :get  %>
+            <%= button_to 'Show', service_path(@closest_services[0]), :class=>"btn btn-info", :method => :get,:title=>'Display the details of this service'   %>
           </div>
         <%end%>
         <% i = i + 1 %>
@@ -111,7 +111,7 @@
             <p>
               <h7> <%= @closest_services[i].description %> </h7>
             </p>
-            <%= button_to 'Show', service_path(@closest_services[i]), :class=>"btn btn-info", :method => :get  %>
+            <%= button_to 'Show', service_path(@closest_services[i]), :class=>"btn btn-info", :method => :get, :title=>'Display the details of this service'   %>
           </div>
         <%end%>
         <% i = i + 1 %>
@@ -124,7 +124,7 @@
             <p>
               <h7> <%= @closest_services[i].description %> </h7>
             </p>
-            <%= button_to 'Show', service_path(@closest_services[i]), :class=>"btn btn-info", :method => :get  %>
+            <%= button_to 'Show', service_path(@closest_services[i]), :class=>"btn btn-info", :method => :get, :title=>'Display the details of this service'  %>
           </div>
         <%end%>
       </div>
