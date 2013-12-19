@@ -5,7 +5,9 @@
 <strong>Birthday</strong> : <%= @birth.mday %>/<%= @birth.mon%>/<%= @birth.year%> <br />
 <strong>Languages</strong> : <%= @user.language %><br />
 <strong>Karma </strong>: <%= @user.karma %><br />
+<%if @user.presentation == ""%>
 <strong>Presentation </strong>: <%= @user.presentation %><br />
+<%end%>
 <%if @user.managed_org_id > 0%>
 	This profile is managed by an organisation
 <%end%>
