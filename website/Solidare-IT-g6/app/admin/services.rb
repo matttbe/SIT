@@ -31,7 +31,7 @@ ActiveAdmin.register Service, :as => "Managed service" , namespace: :organisatio
       f.input :is_demand, :as => :radio, :label=>"is it a demand ?"
     end
     f.inputs "Category" do
-      f.collection_select :category_id, Category.all, :id, :title
+      f.collection_select :category_id, Category.load, :id, :title
     end
     f.inputs "Pictures" do
       f.input :photo, :as=>:file, :hint=> f.template.image_tag(f.object.photo.url(:thumb))
