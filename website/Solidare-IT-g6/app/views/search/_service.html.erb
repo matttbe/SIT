@@ -6,7 +6,7 @@
                     <%= image_tag service.photo.url(:thumb) %>
                   <% end %>
                 </a>
-                <h3 class=""><%= service.title %></h3>
+                <h3 ><%= service.title %></h3>
                 <div class="service-action">
                   <% if !current_user.nil? && service.matching_service.nil? && service.creator_id != current_user.id && current_user.accept_services.where(:service_id => service.id).empty? %><%= button_to 'Accept', accept_service_path(service), :class=>"btn btn-success", :method => :get %><%end%>
                   <%= button_to 'Show', service, :class=>"btn btn-default", :method => :get  %>
