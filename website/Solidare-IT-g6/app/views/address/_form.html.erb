@@ -1,3 +1,4 @@
+<div class="container">
 <% if type=="new" || type == "wrong zip new"
     @action="create"
    else type == "edit"
@@ -25,3 +26,4 @@ end%>
       <%= f.submit "Edit address",:class =>"btn btn-primary"  %>
     <%end%>
 <% end %>
+</div>
