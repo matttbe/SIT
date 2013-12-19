@@ -92,6 +92,7 @@ class SearchController < ApplicationController
       @search += "q=" + params[:q] + "&"
       @users=@users.where("name LIKE (:titles) or firstname LIKE (:titles)", :titles => "%" + params[:q] + "%")
     end
+    
   end
 
   def search_group
