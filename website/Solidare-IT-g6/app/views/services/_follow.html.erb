@@ -1,9 +1,9 @@
 <% if user_signed_in?%>
   <% if !(@service.creator_id==current_user.id) %>
           <% if @followers.size == 0%>
-                  <%= link_to 'Follow', follow_path(@service), :class=>"btn btn-primary" %>
+                  <%= link_to 'Follow', follow_path(@service), :class=>"btn btn-primary", :title=>'Be notified of the updates of this service' %>
           <%else%>
-                  <%= link_to 'Unfollow', unfollow_path(@service, @followers.first.id) , :class=>"btn btn-warning"%>
+                  <%= link_to 'Unfollow', unfollow_path(@service, @followers.first.id) , :class=>"btn btn-warning", :title=>'Stop notifications related to this service'%>
           <%end%>
   <% end %>
 <% end %>

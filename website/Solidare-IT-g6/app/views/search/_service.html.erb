@@ -8,10 +8,10 @@
                 </a>
                 <h3 class=""><%= service.title %></h3>
                 <div class="service-action">
-                  <% if !current_user.nil? && service.matching_service.nil? && service.creator_id != current_user.id && current_user.accept_services.where(:service_id => service.id).empty? %><%= button_to 'Accept', accept_service_path(service), :class=>"btn btn-success", :method => :get %><%end%>
-                  <%= button_to 'Show', service, :class=>"btn btn-default", :method => :get  %>
-                  <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Edit', edit_service_path(service), :class=>"btn btn-default", :method => :get %><%end%>
-                  <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Destroy', service, method: :delete, :class=>"btn btn-danger"%><%end%>
+                  <% if !current_user.nil? && service.matching_service.nil? && service.creator_id != current_user.id && current_user.accept_services.where(:service_id => service.id).empty? %><%= button_to 'Accept', accept_service_path(service), :class=>"btn btn-success", :method => :get, :title=>'Accept this service' %><%end%>
+                  <%= button_to 'Show', service, :class=>"btn btn-default", :method => :get, :title=>'Display the details of this service'  %>
+                  <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Edit', edit_service_path(service), :class=>"btn btn-default", :method => :get, :title=>'Edit this service' %><%end%>
+                  <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Destroy', service, method: :delete, :class=>"btn btn-danger", :title=>'Delete this service'%><%end%>
                   <% if user_signed_in? %>
                     <% @followers = Follower.where(:service_id => service.id).where(:user_id => current_user.id) %>
                     <% @service = service %>
