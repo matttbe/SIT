@@ -28,7 +28,7 @@
                     <td><%= organisation.name %></td>
                     <td><%= organisation.creator.all_name %></td>
                     <td><%= organisation.coworkers.length %></td>
-                    <td><%= link_to 'join', join_action_path(organisation.id) %></td>
+                    <td><%= link_to 'join', join_action_path(organisation.id), :class=>"btn btn-success" %></td>
                    </tr>
                <%end%>
             <% end %>
@@ -42,5 +42,5 @@
         <% end %>
         <br>
       </div>
-<%= link_to 'Back', organisations_path %>
+<%= link_to 'Back', organisations_path, :class=>"btn btn-primary" %>
 </div>

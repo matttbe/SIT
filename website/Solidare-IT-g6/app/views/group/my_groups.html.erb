@@ -1,7 +1,8 @@
-<h3> My Groups </h3>
 
+<h3 class="full-width-header"> My Groups </h3>
+<div class="container">
 <% if @groups.empty? %>
-	You have no group :(
+	<span class="label label-warning">You're not subscribed to any group yet</span>
 <% else %>
 
 <table class="table table-striped">
@@ -28,6 +29,6 @@
 
 <% if !current_user.nil?%>
   <br></br>
-  <%= link_to 'Create Group',  new_group_path%>
+  <%= link_to 'Create Group',  new_group_path, :class=>"btn btn-primary"%>
 <%end%>
-
+</div>
