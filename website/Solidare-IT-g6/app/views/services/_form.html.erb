@@ -23,9 +23,14 @@
         });
       })
     </script>
-    <% # TODO => no addresses?? #
-    %>
-    <% if ! current_user.addresses.empty? %>
+    <% if current_user.addresses.empty? %>
+      <div id="address-title">
+        Address: no address yet<br /><br />
+      </div>
+      <div id="address">
+        <%= link_to 'New address', new_address_path, :class => "btn btn-default"%>
+      </div>
+    <% else %>
       <%= f.collection_select :address_id, current_user.addresses, :id, :street%>
     <% end %>
     <div style="display:none"><%= f.text_field :creator_id,  content:@service.creator_id %></div>
