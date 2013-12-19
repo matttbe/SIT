@@ -162,7 +162,7 @@ Then(/^I should see my services$/) do
 end
 
 Then(/^I should see no services$/) do
-   assert page.has_content?("haven't submit services")
+   assert page.has_content?("You haven't submit any service")
 end
 
 Then(/^I should see edit and destroy link$/) do
