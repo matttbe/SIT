@@ -23,6 +23,10 @@
 	color: #EB4F92;
 }
 
+.service h6{
+  color: #EB4F92;
+}
+
 #s {
 	width: 300px;
 	float: left;
@@ -65,8 +69,10 @@
 	margin-top: 30px;
 }
 #slider {
-	max-width: 400px;
-	margin: 15px 0px 40px 0px;
+	width:90%;
+	margin: auto;
+	margin-top:30px;
+	margin-bottom:30px;
 }
 
 .timeleft {
@@ -97,3 +103,12 @@ ul.list  {
 }
 .icon-grid:before { content: '\e800'; 
 font-family: "fontello";} /* '' */
+
+.feedback_panel{
+  text-align:center;
+  width : 50%;
+  margin: auto;
+  padding:1em;
+  border-radius: 10px;
+  background-color: #7fd9b7;
+}

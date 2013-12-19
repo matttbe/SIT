@@ -1,11 +1,12 @@
 <div class="container">
+<div class="feedback_panel">
 <%=bootstrap_form_for(@transaction,method: 'post', :url=>create_transaction_path(@service)) do |f| %>
 
 
-    <%= f.text_field :feedback_evaluation %>
+    <h6 ><%= f.text_field :feedback_evaluation%></h6>
     <div id="slider"></div>
-    <%= f.text_area :feedback_comments %>
-      <%= f.submit "Give your feedback",:class =>"btn btn-primary"  %>
+    <%= f.text_area :feedback_comments, :class=> 'form-control' %>
+      <%= f.submit "Give your feedback",:class =>"btn btn-primary" %>
 
       <script>
   $(function() {
@@ -24,5 +25,7 @@
   });
   </script>
 <% end %>
+</div>
+
 </div>
 
