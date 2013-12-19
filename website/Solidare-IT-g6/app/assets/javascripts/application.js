@@ -39,7 +39,7 @@ ShareThisTurbolinks = {
     window.switchTo5x = false;
     return $.getScript('https://ws.sharethis.com/button/buttons.js', function() {
       return window.stLight.options({
-        publisher: '26ba6107-3f26-45cf-9194-733aa618dbad'
+        publisher: '26ba6107-3f26-45cf-9194-733aa618dbad', doNotHash: false, doNotCopy: false, hashAddressBar: false
       });
     });
   },
