@@ -93,6 +93,10 @@ class SearchController < ApplicationController
       @users=@users.where("name LIKE (:titles) or firstname LIKE (:titles)", :titles => "%" + params[:q] + "%")
     end
     
+    if (defined? params[:page])
+      @users = @users.paginate(:page => params[:page])
+    end
+    
   end
 
   def search_group

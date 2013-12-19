@@ -1,0 +1,9 @@
+<% users.each_with_index do |user| %>
+	<li>
+		<h3 class="user-name" style="display: none"><%= user.all_name %></h3>
+		<div class="row service-parent">
+			<% @user = user %>
+			<%= render 'users/user', :user => @user %>
+		</div>
+	</li>
+<% end %>

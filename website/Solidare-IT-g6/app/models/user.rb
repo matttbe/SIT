@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_merit
-
+  self.per_page = 10
   rolify
   before_save :default_values
 
