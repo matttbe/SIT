@@ -89,5 +89,11 @@
 ul.list  {
 	list-style-type:none;
 }
+
+.nav > li.active > a {
+	text-decoration: none;
+	background-color: #AE5882;
+	color: #FFFFFF;
+}
 .icon-grid:before { content: '\e800'; 
 font-family: "fontello";} /* '' */
