@@ -4,7 +4,7 @@
 <% @birth = @user.birthdate%>
 <strong>Birthday</strong> : <%= @birth.mday %>/<%= @birth.mon%>/<%= @birth.year%> <br />
 <strong>Languages</strong> : <%= @user.language %><br />
-<strong>Karma </strong>: <%= @user.karma %><br />
+<strong>Karma </strong>: <%= @user.karma.prettify %><br />
 <%if @user.presentation == ""%>
 <strong>Presentation </strong>: <%= @user.presentation %><br />
 <%end%>
