@@ -6,7 +6,7 @@
                     <%= image_tag service.photo.url(:thumb) %>
                   <% end %>
                 </a>
-                <h3 class=""><%= service.title %></h3>
+                <h3 ><%= service.title %></h3>
                 <div class="service-action">
                   <% if !current_user.nil? && service.matching_service.nil? && service.creator_id != current_user.id && current_user.accept_services.where(:service_id => service.id).empty? %><%= button_to 'Accept', accept_service_path(service), :class=>"btn btn-success", :method => :get, :title=>'Accept this service' %><%end%>
                   <%= button_to 'Show', service, :class=>"btn btn-default", :method => :get, :title=>'Display the details of this service'  %>
@@ -18,9 +18,13 @@
                     <%= render 'services/follow', :service=>@service, :followers => @followers %>
                   <%end%>
                 </div>
-                
+                <p><strong>Created by:</strong>
+                  <%if !@service.user.nil? %>
+                     <%= link_to @service.user.all_name, show_profile_path(@service.user), :class=>"label label-primary" %>
+                  <% end %>
+                </p>
                 <p class="service-desc"> <strong>Description : </strong><%= service.description %></p>
-                <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> <strong>to</strong> <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
+                <p class="date-service"><strong>From </strong><%= service.date_start.to_date().to_formatted_s(:rfc822) %> <strong> to </strong> <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
                 <%if !service.address.nil?%> 
                   <p class="service-desc"> <%= render 'address/city', :address=>service.address %>
                   </p>
@@ -30,7 +34,29 @@
 
                   <% sec = (service.date_end - DateTime.now) %>
 
-                  <span class="pull-right timeleft"><%= (sec / 86400).round %> days <%= ((sec % 86400) / 3600).round %> hours <%= ((((sec % 86400) / 3600) % 3600) / 60).round %> min <%= (sec%60).round %> s. left</span>
+                  <span class="pull-right timeleft">
+                    <%= %>
+                    <% if sec > 31536000 %>
+                      <% years = (sec / 31536000).to_i %>
+                      <% sec -= years * 31536000 %>
+                      <% if years > 1 %>
+                        <%= years %> years
+                      <% else %>
+                        <%= years %> year
+                      <% end %>
+                    <% end %>
+                    <% days = (sec / 86400).to_i %>
+                    <% if days > 1 %>
+                      <%= days %> days
+                    <% elsif days == 1 %>
+                      1 day
+                    <% else %>
+                      <%= ((sec % 86400) / 3600).to_i %> hours
+                      <%= ((((sec % 86400) / 3600) % 3600) / 60).to_i %> min
+                      <%= (sec%60).to_i %> s.
+                    <% end %>
+                    left
+                  </span>
 
               </div>
 </div>

@@ -4,18 +4,19 @@
 <% if @groups.empty? %>
 	<span class="label label-warning">You're not subscribed to any group yet</span>
 <% else %>
-
+<div class="panel panel-primary">
 <table class="table table-striped">
   <tr>
-    <th>Name</th>
-    <th>Description</th>
+
+    <th><h6><span class="label label-info">Name</span></h6></th>
+    <th><h6><span class="label label-info">Description</span></h6></th>
     <th></th>
 	<th></th>
   </tr>
  
 <% @groups.each do |group|%>
   <tr>
-    <td><%= link_to group.name, group_path(:id => group.id) %></td>
+    <td><%= link_to group.name, group_path(:id => group.id), :class => "label label-primary" %></td>
     <td><%= group.description %></td>
 	<% if GroupUserRelation.where(:group_id => group.id, :user_id => current_user.id).first.role == 'Admin' %>
     <td><%= link_to 'Delete', group_path(group),method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -26,7 +27,7 @@
 </table>
 
 <%end %>
-
+</div>
 <% if !current_user.nil?%>
   <br></br>
   <%= link_to 'Create Group',  new_group_path, :class=>"btn btn-primary"%>
