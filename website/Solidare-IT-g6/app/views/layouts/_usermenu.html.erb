@@ -11,9 +11,6 @@
     <%= image_tag current_user.avatar.url(:thumb) %>
     <%= current_user.all_name %>
     <% @karma = current_user.karma %>
-    <% if @karma == 0.0 %>
-      <% @karma = @karma.to_i %>
-    <% end %>
     <% if @karma > 0 %>
       <span class="badge badge-success">
     <% elsif @karma < 0 %>
@@ -21,7 +18,7 @@
     <% else %>
        <span class="badge">
     <% end %>
-    <%= @karma %>
+    <%= @karma.prettify %>
     </span>
   </a>
   <ul class="dropdown-menu pull-right" role="menu">
