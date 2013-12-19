@@ -5,11 +5,12 @@
       <%= image_tag service.photo.url(:medium) %>
     </a>
     <h3><%= service.title %></h3>
-    <strong>Created by:</strong>
+    <div><strong>Created by:</strong>
     <%if !@service.user.nil? %>
-   	 <%= link_to @service.user.all_name, show_profile_path(@service.user) %>
+   	 <%= link_to @service.user.all_name, show_profile_path(@service.user), :class=>"label label-primary" %></div>
     <% end %>
-    <p class="service-desc"><%= service.description %></p>
+
+    <p class="service-desc">Description: <%= service.description %></p>
     <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> <strong>to</strong> <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
       <%if !service.address.nil?%> <p class="service-desc"><%= render 'address/address', :address=>service.address %></p><% end %>
     </p>
@@ -41,8 +42,8 @@
 
   <% if !(!@service.matching_service.nil?&&!@service.matching_service.transaction.nil?)&&(@service.matching_service.quick_match&&@service.transaction.nil?) %>
   <div class="alert alert-notice">
-    How was your experience ?
-    <%= link_to 'Give a feedback !', add_transaction_path(@service)%></div>
+    <span class="label label-default">How was your experience ?</span>
+    <%= link_to 'Give a feedback now!', add_transaction_path(@service), :class=>"btn btn-primary"%></div>
     <br />
     <%else%>
     Your feedback :

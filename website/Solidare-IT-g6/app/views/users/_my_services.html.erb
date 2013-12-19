@@ -17,7 +17,7 @@
 
 <% if !@accepted_services.blank?%>
   <hr></hr>
-  Accepted Services :
+  <span class="label label-success">Accepted Services :</span>
   <br /><br />
   <% @accepted_services.each do |service| %>
 	<%= render '/services/show',:service=> service %>
