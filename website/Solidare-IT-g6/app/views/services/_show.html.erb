@@ -7,9 +7,9 @@
     <h3><%= service.title %></h3>
     <div><strong>Created by:</strong>
     <%if !@service.user.nil? %>
-   	 <%= link_to @service.user.all_name, show_profile_path(@service.user), :class=>"label label-primary" %></div>
+   	 <%= link_to @service.user.all_name, show_profile_path(@service.user), :class=>"label label-primary" %>
     <% end %>
-
+  </div>
     <p class="service-desc">Description: <%= service.description %></p>
     <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> <strong>to</strong> <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
       <%if !service.address.nil?%> <p class="service-desc"><%= render 'address/city', :address=>service.address %></p><% end %>
