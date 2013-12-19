@@ -1,9 +1,9 @@
 
-<% if @users.nil? or @users.size == 0 %>
-    No results
+<% if @users.nil? or @users.empty? %>
+  No results
 <% else %>
   <ul class="list">
-	<%= render :partial => 'users/users', :locals => { :users => @users } %>	
+    <%= render :partial => 'users/users', :locals => { :users => @users } %>
   </ul>
-<%= will_paginate @users%>
+  <%= will_paginate @users%>
 <% end %>
