@@ -18,7 +18,7 @@ columns do
         panel "Users managed" do
             table_for coworkers.managed_users.each,sortable: true do |customer|
                         column("Name", sortable: :name)   {|customer| customer.all_name}
-                        column("Karma", sortable: :karma)  {|customer| customer.karma}
+                        column("Karma", sortable: :karma)  {|customer| customer.karma.prettify}
                         column ("") {|customer| button_to "Add a service", new_service_for_managed_user_path(customer), :method=>'get'}
                         column ("") {|customer| button_to "Remove", organisation_manage_manageduser_path(), :method=>'delete'}
              end
