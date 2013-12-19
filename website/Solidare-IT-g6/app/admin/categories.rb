@@ -5,7 +5,7 @@ ActiveAdmin.register Category, :as => "Category" do
       # f.input :parent_cat, :label => "Parent Category"
       f.input :parent, :as => :select, :collection => params.has_key?('id') ?
         Category.find(:all, :conditions => ["id != ?", params[:id]]) :
-        Category.all
+        Category.load
       f.input :title
       f.input :text
     end

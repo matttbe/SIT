@@ -93,7 +93,7 @@ class OrganisationsController < InheritedResources::Base
 
       logger.debug "coucou"
     if user_signed_in?
-      @organisations = current_user.organisations.all
+      @organisations = current_user.organisations.load
       logger.debug @organisations.length
       logger.debug "coucou"
       @organisation = Organisation.new
