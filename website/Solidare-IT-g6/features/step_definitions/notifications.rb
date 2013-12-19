@@ -96,7 +96,7 @@ end
 
 ### WHEN ###
 
-When /^I visit the notifications page$/ do   
+When /^I visit the notifications page$/ do
   visit '/notifications'
 end
 
