@@ -60,6 +60,9 @@ class SearchController < ApplicationController
     elsif params[:type]=="group"
       @type="group"
       search_group
+    elsif params[:type]=="user"
+      @type="user"
+      search_user
     else
       @type="service"
       search_service
@@ -80,6 +83,16 @@ class SearchController < ApplicationController
       @search += "q=" + params[:q] + "&"
       @organisations=@organisations.where("name LIKE (:titles)", :titles => "%" + params[:q] + "%")
     end
+  end
+
+    def search_user
+    @search = "/search?"
+    @users=User.all
+    if (! params[:q].nil?)
+      @search += "q=" + params[:q] + "&"
+      @users=@users.where("name LIKE (:titles) or firstname LIKE (:titles)", :titles => "%" + params[:q] + "%")
+    end
+    
   end
 
   def search_group
