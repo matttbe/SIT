@@ -11,9 +11,9 @@
       <%= submit_tag("Search", :class=>"btn btn-primary") %>
       </div>
 <div id="more" style="">
-  <p id="hide-options" class="btn btn-primary dropdown-toggle">Hide<span class="caret up-side-down"></span></p>
+  <span id="hide-options" class="btn btn-primary dropdown-toggle" style="display: inline;">Hide<span class="caret up-side-down"></span></span>
 
-      <div id="typesCheckboxes" >
+      <div id="typesCheckboxes" style="display: inline;">
         
         <label class="checkbox" for="offer_cbox" style="display: inline;">
          <input type="checkbox" checked value="" id="offer_cbox" data-toggle="switch">
@@ -23,13 +23,14 @@
           <input type="checkbox" checked value="" name="demand_cbox" id="demand_cbox" data-toggle="switch">
           Demands
         </label>
+         <label class="checkbox" style="display: inline;">
+            <input type="checkbox" name="q_order_end" > Order by date
+          </label>
       </div>
 
       
       
-          <label class="checkbox">
-            <input type="checkbox" name="q_order_end"> Order by date
-          </label>
+         
       </div>
     </div>
 
