@@ -24,26 +24,9 @@
 <style id="holderjs-style" type="text/css">
 .holderjs-fluid {font-size:16px;font-weight:bold;text-align:center;font-family:sans-serif;margin:0}
 </style>
-<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-<script type="text/javascript">stLight.options({publisher: "26ba6107-3f26-45cf-9194-733aa618dbad", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 </head>
 <body>
     <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=154855758040726";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-<script>!function(d,s,id){
-	var js,fjs=d.getElementsByTagName(s)[0];
-	if(!d.getElementById(id)){js=d.createElement(s);
-		js.id=id;js.src="//platform.twitter.com/widgets.js";
-		fjs.parentNode.insertBefore(js,fjs);
-	}}(document,"script","twitter-wjs");</script>  
-  
   <div id="header" class="jumbotron">
   <% location= request.env['PATH_INFO'] %>
     <nav class="navbar navbar-default" role="navigation">
@@ -59,12 +42,8 @@
           <a href="<%= root_path  %>">Home</a></li>
 
           <!--search button-->
-          <% if location==search_path %>
-              <li class="active">
-          <% else %>
-              <li>
-          <% end %>
-          <%= render 'layouts/services_dropdown' %>
+          
+          <%= render 'layouts/services_dropdown', :location=>location %>
 
           <!--Organisations button-->
           <%unless current_user.nil?%>
@@ -105,7 +84,9 @@
           </div>
         </div>
 
-              <%= render 'search/form' %>
+      <% unless location == '/create_account' or location == '/sign_in' %>
+        <%= render 'search/form' %>
+      <% end %>
       </div>
         
       <% else %>

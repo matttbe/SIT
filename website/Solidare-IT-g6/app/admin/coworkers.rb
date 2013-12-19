@@ -8,7 +8,7 @@ ActiveAdmin.register Coworker, :as => "Coworkers", namespace: :organisation_mana
 
   form do |f|
     f.inputs "User" do
-      f.collection_select :user_id, User.all, :id, :all_name
+      f.collection_select :user_id, User.load, :id, :all_name
     end
     f.inputs "Organisation" do
       f.collection_select :organisation_id, Organisation.where("creator_id=:id",:id=>current_user.id), :id, :name

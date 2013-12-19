@@ -47,16 +47,8 @@ end
 def fill_form
   fill_in "service_title", :with => @serviceNew[:title]
   fill_in "service_description", :with => @serviceNew[:description]
-  select(2014, :from=> "service_date_start_1i")
-  select('November', :from=>  "service_date_start_2i")
-  select(10, :from=>  "service_date_start_3i")
-  select(17, :from=>  "service_date_start_4i")
-  select(27, :from=>  "service_date_start_5i")
-  select(2015, :from=> "service_date_end_1i")
-  select('December', :from=>  "service_date_end_2i")
-  select(10, :from=>  "service_date_end_3i")
-  select(17, :from=>  "service_date_end_4i")
-  select(27, :from=>  "service_date_end_5i")
+  fill_in "service_date_start", :with => 1.days.from_now.strftime('%d/%m/%Y')
+  fill_in "service_date_end", :with => 10.days.from_now.strftime('%d/%m/%Y')
 end
 
 ### GIVEN ###
@@ -107,11 +99,7 @@ end
 
 
 When(/^I fill a wrong date for the end$/) do
-  select(2012, :from=> "service_date_end_1i")
-  select('December', :from=>  "service_date_end_2i")
-  select(10, :from=>  "service_date_end_3i")
-  select(17, :from=>  "service_date_end_4i")
-  select(27, :from=>  "service_date_end_5i")
+  fill_in "service_date_end", :with => 1.years.ago.strftime('%d/%m/%Y')
 end
 
 
@@ -136,11 +124,7 @@ When(/^I fill a new title for my service$/) do
 end
 
 When(/^I fill a new date for my service$/) do
-  select(2012, :from=> "service_date_start_1i")
-  select('December', :from=>  "service_date_start_2i")
-  select(10, :from=>  "service_date_start_3i")
-  select(17, :from=>  "service_date_start_4i")
-  select(27, :from=>  "service_date_start_5i")
+  fill_in "service_date_start", :with => 2.days.from_now.strftime('%d/%m/%Y')
 end
 
 When(/^I give a feedback$/) do 
@@ -150,7 +134,7 @@ When(/^I give a feedback$/) do
 end
 
 When(/^I am the chosen customer for one service$/) do
-	choose_myself_for_service
+  choose_myself_for_service
 end
 
 
@@ -178,7 +162,7 @@ Then(/^I should see my services$/) do
 end
 
 Then(/^I should see no services$/) do
-   assert page.has_content?("haven't submit services")
+   assert page.has_content?("You haven't submit any service")
 end
 
 Then(/^I should see edit and destroy link$/) do

@@ -1,5 +1,5 @@
 <h1 class="full-width-header">
-  <%= image_tag @user.avatar.url(:thumb) %>
+  <a href="<%= show_profile_path %>" class="avatar-box"><%= image_tag @user.avatar.url(:thumb), :class=>"avatar" %></a>
   <%= @user.firstname%> <%= @user.name %>
 </h1>
   <% @tag = nil
@@ -30,8 +30,10 @@
     <h2>The services <%= @follow%></h2>
     <%= render 'services/following_services', :following => @following %>
 
-    <h2><%= @tag%> Badges</h2>
-    <%= render 'badge/own_badges', :badges=>@user.badges %>
+    <% if @user.badges %>
+      <h2><%= @tag%> Badges</h2>
+      <%= render 'badge/own_badges', :badges=>@user.badges %>
+    <% end %>
 
     <h2><%= @tag%> Feedback</h2>
     <% @transactions = Transaction.where(user_id: @user.id).limit(5)

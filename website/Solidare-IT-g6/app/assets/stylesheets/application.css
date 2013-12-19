@@ -54,6 +54,7 @@ h2 {
 	padding: 25px;
 	color:#777777;
 	border-radius: 10px;
+	font-size: 37px;
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
@@ -94,6 +95,33 @@ button.dropdown-toggle {
   visibility: visible;
   opacity: 1;
   width: auto;
+}
+
+
+.avatar-box  {
+	display: inline-block;
+	width: 61px;
+	height: 61px;
+}
+
+.avatar {
+	width: 100%;
+	height: 100%;
+	vertical-align: bottom;
+	-moz-border-radius: 25px;
+	border-radius: 25px;
+	-moz-box-shadow: 1px 1px 5px 2px #c0c0c0;
+-webkit-box-shadow: 1px 1px 5px 2px #c0c0c0;
+-o-box-shadow: 1px 1px 5px 2px #c0c0c0;
+box-shadow: 1px 1px 5px 2px #c0c0c0;
+}
+
+.navbar .nav > li.dropdown.open {
+	background-color: #AE5882;
+	color:#FFFFFF !important;
+}
+.navbar .nav li.dropdown.open > a {
+	color:#FFFFFF !important;
 }
 
 footer {

@@ -30,6 +30,7 @@
 //= require flatui-radio
 //= require underscore
 //= require list
+//= require buttons
 
 $(document).on("ready page:change", function(){
   $("#show_option").click(function(){
@@ -37,4 +38,6 @@ $(document).on("ready page:change", function(){
   });
   $(':checkbox').checkbox();
   $('.carousel').carousel();
-});
+  var switchTo5x=true;
+  stLight.options({publisher: "26ba6107-3f26-45cf-9194-733aa618dbad", doNotHash: false, doNotCopy: false, hashAddressBar: false});
+  });

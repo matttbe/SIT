@@ -1,7 +1,7 @@
 
 <% if (@services.nil? ||@services.length==0) && (@pending_services.nil? ||@pending_services.length==0) && (@accepted_services.nil? ||@accepted_services.length==0) %>
   <p>	
-	You haven't submit services.
+	<span class="label label-default">You haven't submit any service</span>
   </p>
 <% end%>
 
@@ -17,7 +17,7 @@
 
 <% if !@accepted_services.blank?%>
   <hr></hr>
-  Accepted Services :
+  <span class="label label-success">Accepted Services :</span>
   <br /><br />
   <% @accepted_services.each do |service| %>
 	<%= render '/services/show',:service=> service %>
@@ -26,7 +26,7 @@
 
 <% if !@pending_services.blank?%>
   <hr></hr>
-  Pending Services :
+  <span class="label label-warning">Pending Services :</span>
   <br /><br />
   <% @pending_services.each do |service| %>
     <%= render '/services/show',:service=> service %>
