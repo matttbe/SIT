@@ -14,9 +14,9 @@
     <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> <strong>to</strong> <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
       <%if !service.address.nil?%> <p class="service-desc"><%= render 'address/address', :address=>service.address %></p><% end %>
     </p>
-    <%if @followers_list.size!=0%>
-      <%= render 'services/followers', :followers_list=>@followers_list%>
-    <%end%>
+
+    <%= render 'services/followers', :followers_list=>@followers_list%>
+    
     <br />
     <%= render 'services/share', :service => service %>
     
