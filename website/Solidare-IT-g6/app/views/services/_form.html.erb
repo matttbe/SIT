@@ -1,10 +1,11 @@
 <%=bootstrap_form_for(@service,:html => { :multipart => true  }) do |f| %>
-    <%=f.radio_buttons :is_demand, { "Demand" => true, "Offer" => false }, :label => "What do you want to offer ?"%>
+    <span class="label label-primary">What do you want to offer</span>
+    <%=f.radio_buttons :is_demand, { "Demand" => true, "Offer" => false }, :label => ""%>
     <%= f.text_field :title, :class => "form-control" %>
     <div id="categories">
     <%= f.collection_select :category_id, get_all_root_categories, :id, :title %>
     </div>
-    <%= f.text_area :description %>
+    <%= f.text_area :description, :class => "form-control" %>
     <%= f.file_field :photo %>
     <% if @service.nil? or @service.date_start.nil? or @service.date_start.to_s.empty? %>
       <%= f.text_field :date_start, :label => "Date Start", :value => 1.days.from_now.strftime('%d/%m/%Y'), :class => "datepicker" %>

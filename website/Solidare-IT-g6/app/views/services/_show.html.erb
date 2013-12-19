@@ -1,60 +1,59 @@
 <% @service=service%>
 
-  <div class="well well-large service">
-    <a class="pull-right" href="#">
-      <%= image_tag service.photo.url(:medium) %>
-    </a>
-    <h3><%= service.title %></h3>
-    <div><strong>Created by:</strong>
+<div class="well well-large service">
+  <a class="pull-right" href="#">
+     <%= image_tag service.photo.url(:medium) %>
+  </a>
+  <h3><%= service.title %></h3>
+  <div>
+    <strong>Created by:</strong>
     <%if !@service.user.nil? %>
-   	 <%= link_to @service.user.all_name, show_profile_path(@service.user), :class=>"label label-primary" %>
+      <%= link_to @service.user.all_name, show_profile_path(@service.user), :class=>"label label-primary" %>
     <% end %>
   </div>
-    <p class="service-desc">Description: <%= service.description %></p>
-    <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> <strong>to</strong> <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
-      
-    </p>
-    <%if !service.address.nil?%> <%= render 'address/city', :address=>service.address %><% end %>
-    <%= render 'services/followers', :followers_list=>@followers_list%>
-    
-    <br />
-    <%= render 'services/share', :service => service %>
-    
+  <p class="service-desc">Description: <%= service.description %></p>
+  <p class="date-service"><%= service.date_start.to_date().to_formatted_s(:rfc822) %> <strong>to</strong> <%= service.date_end.to_date().to_formatted_s(:rfc822) %></p>
+  <%if !service.address.nil?%>
+    <%= render 'address/city', :address=>service.address %>
+  <% end %>
 
-    <br />
+  <%= render 'services/followers', :followers_list=>@followers_list%>
 
-    <div class="service-action">
+  <br />
+  <%= render 'services/share', :service => service %>
 
-      <% if !current_user.nil? && service.matching_service.nil? && service.creator_id != current_user.id && current_user.accept_services.where(:service_id => service.id).empty? %><%= button_to 'Accept', accept_service_path(service), :class=>"btn btn-success", :method => :get, :title=>'Accept this service' %><%end%>
-      <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Edit', edit_service_path(service), :class=>"btn btn-default", :method => :get, :title=>'Edit this service' %><%end%>
-      <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Destroy', service, method: :delete, :class=>"btn btn-danger", :title=>'Delete this service'%><%end%>
-      <% if user_signed_in?%>
+  <br />
+  <div class="service-action">
+
+    <% if !current_user.nil? && service.matching_service.nil? && service.creator_id != current_user.id && current_user.accept_services.where(:service_id => service.id).empty? %>
+      <%= button_to 'Accept', accept_service_path(service), :class=>"btn btn-success", :method => :get, :title=>'Accept this service' %>
+    <%end%>
+    <% if !current_user.nil?&&service.creator_id==current_user.id %>
+      <%= button_to 'Edit', edit_service_path(service), :class=>"btn btn-default", :method => :get, :title=>'Edit this service' %>
+    <%end%>
+    <% if !current_user.nil?&&service.creator_id==current_user.id %>
+      <%= button_to 'Destroy', service, method: :delete, :class=>"btn btn-danger", :title=>'Delete this service'%>
+    <%end%>
+    <% if user_signed_in?%>
       <% @followers = Follower.where("service_id = :service_id AND user_id = :user_id", :service_id => service.id, :user_id => current_user.id)%>
       <% @service = service %>
       <%= render 'services/follow', :service=>@service, :followers => @followers %>
-      <%end%>
-    </div>
+    <%end%>
+  </div>
 
-    <%= button_to 'Back', '/search', :class=>"btn btn-default", :title=>'Go back to search page'  %>
+  <%= button_to 'Back', '/search', :class=>"btn btn-default", :title=>'Go back to search page'  %>
 
-  </p>
   <% if !current_user.nil?&&!@service.matching_service.nil?&&(@service.creator_id==current_user.id||@service.matching_service.creator_id=current_user.id)&&(@service.transaction.nil?||@service.matching_service.transaction.nil?)&&(@service.creator_id==current_user.id&&!User.joins(:accept_services).where(accept_services: {service_id: service.id, is_chosen_customer: true}).blank?) %>
 
-  <% if !(!@service.matching_service.nil?&&!@service.matching_service.transaction.nil?)&&(@service.matching_service.quick_match&&@service.transaction.nil?) %>
-  <div class="alert alert-notice">
-    <span class="label label-default">How was your experience ?</span>
-    <%= link_to 'Give a feedback now!', add_transaction_path(@service), :class=>"btn btn-primary"%></div>
-    <br />
+    <% if !(!@service.matching_service.nil?&&!@service.matching_service.transaction.nil?)&&(@service.matching_service.quick_match&&@service.transaction.nil?) %>
+      <div class="alert alert-notice">
+        <span class="label label-default">How was your experience ?</span>
+        <%= link_to 'Give a feedback now!', add_transaction_path(@service), :class=>"btn btn-primary"%>
+      </div>
+      <br />
     <%else%>
-    Your feedback :
-    <%=  render 'services/show_feedback', :transaction=>@service.matching_service.transaction%>
+      Your feedback :
+      <%=  render 'services/show_feedback', :transaction=>@service.matching_service.transaction%>
     <%end%>
-    <%end%>
-    <p>
-
-    </div>
-
-	
-
-
-
+  <%end%>
+</div>

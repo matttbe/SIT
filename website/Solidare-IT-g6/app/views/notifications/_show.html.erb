@@ -19,6 +19,7 @@
     <%elsif ! notif.service.nil? %>
 
       <% if notif.notification_type == 'EDIT' %>
+        <% service_creator = User.find(notif.service.creator_id) %>
         <a href="<%= show_profile_path(service_creator.id) %>" class="avatar-box"><%= image_tag service_creator.avatar.url(:medium), :class=>"avatar" %></a>
         <% creatorLink = link_to service_creator.all_name, show_profile_path(service_creator), :class=> "label label-primary" %>
       <% else %>
