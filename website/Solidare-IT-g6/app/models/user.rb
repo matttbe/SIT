@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   has_attached_file :avatar,
     :storage => :dropbox,
@@ -18,9 +18,9 @@ class User < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :firstname, :presence => true
-  validates :birthdate, :presence => true,:date => { :before => Time.now }
-  validates :email, :presence => true,:format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create }, :if => :check_managed?
-  
+  validates :birthdate, :presence => true, :date => { :before => Time.now }
+  validates :email, :presence => true, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create }, :if => :check_managed?
+
   has_many :addresses, :class_name => 'Address', :foreign_key => 'user_id'
 
   has_many :transactions, :class_name => 'Transaction', :foreign_key => 'user_id'

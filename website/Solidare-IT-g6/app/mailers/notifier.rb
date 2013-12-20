@@ -22,4 +22,9 @@ class Notifier < ActionMailer::Base
     @badge=badge
     mail to: user.email, :subject=>subject
   end
+
+  def user_to_validate(user)
+    @user = user
+    mail to: @user.email, :subject=>"SolidareIT: Please validate your account"
+  end
 end
