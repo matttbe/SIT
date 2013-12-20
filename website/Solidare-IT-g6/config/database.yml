@@ -21,8 +21,9 @@ test: &test
 production:
   adapter: postgresql
   encoding: unicode
-  database: SolidareITg6_production
+  database: postgres
   pool: 5
+  username: postgres
   password:
 
 cucumber:
