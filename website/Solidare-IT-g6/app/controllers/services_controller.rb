@@ -264,7 +264,7 @@ class ServicesController < ApplicationController
       # si on renseigne pas tous les champs, la vérif du modèle va gueuler. 
       @serviceQ.title=@service.title
       @serviceQ.description=@service.description
-      @serviceQ.date_start=@service.date_start
+      @serviceQ.date_start=Date.today.to_time
       @serviceQ.date_end=@service.date_end
       @serviceQ.creator_id=user_id
       @serviceQ.quick_match=true

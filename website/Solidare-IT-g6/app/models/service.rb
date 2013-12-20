@@ -8,7 +8,7 @@ class Service < ActiveRecord::Base
     :default_url => "/assets/64.png",
     :path => ":style/service/:id_:filename"
 
-  validates :date_start, :presence => true,:date => { :after => Date.today.to_time - 1 }, :if => :new_service? or not :quick_match?
+  validates :date_start, :presence => true,:date => { :after => Date.today.to_time - 1 }, :if => (:new_service? or not :quick_match)
   validates :date_end, :presence => true,:date => { :after => :date_start }
   validates :title, :presence => true
   validates :creator_id, :presence => true
