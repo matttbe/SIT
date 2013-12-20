@@ -270,10 +270,28 @@ end
 
 Then /^I can see all of my personnal informations$/ do
   assert page.has_content?("My Services")
-  assert page.has_content?("My Groups")
-  assert page.has_content?("The services I follow")
-  assert page.has_content?("My Badges")
-  assert page.has_content?("My Feedback")
+  assert page.has_content?("My personal informations")
+  assert page.has_content?("Firstname")
+  assert page.has_content?("Name")
+  assert page.has_content?("Email")
+  assert page.has_content?(@user.firstname)
+  assert page.has_content?(@user.name)
+  assert page.has_content?(@user.email)
+  if @user.groups.empty?
+    assert !page.has_content?("His Groups")
+  else
+    assert !page.has_content?("His Groups")
+  end
+  if @user.badges.empty?
+    assert !page.has_content?("His Badges")
+  else
+    assert page.has_content?("His Badges")
+  end
+  if Transaction.where(user_id: @user.id).empty?
+    assert !page.has_content?("His Feedback")
+  else
+    assert page.has_content?("His Feedback")
+  end
 end
 
 Then /^I can not see his personal informations$/ do
