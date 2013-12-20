@@ -46,9 +46,9 @@
 <%else%>
 
 <div class="container">
-
-<div style='width: 800px; margin:0 auto;'>
-  <div id="map" style='width: 800px; height: 400px;'></div>
+ <h4><span class="label label-primary">See services around you !</span></h4>
+<div style='width: 100%; margin:0 auto;'>
+  <div id="map" style='width: 100%; height: 600px;'></div>
   <br />
 </div>
 
@@ -63,7 +63,7 @@
         @hash = Gmaps4rails.build_markers(@closest_services) do |closest_service, marker|
           marker.lat closest_service.address.latitude
           marker.lng closest_service.address.longitude
-          marker.infowindow render 'services/show', :service=>closest_service
+          marker.infowindow render 'services/miniservice', :service=>closest_service
         end
       
       %>
