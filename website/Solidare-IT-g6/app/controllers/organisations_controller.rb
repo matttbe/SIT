@@ -24,10 +24,8 @@ class OrganisationsController < InheritedResources::Base
   
   # GET /mainmenu_organisations/:id
   def show_main_panel
-       unless user_signed_in?
-            dont_see
-       else
-           @organisations = Organisation.joins(:coworkers).where("organisations.id=:org_id and coworkers.user_id=:user_id", :org_id=>params[:id], :user_id=>current_user.id)
+
+           @organisations = Organisation.where("organisations.id=:org_id", :org_id=>params[:id])
            if @organisations.length == 0
                 dont_see
            elsif !@organisations.first.validated?
@@ -36,8 +34,9 @@ class OrganisationsController < InheritedResources::Base
               end
            else
                 @organisation = @organisations.first
-           end           
-       end       
+
+                @usercheck = Organisation.joins(:coworkers).where("organisations.id=:org_id and coworkers.user_id=:user_id" , :org_id=>params[:id],:user_id=>current_user.id).length
+           end
   end
 
   # GET /waitforvalidation
