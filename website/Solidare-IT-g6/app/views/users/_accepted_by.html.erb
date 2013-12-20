@@ -6,9 +6,13 @@ if @accepters.blank? %>
   <span class="label label-default">No one accepted your service yet</span>
 <% else
   @chosen = User.joins(:accept_services).where(accept_services: {service_id: @service.id, is_chosen_customer: true})
-  if @chosen.blank? and current_user == @user
+  if @chosen.blank?
     @accepters.each do |accepter| %>
-      <%= link_to accepter.all_name,  choose_path(:s_id => @service.id, :u_id => accepter.id), :method => :post,  :class=>"label label-primary", data: { confirm: 'Do you want to choose this user for your service (you will not be able to change afterwards)?' } %>
+      <% if current_user == @user %>
+        <%= link_to accepter.all_name,  choose_path(:s_id => @service.id, :u_id => accepter.id), :method => :post,  :class=>"label label-primary", data: { confirm: 'Do you want to choose this user for your service (you will not be able to change afterwards)?' } %>
+      <% else %>
+        <%= link_to accepter.all_name, show_profile_path(accepter.id), :class=>"label label-primary" %>
+      <% end %>
     <%end
   else
     s = @service.matching_service
