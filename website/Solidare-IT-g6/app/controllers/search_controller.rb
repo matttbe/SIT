@@ -118,9 +118,11 @@ class SearchController < ApplicationController
       @search += "type_q=" + params["type_q"]
     end
     @services = Service.where(:quick_match => false).where(:matching_service_id => 0)
-    if(! params[:offer_cbox].nil?)
+    off = ! params[:offer_cbox].nil? and ! params[:offer_cbox].empty?
+    dem = ! params[:demand_cbox].nil? and ! params[:demand_cbox].empty?
+    if(off and ! dem)
       @services = @services.where(:is_demand => false)
-    elsif(! params[:demand_cbox].nil?)
+    elsif(dem and ! off)
       @services = @services.where(:is_demand => true)
     end
 
