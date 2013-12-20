@@ -1,0 +1,5 @@
+<% if ! @transaction.nil? %>
+<% @transactions.each do |transaction|%>
+	<%= transaction.feedback_comments %>  <%= transaction.feedback_evaluation %> <%= User.find(transaction.user_id).all_name %>
+<%end%>
+<%end%>

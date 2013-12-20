@@ -20,8 +20,9 @@
     <%= link_to 'Give a feedback !', add_transaction_path(@service)%></div>
     <br />
   <%else%>
-    Your feedback :
+    <!--Your feedback :
     <%=  render 'services/show_feedback', :transaction=>@service.matching_service.transaction%>
+    -->
   <%end%>
 <%end%>
 <p>
