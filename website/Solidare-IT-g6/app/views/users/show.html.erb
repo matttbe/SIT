@@ -16,7 +16,7 @@
     <%= render 'coordinate', :user => @user %>
 
     <h2><%= @tag%> Services</h2>
-    <%= render 'my_services', :services => @services %>
+    <%= render 'my_services', :services => @services, :user => @user %>
 
     <% if ! @user.groups.empty? %>
       <h2><%= @tag%> Groups</h2>
