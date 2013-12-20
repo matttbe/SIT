@@ -1,4 +1,5 @@
-<% if GroupUserRelation.where(:user_id => current_user.id, :group_id => @group.id, :role => 'Admin').empty?%>
+<div class="container">
+  <% if GroupUserRelation.where(:user_id => current_user.id, :group_id => @group.id, :role => 'Admin').empty?%>
 	Not allowed
 <% else %>
 
@@ -7,28 +8,32 @@
 <%= form_for :group, url: e_group_path ,:html => { :multipart => true  } do |f| %>
   <p>
     <%= f.label :Name %>
-	<%= f.text_field :name %>
+	<%= f.text_field :name, :class=>"form-control" %>
   </p>
  
   <p>
     <%= f.label :Description %>
-    <%= f.text_area :description%>
+    <%= f.text_area :description, :class=>"form-control"%>
   </p>
 
   <%= f.file_field :photo %>
   <p>
 	Private ?
-	<%= f.check_box :private %>
+    <label class="checkbox" for="group_private">
+  	   <%= f.check_box :private %>
+    </label>
 	If checked, people will be able to reach the group and see who's in it, but not to see the post and post themselves.
-  </P>
+  </p>
   <p>
 	Secret ?
+  <label class="checkbox" for="group_secret">
 	<%= f.check_box :secret %>
+</label>
 	If checked, the group will be secret and reachable only for members.
   </p>
 
   <p>
-    <%= f.submit %>
+    <%= f.submit :class=>"btn btn-primary" %>
   </p>
 <% end %>
 
@@ -56,6 +61,7 @@ Members
 <% end %>
 
 
-<%= link_to 'Back', :back %>
+<%= link_to 'Back', :back, :class=>"btn btn-default" %>
 
 <% end %>
+</div>
