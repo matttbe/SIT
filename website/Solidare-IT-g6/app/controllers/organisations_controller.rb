@@ -36,8 +36,7 @@ class OrganisationsController < InheritedResources::Base
               end
            else
                 @organisation = @organisations.first
-           end
-           
+           end           
        end       
   end
 

@@ -3,7 +3,7 @@
 	<a href="<%= show_profile_path(@user.id) %>" class="avatar-box"><%= image_tag @user.avatar.url(:medium), :class=>"avatar" %></a>
 	<div class="pull-right">
 	<div class="user-desc">
-		<%= link_to @user.all_name, show_profile_path(@user), :class=>"label label-primary" %> <br />
+		<%= link_to @user.all_name, show_profile_path(@user), :class=>"label label-primary" %> <br /><br />
 		Number of services : <%= Service.where(:creator_id=>@user.id).size %> - Completed services : <%= Transaction.where(:user_id => @user.id).size %> - Karma <%= @user.karma.prettify%>
 	</div>
 	</div>
