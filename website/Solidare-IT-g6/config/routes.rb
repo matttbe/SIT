@@ -59,7 +59,7 @@ SolidareItG6::Application.routes.draw do
 
   #organisation routing
   get '/manage_organisations' => 'organisations#manage', :as=>"manage_organisation"
-  get '/join_organisations' => 'organisations#join_organisation', :as=>"join_organisation"
+  get '/organisations' => 'organisations#join_organisation', :as=>"join_organisation"
   get '/join_organisations/:id' => 'organisations#join_action', :as=>"join_action"
   get '/organisation_manage/:id/coworkers/' =>'organisation_manage/coworkers#index_organisation', :as=>'manage_coworkers'
   get '/mainmenu_organisations/:id' =>'organisations#show_main_panel', :as=>'mainmenu_organisations'
