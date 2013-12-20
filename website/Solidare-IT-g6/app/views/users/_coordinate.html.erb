@@ -1,4 +1,4 @@
-<strong>Firstname</strong> : <%= @user.firstname%><br />
+<div class="well well-lg"><strong>Firstname</strong> : <%= @user.firstname%><br />
 <strong>Name</strong> : <%= @user.name %><br />
 <strong>Email</strong> : <%= @user.email %><br />
 <% @birth = @user.birthdate%>
@@ -11,3 +11,4 @@
 <%if @user.managed_org_id > 0%>
   This profile is managed by an organisation
 <%end%>
+</div>
