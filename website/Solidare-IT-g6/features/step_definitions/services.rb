@@ -193,7 +193,7 @@ end
 
 Then(/^I should not see the accept link$/) do
    assert page.has_content?(@serviceC[:title])
-   assert !page.has_content?("Accept")
+   assert !page.has_button?("Accept")
 end
 
 Then(/^I should see the service in my services espace$/) do
