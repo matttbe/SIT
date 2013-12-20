@@ -1,62 +1,59 @@
 <div class="service-box col-md-12">
   <div class="well well-large service">
+    <% cache(service) do %>
+      <a class="pull-left service-img-box" href="#" style="background-image: url('<%=service.photo.url(:medium)%>');"></a>
+    <% end %>
+    <h3 ><%= link_to service.title, service_path(service) %></h3>
+    <div class="service-action">
+      <% if !current_user.nil? && service.matching_service.nil? && service.creator_id != current_user.id && current_user.accept_services.where(:service_id => service.id).empty? %><%= button_to 'Accept', accept_service_path(service), :class=>"btn btn-success", :method => :get, :title=>'Accept this service' %><%end%>
+      <%= button_to 'Show', service, :class=>"btn btn-default", :method => :get, :title=>'Display the details of this service'  %>
+      <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Edit', edit_service_path(service), :class=>"btn btn-default", :method => :get, :title=>'Edit this service' %><%end%>
+      <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Destroy', service, method: :delete, :class=>"btn btn-danger", :title=>'Delete this service'%><%end%>
+      <% if user_signed_in? %>
+      <% @followers = Follower.where(:service_id => service.id).where(:user_id => current_user.id) %>
+      <% @service = service %>
+      <%= render 'services/follow', :service=>@service, :followers => @followers %>
+      <%end%>
+    </div>
+    <p><strong>Created by:</strong>
+      <%if !@service.user.nil? %>
+      <%= link_to @service.user.all_name, show_profile_path(@service.user), :class=>"label label-primary" %>
+      <% end %>
+    </p>
+    <p class="service-desc"> <strong>Description : </strong><%= service.description %></p>
+    <p class="date-service"><strong>From </strong><%= service.date_start.to_date().to_formatted_s(:rfc822) %> <strong> to </strong> <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
+      <%if !service.address.nil?%> 
+      <p class="service-desc"> <%= render 'address/city', :address=>service.address %>
+      </p>
+      <% end %>
+    </p>
+    <%= render 'services/share', :service => service %>
 
-                <a class="pull-left" href="#">
-                  <% cache(service) do %>
-                    <%= image_tag service.photo.url(:thumb) %>
-                  <% end %>
-                </a>
-                <h3 ><%= link_to service.title, service_path(service) %></h3>
-                <div class="service-action">
-                  <% if !current_user.nil? && service.matching_service.nil? && service.creator_id != current_user.id && current_user.accept_services.where(:service_id => service.id).empty? %><%= button_to 'Accept', accept_service_path(service), :class=>"btn btn-success", :method => :get, :title=>'Accept this service' %><%end%>
-                  <%= button_to 'Show', service, :class=>"btn btn-default", :method => :get, :title=>'Display the details of this service'  %>
-                  <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Edit', edit_service_path(service), :class=>"btn btn-default", :method => :get, :title=>'Edit this service' %><%end%>
-                  <% if !current_user.nil?&&service.creator_id==current_user.id %><%= button_to 'Destroy', service, method: :delete, :class=>"btn btn-danger", :title=>'Delete this service'%><%end%>
-                  <% if user_signed_in? %>
-                    <% @followers = Follower.where(:service_id => service.id).where(:user_id => current_user.id) %>
-                    <% @service = service %>
-                    <%= render 'services/follow', :service=>@service, :followers => @followers %>
-                  <%end%>
-                </div>
-                <p><strong>Created by:</strong>
-                  <%if !@service.user.nil? %>
-                     <%= link_to @service.user.all_name, show_profile_path(@service.user), :class=>"label label-primary" %>
-                  <% end %>
-                </p>
-                <p class="service-desc"> <strong>Description : </strong><%= service.description %></p>
-                <p class="date-service"><strong>From </strong><%= service.date_start.to_date().to_formatted_s(:rfc822) %> <strong> to </strong> <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
-                <%if !service.address.nil?%> 
-                  <p class="service-desc"> <%= render 'address/city', :address=>service.address %>
-                  </p>
-                <% end %>
-                </p>
-    			<%= render 'services/share', :service => service %>
+    <% sec = (service.date_end - DateTime.now) %>
 
-                  <% sec = (service.date_end - DateTime.now) %>
+    <span class="pull-right timeleft">
+      <%= %>
+      <% if sec > 31536000 %>
+      <% years = (sec / 31536000).to_i %>
+      <% sec -= years * 31536000 %>
+      <% if years > 1 %>
+      <%= years %> years
+      <% else %>
+      <%= years %> year
+      <% end %>
+      <% end %>
+      <% days = (sec / 86400).to_i %>
+      <% if days > 1 %>
+      <%= days %> days
+      <% elsif days == 1 %>
+      1 day
+      <% else %>
+      <%= ((sec % 86400) / 3600).to_i %> hours
+      <%= ((((sec % 86400) / 3600) % 3600) / 60).to_i %> min
+      <%= (sec%60).to_i %> s.
+      <% end %>
+      left
+    </span>
 
-                  <span class="pull-right timeleft">
-                    <%= %>
-                    <% if sec > 31536000 %>
-                      <% years = (sec / 31536000).to_i %>
-                      <% sec -= years * 31536000 %>
-                      <% if years > 1 %>
-                        <%= years %> years
-                      <% else %>
-                        <%= years %> year
-                      <% end %>
-                    <% end %>
-                    <% days = (sec / 86400).to_i %>
-                    <% if days > 1 %>
-                      <%= days %> days
-                    <% elsif days == 1 %>
-                      1 day
-                    <% else %>
-                      <%= ((sec % 86400) / 3600).to_i %> hours
-                      <%= ((((sec % 86400) / 3600) % 3600) / 60).to_i %> min
-                      <%= (sec%60).to_i %> s.
-                    <% end %>
-                    left
-                  </span>
-
-              </div>
+  </div>
 </div>

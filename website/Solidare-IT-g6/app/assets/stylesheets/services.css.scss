@@ -115,6 +115,24 @@ ul.list  {
 	list-style-type:none;
 }
 
+.service-img-box  {
+	width: 64px;
+    height: 64px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center center;
+    -moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 1px 1px 5px 2px #A0A0A0;
+	-webkit-box-shadow: 1px 1px 5px 2px #A0A0A0;
+	-o-box-shadow: 1px 1px 5px 2px #A0A0A0;
+	box-shadow: 1px 1px 5px 2px #A0A0A0;
+}
+.service-img-box.big {
+	width: 192px;
+	height: 192px;
+}
+
 .nav > li.active > a {
 	text-decoration: none;
 	background-color: #AE5882;

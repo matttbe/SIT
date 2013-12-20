@@ -1,9 +1,9 @@
 <% @service=service%>
 
 <div class="well well-large service">
-  <a class="pull-right" href="#">
-     <%= image_tag service.photo.url(:medium) %>
-  </a>
+  <% cache(service) do %>
+      <a class="pull-right service-img-box big" href="#" style="background-image: url('<%=service.photo.url(:medium)%>');"></a>
+    <% end %>
   <h3><%= service.title %></h3>
   <div>
     <strong>Created by:</strong>
