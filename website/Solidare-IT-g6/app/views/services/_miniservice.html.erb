@@ -3,9 +3,7 @@
 <% @service=service%>
 
 <div class="well well-sm service min">
-  <a class="pull-right" href="#">
-     <%= image_tag service.photo.url(:thumb) %>
-  </a>
+   <a class="pull-right service-img-box" href="#" style="background-image: url('<%=service.photo.url(:medium)%>');"></a>
   <span><h5><%= link_to service.title, service, :class=>"label label-primary" %></h5></span>
   
   <p class="service-desc min">Description: <%= service.description %></p>
