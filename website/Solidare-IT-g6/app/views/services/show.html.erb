@@ -1,2 +1,7 @@
-<div class="container"><%= render 'show',:service=> @service %></div>
+<div class="container">
+  <%= render 'show',:service=> @service %>
+  <p>
+    <%= render 'users/accepted_by', :service => @service, :user => @service.user %>
+  </p>
+</div>
 <%= render 'other_services', :service=>@service %>
