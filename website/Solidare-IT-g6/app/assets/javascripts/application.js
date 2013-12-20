@@ -57,7 +57,7 @@ ShareThisTurbolinks = {
   }
 };
 
-$(document).on("ready page:load", function(){
+$(document).on("ready page:load page:update", function(){
 	$("#more").hide();
 	$("#q").focus(function(){
 		$("#more").show();
