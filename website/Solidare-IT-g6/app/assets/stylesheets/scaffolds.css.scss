@@ -101,6 +101,10 @@ div {
   display: table;
 }
 
+.dropdown-menu > li > a {
+  overflow: hidden;
+}
+
 #error_explanation {
   width: 450px;
   border: 2px solid red;
