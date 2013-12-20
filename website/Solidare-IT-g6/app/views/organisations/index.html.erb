@@ -22,8 +22,9 @@
       <tr>
         <td><%= organisation.name %></td>
         <td><%= organisation.coworkers.length+organisation.managed_user.length%></td>
-        <td><%= link_to 'Show', organisation, :class=>"btn btn-info", :title=>'Show the details of the organisation' %></td>
+        <td><%= link_to "Show", mainmenu_organisations_path(organisation), :class=>"btn btn-info" %></td>
         <td>
+
           <% if !current_user.nil? && current_user.organisations.where(:id => organisation.id).empty? %>
             <%= link_to 'Join', join_action_path(organisation.id), :class=>"btn btn-success", :title=>'Be part of this organisation' %>
           <% end %>

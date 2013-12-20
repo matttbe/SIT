@@ -27,8 +27,13 @@
         <td><%= managed.name %></td>
         <td><%= managed.firstname %></td>
         <td><%= managed.id%></td>
+        <% if @usercheck == 1 %>
         <td><%= link_to 'Create service', new_service_managed_path(managed), :serv_id=>managed.id, :class=>"btn btn-primary"%></td>
         <td><%= link_to 'Manage services', managed_users_services_path(managed), :user_id=>managed.id, :class=>"btn btn-primary"%></td>
+        <%else%> 
+          <td></td>
+          <td></td>
+        <% end %>
       </tr>
   <% end %>
   </tbody>
@@ -36,7 +41,9 @@
 </div>
 <%end%>
 </p>
+<% if @usercheck == 1 %>
 <%= link_to 'Create new managed', new_managed_path(@organisation), :class=>"btn btn-success" %> |
 <%= link_to 'Edit', edit_organisation_path(@organisation), :class=>"btn btn-warning" %> |
-<%= link_to 'Back', organisations_path, :class=>"btn btn-back" %>
+<% end %>
+<%= link_to 'Back', organisations_path, :class=>"btn btn-info" %>
 </div>
