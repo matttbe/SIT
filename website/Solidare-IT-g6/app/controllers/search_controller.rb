@@ -178,4 +178,42 @@ class SearchController < ApplicationController
     
   end
 
+  def get_remaining_time(service)
+    text = ''
+    sec = (service.date_end - DateTime.now)
+    years = (sec / 31536000).to_i # 60*60*24*365
+    if years >= 1
+      sec -= years * 31536000
+      if years > 1
+        text += years.to_s + ' years '
+      else
+        text += years.to_s + ' year '
+      end
+    end
+    months = (sec / 2592000).to_i # 60*60*24*30
+    if months >= 1
+      sec -= months * 2592000
+      if months > 1
+        text += months.to_s + ' months '
+      else
+        text += months.to_s + ' month '
+      end
+      if years >= 1 or months >= 6
+        return text + 'left'
+      end
+    end
+    days = (sec / 86400).to_i
+    if days > 1
+      text += days.to_s + ' days '
+    elsif days == 1
+      text += ' 1 day '
+    else
+      text += ((sec % 86400) / 3600).to_i.to_s + ' hours '
+      text += ((((sec % 86400) / 3600) % 3600) / 60).to_i.to_s + ' min '
+      text += (sec%60).to_i.to_s + ' s. '
+    end
+    text += 'left'
+  end
+  helper_method :get_remaining_time
+
 end
