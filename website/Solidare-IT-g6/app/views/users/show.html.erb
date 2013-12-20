@@ -18,34 +18,40 @@
     <h2><%= @tag%> Services</h2>
     <%= render 'my_services', :services => @services %>
 
-    <h2><%= @tag%> Groups</h2>
-    <%= render 'my_groups', :user => @user %>
+    <% if ! @user.groups.empty? %>
+      <h2><%= @tag%> Groups</h2>
+      <%= render 'my_groups', :user => @user %>
+    <% end %>
 
-    <% @follow = nil
-    if @user == current_user
-      @follow = 'I follow'
-    else
-      @follow = 'he follows'
-    end%>
-    <h2>The services <%= @follow%></h2>
-    <%= render 'services/following_services', :following => @following %>
+    <% if ! @following.empty? %>
+      <% @follow = nil
+      if @user == current_user
+        @follow = 'I follow'
+      else
+        @follow = 'he follows'
+      end%>
+      <h2>The services <%= @follow %></h2>
+      <%= render 'services/following_services', :following => @following %>
+    <% end %>
 
-    <% if @user.badges %>
+    <% if ! @user.badges.empty? %>
       <h2><%= @tag%> Badges</h2>
       <%= render 'badge/own_badges', :badges=>@user.badges %>
     <% end %>
 
-    <h2><%= @tag%> Feedback</h2>
-    <% @transactions = Transaction.where(user_id: @user.id).limit(5)
-    @transactions.each do |transaction|
-      @feedbacker = User.find(transaction.poster_id)
-      @serv = Service.find(transaction.service_id) %>
-      <p>
-        For service <%= link_to @serv.title, service_path(@serv)%>
-        received <%= transaction.feedback_evaluation %>
-        with comment <%= transaction.feedback_comments%>
-        by <%= link_to @feedbacker.all_name, show_profile_path(@feedbacker)  %>
-      </p>
+    <% @transactions = Transaction.where(user_id: @user.id).limit(5) %>
+    <% if ! @transactions.empty? %>
+      <h2><%= @tag%> Feedback</h2>
+      <% @transactions.each do |transaction|
+        @feedbacker = User.find(transaction.poster_id)
+        @serv = Service.find(transaction.service_id) %>
+        <p>
+          For service <%= link_to @serv.title, service_path(@serv)%>
+          received <%= transaction.feedback_evaluation %>
+          with comment <%= transaction.feedback_comments%>
+          by <%= link_to @feedbacker.all_name, show_profile_path(@feedbacker)  %>
+        </p>
       <%end%>
+    <%end%>
   <%end%>
 </div>
