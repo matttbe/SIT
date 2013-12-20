@@ -8,7 +8,7 @@ if @accepters.blank? %>
   @chosen = User.joins(:accept_services).where(accept_services: {service_id: @service.id, is_chosen_customer: true})
   if @chosen.blank?
     @accepters.each do |accepter| %>
-      <% if current_user == @user %>
+      <% if current_user == user %>
         <%= link_to accepter.all_name,  choose_path(:s_id => @service.id, :u_id => accepter.id), :method => :post,  :class=>"label label-primary", data: { confirm: 'Do you want to choose this user for your service (you will not be able to change afterwards)?' } %>
       <% else %>
         <%= link_to accepter.all_name, show_profile_path(accepter.id), :class=>"label label-primary" %>
