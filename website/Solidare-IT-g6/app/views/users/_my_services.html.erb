@@ -11,9 +11,7 @@
   end%>
   <%= render '/services/show',:service=> service %>
   <p>
-  <% if current_user == @user %>
-    <%= render 'accepted_by', :service => service%>
-  <%end%>
+    <%= render 'accepted_by', :service => service, :user => @user%>
   </p>
 <% end %>
 
