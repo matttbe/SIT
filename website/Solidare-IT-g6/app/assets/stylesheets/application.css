@@ -144,6 +144,10 @@ button.dropdown-toggle {
 	padding:20px;
 }
 
+.notice {
+	text-align: center;
+}
+
 footer {
 	margin-top: 30px;
 	height: 300px;
