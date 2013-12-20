@@ -1,18 +1,11 @@
 
-<%if defined?(address)&&!address.nil?
-    @address=address
-  end%>
-<span>  <div class='well'>
-<p>
-  <span class="label label-primary">Location:</span> <br /> <br />
-  <%if @address.postal_code != 0%>
-  	<%= @address.postal_code %>, 
-  <%end%>
-  <%= @address.city %><br />
+<% if defined?(address) && !address.nil? %>
+  <% @address = address %>
+<% end %>
+
+<strong>Location: </strong>
+  <% if @address.postal_code != 0 %>
+    <%= @address.postal_code %>, 
+  <% end %>
+  <%= @address.city %> — 
   <%= @address.country%>
-
-</p>
-
-
-</div>
-</span>

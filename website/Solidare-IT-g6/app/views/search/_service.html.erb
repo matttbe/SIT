@@ -20,7 +20,7 @@
       <%= link_to @service.user.all_name, show_profile_path(@service.user), :class=>"label label-primary" %>
       <% end %>
     </p>
-    <p class="service-desc"> <strong>Description : </strong><%= service.description %></p>
+    <p class="service-desc"> <strong>Description: </strong><%= service.description %></p>
     <p class="date-service"><strong>From </strong><%= service.date_start.to_date().to_formatted_s(:rfc822) %> <strong> to </strong> <%= service.date_end.to_date().to_formatted_s(:rfc822) %>
       <%if !service.address.nil?%> 
       <p class="service-desc"> <%= render 'address/city', :address=>service.address %>
