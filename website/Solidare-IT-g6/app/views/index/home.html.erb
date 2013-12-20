@@ -93,8 +93,8 @@
       <div class="col-md-4">
         <% if !@closest_services[i].nil? %>
           <div class="well well-large service">
+         <a class="service-img-box pull-right" href="#" style="background-image: url('<%=@closest_services[i].photo.url(:thumb)  %>');"></a>
             <h4> <%= @closest_services[i].title %> </h4>
-            <%= image_tag @closest_services[i].photo.url(:thumb) %>
             <p>
               <h7> <%= @closest_services[i].description %> </h7>
             </p>
@@ -106,8 +106,9 @@
       <div class="col-md-4">
         <% if !@closest_services[i].nil? %>
           <div class="well well-large service">
+          <a class="service-img-box pull-right" href="#" style="background-image: url('<%=@closest_services[i].photo.url(:thumb)  %>');"></a>
+
             <h4> <%= @closest_services[i].title %> </h4>
-            <%= image_tag @closest_services[i].photo.url(:thumb) %>
             <p>
               <h7> <%= @closest_services[i].description %> </h7>
             </p>
@@ -119,8 +120,8 @@
       <div class="col-md-4">
         <% if !@closest_services[i].nil? %>
           <div class="well well-large service">
+          <a class="service-img-box pull-right" href="#" style="background-image: url('<%=@closest_services[i].photo.url(:thumb)  %>');"></a>
             <h4> <%= @closest_services[i].title %> </h4>
-            <%= image_tag @closest_services[i].photo.url(:thumb) %>
             <p>
               <h7> <%= @closest_services[i].description %> </h7>
             </p>

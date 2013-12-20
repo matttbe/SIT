@@ -10,8 +10,8 @@
       <div class="col-md-4">
         <% if !@like_services[i].nil? %>
           <div class="well well-large service">
+            <a class="service-img-box pull-right" href="#" style="background-image: url('<%=@like_services[i].photo.url(:thumb) %>');"></a>
           <h4> <%= @like_services[i].title %> </h4>
-          <%= image_tag @like_services[i].photo.url(:thumb) %>
           <p>
             <h7> <%= @like_services[i].description %> </h7>
           </p>
@@ -23,8 +23,8 @@
       <div class="col-md-4">
         <% if !@like_services[i].nil? %>
           <div class="well well-large service">
+            <a class="service-img-box pull-right" href="#" style="background-image: url('<%=@like_services[i].photo.url(:thumb) %>');"></a>
             <h4> <%= @like_services[i].title %> </h4>
-            <%= image_tag @like_services[i].photo.url(:thumb) %>
             <p>
               <h7> <%= @like_services[i].description %> </h7>
             </p>
@@ -36,8 +36,8 @@
       <div class="col-md-4">
         <% if !@like_services[i].nil? %>
           <div class="well well-large service">
+          <a class="service-img-box pull-right" href="#" style="background-image: url('<%=@like_services[i].photo.url(:thumb) %>');"></a>
             <h4> <%= @like_services[i].title %> </h4>
-            <%= image_tag @like_services[i].photo.url(:thumb) %>
             <p>
               <h7> <%= @like_services[i].description %> </h7>
             </p>
